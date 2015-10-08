@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
+	<name>TerangaTheme</name>
+	<author>@rosanamontes</author>
+	<version>1.0</version>
+	<category>theme</category>
+	<description>
+		Teranga Go! Theme
+	</description>
+	<website>http://terangago.com</website>
+	<copyright>(C) 2015 UGR</copyright>
+	<license>GNU Public License version 2</license>
+	
+	<requires>
+		<type>elgg_release</type>
+		<version>1.9</version>
+	</requires>
+        <requires>
+		<type>plugin</type>
+		<name>custom_index</name>
+       </requires>
+	<requires>
+		<type>priority</type>
+		<priority>after</priority>
+		<plugin>profile</plugin>
+	</requires>
+	<requires>
+		<type>priority</type>
+		<priority>after</priority>
+		<plugin>groups</plugin>
+	</requires>
+	<requires>
+		<type>priority</type>
+		<priority>after</priority>
+		<plugin>messages</plugin>
+	</requires>
+	<requires>
+		<type>priority</type>
+		<priority>after</priority>
+		<plugin>search</plugin>
+	</requires>
+	<requires>
+		<type>priority</type>
+		<priority>after</priority>
+		<plugin>thewire</plugin>
+	</requires>
+	
+       
+</plugin_manifest>

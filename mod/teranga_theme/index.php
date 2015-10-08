@@ -205,7 +205,7 @@ Puedes conocer más sobre nosotros aquí <a href="http://bit.ly/1Ho9sU7" target=
 				<ul class="icons">
 					
 					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="https://github.com/rosanamontes/teranga_elgg" target="_blank" class="icon fa-github">
+					<li><a href="https://github.com/rosanamontes/teranga.go" target="_blank" class="icon fa-github">
 						<span class="label">You Tube</span></a></li>
 					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 					

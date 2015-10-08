@@ -20,10 +20,10 @@ forward ('activity');
 		<script src="mod/teranga_theme/js/skel.min.js"></script>
 		<script src="mod/teranga_theme/js/skel-layers.min.js"></script>
 		<script src="mod/teranga_theme/js/init.js"></script>
-		 <link rel="stylesheet" type="text/css" href="mod/teranga_theme/css/form_style.css" />
-			<link rel="stylesheet" href="mod/teranga_theme/css/skel.css" />
-			<link rel="stylesheet" href="mod/teranga_theme/css/style.css" />
-			<link rel="stylesheet" href="mod/teranga_theme/css/style-wide.css" />
+		<link rel="stylesheet" type="text/css" href="mod/teranga_theme/css/form_style.css" />
+		<link rel="stylesheet" href="mod/teranga_theme/css/skel.css" />
+		<link rel="stylesheet" href="mod/teranga_theme/css/style.css" />
+		<link rel="stylesheet" href="mod/teranga_theme/css/style-wide.css" />
 		
 		<!--[if lte IE 8]><link rel="stylesheet" href="mod/teranga_theme/css/ie/v8.css" /><![endif]-->
 	</head>
@@ -205,7 +205,7 @@ Puedes conocer más sobre nosotros aquí <a href="http://bit.ly/1Ho9sU7" target=
 				<ul class="icons">
 					
 					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="https://github.com/rosanamontes/Teranga.Go" target="_blank" class="icon fa-github">
+					<li><a href="https://github.com/rosanamontes/teranga_elgg" target="_blank" class="icon fa-github">
 						<span class="label">You Tube</span></a></li>
 					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 					

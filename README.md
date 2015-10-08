@@ -1,9 +1,23 @@
-Elgg [![Build Status](https://secure.travis-ci.org/Elgg/Elgg.svg?branch=1.12)](https://travis-ci.org/Elgg/Elgg) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Elgg/Elgg/badges/quality-score.png?s=1.12)](https://scrutinizer-ci.com/g/Elgg/Elgg/?branch=1.12) [![Scrutinizer Code Coverage](https://scrutinizer-ci.com/g/Elgg/Elgg/badges/coverage.png?b=1.12)](https://scrutinizer-ci.com/g/Elgg/Elgg/?branch=1.12) [![Read the docs build status](https://readthedocs.org/projects/elgg/badge/?version=1.12)](http://learn.elgg.org/en/1.12/)
+# teranga_elgg
 ====
 
-Copyright (c) 2008-2015, see COPYRIGHT.txt
+Teranga Go! es una Plataforma de economía colaborativa para la movilidad entre España y Senegal desarrollada bajo la financiacion del CEI BioTIC de la Universidad de Granada y en colaboración con la empresa granadina Acento comunicación
 
-For development credits, see CONTRIBUTORS.txt.
+Este repositorio aloja los plugins que personalizan un Elgg para convertirlo en una comunidad social activa para compartir vehículo.
+
+El mundo se mueve: GO. Y precisa mucha hospitalidad: Teranga. Por eso, nace Teranga GO!
+
+Calendario
+
+    16 de octubre Día Europeo del Coche Compartido. Presentarción a los medios de Teranga GO!.
+    Campaña Crowfunding del 8 noviembre: comienza al 18 de diciembre, Día Internacional del Migrante.
+    Próximamente I Festival Teranga GO!
+
+
+
+
+Elgg [![Build Status](https://secure.travis-ci.org/Elgg/Elgg.svg?branch=1.12)](https://travis-ci.org/Elgg/Elgg) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Elgg/Elgg/badges/quality-score.png?s=1.12)](https://scrutinizer-ci.com/g/Elgg/Elgg/?branch=1.12) [![Scrutinizer Code Coverage](https://scrutinizer-ci.com/g/Elgg/Elgg/badges/coverage.png?b=1.12)](https://scrutinizer-ci.com/g/Elgg/Elgg/?branch=1.12) [![Read the docs build status](https://readthedocs.org/projects/elgg/badge/?version=1.12)](http://learn.elgg.org/en/1.12/)
+====
 
 Elgg is managed by the Elgg Foundation, a nonprofit organization that was
 founded to govern, protect, and promote the Elgg open source social network
@@ -21,7 +35,3 @@ Elgg is released under the GNU General Public License (GPL) Version 2 and the
 Massachusetts Institute of Technology (MIT-X11) License. See LICENSE.txt
 in the root of the package you downloaded.
 
-For installation instructions, see INSTALL.txt.
-
-For upgrade instructions, see UPGRADE.txt.
-# teranga_elgg

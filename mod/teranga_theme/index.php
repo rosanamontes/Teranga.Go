@@ -35,7 +35,7 @@ forward ('activity');
 					<ul>
 						<li><a href="register/">Registrate</a></li>
 						
-						<li><a href="forgotpassword/" class="button">Recordar contraseña</a></li>
+						<li><a href="login/" class="button">Iniciar sesión</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -45,7 +45,7 @@ forward ('activity');
 				
 				<h2><img src="mod/teranga_theme/images/logo.png" alt="Teranga Go!"></h2>
                                 
-			<section class="main">
+			<!--section class="main">
 				<form class="form-3" action="action/login" method="post">
 <?php
 $ts = time();
@@ -69,7 +69,7 @@ $token = generate_action_token($ts);
                                           </center>
 				    </p>       
 				</form>​
-			</section>
+			</section-->
 				
 			</section>
 
@@ -204,10 +204,10 @@ Puedes conocer más sobre nosotros aquí <a href="http://bit.ly/1Ho9sU7" target=
 			<footer id="footer">
 				<ul class="icons">
 					
-					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="https://facebook.com/terangago" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
 					<li><a href="https://github.com/rosanamontes/teranga.go" target="_blank" class="icon fa-github">
 						<span class="label">You Tube</span></a></li>
-					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="https://twitter.com/terangago" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 					
 				</ul>
 				<ul class="copyright">

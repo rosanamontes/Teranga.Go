@@ -9,12 +9,12 @@
 <h2>[2] Menu Bar</h2><br />
 <img style="padding: 5px; border: 1px dashed #000;" src="<?php echo elgg_get_site_url();?>mod/teranga_theme/graphics/header.png" alt="" />	
 
-<br /><br /><p><strong> Menu Bar ~ Colour '3' on the image above</strong> <em>(Theme default = #38599e).</em></p>
+<br /><br /><p><strong> Menu Bar ~ Colour '3' on the image above</strong> <em>(Theme default = #363636).</em></p>
 <?php
 
 
 	if(empty($vars['entity']->et2menu)){
-	$vars['entity']->et2menu = "#38599e";
+	$vars['entity']->et2menu = "#363636";
 	}
 
 echo elgg_view('input/text', array(     'name' => 'params[et2menu]', 
@@ -22,18 +22,18 @@ echo elgg_view('input/text', array(     'name' => 'params[et2menu]',
                                         'class' => 'teranga_theme', ) );  
                                         
                                         
-echo "<br /><br /><p><strong> Top Bar ~ Colour '1' on the image above</strong> <em>(Theme default = #26478a).</em><p>";                                        
+echo "<br /><br /><p><strong> Top Bar ~ Colour '1' on the image above</strong> <em>(Theme default = #aba).</em><p>";                                        
 	if(empty($vars['entity']->et2menu1)){
-	$vars['entity']->et2menu1 = "#26478a";
+	$vars['entity']->et2menu1 = "#aba";
 	}
 
 echo elgg_view('input/text', array(     'name' => 'params[et2menu1]', 
                                         'value' => $vars['entity']->et2menu1,
                                         'class' => 'teranga_theme', ) );   
 
-echo "<p><strong> Top Bar Border ~ Colour '2' on the image above</strong> <em>(Theme default = #1d3d7e).</em><p>";                                        
+echo "<p><strong> Top Bar Border ~ Colour '2' on the image above</strong> <em>(Theme default = #d1d3d1).</em><p>";                                        
 	if(empty($vars['entity']->et2menu2)){
-	$vars['entity']->et2menu2 = "#1d3d7e";
+	$vars['entity']->et2menu2 = "#d1d3d1";
 	}
 
 echo elgg_view('input/text', array(     'name' => 'params[et2menu2]', 
@@ -85,7 +85,10 @@ echo "<br /><p><strong>Short Site Introduction</strong> Write a short, 2 line, i
 
 $myFile = elgg_get_data_path() . "teranga_theme/intro.php";
 $fh = fopen($myFile, 'r');
-$et2introfile = fread($fh, filesize($myFile));
+if ($fh)
+    $et2introfile = fread($fh, filesize($myFile));
+else
+	$et2introfile="<p><em>Teranga significa hospitalidad</em></p>";
 fclose($fh);
 
 echo elgg_view('input/longtext', array( 'name' => 'params[et2intro]', 
@@ -129,10 +132,10 @@ echo elgg_view('input/text', array(     'name' => 'params[et2search]',
                                      
 
                                         
-echo "<br /><br /><h2>[7] Heading and Link Colours</h2><br /><p>Link Colour (1) <em>(Theme default = #38599e)</em></p> ";   
+echo "<br /><br /><h2>[7] Heading and Link Colours</h2><br /><p>Link Colour (1) <em>(Theme default = #363636)</em></p> ";   
 
 	if(empty($vars['entity']->et2color1)){
-	$vars['entity']->et2color1 = "#38599e";
+	$vars['entity']->et2color1 = "#363636";
 	}
                                               
 echo elgg_view('input/text', array(     'name' => 'params[et2color1]', 

@@ -1,6 +1,6 @@
 <?php
 
-action_gatekeeper();
+//no need to ---action_gatekeeper();
 
 /**
  * Saves global plugin settings.
@@ -95,10 +95,10 @@ img {
     text-decoration: underline;
 }
 /* ***************************************
-	SITE MENU 
+	SITE MENU  none -> inline | block
 *************************************** */
 .elgg-menu-site-default {	
-    display: none;
+    display: inline;
 }
 .et-site-menu li.elgg-more > a{
     color: #333;

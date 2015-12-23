@@ -9,8 +9,9 @@ El mundo se mueve: GO. Y precisa mucha hospitalidad: Teranga. Por eso, nace Tera
 Calendario
 
 - 16 de octubre Día Europeo del Coche Compartido. Presentarción a los medios de Teranga GO!.
-- Campaña Crowfunding del 8 noviembre: comienza al 18 de diciembre, Día Internacional del Migrante.
-- Próximamente I Festival Teranga GO!
+- Campaña Crowfunding 
+- 18 de diciembre, Día Internacional del Migrante.
+- I Festival Teranga GO!
 
 
 Elgg [![Build Status](https://secure.travis-ci.org/Elgg/Elgg.svg?branch=1.12)](https://travis-ci.org/Elgg/Elgg) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Elgg/Elgg/badges/quality-score.png?s=1.12)](https://scrutinizer-ci.com/g/Elgg/Elgg/?branch=1.12) [![Scrutinizer Code Coverage](https://scrutinizer-ci.com/g/Elgg/Elgg/badges/coverage.png?b=1.12)](https://scrutinizer-ci.com/g/Elgg/Elgg/?branch=1.12) [![Read the docs build status](https://readthedocs.org/projects/elgg/badge/?version=1.12)](http://learn.elgg.org/en/1.12/)

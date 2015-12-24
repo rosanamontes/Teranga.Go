@@ -2,6 +2,9 @@
 
 const PLUGIN_ID = 'hflts';
 require_once __DIR__ . '/lib/mcdm.php';
+require_once __DIR__ . '/lib/dm.php';
+require_once __DIR__ . '/classes/AggregationHFLTS.php';
+//require_once __DIR__ . '/classes/MCDM.php';
 
 
 // register for the init, system event when our plugin start.php is loaded

@@ -1,6 +1,6 @@
 <?php
 include ("CsvImporter.php");
-
+//nclude ("mcdm.php");
 
 
 class DM
@@ -23,11 +23,12 @@ class DM
 	var $avg; //agregacion promedio
 	var $ranking; //orden en el que se prefieren los inmuebles
 	
-	var $debug = false;
+	var $debug = true;
 
 	public function _DM()
 	{
 		echo "Decision Making<br>";
+		system_message("Decision Making");
 		$this->N=5; //numero de inmuebles
 		$this->M=8; //numero de criterios
 		$this->P=5; //numero de expertos
@@ -39,12 +40,12 @@ class DM
 		$this->parse_csv();		
 		$this->num = $this->N*$this->P;
 		
-		$this->translation();
-		$this->envelope();
-		$this->possibility();
+		//$this->translation();
+		//$this->envelope();
+		//$this->possibility();
 		//$this->choice();//con el ejemplo de casas
 		//ejemplo pisos con promedio();//optimista();//pesimista();
-		$this->ranking();
+		//$this->ranking();
 	}
 	
 	public function DM($n, $m, $p, $v, $inm, $dt, $w)
@@ -78,15 +79,15 @@ class DM
 
     function parse_csv() 
     { 	
-	$importer = new CsvImporter("ejemplo_casas.csv",true,","); //hay que cambiar las cabeceras a numeros
-	$this->data = $importer->get(); 
-	$num = count($this->data);
-		
-	//numero de valoraciones es N*P
-	if ($num != $this->N*$this->P)
-		echo "esto pinta mal<br>" . $num;
-	else
-		$this->num = $num;
+		$importer = new CsvImporter("ejemplo_casas.csv",true,","); //hay que cambiar las cabeceras a numeros
+		$this->data = $importer->get(); 
+		$num = count($this->data);
+			
+		//numero de valoraciones es N*P
+		if ($num != $this->N*$this->P)
+			echo "esto pinta mal<br>" . $num;
+		else
+			$this->num = $num;
 
     	if ($this->debug) 
     	{
@@ -117,8 +118,6 @@ class DM
     				$_c7up[$p][$i] = $this->data[$i]['U7'];
     			if ($this->data[$i]['ref'] == $this->inmuebles[$p])
     				$_c8up[$p][$i] = $this->data[$i]['U8'];
-    			//if ($this->data[$i][0] == $this->inmuebles[$p])
-    				//$_c9up[$p][$i] = $this->data[$i]['c9up'];    
     		
     			if ($this->data[$i]['ref'] == $this->inmuebles[$p])
  	 	  		$_c1low[$p][$i] = $this->data[$i]['L1'];		    		
@@ -136,54 +135,48 @@ class DM
     				$_c7low[$p][$i] = $this->data[$i]['L7'];		    		
     			if ($this->data[$i]['ref'] == $this->inmuebles[$p])
 	    			$_c8low[$p][$i] = $this->data[$i]['L8'];		    		
-    			//if ($this->data[$i][0] == $this->inmuebles[$p])
-    				//$_c9low[$p][$i] = $this->data[$i]['c9low'];	
     		}
 	
 	    	$this->cSi[$p][0] = min($_c1up[$p]);
     		$this->cSj[$p][0] = max($_c1low[$p]);
-			$this->checkRange(&$this->cSi[$p][0], &$this->cSj[$p][0]);	
+			$this->checkRange($this->cSi[$p][0], $this->cSj[$p][0]);	///se eliminan las referencias &$this
 			if ($this->debug) echo $this->inmuebles[$p]. " C1 [".$this->cSi[$p][0].",".$this->cSj[$p][0]."] ";
 	
     		$this->cSi[$p][1] = min($_c2up[$p]);
     		$this->cSj[$p][1] = max($_c2low[$p]);
-			$this->checkRange(&$this->cSi[$p][1], &$this->cSj[$p][1]);	
+			$this->checkRange($this->cSi[$p][1], $this->cSj[$p][1]);	
 			if ($this->debug) echo $this->inmuebles[$p]. " C2 [".$this->cSi[$p][1].",".$this->cSj[$p][1]."] ";
 			
     		$this->cSi[$p][2] = min($_c3up[$p]);
     		$this->cSj[$p][2] = max($_c3low[$p]);
-			$this->checkRange(&$this->cSi[$p][2], &$this->cSj[$p][2]);	
+			$this->checkRange($this->cSi[$p][2], $this->cSj[$p][2]);	
 			if ($this->debug) echo $this->inmuebles[$p]. " C3 [".$this->cSi[$p][2].",".$this->cSj[$p][2]."] ";
 			
     		$this->cSi[$p][3] = min($_c4up[$p]);
     		$this->cSj[$p][3] = max($_c4low[$p]);
-			$this->checkRange(&$this->cSi[$p][3], &$this->cSj[$p][3]);	
+			$this->checkRange($this->cSi[$p][3], $this->cSj[$p][3]);	
 			if ($this->debug) echo $this->inmuebles[$p]. " C4 [".$this->cSi[$p][3].",".$this->cSj[$p][3]."] ";
-			
+				
     		$this->cSi[$p][4] = min($_c5up[$p]);
     		$this->cSj[$p][4] = max($_c5low[$p]);
-			$this->checkRange(&$this->cSi[$p][4], &$this->cSj[$p][4]);	
+			$this->checkRange($this->cSi[$p][4], $this->cSj[$p][4]);	
 			if ($this->debug) echo $this->inmuebles[$p]. " C5 [".$this->cSi[$p][4].",".$this->cSj[$p][4]."] ";
 			
     		$this->cSi[$p][5] = min($_c6up[$p]);
     		$this->cSj[$p][5] = max($_c6low[$p]);
-			$this->checkRange(&$this->cSi[$p][5], &$this->cSj[$p][5]);	
+			$this->checkRange($this->cSi[$p][5], $this->cSj[$p][5]);	
 			if ($this->debug) echo $this->inmuebles[$p]. " C6 [".$this->cSi[$p][5].",".$this->cSj[$p][5]."] ";
 
     		$this->cSi[$p][6] = min($_c7up[$p]);
     		$this->cSj[$p][6] = max($_c7low[$p]);
-			$this->checkRange(&$this->cSi[$p][6], &$this->cSj[$p][6]);	
+			$this->checkRange($this->cSi[$p][6], $this->cSj[$p][6]);	
 			if ($this->debug) echo $this->inmuebles[$p]. " C7 [".$this->cSi[$p][6].",".$this->cSj[$p][6]."] ";
 
     		$this->cSi[$p][7] = min($_c8up[$p]);
     		$this->cSj[$p][7] = max($_c8low[$p]);
-			$this->checkRange(&$this->cSi[$p][7], &$this->cSj[$p][7]);	
+			$this->checkRange($this->cSi[$p][7], $this->cSj[$p][7]);	
 			if ($this->debug) echo $this->inmuebles[$p]. " C8 [".$this->cSi[$p][7].",".$this->cSj[$p][7]."] ";
 
-    		//$this->cSi[$p][8] = min($_c9up[$p]);
-    		//$this->cSj[$p][8] = max($_c9low[$p]);
-			//$this->checkRange(&$this->cSi[$p][8], &$this->cSj[$p][8]);	
-			//if ($this->debug) echo $this->inmuebles[$p]. " C9 [".$this->cSi[$p][8].",".$this->cSj[$p][8]."] ";
 			if ($this->debug) echo "<br>";
 		}
     }
@@ -535,9 +528,9 @@ class DM
 		}
 
 		for($i=0;$i<$n;$i++) 
-			$this->delete_col(&$matrix, $lines[$i]);
+			$this->delete_col($matrix, $lines[$i]);///se eliminan las referencias &$matrix
 		for($i=0;$i<$n;$i++) 		
-			$this->delete_row(&$matrix, $lines[$i]);
+			$this->delete_row($matrix, $lines[$i]);
 			
 		return $newLines;
 	}
@@ -632,7 +625,7 @@ class DM
     		$n = count($I);
     		//echo " eliminar " . $n . " filas<br>";
     	
-    		$V[$k] = $this->removeCrossAt( $I, &$relation );
+    		$V[$k] = $this->removeCrossAt( $I, $relation );///se eliminan las referencias &$
 			//echo('<br>U<pre>');	print_r($relation);	echo('</pre>');
 			//echo('<br>V<pre>');	print_r($V[$k]);	echo('</pre>');
 			

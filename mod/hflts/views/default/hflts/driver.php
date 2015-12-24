@@ -28,7 +28,7 @@ if (sizeof($valorationlist) > 0)
 				]),
 		));
 		//system_message("empty " . $person_link);
-		$hesitant = "#".$count++." => ";
+		$hesitant = "#".$count++." => G=" .  $evaluation->granularity;
 		if ($evaluation->criterio1) $hesitant .= " H1=".$evaluation->criterio1;
 		if ($evaluation->criterio2) $hesitant .= " H2=".$evaluation->criterio2;
 		if ($evaluation->criterio3) $hesitant .= " H3=".$evaluation->criterio3;
@@ -49,7 +49,9 @@ if (sizeof($valorationlist) > 0)
 	echo elgg_echo('hflts:evaluation:not:found');
 }
 
-$result = euclideanDistance(null, 4);
+$result = euclideanDistance(null, $evaluation->granularity);
+$foo = new AggregationHFLTS; 
+$result = $foo->getTitle();
 ?>	
 
 <p><?php echo $result; ?></p>

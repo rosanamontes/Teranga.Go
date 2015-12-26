@@ -1,7 +1,17 @@
 <?php
+
 /**
- * Save the plugin settings
- */
+* 	Plugin: Valoraciones linguisticas con HFLTS
+*	Author: Rosana Montes Soldado
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+*	
+*	File: Save the plugin settings
+*/
+
 
 $simple_settings = [
 	'profile_display',

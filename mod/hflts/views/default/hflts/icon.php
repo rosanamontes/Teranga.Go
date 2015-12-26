@@ -1,4 +1,16 @@
 <?php
+/**
+* 	Plugin: Valoraciones linguisticas con HFLTS
+*	Author: Rosana Montes Soldado
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+*	
+*	File: info at profile 
+*/
+
 
 if ($vars['size'] == 'large') {
     if (elgg_get_plugin_setting('profile_display', 'hflts')) {

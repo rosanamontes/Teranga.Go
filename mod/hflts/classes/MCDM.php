@@ -1,10 +1,19 @@
 <?php
+
 /**
- * Tipo de problema MCDM
- *
- * @package DecisionMaking
- *
- */
+* 	Plugin: Valoraciones linguisticas con HFLTS
+*	Author: Rosana Montes Soldado
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+*	
+*	File: Tipo de problema MCDM
+*
+* 	@package DecisionMaking
+*
+*/
 abstract class MCDM //extends ElggObject 
 {
 	var $data;//valoraciones de los expertos para cada alternativa y criterio

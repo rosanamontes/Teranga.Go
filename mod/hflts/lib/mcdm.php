@@ -1,9 +1,16 @@
 <?php
+
 /**
- * Multi-Criteria Decision Making function library
- * @rosanamontes
- * University of Granada
- */
+* 	Plugin: Valoraciones linguisticas con HFLTS
+*	Author: Rosana Montes Soldado
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+*	
+*	File: Multi-Criteria Decision Making function library 
+*/
 
 
 

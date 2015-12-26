@@ -1,9 +1,17 @@
 <?php
 /**
- * Settings form body
- *
- * @uses $vars['values']
- */
+* 	Plugin: Valoraciones linguisticas con HFLTS
+*	Author: Rosana Montes Soldado
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+*	
+*	File: Settings form body
+*
+* 	@uses $vars['values']
+*/
 
 if (!elgg_is_xhr()) {
 	echo '<p>' . elgg_echo('hflts:settings:explanation') . '</p>';

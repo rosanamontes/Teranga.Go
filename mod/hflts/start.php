@@ -1,10 +1,19 @@
 <?php
 
+/**
+* 	Plugin: Valoraciones linguisticas con HFLTS
+*	Author: Rosana Montes Soldado
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+*	
+*	File: main entry 
+*/
+
 const PLUGIN_ID = 'hflts';
 require_once __DIR__ . '/lib/mcdm.php';
-require_once __DIR__ . '/lib/dm.php';
-require_once __DIR__ . '/classes/AggregationHFLTS.php';
-//require_once __DIR__ . '/classes/MCDM.php';
 
 
 // register for the init, system event when our plugin start.php is loaded

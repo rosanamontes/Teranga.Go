@@ -1,6 +1,17 @@
 <?php
 
-//namespace Teranga;
+/**
+* 	Plugin: Valoraciones linguisticas con HFLTS
+*	Author: Rosana Montes Soldado
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+*	
+*	File: main entry 
+*/
+
 
 $valorationlist = $vars['valorations'];//system_message(" Size\n " . sizeof($valorationlist));
 	
@@ -50,8 +61,6 @@ if (sizeof($valorationlist) > 0)
 }
 
 $result = euclideanDistance(null, $evaluation->granularity);
-$foo = new AggregationHFLTS; 
-$result = $foo->getTitle();
 ?>	
 
 <p><?php echo $result; ?></p>

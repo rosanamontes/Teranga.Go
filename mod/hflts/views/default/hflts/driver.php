@@ -87,7 +87,7 @@ else {
 
 		if ($model->label == "classic")
 		{
-			$method = new AggregationHFLTS; 
+			$method = new AggregationHFLTS($evaluation->name); 
 		
 			//$title=$method->getTitle();
 			//$description=$method->getDescription();

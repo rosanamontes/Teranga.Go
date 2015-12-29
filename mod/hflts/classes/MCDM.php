@@ -1,5 +1,7 @@
 <?php
 
+include ("CsvImporter.php");
+
 /**
 * 	Plugin: Valoraciones linguisticas con HFLTS
 *	Author: Rosana Montes Soldado
@@ -16,33 +18,29 @@
 */
 abstract class MCDM 
 {
-	var $data;//valoraciones de los expertos para cada alternativa y criterio
-	var $num;//numero de valoraciones
+	var $alternatives;//list of canditates
+	var $data;//valorations of experts for each alternative and criteria
+	var $num;//number of total valoracions
 	
-	var $N; //numero de alternativas
-	var $M; //numero de criterios
-	var $P; //numero de expertos
+	var $N; //number of alternatives
+	var $M; //number of criteria
+	var $P; //number of experts
+	var $W; //weight of criteria
 
 	var $G;
 	var $collectiveValue;
 	var $collectiveTerm;	
 
-	public function run()
-	{
-		if (!$this->data || $this->num == 0 || $this->P == 0)
-		{
-			register_error(elgg_echo("hflts:mcdm:fail"));
-			forward(REFERER);
-		}
-	} 
+	var $debug = false;
+
 	
 	public function setData($values, $size, $granularity) 
 	{
 		$this->data = $values;
 		if (sizeof($values) != $size)
-			system_message("DMCM class: revisar setData y mostrar error");
+			system_message($size . "  DMCM setData " . sizeof($values));
 		$this->P = $this->num = $size;
-		//print_r($this->data);
+		if ($this->debug)	print_r($this->data);
 		$this->G = $granularity;
 	}
 
@@ -102,6 +100,15 @@ abstract class MCDM
 		return $this->G;
 	}
 
+
+	/** 
+	* setter method for maximum granularity in evaluations
+	*/
+	public function setGranularity($x)
+	{
+		$this->G = $x;
+	}
+
 	/** 
 	* getter method for result value
 	*/
@@ -120,4 +127,41 @@ abstract class MCDM
 		return $this->collectiveTerm;
 	}
 
+	/**
+	* Read data from file
+	*/
+    function parse_csv() 
+    { 	
+    	$filename = "/var/www/html/Teranga.Go/mod/hflts/classes/ejemplo_casas.csv";
+
+		$importer = new CsvImporter($filename,true,","); 
+		$this->data = $importer->get(); 
+		$num = count($this->data);
+			
+		//numero de valoraciones es N*P
+		if ($num != $this->N*$this->P)
+			echo "esto pinta mal<br>" . $num;
+		else
+			$this->num = $num;
+		
+    	if ($this->debug) 
+    	{
+    		echo($this->num . 'data: <pre>');	print_r($this->data);	echo('</pre><br>');
+    	}
+    }
+
+	/**
+	* a range must satisfy the condition of being monotonically increasing
+	*/
+    protected function checkRange( $a, $b )
+    {
+	    if ($a <= $b) return;
+
+    	$temp = $a;
+		$a = $b;
+		$b = $temp;
+
+		if ($this->debug) echo '['.$a.', '.$b.']';
+    }
+    
 }

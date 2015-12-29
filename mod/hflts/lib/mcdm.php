@@ -30,3 +30,62 @@ function euclideanDistance($hesitant, $granularity)
 	system_message("granularity = " . $granularity);
 	return 3.14;
 }
+
+/**
+* Dominance Degree function 
+* where P(A>B) = (  (a2-b1)-(a1-b2) ) / ( (a2-a1)+(b2-b1) )
+*/
+function dominancie( $a1, $a2, $b1, $b2 )
+{
+	return (  max(0.0,($a2-$b1))-max(0.0,($a1-$b2)) ) / ( ($a2-$a1)+($b2-$b1) );
+}
+
+/** 
+* Conversion from symbolic value in [0,1] to a linguistic range	
+* suposing [0,6]
+*/
+function toRange( $value )
+{
+	return (  $value * 6.0 );
+}
+
+/**
+* converts from 2-tuple to beta value  
+*/
+function toBeta( $term, $alpha ) 
+{
+  	$b = $term + $alpha;
+   	return $b;
+}
+    
+/**
+* converts from beta value to 2-tuple representation
+*/
+function toTuple( $value )
+{
+    $i = round($value);
+    return array ( $i, $value - $i );
+}
+    
+function toLabel( $term )
+{
+	switch ($term) 
+	{
+    	case 0:
+        	return "Nada";
+    	case 1:
+        	return "Muy Bajo";
+    	case 2:
+        	return "Bajo";
+    	case 3:
+        	return "Medio";
+    	case 4:
+        	return "Alto";
+    	case 5:
+        	return "Muy Alto";
+    	case 6:
+        	return "Perfecto";
+    	default:
+        	return "No valorado";
+	   } 
+    }

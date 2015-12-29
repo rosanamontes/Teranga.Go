@@ -62,6 +62,14 @@ return array(
 
 	'hflts:label:submit' => 'Confirm',		
 	'hflts:settings:success' => 'Options saved',
+	'hflts:settings:fail' => 'An error appeared while saving data',
+
+	/**
+	*  Working with hesitant
+	*/
+	'hflts:evaluation:not:found' => 'Query not jet done',	
+	'hflts:mcdm:fail' => 'An error appeared in the DM model',
+
 );
 
 ?>

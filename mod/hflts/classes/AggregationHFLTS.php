@@ -16,22 +16,51 @@
 */
 
 
-class AggregationHFLTS extends MCDM 
+class AggregationHFLTS extends MCDM
 {
+	var $label;//shortname
 
-	const SUBTYPE = "classic";
-
-	/**
-	 * initializes the default class attributes
-	 *
-	 * @return void
-	 */
-	protected function initializeAttributes() 
+	public function	AggregationHFLTS()
 	{
-		parent::initializeAttributes();
-		
-		$this->attributes['subtype'] = self::SUBTYPE;
+		$this->N=1;
+		$this->M=3;
+		$this->P=$this->num=0;
+		$this->label="classic";
+		$this->collectiveTerm = "excelent";
 	}
 	
+	/**
+	 * Returns the title of the method
+	 *
+	 * @return string
+	 */
+	public function getTitle() 
+	{
+		// make title for Teranga
+		$header = $this->label;
+		system_message($this->label . " title " . $header);
+		$header = elgg_echo("hflts:label:{$this->label}");
+		return $header;
+	}
+		
+	/**
+	 * Returns the method full name
+	 *
+	 * @return string
+	 */
+	public function getDescription() 
+	{
+		// Make name for Teranga
+		$result = $this->label;
+		system_message("description " . $result);
+		$result = elgg_echo("hflts:help:{$this->label}");
+		return $result;
+	}
+
+	public function run()
+	{
+		parent::run();
+		return 5;
+	}
 
 }

@@ -61,11 +61,13 @@ return array(
 
 	'hflts:label:submit' => 'Confirmar',		
 	'hflts:settings:success' => 'Cambios guardados con exito',
+	'hflts:settings:fail' => 'Hubo un problema al guardar los cambios',
 
 	/**
 	*  Consulta a los hesitant
 	*/
 	'hflts:evaluation:not:found' => 'Pendiente realizar la consulta',
+	'hflts:mcdm:fail' => 'Error en el modelo de toma de decision',
 );
 
 ?>

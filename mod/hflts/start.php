@@ -14,6 +14,8 @@
 
 const PLUGIN_ID = 'hflts';
 require_once __DIR__ . '/lib/mcdm.php';
+require_once __DIR__ . '/classes/MCDM.php';
+require_once __DIR__ . '/classes/AggregationHFLTS.php';
 
 
 // register for the init, system event when our plugin start.php is loaded
@@ -55,6 +57,11 @@ function hflts_init()
 	//teranga add user_hover_menu entry
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'hflts_user_hover_menu');
 
+	/* to handle mcdm objects
+    elgg_register_event_handler('create','object', 'hflts_mcdm_object');
+    elgg_register_event_handler('delete','object', 'hflts_mcdm_object');
+    elgg_register_event_handler('delete','entity', 'hflts_mcdm_object');
+    */
 }
 
 function hflts_page_handler($page)
@@ -110,5 +117,18 @@ function hflts_user_hover_menu($hook, $type, $return, $params)
 	return $return;	
 }
 
+
+function hflts_mcdm_object($event, $object_type, $object) 
+{
+	if ($event == 'create') 
+	{
+		system_message("evento create MCMD " . $object_type . " y " . $object->description);
+	}
+	if ($event == 'delete') 
+	{
+		system_message("evento delete MCMD " . $object_type . " y " . $object->description);
+	}
+    return(true);
+}
 
 ?>

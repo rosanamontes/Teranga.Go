@@ -1,6 +1,6 @@
 <?php
 
-include ("CsvImporter.php");
+//include ("CsvImporter.php");
 
 /**
 * 	Plugin: Valoraciones linguisticas con HFLTS
@@ -33,16 +33,36 @@ abstract class MCDM
 
 	var $debug = false;
 
-	
+
+	/**
+	* get from the system the values needed in the model
+	*/	
 	public function setData($values, $size, $granularity) 
 	{
 		$this->data = $values;
 		if (sizeof($values) != $size)
 			system_message($size . "  DMCM setData " . sizeof($values));
 		$this->P = $this->num = $size;
-		if ($this->debug)	print_r($this->data);
 		$this->G = $granularity;
+
+    	if ($this->debug) 
+    	{
+    		echo($this->num . 'data: <pre>');	print_r($this->data);	echo('</pre><br>');
+    	}		
 	}
+
+	/**
+	* Check premises before to run
+	*/
+	public function run()
+	{
+		if (!$this->data || $this->num == 0 || $this->P == 0)
+		{
+			register_error(elgg_echo("hflts:mcdm:fail"));
+			forward(REFERER);
+		}
+	} 
+
 
 	/** 
 	* getter method for N
@@ -128,7 +148,7 @@ abstract class MCDM
 	}
 
 	/**
-	* Read data from file
+	* Read data from csv file
 	*/
     function parse_csv() 
     { 	
@@ -144,7 +164,7 @@ abstract class MCDM
 		else
 			$this->num = $num;
 		
-    	if ($this->debug) 
+    	//if ($this->debug) 
     	{
     		echo($this->num . 'data: <pre>');	print_r($this->data);	echo('</pre><br>');
     	}

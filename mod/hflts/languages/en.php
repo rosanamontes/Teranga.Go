@@ -67,8 +67,8 @@ return array(
 	/**
 	*  Working with hesitant
 	*/
-	'hflts:evaluation:not:found' => 'Query not jet done',	
-	'hflts:mcdm:fail' => 'An error appeared in the DM model',
+	'hflts:evaluation:not:found' => 'Query not jet performed',	
+	'hflts:mcdm:fail' => 'To few valorations to run the DM model',
 
 );
 

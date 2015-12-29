@@ -45,9 +45,12 @@ if (sizeof($valorationlist) > 0)
 		$hesitant .= " H1=".$evaluation->criterio1;
 		$hesitant .= " H2=".$evaluation->criterio2;
 		$hesitant .= " H3=".$evaluation->criterio3;
-		$data[$count] = [	$evaluation->criterio1,$evaluation->criterio1, 
-							$evaluation->criterio2,$evaluation->criterio2,
-							$evaluation->criterio3,$evaluation->criterio3];
+		$data[$count] = array(
+			'ref' => $evaluation->user_guid, 'co_codigo'=>$evaluation->owner_guid, 
+			'U1' => $evaluation->criterio1, 'L1' => $evaluation->criterio1, 
+			'U2' => $evaluation->criterio2, 'L2' => $evaluation->criterio2,
+			'U3' => $evaluation->criterio3, 'L3' => $evaluation->criterio3
+		);
 		$count++;
 		?>
 		<h3 class="mbm"><?php echo $person_link; ?></h3>
@@ -87,8 +90,7 @@ else {
 
 		if ($model->label == "classic")
 		{
-			$method = new AggregationHFLTS($evaluation->name); 
-		
+			$method = new AggregationHFLTS($evaluation->user_guid); 
 			//$title=$method->getTitle();
 			//$description=$method->getDescription();
 			$method->setData($data,$count,$evaluation->granularity);
@@ -96,9 +98,11 @@ else {
 			//$M = $method->getCriteria();
 			//$P = $method->getExperts();
 			$model->collectiveValoration = $method->run();
+
+			//set valoration on user's profile
 			unset($method);//destroys the object 
 			?>	
-			<p><?php //echo $title . " (" . $description .") " . $N."x".$M."x".$P; ?></p>
+			<p><?php //echo $karma;//$title . " (" . $description .") " . $N."x".$M."x".$P; ?></p>
 			<?php
 		}
 		else system_message("nooorrrr");

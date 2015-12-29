@@ -67,7 +67,7 @@ return array(
 	*  Consulta a los hesitant
 	*/
 	'hflts:evaluation:not:found' => 'Pendiente realizar la consulta',
-	'hflts:mcdm:fail' => 'Error en el modelo de toma de decision',
+	'hflts:mcdm:fail' => 'No hay suficienes valoraciones para ejecutar el modelo de toma de decisión',
 );
 
 ?>

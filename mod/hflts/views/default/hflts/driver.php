@@ -42,15 +42,15 @@ if (sizeof($valorationlist) > 0)
 		));
 
 		$hesitant = "#".$count." => G=" .  $evaluation->granularity;
-		$hesitant .= " H1=".$evaluation->criterio1;
-		$hesitant .= " H2=".$evaluation->criterio2;
-		$hesitant .= " H3=".$evaluation->criterio3;
+		$hesitant .= " H={".$evaluation->criterion1 .",".$evaluation->criterion2.",".$evaluation->criterion3."}";
+		$hesitant .= " W={".$evaluation->weight1.",". $evaluation->weight2.",".$evaluation->weight3."}";
 		$data[$count] = array(
 			'ref' => $evaluation->user_guid, 'co_codigo'=>$evaluation->owner_guid, 
-			'U1' => $evaluation->criterio1, 'L1' => $evaluation->criterio1, 
-			'U2' => $evaluation->criterio2, 'L2' => $evaluation->criterio2,
-			'U3' => $evaluation->criterio3, 'L3' => $evaluation->criterio3
+			'U1' => $evaluation->criterion1, 'L1' => $evaluation->criterion1, 
+			'U2' => $evaluation->criterion2, 'L2' => $evaluation->criterion2,
+			'U3' => $evaluation->criterion3, 'L3' => $evaluation->criterion3
 		);
+		$weight[$count] = array( $evaluation->weight1, $evaluation->weight2, $evaluation->weight3 );
 		$count++;
 		?>
 		<h3 class="mbm"><?php echo $person_link; ?></h3>
@@ -93,19 +93,21 @@ else {
 			$method = new AggregationHFLTS($evaluation->user_guid); 
 			//$title=$method->getTitle();
 			//$description=$method->getDescription();
-			$method->setData($data,$count,$evaluation->granularity);
+			$method->setData($data,$weight,$count,$evaluation->granularity);
 			//$N = $method->getAlternatives();
 			//$M = $method->getCriteria();
 			//$P = $method->getExperts();
 			$model->collectiveValoration = $method->run();
+			unset($method);//destroys the object 
 
 			//set valoration on user's profile
-			unset($method);//destroys the object 
+			$user = get_entity($evaluation->user_guid);
+			$user->karma=$model->collectiveValoration;
+
 			?>	
 			<p><?php //echo $karma;//$title . " (" . $description .") " . $N."x".$M."x".$P; ?></p>
 			<?php
 		}
-		else system_message("nooorrrr");
 	}
 }
 

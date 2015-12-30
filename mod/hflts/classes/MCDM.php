@@ -37,17 +37,34 @@ abstract class MCDM
 	/**
 	* get from the system the values needed in the model
 	*/	
-	public function setData($values, $size, $granularity) 
+	public function setData($values, $weight, $size, $granularity) 
 	{
 		$this->data = $values;
-		if (sizeof($values) != $size)
+		if (sizeof($values) != $size || sizeof($weight) != $size )
 			system_message($size . "  DMCM setData " . sizeof($values));
+
 		$this->P = $this->num = $size;
 		$this->G = $granularity;
 
+		//compute the averaged expert preference over criteria 
+		$x=$y=$z=0;
+		$temp = array();
+		$delta = 1.0/$size;
+		for ($i=0;$i<$size;$i++)
+		{
+			for ($m=0;$m<$this->M;$m++)
+			{
+				$temp[$m] += $weight[$i][$m];
+			}
+		}
+		for ($m=0;$m<$this->M;$m++)
+		{
+			$this->W[$m] = $temp[$m] * $delta;
+		}
+
     	if ($this->debug) 
     	{
-    		echo($this->num . 'data: <pre>');	print_r($this->data);	echo('</pre><br>');
+    		echo($this->num . 'data: <pre>');	print_r($this->W);	echo('</pre><br>');
     	}		
 	}
 

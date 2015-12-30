@@ -55,19 +55,19 @@ $termnumber = elgg_get_plugin_setting('termset', 'hflts');
 switch ( $termnumber )
 {
 	case '0':
-		$scale = "S^3";
+		$scale = "S<sup>3</sup>";
 		$G = 2;
 		break;
 	case '1':
-		$scale = "S^5";
+		$scale = "S<sup>5</sup>";
 		$G = 4;
 		break;
 	case '2':
-		$scale = "S^7";
+		$scale = "S<sup>7</sup>";
 		$G = 6;
 		break;
 	default:
-		$scale = "S^5";
+		$scale = "S<sup>5</sup>";
 		$G = 4;
 		break;
 }

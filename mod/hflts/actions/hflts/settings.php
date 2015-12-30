@@ -40,7 +40,7 @@ $simple_settings = [
 	'profile_display',
 	'termset',
 	'classic',
-	'vilkor',
+	'vikor',
 	'topsis',
 	'electre',
 	'promethee',
@@ -91,14 +91,14 @@ if (elgg_get_plugin_setting('classic', 'hflts') == 1)
 	}
 }
 
-if (elgg_get_plugin_setting('vilkor', 'hflts') == 1)
+if (elgg_get_plugin_setting('vikor', 'hflts') == 1)
 {
 	$model2 = new ElggObject;
 	$model2->subtype = "mcdm";
 	$model2->owner_guid = elgg_get_logged_in_user_guid();//el usuario que evalua
-	$model2->label = "vilkor";
-	$model2->title = elgg_echo("hflts:label:vilkor");
-	$model2->description = elgg_echo("hflts:help:vilkor");
+	$model2->label = "vikor";
+	$model2->title = elgg_echo("hflts:label:vikor");
+	$model2->description = elgg_echo("hflts:help:vikor");
 	$model2->scale = $scale;
 	$model2->collectiveValoration ="---";	
 	if (!$model2->save()) 

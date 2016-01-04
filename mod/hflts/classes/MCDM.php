@@ -167,9 +167,9 @@ abstract class MCDM
 	/**
 	* Read data from csv file
 	*/
-    function parse_csv() 
+    function parse_csv($name) 
     { 	
-    	$filename = "/var/www/html/Teranga.Go/mod/hflts/classes/ejemplo_casas.csv";
+    	$filename = "/var/www/html/Teranga.Go/mod/hflts/classes/" . $name;
 
 		$importer = new CsvImporter($filename,true,","); 
 		$this->data = $importer->get(); 

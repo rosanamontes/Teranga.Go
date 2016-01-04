@@ -9,7 +9,7 @@
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
-*	File: Multi-Criteria Decision Making function library 
+*	File: Multi-Criteria Decision Making functions library 
 */
 
 //________________________________________________________________________
@@ -24,7 +24,7 @@
 *		H1={2,3}
 *		H2={1,2,3}
 * Params: granularity, for instance G=6
-* Out: d_(H1,H2) = number with decimals
+* Out: d_(H1,H2) = distance in real
 * Requirements: it has to work with hesitant of the same length L 
 */
 
@@ -35,9 +35,10 @@ function euclideanDistance($envelopes)
 
 /**
 * Operations and comparisons of hesitant fuzzy linguistic term sets. C.P. Wei IEEE TFS'14
-* In: two hesitant in S
+* In: the hesitant and granularity
+* Out: the complement of the hesitant
 */
-function hesitantComplement($H1, $H2)
+function hesitantComplement($H, $G)
 {
 
 }
@@ -46,6 +47,7 @@ function hesitantComplement($H1, $H2)
 * Dominance Degree function proposed by Rodriguez et al. 2012
 * where P(A>B) = (  (a2-b1)-(a1-b2) ) / ( (a2-a1)+(b2-b1) )
 * it computes the preference degree of interval a over interval b
+* Example: p(env(H2) > env(H1)) it is called as intervalDominance(H2.inf, H2.sup, H1.inf, H2.sup)
 */
 function intervalDominance( $a1, $a2, $b1, $b2 )
 {
@@ -141,4 +143,10 @@ function toHesitant($envelope, &$length, &$deltaAvg)
     //echo $length  . "/" . $deltaAvg ."<br>";
     //echo('<br>Ranking <pre>');  print_r($hesitant);    echo('</pre>');
     return $hesitant;
+}
+
+
+function toEnvelope($H, $G)
+{
+
 }

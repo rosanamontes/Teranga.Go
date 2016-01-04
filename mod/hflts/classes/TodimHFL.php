@@ -26,6 +26,8 @@ class TodimHFL extends MCDM
 	var $lengths;
 	var $deltas;
 
+	var $chi; //risk attitudes in [0,1]. Optimistic =1, Pesimistic =0
+
 	var $CSi; //array with lower interval values (for all criteria)
 	var $CSj; //array with upper interval values (for all criteria)
 	var $beta; //2-tuples
@@ -50,23 +52,7 @@ class TodimHFL extends MCDM
 		parent::run();
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
-		$envelopes = array(['inf'=>3, 'sup'=>3],['inf'=>3,'sup'=>4],['inf'=>1,'sup'=>6]);
-
-    	$n = sizeof($envelopes); //system_message("n " . $n);
-    	$this->hesitants = array();
-    	$this->lengths = array();
-    	$this->deltas = array();
-
-    	for ($i=0;$i<$n;$i++)
-    	{
-	 
-	        echo "[".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
-	        $this->hesitants[$i] = toHesitant($envelopes[$i],$this->lengths[$i],$this->deltas[$i]);
-	        if ($this->hesitants[$i] != -1)
-	            echo "score=".$this->scoreFunction($this->hesitants[$i],$this->lengths[$i],$this->deltas[$i])."<br>";
-	    }
-
-
+		$this->theCase();
 		//step 1 calculate the relative weights
 		//step 2 calculate the dominance degree for each alternative concerning a criterion
 		//step 3 calculate the dominance degree for each alternative
@@ -92,14 +78,15 @@ class TodimHFL extends MCDM
     	}
 
 		$sum=0;
-		for ($l=0; $l<=$L;$l++)
+		for ($l=0; $l<$L;$l++)
 		{
-			echo $hesitant[$l]."_";
 			$sum += pow($hesitant[$l]-$D,2);
 		}
+
 		$var = $this->variance()*$L;
-		echo "score = " .$D . " - " . $sum." / variance #<br>" ;
-		return ($D - $sum) / $var;
+		if ($this->debug) echo "score = " .$D . " - " . $sum." / " . $var . "<br>" ;
+		
+		return $D - ($sum / $var);
 	}
 
 	/**
@@ -163,7 +150,7 @@ class TodimHFL extends MCDM
 	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
 		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
 		
-		$this->parse_csv();		
+		$this->parse_csv("ejemplo_casas.csv");		
 		$this->num = $this->N*$this->P;
 		
 		$this->translation();
@@ -172,5 +159,47 @@ class TodimHFL extends MCDM
 		$this->average();
 		$this->ranking();
 	}*/
+
+	public function theCase()
+	{
+		$this->N=4; //numero de alternatives
+		$this->M=4; //numero de criterios
+		$this->P=1; //numero de expertos
+		$this->alternatives = array('p1','p2','p3','p4');
+		$this->W = array(0.2, 0.15, 0.15,0.5);
+
+		$this->parse_csv("ejemplo_todim.csv");	
+		system_message("datos!");
+	}
+
+	private function testing()
+	{
+		/*
+		* Example 1 in paper
+		*/
+		$envelopes = array(['inf'=>3, 'sup'=>3],['inf'=>3,'sup'=>4],['inf'=>1,'sup'=>6]);
+    	$n = sizeof($envelopes); //system_message("n " . $n);
+    	$this->hesitants = array();
+    	$this->lengths = array();
+    	$this->deltas = array();
+
+    	for ($i=0;$i<$n;$i++)
+    	{
+	 
+	        echo "[".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
+	        $this->hesitants[$i] = toHesitant($envelopes[$i],$this->lengths[$i],$this->deltas[$i]);
+	        if ($this->hesitants[$i] != -1)
+	            echo "score=".$this->scoreFunction($this->hesitants[$i],$this->lengths[$i],$this->deltas[$i])."<br>";
+	    }
+
+        /*
+        * test intervalDominance. 
+        * Example 2 in the paper
+        */
+        $is1 = intervalDominance($envelopes[1]['inf'], $envelopes[1]['sup'], $envelopes[0]['inf'], $envelopes[0]['sup']);//must be 1 
+        $is1ov2 = intervalDominance($envelopes[1]['inf'], $envelopes[1]['sup'], $envelopes[2]['inf'], $envelopes[2]['sup']);//must be 0.5
+        $is3ov5 = intervalDominance($envelopes[2]['inf'], $envelopes[2]['sup'], $envelopes[0]['inf'], $envelopes[0]['sup']);//must be 0.6
+        echo "intervalDominance " . $is1 . " " . $is1ov2 . " " . $is3ov5 . "<br>";
+    }
 
 }

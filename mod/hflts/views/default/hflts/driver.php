@@ -88,15 +88,15 @@ else {
 			forward(REFERER);
 		}
 
-		if ($model->label == "classic")
+		if ($model->label == "todim")
 		{
-			$method = new AggregationHFLTS($evaluation->user_guid); 
-			//$title=$method->getTitle();
-			//$description=$method->getDescription();
+			$method = new TodimHFL($evaluation->user_guid); 
+			$title=$method->getTitle();
+			$description=$method->getDescription();
 			$method->setData($data,$weight,$count,$evaluation->granularity);
-			//$N = $method->getAlternatives();
-			//$M = $method->getCriteria();
-			//$P = $method->getExperts();
+			$N = $method->getAlternatives();
+			$M = $method->getCriteria();
+			$P = $method->getExperts();
 			$model->collectiveValoration = $method->run();
 			unset($method);//destroys the object 
 
@@ -105,9 +105,23 @@ else {
 			$user->karma=$model->collectiveValoration;
 
 			?>	
-			<p><?php //echo $karma;//$title . " (" . $description .") " . $N."x".$M."x".$P; ?></p>
+			<p><?php echo "depurando .... " . $title . " (" . $description .") " . $N."x".$M."x".$P; ?></p>
 			<?php
 		}
+
+		//run it the last
+		if ($model->label == "classic")
+		{
+			$method = new AggregationHFLTS($evaluation->user_guid); 
+			$method->setData($data,$weight,$count,$evaluation->granularity);
+			$model->collectiveValoration = $method->run();
+			unset($method);//destroys the object 
+
+			//set valoration on user's profile
+			$user = get_entity($evaluation->user_guid);
+			$user->karma=$model->collectiveValoration;
+		}
+
 	}
 }
 

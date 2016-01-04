@@ -22,6 +22,13 @@ $data = array(
 		'readonly' => false,
 	),
 
+	'todim' => array(
+		'type' => 'checkbox',
+		'value' => 1,
+		'checked' => elgg_get_plugin_setting('todim', 'hflts') == 1,
+		'readonly' => false,
+	),
+
 	'vikor' => array(
 		'type' => 'checkbox',
 		'value' => 1,

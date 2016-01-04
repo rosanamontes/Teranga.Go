@@ -40,6 +40,7 @@ $simple_settings = [
 	'profile_display',
 	'termset',
 	'classic',
+	'todim',
 	'vikor',
 	'topsis',
 	'electre',
@@ -155,6 +156,21 @@ if (elgg_get_plugin_setting('promethee', 'hflts') == 1)
 	}
 }
 
+if (elgg_get_plugin_setting('todim', 'hflts') == 1)
+{
+	$model6 = new ElggObject;
+	$model6->subtype = "mcdm";
+	$model6->owner_guid = elgg_get_logged_in_user_guid();//el usuario que evalua
+	$model6->label = "todim";
+	$model6->title = elgg_echo("hflts:label:todim");
+	$model6->description = elgg_echo("hflts:help:todim");
+	$model6->scale = $scale;
+	$model6->collectiveValoration ="---";	
+	if (!$model6->save()) 
+	{
+		$fail();
+	}
+}
 
 elgg_flush_caches();
 

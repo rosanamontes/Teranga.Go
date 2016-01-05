@@ -22,9 +22,12 @@ class TodimHFL extends MCDM
 
 	var $label;//shortname
 	var $refC; //reference criterion
+
 	var $W_r;  //relative weights
+	var $T_Wr; //total relative weights
 
 	var $hesitants;//parsed data
+	var $score;//measure of the hesitant
 	var $variance; //variance of the granularity
 
 	var $chi; //risk attitudes in [0,1]. Optimistic =1, Pesimistic =0
@@ -64,6 +67,7 @@ class TodimHFL extends MCDM
 		//step 2 calculate the dominance degree for each alternative concerning a criterion
 		$this->crossAlternativesWithCriteria();
 
+
 		//step 3 calculate the dominance degree for each alternative
 		//step 4 calculate the overall dominance degree for each alternative
 		//step 5 rank alternatives
@@ -79,6 +83,7 @@ class TodimHFL extends MCDM
 	private function crossAlternativesWithCriteria()
 	{
     	$this->hesitants = array();
+    	$this->score = array();
     	$length = $delta = 0;
 
 		for ($i=0;$i<$this->N;$i++)//forall alternatives
@@ -88,17 +93,73 @@ class TodimHFL extends MCDM
 				$inf = "L".($j+1);
 				$sup = "U".($j+1);
 				$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-		        if ($this->debug) 
-		        	echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
+		        if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
 		        $this->hesitants[$i][$j] = toHesitant($envelope,$length,$delta);
 		        if ($this->hesitants[$i][$j] == -1)
-		        	register_error("score function");
+		        	register_error("wrong hesitant in score function");
  
-		        $score = $this->scoreFunction($this->hesitants[$i][$j], $length, $delta);
-				echo $this->data[$i]["ref"] . " - C" . $j . " F=" . $score ."<br>";
+		        $this->score[$i][$j] = $this->scoreFunction($this->hesitants[$i][$j], $length, $delta);
+				if ($this->debug) echo $this->data[$i]["ref"] . " - C" . $j . " F=" . $this->score[$i][$j] ."<br>";
 			}	
 		}
+
+		//check cases
+		for ($j=0;$j<$this->M;$j++)//forall criteria
+		{
+			echo "C".$j;
+			for ($i=0;$i<$this->N;$i++)//all alternatives
+			{
+				for ($k=0;$k<$this->N;$k++)//with all alternatives
+				{
+					if ($i == $k)
+						echo " 0";
+					else
+					{
+						//echo " (".$this->data[$i]["ref"] . "," . $this->data[$k]["ref"].")" ;
+						if ($this->score[$i][$j] == $this->score[$k][$j] ) 
+							echo " 0";	
+						else if ($this->score[$i][$j] > $this->score[$k][$j] ) 
+							$this->dominanceDegreeCaseOver($this->hesitants[$i][$j], $this->hesitants[$k][$j]);
+						else 
+							$this->dominanceDegreeCaseUnder($this->hesitants[$i][$j], $this->hesitants[$k][$j]);
+					}
+				}
+				echo "<br>&nbsp;&nbsp;&nbsp;";
+			}
+			echo "<br>";
+		}
+
 	}
+
+
+	/**
+	* Compute \Phi_j(Hi_,H_k) when F(H_ij) > F(H_kj)
+	* as sqrt( w_jr d_(H_ij,H_kj) / sum w_jr)
+	*/
+	private function dominanceDegreeCaseOver($A, $B)
+	{
+		echo " +";
+    	if ($this->debug)
+    	{
+    		echo('<br>DD+ <pre>');	print_r($A);	echo('</pre>');
+    	}
+
+	}	
+
+	/**
+	* Compute \Phi_j(Hi_,H_k) when F(H_ij) < F(H_kj)
+	* as -1/theta sqrt ( sum w_jr d_(H_kj,H_ij) / w_jr)
+	*/
+	private function dominanceDegreeCaseUnder($A, $B)
+	{
+		echo " -";		
+    	if ($this->debug)
+    	{
+    		echo('<br>DD- <pre>');	print_r($B);	echo('</pre>');
+    	}
+
+	}	
+
 
 	/**
 	* Computes the relative weights in base of the main criteria
@@ -158,7 +219,7 @@ class TodimHFL extends MCDM
 			$sum += pow($i - $taumed,2);
 		}
 		$var = $sum / ($this->G + 1);
-		system_message("G" . $this->G . " variance " . $var);
+		if ($this->debug) system_message("G=" . $this->G . " variance=" . $var);
 		return $var;
 	}
 

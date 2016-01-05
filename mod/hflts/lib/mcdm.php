@@ -134,14 +134,14 @@ function toHesitant($envelope, &$length, &$deltaAvg)
     //validate it
     if ((min($hesitant) != $envelope['inf']) || (max($hesitant) != $envelope['sup']))
     {
-        echo min($hesitant) . " - " . max($hesitant) ." <br>";
+        echo "return -1 -> " . min($hesitant) . " - " . max($hesitant) ." <br>";
         return -1; //wrong!
     }
     
     $length = $envelope['sup'] - $envelope['inf'] + 1;
     $deltaAvg = $sum / $length;
-    //echo $length  . "/" . $deltaAvg ."<br>";
-    //echo('<br>Ranking <pre>');  print_r($hesitant);    echo('</pre>');
+    //echo "L=" . $length  . " D=" . $deltaAvg ."<br>";
+    //echo('<br>Hesitant <pre>');  print_r($hesitant);    echo('</pre>');
     return $hesitant;
 }
 

@@ -31,7 +31,7 @@ abstract class MCDM
 	var $collectiveValue;
 	var $collectiveTerm;	
 
-	var $debug = true;
+	var $debug = false;
 
 
 	/**

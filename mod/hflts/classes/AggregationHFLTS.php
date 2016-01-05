@@ -47,7 +47,7 @@ class AggregationHFLTS extends MCDM
 	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
 		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
 		
-		$this->parse_csv();		
+		$this->parse_csv("ejemplo_casas.csv");		
 		$this->num = $this->N*$this->P;
 		
 		$this->translation();

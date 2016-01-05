@@ -31,7 +31,7 @@ abstract class MCDM
 	var $collectiveValue;
 	var $collectiveTerm;	
 
-	var $debug = false;
+	var $debug = true;
 
 
 	/**
@@ -41,7 +41,10 @@ abstract class MCDM
 	{
 		$this->data = $values;
 		if (sizeof($values) != $size || sizeof($weight) != $size )
-			system_message($size . "  DMCM setData " . sizeof($values));
+			return; //system_message($size . "  DMCM setData " . sizeof($values));
+
+		if ($size == 0)
+			return; 
 
 		$this->P = $this->num = $size;
 		$this->G = $granularity;
@@ -50,6 +53,7 @@ abstract class MCDM
 		$x=$y=$z=0;
 		$temp = array();
 		$delta = 1.0/$size;
+
 		for ($i=0;$i<$size;$i++)
 		{
 			for ($m=0;$m<$this->M;$m++)
@@ -57,6 +61,7 @@ abstract class MCDM
 				$temp[$m] += $weight[$i][$m];
 			}
 		}
+
 		for ($m=0;$m<$this->M;$m++)
 		{
 			$this->W[$m] = $temp[$m] * $delta;
@@ -181,7 +186,7 @@ abstract class MCDM
 		else
 			$this->num = $num;
 		
-    	//if ($this->debug) 
+    	if ($this->debug) 
     	{
     		echo($this->num . 'data: <pre>');	print_r($this->data);	echo('</pre><br>');
     	}

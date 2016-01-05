@@ -21,7 +21,9 @@ class TodimHFL extends MCDM
 {
 
 	var $label;//shortname
-	//var $envelopes;
+	var $refC; //reference criterion
+	var $W_r;  //relative weights
+
 	var $hesitants;
 	var $lengths;
 	var $deltas;
@@ -52,8 +54,15 @@ class TodimHFL extends MCDM
 		parent::run();
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
-		$this->theCase();
-		//step 1 calculate the relative weights
+		//$this->theCase();
+
+		//step 1 find the most important factor and calculate the relative weights
+   		echo('W: <pre>');	print_r($this->W);	echo('</pre><br>');
+
+		//$refC = max(array_keys($this->W));
+		system_message("important! " . $refC);
+
+
 		//step 2 calculate the dominance degree for each alternative concerning a criterion
 		//step 3 calculate the dominance degree for each alternative
 		//step 4 calculate the overall dominance degree for each alternative
@@ -141,35 +150,15 @@ class TodimHFL extends MCDM
     	return $this->ranking;
     }
 
-	/*public function realEstateCase()
-	{
-		$this->N=5; //numero de alternatives
-		$this->M=9; //numero de criterios
-		$this->P=5; //numero de expertos
-		
-	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
-		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
-		
-		$this->parse_csv("ejemplo_casas.csv");		
-		$this->num = $this->N*$this->P;
-		
-		$this->translation();
-		$this->envelope();
-
-		$this->average();
-		$this->ranking();
-	}*/
-
 	public function theCase()
 	{
 		$this->N=4; //numero de alternatives
 		$this->M=4; //numero de criterios
 		$this->P=1; //numero de expertos
 		$this->alternatives = array('p1','p2','p3','p4');
-		$this->W = array(0.2, 0.15, 0.15,0.5);
-
+		$this->W = array(0.82, 0.15, 0.15,0.5);
+		$this->W_r = array();
 		$this->parse_csv("ejemplo_todim.csv");	
-		system_message("datos!");
 	}
 
 	private function testing()
@@ -201,5 +190,24 @@ class TodimHFL extends MCDM
         $is3ov5 = intervalDominance($envelopes[2]['inf'], $envelopes[2]['sup'], $envelopes[0]['inf'], $envelopes[0]['sup']);//must be 0.6
         echo "intervalDominance " . $is1 . " " . $is1ov2 . " " . $is3ov5 . "<br>";
     }
+
+	/*public function realEstateCase()
+	{
+		$this->N=5; //numero de alternatives
+		$this->M=9; //numero de criterios
+		$this->P=5; //numero de expertos
+		
+	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
+		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
+		
+		$this->parse_csv("ejemplo_casas.csv");		
+		$this->num = $this->N*$this->P;
+		
+		$this->translation();
+		$this->envelope();
+
+		$this->average();
+		$this->ranking();
+	}*/
 
 }

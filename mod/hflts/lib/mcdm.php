@@ -35,12 +35,12 @@ function euclideanDistance($envelopes)
 
 /**
 * Operations and comparisons of hesitant fuzzy linguistic term sets. C.P. Wei IEEE TFS'14
-* In: the hesitant and granularity
-* Out: the complement of the hesitant
+* In: the term and the granularity of the term set
+* Out: the complement of the hesitant/linguistic term
 */
-function hesitantComplement($H, $G)
+function negate($index, $G)
 {
-
+    return $G - $index;
 }
 
 /**

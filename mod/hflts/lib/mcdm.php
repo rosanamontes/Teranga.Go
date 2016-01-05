@@ -28,9 +28,92 @@
 * Requirements: it has to work with hesitant of the same length L 
 */
 
-function euclideanDistance($envelopes)
+function euclideanDistance($H1, $H2, $lambda, $G, $X)
 {
-	return 3.14;
+    $size = [ sizeof($H1), sizeof($H2) ];
+    $L = max($size);
+    $exp = $lambda;
+    $den = $G+1;
+
+       /* {
+            echo('<br>H1 <pre>');    print_r($H1); echo('</pre>');
+            echo('<br>H2 <pre>');    print_r($H2); echo('</pre>');
+        }*/
+
+
+    if ($size[0] == $size[1])
+    {
+        $EH1 = extend($H1, 0, $G, $X);
+        $EH2 = extend($H2, 0, $G, $X);
+    }
+    else if ($size[0] < $size[1])
+    {
+        $EH1 = extend($H1, $size[1]-$size[0], $G, $X);
+        $EH2 = extend($H2, 0, $G, $X);
+        //system_message(" extend H1 " . ($size[1]-$size[0])) ;
+    }
+    else if ($size[0] > $size[1])
+    {
+        $EH1 = extend($H1, 0, $G, $X);
+        $EH2 = extend($H2, $size[0]-$size[1], $G, $X);
+        //system_message(" extend H2 " . ($size[0]-$size[1])) ;
+    }
+
+    $sum = 0;
+    for ($g=0;$g<$L;$g++)
+    {
+        $d_abs= abs($EH1[$g]-$EH2[$g]);
+        $fracc2 = pow( $d_abs / $den, $exp );
+        $sum += $fracc2;
+        //echo "<br>d_abs=".$d_abs." frac=".$fracc2." ";
+    }
+
+    $exp = 1.0 / $lambda;
+    $sumL = $sum / $L;
+    $d = pow( $sumL, $exp);
+    //echo "<br>sumL=".$sumL." exp=".$exp." distance=".$d;
+
+	return $d;
+}
+
+/**
+* in order to operate correctly, the sorter hesitant should be extended until it equals the length of work
+*/
+function extend($hesitant, $n, $tau, $chi)
+{
+    $E = $hesitant;
+    $N = sizeof($hesitant);
+    
+    $min = min($hesitant);
+    $max = max($hesitant);
+    
+    $k = ($max * $chi) - ($min * $chi) + $min;//value
+    $s = min($tau,round($chi * $N) );    //index
+    //echo $n." extend with ".$k." at ".$s."<br>";
+
+    while ($n>0)
+    {
+        $E = insertBeforeKey($E, $s, array($s => $k));
+        $n--;
+        $s++;
+    }
+
+    /*{
+        echo('<br>Ext <pre>');  print_r($E);    echo('</pre>');
+    }*/
+
+    return $E;
+}
+
+function insertBeforeKey($array, $key, $data = null)
+{
+    if (($offset = array_search($key, array_keys($array))) === false) // if the key doesn't exist
+    {
+        $offset = 0; // should we prepend $array with $data?
+        $offset = count($array); // or should we append $array with $data? lets pick this one...
+    }
+
+    return array_merge(array_slice($array, 0, $offset), (array) $data, array_slice($array, $offset));
 }
 
 /**

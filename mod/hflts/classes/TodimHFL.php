@@ -102,24 +102,24 @@ class TodimHFL extends MCDM
 				if ($this->debug) echo $this->data[$i]["ref"] . " - C" . $j . " F=" . $this->score[$i][$j] ."<br>";
 			}	
 		}
-
+		$i=0; $j=1; $k=1;
 		//check cases
-		for ($j=0;$j<$this->M;$j++)//forall criteria
+		//for ($j=0;$j<$this->M;$j++)//forall criteria
 		{
-			echo "C".$j;
-			for ($i=0;$i<$this->N;$i++)//all alternatives
+			echo "C".($j+1);
+			//for ($i=0;$i<$this->N;$i++)//all alternatives
 			{
-				for ($k=0;$k<$this->N;$k++)//with all alternatives
-				{
+				//for ($k=0;$k<$this->N;$k++)//with all alternatives
+				{   
 					if ($i == $k)
 						echo " 0";
 					else
 					{
-						//echo " (".$this->data[$i]["ref"] . "," . $this->data[$k]["ref"].")" ;
+						echo " (".$this->data[$i]["ref"] . "," . $this->data[$k]["ref"].")" ;
 						if ($this->score[$i][$j] == $this->score[$k][$j] ) 
 							echo " 0";	
 						else if ($this->score[$i][$j] > $this->score[$k][$j] ) 
-							$this->dominanceDegreeCaseOver($this->hesitants[$i][$j], $this->hesitants[$k][$j]);
+							echo " => " . $this->dominanceDegreeCaseOver($i, $j, $k);
 						else 
 							$this->dominanceDegreeCaseUnder($this->hesitants[$i][$j], $this->hesitants[$k][$j]);
 					}
@@ -136,14 +136,15 @@ class TodimHFL extends MCDM
 	* Compute \Phi_j(Hi_,H_k) when F(H_ij) > F(H_kj)
 	* as sqrt( w_jr d_(H_ij,H_kj) / sum w_jr)
 	*/
-	private function dominanceDegreeCaseOver($A, $B)
+	private function dominanceDegreeCaseOver($i, $j, $k)
 	{
-		echo " +";
-    	if ($this->debug)
-    	{
-    		echo('<br>DD+ <pre>');	print_r($A);	echo('</pre>');
-    	}
+		$d = euclideanDistance($this->hesitants[$i][$j], $this->hesitants[$k][$j]);
+		//if ($this->debug) 
+			echo " (" .$d.") W_r " . $this->W_r[$j] . " / " . $this->T_Wr ;
 
+		$dd = sqrt( ($d * $this->W_r[$j])/ $this->T_Wr );
+
+    	return $dd;
 	}	
 
 	/**
@@ -168,15 +169,18 @@ class TodimHFL extends MCDM
 	{
 		$a = array_keys($this->W, max($this->W));
 		$refC = $a[0];//index
-		
+		$this->T_Wr = 0;
+
 		for ($i=0;$i<$this->M;$i++)
 		{
 			$this->W_r[$i] = $this->W[$i] / $this->W[$refC]; 
+			$this->T_Wr += $this->W_r[$i];
 		}
 		
 		if ($this->debug)
 		{
    			echo('W_r: <pre>');	print_r($this->W_r);	echo('</pre><br>');
+	   		system_message("Total relative weight " . $this->T_Wr);
    		}
 	}
 

@@ -23,7 +23,9 @@
 * In: 	Array of hesitants (any number) as in this example
 *		H1={2,3}
 *		H2={1,2,3}
-* Params: granularity, for instance G=6
+* Params: lamda. When =1 it compute the Hamming distance. When =2 is the Euclidean distance
+*,        granularity, for instance G=6, 
+*         Xhi
 * Out: d_(H1,H2) = distance in real
 * Requirements: it has to work with hesitant of the same length L 
 */
@@ -83,19 +85,18 @@ function extend($hesitant, $n, $tau, $chi)
 {
     $E = $hesitant;
     $N = sizeof($hesitant);
-    
     $min = min($hesitant);
     $max = max($hesitant);
     
-    $k = ($max * $chi) - ($min * $chi) + $min;//value
-    $s = min($tau,round($chi * $N) );    //index
+    $s = ($max * $chi) - ($min * $chi) + $min;//value
+    $k = min($tau,round($chi * $N) );    //index
     //echo $n." extend with ".$k." at ".$s."<br>";
 
     while ($n>0)
     {
-        $E = insertBeforeKey($E, $s, array($s => $k));
+        $E = insertBeforeKey($E, $k, array($k => $s));
         $n--;
-        $s++;
+        $k++;
     }
 
     /*{

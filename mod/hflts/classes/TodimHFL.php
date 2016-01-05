@@ -21,22 +21,19 @@ class TodimHFL extends MCDM
 {
 
 	var $label;//shortname
-	var $refC; //reference criterion
 
+	var $refC; //reference criterion
 	var $W_r;  //relative weights
 	var $T_Wr; //total relative weights
+	var $chi; //risk attitudes in [0,1]. Optimistic =1, Pesimistic =0
+	var $lambda; //to set the distance measure
+	var $theta;  //attenuation factor
 
 	var $hesitants;//parsed data
 	var $score;//measure of the hesitant
 	var $variance; //variance of the granularity
+	var $dominance; //the dominance degree matrix
 
-	var $chi; //risk attitudes in [0,1]. Optimistic =1, Pesimistic =0
-	var $lambda; //to set the distance measure
-
-	var $CSi; //array with lower interval values (for all criteria)
-	var $CSj; //array with upper interval values (for all criteria)
-	var $beta; //2-tuples
-	var $avg; //average aggregation array
 	var $ranking; //alternatives ranked array
 
 	public function	TodimHFL($username)
@@ -50,9 +47,35 @@ class TodimHFL extends MCDM
 		$this->W = array(1.0, 1.0, 1.0); //same importance
 
 		$this->lambda = 1.5;
-		$this->theta = 1.0; //losses factor
+		$this->theta = 1.0; //losses factor in case of >0
+		$this->chi = 0.5; //extension factor
 	}
 
+	/**
+	 * Returns the title of the method
+	 *
+	 * @return string
+	 */
+	public function getTitle() 
+	{
+		// make title for Teranga
+		$header = $this->label;
+		$header = elgg_echo("hflts:label:{$this->label}");
+		return $header;
+	}
+		
+	/**
+	 * Returns the method full name
+	 *
+	 * @return string
+	 */
+	public function getDescription() 
+	{
+		// Make name for Teranga
+		$result = $this->label;
+		$result = elgg_echo("hflts:help:{$this->label}");
+		return $result;
+	}
 	
 	public function run()
 	{
@@ -65,101 +88,47 @@ class TodimHFL extends MCDM
 		$this->relativeWeights();
 
 		//step 2 calculate the dominance degree for each alternative concerning a criterion
+		//step 3 calculate the dominance degree for each alternative
 		$this->crossAlternativesWithCriteria();
 
-
-		//step 3 calculate the dominance degree for each alternative
 		//step 4 calculate the overall dominance degree for each alternative
+		$this->overallDominance();
+
 		//step 5 rank alternatives
 		$this->ranking();	
 
 		return $this->ranking[0]['todim']['label'];
 	}
 
-
-	/**
-	* Compute F(H) for all assessment regarding criteria and alternatives 
-	*/
-	private function crossAlternativesWithCriteria()
+	public function theCase()
 	{
-    	$this->hesitants = array();
-    	$this->score = array();
-    	$length = $delta = 0;
+		$this->N=4; //numero de alternatives
+		$this->M=4; //numero de criterios
+		$this->P=1; //numero de expertos
+		$this->alternatives = array('p1','p2','p3','p4');
+		$this->W = array(0.2, 0.15, 0.15,0.5);
+		$this->W_r = array();
+		$this->variance = $this->variance();
 
-		for ($i=0;$i<$this->N;$i++)//forall alternatives
-		{
-			for ($j=0;$j<$this->M;$j++)//forall criteria
-			{
-				$inf = "L".($j+1);
-				$sup = "U".($j+1);
-				$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-		        if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
-		        $this->hesitants[$i][$j] = toHesitant($envelope,$length,$delta);
-		        if ($this->hesitants[$i][$j] == -1)
-		        	register_error("wrong hesitant in score function");
- 
-		        $this->score[$i][$j] = $this->scoreFunction($this->hesitants[$i][$j], $length, $delta);
-				if ($this->debug) echo $this->data[$i]["ref"] . " - C" . $j . " F=" . $this->score[$i][$j] ."<br>";
-			}	
-		}
-		$i=0; $j=1; $k=1;
-		//check cases
-		//for ($j=0;$j<$this->M;$j++)//forall criteria
-		{
-			echo "C".($j+1);
-			//for ($i=0;$i<$this->N;$i++)//all alternatives
-			{
-				//for ($k=0;$k<$this->N;$k++)//with all alternatives
-				{   
-					if ($i == $k)
-						echo " 0";
-					else
-					{
-						echo " (".$this->data[$i]["ref"] . "," . $this->data[$k]["ref"].")" ;
-						if ($this->score[$i][$j] == $this->score[$k][$j] ) 
-							echo " 0";	
-						else if ($this->score[$i][$j] > $this->score[$k][$j] ) 
-							echo " => " . $this->dominanceDegreeCaseOver($i, $j, $k);
-						else 
-							$this->dominanceDegreeCaseUnder($this->hesitants[$i][$j], $this->hesitants[$k][$j]);
-					}
-				}
-				echo "<br>&nbsp;&nbsp;&nbsp;";
-			}
-			echo "<br>";
-		}
-
+		$this->parse_csv("ejemplo_todim.csv");	
+		//$this->testing();
 	}
 
-
 	/**
-	* Compute \Phi_j(Hi_,H_k) when F(H_ij) > F(H_kj)
-	* as sqrt( w_jr d_(H_ij,H_kj) / sum w_jr)
+	* Computes the var(tau) = {(0 - tau/2)^2 +..+ (tau - tau/2)^2}  / tau+1
 	*/
-	private function dominanceDegreeCaseOver($i, $j, $k)
+	private function variance()
 	{
-		$d = euclideanDistance($this->hesitants[$i][$j], $this->hesitants[$k][$j]);
-		//if ($this->debug) 
-			echo " (" .$d.") W_r " . $this->W_r[$j] . " / " . $this->T_Wr ;
-
-		$dd = sqrt( ($d * $this->W_r[$j])/ $this->T_Wr );
-
-    	return $dd;
-	}	
-
-	/**
-	* Compute \Phi_j(Hi_,H_k) when F(H_ij) < F(H_kj)
-	* as -1/theta sqrt ( sum w_jr d_(H_kj,H_ij) / w_jr)
-	*/
-	private function dominanceDegreeCaseUnder($A, $B)
-	{
-		echo " -";		
-    	if ($this->debug)
-    	{
-    		echo('<br>DD- <pre>');	print_r($B);	echo('</pre>');
-    	}
-
-	}	
+		$taumed = $this->G * 0.5; 
+		$sum = 0;
+		for ($i=0; $i<=$this->G; $i++)
+		{
+			$sum += pow($i - $taumed,2);
+		}
+		$var = $sum / ($this->G + 1);
+		if ($this->debug) system_message("G=" . $this->G . " variance=" . $var);
+		return $var;
+	}
 
 
 	/**
@@ -211,48 +180,123 @@ class TodimHFL extends MCDM
 		return $D - ($sum / $var);
 	}
 
+
 	/**
-	* Computes the var(tau) = {(0 - tau/2)^2 +..+ (tau - tau/2)^2}  / tau+1
+	* Compute F(H) for all assessment regarding criteria and alternatives 
+	* Use this value to compute the dominance degree
 	*/
-	private function variance()
+	private function crossAlternativesWithCriteria()
 	{
-		$taumed = $this->G * 0.5; 
-		$sum = 0;
-		for ($i=0; $i<=$this->G; $i++)
+    	$this->hesitants = array();
+    	$this->score = array();
+    	$this->dominance = array();
+    	$length = $delta = 0;
+
+		for ($i=0;$i<$this->N;$i++)//forall alternatives
 		{
-			$sum += pow($i - $taumed,2);
+			for ($j=0;$j<$this->M;$j++)//forall criteria
+			{
+				$inf = "L".($j+1);
+				$sup = "U".($j+1);
+				$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
+		        if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
+		        $this->hesitants[$i][$j] = toHesitant($envelope,$length,$delta);
+		        if ($this->hesitants[$i][$j] == -1)
+		        	register_error("wrong hesitant in score function");
+ 
+		        $this->score[$i][$j] = $this->scoreFunction($this->hesitants[$i][$j], $length, $delta);
+				if ($this->debug) echo $this->data[$i]["ref"] . " - C" . $j . " F=" . $this->score[$i][$j] ."<br>";
+			}	
 		}
-		$var = $sum / ($this->G + 1);
-		if ($this->debug) system_message("G=" . $this->G . " variance=" . $var);
-		return $var;
-	}
-
-
-	/**
-	 * Returns the title of the method
-	 *
-	 * @return string
-	 */
-	public function getTitle() 
-	{
-		// make title for Teranga
-		$header = $this->label;
-		$header = elgg_echo("hflts:label:{$this->label}");
-		return $header;
-	}
 		
-	/**
-	 * Returns the method full name
-	 *
-	 * @return string
-	 */
-	public function getDescription() 
-	{
-		// Make name for Teranga
-		$result = $this->label;
-		$result = elgg_echo("hflts:help:{$this->label}");
-		return $result;
+		//check cases
+		for ($j=0;$j<$this->M;$j++)//forall criteria
+		{
+			if ($this->debug) echo "C".($j+1);
+			for ($i=0;$i<$this->N;$i++)//all alternatives
+			{
+				for ($k=0;$k<$this->N;$k++)//with all alternatives
+				{   
+					if ($i == $k)
+					{
+						$this->dominance[$i][$k][$j] = 0;
+					}
+					else
+					{
+						if ($this->score[$i][$j] == $this->score[$k][$j] ) 
+							$this->dominance[$i][$k][$j] = 0;
+						else if ($this->score[$i][$j] > $this->score[$k][$j] ) 
+							$this->dominance[$i][$k][$j] = $this->dominanceDegreeCaseOver($i, $j, $k);
+						else 
+							$this->dominance[$i][$k][$j] = $this->dominanceDegreeCaseUnder($i, $j, $k);
+					}
+					if ($this->debug) 
+						echo " (".$this->data[$i]["ref"] . "," . $this->data[$k]["ref"].") -> " .$this->dominance[$i][$k][$j] ;
+				}
+				if ($this->debug) echo "<br>&nbsp;&nbsp;&nbsp;";
+			}
+			if ($this->debug) echo "<br>";
+		}
+
 	}
+
+
+	/**
+	* Compute \Phi_j(Hi_,H_k) when F(H_ij) > F(H_kj)
+	* as sqrt( w_jr d_(H_ij,H_kj) / sum w_jr)
+	*/
+	private function dominanceDegreeCaseOver($i, $j, $k)
+	{
+		$d = euclideanDistance($this->hesitants[$i][$j], $this->hesitants[$k][$j], $this->lambda, $this->G, $this->chi);
+		if ($this->debug) 
+			echo " (" .$d.") W_r " . $this->W_r[$j] . " / " . $this->T_Wr ;
+
+		$dd = sqrt( ($d * $this->W_r[$j])/ $this->T_Wr );
+
+    	return $dd;
+	}	
+
+	/**
+	* Compute \Phi_j(Hi_,H_k) when F(H_ij) < F(H_kj)
+	* as -1/theta sqrt ( sum w_jr d_(H_kj,H_ij) / w_jr)
+	*/
+	private function dominanceDegreeCaseUnder($i, $j, $k)
+	{
+		$d = euclideanDistance($this->hesitants[$i][$j], $this->hesitants[$k][$j], $this->lambda, $this->G, $this->chi);
+		$factor = -1.0/$this->theta;
+		if ($this->debug) 
+			echo " (" .$d.") W_r " . $this->W_r[$j] . " / " . $this->T_Wr ;
+
+		$dd = $factor * sqrt( ($d *  $this->T_Wr) / $this->W_r[$j]);
+
+    	return $dd;
+
+	}	
+
+	/**
+	* With the dominance degree for each alternative p_i over the remaining alternatives p_k
+	* Calculate  compute the overal dominance det
+	*/
+	private function overallDominance()
+	{
+		$delta = array();
+		for ($i=0;$i<$this->N;$i++)
+		{
+			for ($k=0;$k<$this->N;$k++)
+			{
+				if ($i != $k)
+				{
+					$sum = 0;
+					echo " (".$this->data[$i]["ref"] . "," . $this->data[$k]["ref"].") -> "  ;
+					for ($j=0;$j<$this->M;$j++)
+						$sum += $this->dominance[$i][$k][$j];
+					echo " === " . $sum . "<br>";
+					$delta[$i][$j] = $sum;
+				}
+			}
+		}
+	}
+
 
     private function ranking()
     {
@@ -263,19 +307,6 @@ class TodimHFL extends MCDM
     	return $this->ranking;
     }
 
-	public function theCase()
-	{
-		$this->N=4; //numero de alternatives
-		$this->M=4; //numero de criterios
-		$this->P=1; //numero de expertos
-		$this->alternatives = array('p1','p2','p3','p4');
-		$this->W = array(0.2, 0.15, 0.15,0.5);
-		$this->W_r = array();
-		$this->variance = $this->variance();
-
-		$this->parse_csv("ejemplo_todim.csv");	
-		//$this->testing();
-	}
 
 	private function testing()
 	{

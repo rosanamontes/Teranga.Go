@@ -34,7 +34,7 @@ class TodimHFL extends MCDM
 	var $variance; //variance of the granularity
 	var $dominance; //the dominance degree matrix
 
-	var $ranking; //alternatives ranked array
+	var $ranking; //array of ranked alternatives ranked
 
 	public function	TodimHFL($username)
 	{
@@ -44,11 +44,16 @@ class TodimHFL extends MCDM
 		$this->label="todim";
 
 		$this->alternatives = array($username);
-		$this->W = array(1.0, 1.0, 1.0); //same importance
+		$this->W = array(1.0, 1.0, 1.0); //supose the same importance. Allow the user to change
 
 		$this->lambda = 1.5;
 		$this->theta = 1.0; //losses factor in case of >0
 		$this->chi = 0.5; //extension factor
+
+		$this->W_r = array();
+    	$this->hesitants = array();
+    	$this->score = array();
+    	$this->dominance = array();		
 	}
 
 	/**
@@ -77,12 +82,25 @@ class TodimHFL extends MCDM
 		return $result;
 	}
 	
+	public function theCase()
+	{
+		$this->N=4; //numero de alternatives
+		$this->M=4; //numero de criterios
+		$this->P=1; //numero de expertos
+		$this->alternatives = array('p1','p2','p3','p4');
+		$this->W = array(0.2, 0.15, 0.15,0.5);
+
+		$this->parse_csv("ejemplo_todim.csv");	
+		//$this->testing();
+	}
+
 	public function run()
 	{
 		parent::run();
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
-		$this->theCase();
+		$this->variance = $this->variance();
+		// or $this->theCase();//realEstateCase();
 
 		//step 1 find the most important factor and calculate the relative weights
 		$this->relativeWeights();
@@ -100,19 +118,6 @@ class TodimHFL extends MCDM
 		return $this->ranking[0]['todim']['label'];
 	}
 
-	public function theCase()
-	{
-		$this->N=4; //numero de alternatives
-		$this->M=4; //numero de criterios
-		$this->P=1; //numero de expertos
-		$this->alternatives = array('p1','p2','p3','p4');
-		$this->W = array(0.2, 0.15, 0.15,0.5);
-		$this->W_r = array();
-		$this->variance = $this->variance();
-
-		$this->parse_csv("ejemplo_todim.csv");	
-		//$this->testing();
-	}
 
 	/**
 	* Computes the var(tau) = {(0 - tau/2)^2 +..+ (tau - tau/2)^2}  / tau+1
@@ -187,9 +192,6 @@ class TodimHFL extends MCDM
 	*/
 	private function crossAlternativesWithCriteria()
 	{
-    	$this->hesitants = array();
-    	$this->score = array();
-    	$this->dominance = array();
     	$length = $delta = 0;
 
 		for ($i=0;$i<$this->N;$i++)//forall alternatives
@@ -279,24 +281,54 @@ class TodimHFL extends MCDM
 	*/
 	private function overallDominance()
 	{
-		$delta = array();
+		$overall = array();//array NxN
+		$min = $max = 0;
 		for ($i=0;$i<$this->N;$i++)
 		{
+			$overall[$i] = 0; 
 			for ($k=0;$k<$this->N;$k++)
 			{
 				if ($i != $k)
 				{
-					$sum = 0;
-					echo " (".$this->data[$i]["ref"] . "," . $this->data[$k]["ref"].") -> "  ;
+					$delta = 0;
+					//echo " (".$this->data[$i]["ref"] . "," . $this->data[$k]["ref"].") -> "  ;
 					for ($j=0;$j<$this->M;$j++)
-						$sum += $this->dominance[$i][$k][$j];
-					echo " === " . $sum . "<br>";
-					$delta[$i][$j] = $sum;
+						$delta += $this->dominance[$i][$k][$j];
+					//echo " delta=". $delta . "<br>";
+					$overall[$i] += $delta;
 				}
 			}
+			//echo " overall = " . $overall[$i] . "<br>";
 		}
-	}
 
+		$min = min($overall);
+		$max = max($overall);
+		$den = $max - $min;
+		$values = array();
+		for ($i=0;$i<$this->N;$i++)		
+		{
+			$values[$i] = ($overall[$i] - $min)/$den;
+			if ($this->debug) echo " X(".$this->data[$i]["ref"].") = " . $values[$i] ."<br>";
+		}
+
+		arsort($values);
+    	if ($this->debug) 
+		{
+			echo('<br><pre>');	print_r($values);	echo('</pre>');
+		}
+
+    	//$p=0;  while ($candidato = current($values))   	
+
+    	for ($i=0;$i<$this->N;$i++)	
+    	{
+      		$index = key($values);
+      		$this->ranking[$i]['todim']['ref'] = $this->alternatives[$index] ;
+      		$this->ranking[$i]['todim']['tuple'] = "--";
+      		$this->ranking[$i]['todim']['label'] = toLabel( $this->ranking[$i]['todim']['tuple'][0] );
+      		//echo "<p>index ".$i." is ranked as ".$index." </p>";
+      		next($values);
+		}  		
+	}
 
     private function ranking()
     {
@@ -339,7 +371,7 @@ class TodimHFL extends MCDM
         	echo "intervalDominance " . $is1 . " " . $is1ov2 . " " . $is3ov5 . "<br>";
     }
 
-	/*public function realEstateCase()
+	public function realEstateCase()
 	{
 		$this->N=5; //numero de alternatives
 		$this->M=9; //numero de criterios
@@ -347,15 +379,13 @@ class TodimHFL extends MCDM
 		
 	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
 		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
-		
-		$this->parse_csv("ejemplo_casas.csv");		
-		$this->num = $this->N*$this->P;
-		
-		$this->translation();
-		$this->envelope();
+		$this->W_r = array();
+    	$this->hesitants = array();
+    	$this->score = array();
+    	$this->dominance = array();
 
-		$this->average();
-		$this->ranking();
-	}*/
+		$this->variance = $this->variance();		
+		$this->parse_csv("ejemplo_casas.csv");		
+	}
 
 }

@@ -49,17 +49,23 @@ class AggregationHFLTS extends MCDM
 		
 		$this->parse_csv("ejemplo_casas.csv");		
 		$this->num = $this->N*$this->P;
-		
-		$this->translation();
-		$this->envelope();
-
-		$this->average();
-		$this->ranking();
 	}
+
+	public function todimCase()
+	{
+		$this->N=4; //numero de alternatives
+		$this->M=4; //numero de criterios
+		$this->P=1; //numero de expertos
+		$this->alternatives = array('p1','p2','p3','p4');
+		$this->W = array(0.2, 0.15, 0.15,0.5);
+
+		$this->parse_csv("ejemplo_todim.csv");	
+		$this->num = $this->N*$this->P;
+	}	
 	
 	public function run()
 	{
-		//self::realEstateCase();
+		self::todimCase();
 
 		parent::run();
 		$this->translation();

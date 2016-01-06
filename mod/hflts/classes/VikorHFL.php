@@ -20,11 +20,8 @@ class VikorHFL extends MCDM
 {
 
 	var $label;//shortname
-	var $CSi; //array with lower interval values (for all criteria)
-	var $CSj; //array with upper interval values (for all criteria)
-	
-	var $beta; //2-tuples
-	var $avg; //average aggregation array
+
+
 	var $ranking; //alternatives ranked array
 
 	public function	VikorHFL($username)
@@ -36,36 +33,8 @@ class VikorHFL extends MCDM
 
 		$this->alternatives = array($username);
 		$this->W = array(1.0, 1.0, 1.0); //same important
-	}
 
-	public function realEstateCase()
-	{
-		$this->N=5; //numero de alternatives
-		$this->M=9; //numero de criterios
-		$this->P=5; //numero de expertos
-		
-	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
-		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
-		
-		$this->parse_csv();		
-		$this->num = $this->N*$this->P;
-		
-		$this->translation();
-		$this->envelope();
-
-		$this->average();
-		$this->ranking();
-	}
-	
-	public function run()
-	{
-		//self::realEstateCase();
-
-		parent::run();
-
-		$this->ranking();	
-
-		return $this->ranking[0]['vikor']['label'];
+		//inicializar variables y arrays
 	}
 
 	/**
@@ -95,6 +64,55 @@ class VikorHFL extends MCDM
 		$result = elgg_echo("hflts:help:{$this->label}");
 		return $result;
 	}
+
+
+	public function vikorCase()
+	{
+		$this->N=4; //numero de alternatives
+		$this->M=4; //numero de criterios
+		$this->P=1; //numero de expertos
+		$this->alternatives = array('p1','p2','p3','p4');
+		$this->W = array(0.2, 0.15, 0.15,0.5);
+
+		$this->parse_csv("ejemplo_vikor.csv");	
+		//$this->testing();
+	}
+
+	public function todimCase()
+	{
+		$this->N=4; //numero de alternatives
+		$this->M=4; //numero de criterios
+		$this->P=1; //numero de expertos
+		$this->alternatives = array('p1','p2','p3','p4');
+		$this->W = array(0.2, 0.15, 0.15,0.5);
+
+		$this->parse_csv("ejemplo_todim.csv");	
+		//$this->testing();
+	}
+
+	public function realEstateCase()
+	{
+		$this->N=5; //numero de alternatives
+		$this->M=9; //numero de criterios
+		$this->P=5; //numero de expertos
+		
+	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
+		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
+		
+		$this->parse_csv("ejemplo_casas.csv");	
+	}
+	
+	public function run()
+	{
+		//self::realEstateCase();
+
+		parent::run();
+
+		$this->ranking();	
+
+		return $this->ranking[0]['vikor']['label'];
+	}
+
 
     private function ranking()
     {

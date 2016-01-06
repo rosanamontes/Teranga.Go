@@ -82,7 +82,7 @@ class TodimHFL extends MCDM
 		return $result;
 	}
 	
-	public function theCase()
+	public function todimCase()
 	{
 		$this->N=4; //numero de alternatives
 		$this->M=4; //numero de criterios
@@ -100,7 +100,7 @@ class TodimHFL extends MCDM
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
 		$this->variance = $this->variance();
-		// or $this->theCase();//realEstateCase();
+		// or $this->todimCase();//realEstateCase();
 
 		//step 1 find the most important factor and calculate the relative weights
 		$this->relativeWeights();
@@ -299,8 +299,11 @@ class TodimHFL extends MCDM
 				}
 			}
 			//echo " overall = " . $overall[$i] . "<br>";
-		}
+		}	
+	}
 
+    private function ranking()
+    {
 		$min = min($overall);
 		$max = max($overall);
 		$den = $max - $min;
@@ -327,11 +330,8 @@ class TodimHFL extends MCDM
       		$this->ranking[$i]['todim']['label'] = toLabel( $this->ranking[$i]['todim']['tuple'][0] );
       		//echo "<p>index ".$i." is ranked as ".$index." </p>";
       		next($values);
-		}  		
-	}
-
-    private function ranking()
-    {
+		}  	
+		    	
     	if ($this->debug)
     	{
     		echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');

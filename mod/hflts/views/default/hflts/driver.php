@@ -91,7 +91,7 @@ else {
 
 		if ($model->label == "vikor")
 		{
-			$method = new TodimHFL($evaluation->user_guid); 
+			$method = new VikorHFL($evaluation->user_guid); 
 			$title=$method->getTitle();
 			$description=$method->getDescription();
 			$method->setData($data,$weight,$count,$evaluation->granularity);

@@ -33,6 +33,35 @@ abstract class MCDM
 
 	var $debug = false;
 
+	/**
+	 * Returns the title of the method
+	 *
+	 * @return string
+	 */
+	public function getTitle() 
+	{
+		// make title for Teranga
+		$header = $this->label;
+		system_message($this->label . " title " . $header);
+		$header = elgg_echo("hflts:label:{$this->label}");
+		return $header;
+	}
+		
+	/**
+	 * Returns the method full name
+	 *
+	 * @return string
+	 */
+	public function getDescription() 
+	{
+		// Make name for Teranga
+		$result = $this->label;
+		system_message("description " . $result);
+		$result = elgg_echo("hflts:help:{$this->label}");
+		return $result;
+	}
+
+
 
 	/**
 	* get from the system the values needed in the model
@@ -174,7 +203,7 @@ abstract class MCDM
 	*/
     function parse_csv($name) 
     { 	
-    	$filename = "/var/www/html/Teranga.Go/mod/hflts/classes/" . $name;
+    	$filename = elgg_get_plugins_path() . "hflts/classes/" . $name;
 
 		$importer = new CsvImporter($filename,true,","); 
 		$this->data = $importer->get(); 

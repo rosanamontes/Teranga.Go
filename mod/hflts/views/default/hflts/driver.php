@@ -88,7 +88,8 @@ else {
 			forward(REFERER);
 		}
 
-		if ($model->label == "todim")
+
+		if ($model->label == "vikor")
 		{
 			$method = new TodimHFL($evaluation->user_guid); 
 			$title=$method->getTitle();
@@ -107,6 +108,15 @@ else {
 			?>	
 			<p><?php echo "depurando .... " . $title . " (" . $description .") " . $N."x".$M."x".$P; ?></p>
 			<?php
+		}
+
+
+		if ($model->label == "todim")
+		{
+			$method = new TodimHFL($evaluation->user_guid); 
+			$method->setData($data,$weight,$count,$evaluation->granularity);
+			$model->collectiveValoration = $method->run();
+			unset($method);//destroys the object 
 		}
 
 		//run it the last

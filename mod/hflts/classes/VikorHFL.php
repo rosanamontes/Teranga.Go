@@ -20,8 +20,13 @@ class VikorHFL extends MCDM
 {
 
 	var $label;//shortname
+	var $lambda; //to set the distance measure
 
-
+	var $hesitants;//parsed data
+	var $score;//measure of the hesitant
+	var $variance; //variance of the granularity
+	var $positive; //ideal positive solution
+	var $negative; //ideal negative solution
 	var $ranking; //alternatives ranked array
 
 	public function	VikorHFL($username)
@@ -34,83 +39,156 @@ class VikorHFL extends MCDM
 		$this->alternatives = array($username);
 		$this->W = array(1.0, 1.0, 1.0); //same important
 
-		//inicializar variables y arrays
+		//init class variables
+    	$this->hesitants = array();
+    	$this->score = array();
+    	$this->variance = array();
+    	$this->positive = array();
+    	$this->negative = array();    	    	
+    	$this->lambda = 2; //hamming distance 
 	}
-
-	/**
-	 * Returns the title of the method
-	 *
-	 * @return string
-	 */
-	public function getTitle() 
-	{
-		// make title for Teranga
-		$header = $this->label;
-		system_message($this->label . " title " . $header);
-		$header = elgg_echo("hflts:label:{$this->label}");
-		return $header;
-	}
-		
-	/**
-	 * Returns the method full name
-	 *
-	 * @return string
-	 */
-	public function getDescription() 
-	{
-		// Make name for Teranga
-		$result = $this->label;
-		system_message("description " . $result);
-		$result = elgg_echo("hflts:help:{$this->label}");
-		return $result;
-	}
-
 
 	public function vikorCase()
 	{
-		$this->N=4; //numero de alternatives
-		$this->M=4; //numero de criterios
-		$this->P=1; //numero de expertos
-		$this->alternatives = array('p1','p2','p3','p4');
-		$this->W = array(0.2, 0.15, 0.15,0.5);
+		$this->N=3; //num of alternatives
+		$this->M=3; //num of criteria
+		$this->P=1; //num of experts
+		$this->alternatives = array('p1','p2','p3');
+		$this->W = array(0.3, 0.5, 0.2);
 
 		$this->parse_csv("ejemplo_vikor.csv");	
 		//$this->testing();
 	}
-
-	public function todimCase()
-	{
-		$this->N=4; //numero de alternatives
-		$this->M=4; //numero de criterios
-		$this->P=1; //numero de expertos
-		$this->alternatives = array('p1','p2','p3','p4');
-		$this->W = array(0.2, 0.15, 0.15,0.5);
-
-		$this->parse_csv("ejemplo_todim.csv");	
-		//$this->testing();
-	}
-
-	public function realEstateCase()
-	{
-		$this->N=5; //numero de alternatives
-		$this->M=9; //numero de criterios
-		$this->P=5; //numero de expertos
-		
-	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
-		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
-		
-		$this->parse_csv("ejemplo_casas.csv");	
-	}
 	
 	public function run()
 	{
-		//self::realEstateCase();
+		//Step 1: establish the alternatives, criteria and the weights of the criteria
+		//Step 2: define the semantics
+		//system_message("Granularity ". $this->G);
+		
+		//Step 3: transform assessments into the HFLTS
+		//parent::run();
+		self::vikorCase();//self::realEstateCase();
 
-		parent::run();
+		//Step 4: find out the positive ideal and the negative ideal solution
+		self::crossAlternativesWithCriteria();
+		self::idealSolution();
 
+		//Step 5: derive the compromise solutions
 		$this->ranking();	
 
 		return $this->ranking[0]['vikor']['label'];
+	}
+
+	private function crossAlternativesWithCriteria()
+	{
+    	$length = $delta = 0;
+
+		for ($j=0;$j<$this->M;$j++)//forall criteria
+		{
+			for ($i=0;$i<$this->N;$i++)//forall alternatives
+			{
+				$inf = "L".($j+1);
+				$sup = "U".($j+1);
+				$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
+		        if ($this->debug) 
+		        	echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
+		        $this->hesitants[$j][$i] = toHesitant($envelope,$length,$delta);
+		        if ($this->hesitants[$j][$i] == -1)
+		        	register_error("wrong hesitant in score function");
+ 
+		        $this->score[$j][$i] = $delta; //similar to mean in statistics
+		        $this->variance[$j][$i] = $this->varianceFunction($this->hesitants[$j][$i], $length);
+
+				if ($this->debug) 
+					echo $this->data[$i]["ref"] . " - C" . $j . " rho=" . $this->score[$j][$i] ." sigma=". $this->variance[$j][$i] . "<br>";
+			}	
+		}
+	}
+
+	/**
+	* similar to variance in statistics
+	*/
+	private function varianceFunction($hesitant, $L)
+	{
+    	$sumSquaredDiff = 0;
+		for ($l=0;$l<$L;$l++)
+		for ($k=$l;$k<$L;$k++)
+		{
+			if ($l!=$k) 
+				$sumSquaredDiff += pow($hesitant[$l]-$hesitant[$k],2);
+		}
+
+		$var = (1.0/$L) * sqrt($sumSquaredDiff);
+    	if ($this->debug)
+	    	echo " 1/L=" . (1.0/$L) . " sum=".$sumSquaredDiff . " -> " . $var ."<br>";
+
+	    return $var;
+	}
+
+	/**
+	* Max operator of two hesitant given their indexes
+	* Return: index of the greater hesitant
+	*/
+	private function maxH($H1, $H2, $j)
+	{
+		//echo "[".$H1.",".$H2."]";
+		$rho_1 = $this->score[$j][$H1];
+		$rho_2 = $this->score[$j][$H2];
+
+		if ($rho_1 > $rho_2)
+			return $H1;
+		else if ($rho_1 == $rho_2)
+		{
+			$var_1 = $this->variance[$j][$H1];
+			$var_2 = $this->variance[$j][$H2];
+
+			if ($var_1 < $var_2)
+				return $H1;
+			else //case of v1 > v2 but if  v1=v2 then max is either H1 or H2, so ... the second
+				return $H2;
+		}
+		return $H2;
+	}
+
+	/**
+	* Min operator of two hesitant given their indexes
+	*/
+	private function minH($H1, $H2, $j)
+	{
+
+	}
+
+	/**
+	* Compare best distances and worst distances to the evaluation matrix
+	*/
+	private function idealSolution()
+	{
+		for ($j=0;$j<$this->M;$j++)//forall criteria
+		{
+			$max = array_keys($this->score[$j], max($this->score[$j]));
+			$this->positive[$j] = $this->hesitants[$j][$max[0]];
+			$min = array_keys($this->score[$j], min($this->score[$j]));
+			$this->negative[$j] = $this->hesitants[$j][$min[0]];
+		}
+
+		if ($this->debug) 
+    	{
+    		echo('positive: <pre>');	print_r($this->positive);	echo('</pre><br>');
+    		echo('negative: <pre>');	print_r($this->negative);	echo('</pre><br>');
+    	}
+
+  			/*$max_key = -1;
+  			$max_val = -1;
+    		for ($i=0;$i<$this->N;$i++)
+    		for ($k=$i;$k<$this->N;$k++)
+    		{
+    			if ($value > $max_val) 
+    			{
+      				$max_key = $key;
+      				$max_val = $value;
+    			}
+    		}*/
 	}
 
 
@@ -122,5 +200,52 @@ class VikorHFL extends MCDM
     	}
     	return $this->ranking;
     }
+
+
+	private function testing()
+	{
+		/*
+		* Example 1 in paper
+		*/
+		$envelopes = array(['inf'=>1, 'sup'=>1],['inf'=>-3,'sup'=>0],['inf'=>1,'sup'=>3],['inf'=>0,'sup'=>2]);
+    	$n = sizeof($envelopes); //system_message("n " . $n);
+    	$hesitants = array();
+    	$lengths = array();
+    	$deltas = array();
+
+    	for ($i=0;$i<$n;$i++)
+    	{
+	        echo "[".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
+	        $hesitants[$i] = toHesitant($envelopes[$i],$lengths[$i],$deltas[$i]);
+	        if ($hesitants[$i] != -1)
+	        {
+	        	$V = $this->varianceFunction($hesitants[$i],$lengths[$i]);
+	        	echo "score=".$deltas[$i] . " variance=" . $V."<br>";
+	        }
+		}
+	}
+
+	public function todimCase()
+	{
+		$this->N=4; //num of alternatives
+		$this->M=4; //num of criteria
+		$this->P=1; //num of experts
+		$this->alternatives = array('p1','p2','p3','p4');
+		$this->W = array(0.2, 0.15, 0.15,0.5);
+
+		$this->parse_csv("ejemplo_todim.csv");	
+	}
+
+	public function realEstateCase()
+	{
+		$this->N=5; //num of alternatives
+		$this->M=9; //num of criteria
+		$this->P=5; //num of experts
+		
+	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
+		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //user_1
+		
+		$this->parse_csv("ejemplo_casas.csv");	
+	}
 
 }

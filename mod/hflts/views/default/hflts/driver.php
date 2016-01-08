@@ -89,25 +89,35 @@ else {
 		}
 
 
+		if ($model->label == "electre")
+		{
+			$method = new ElectreHFLTS($evaluation->user_guid); 
+			$method->setData($data,$weight,$count,$evaluation->granularity);
+			$model->collectiveValoration = $method->run();
+			unset($method);//destroys the object 
+		}
+
+		if ($model->label == "topsis")
+		{
+			$method = new TopsisHFLTS($evaluation->user_guid); 
+			$model->collectiveValoration = $method->run();
+			unset($method);//destroys the object 
+		}
+
+		if ($model->label == "promethee")
+		{
+			$method = new PrometheeHF($evaluation->user_guid); 
+			$method->setData($data,$weight,$count,$evaluation->granularity);
+			$model->collectiveValoration = $method->run();
+			unset($method);//destroys the object 
+		}
+
 		if ($model->label == "vikor")
 		{
 			$method = new VikorHFL($evaluation->user_guid); 
-			$title=$method->getTitle();
-			$description=$method->getDescription();
 			$method->setData($data,$weight,$count,$evaluation->granularity);
-			$N = $method->getAlternatives();
-			$M = $method->getCriteria();
-			$P = $method->getExperts();
 			$model->collectiveValoration = $method->run();
 			unset($method);//destroys the object 
-
-			//set valoration on user's profile
-			$user = get_entity($evaluation->user_guid);
-			$user->karma=$model->collectiveValoration;
-
-			?>	
-			<p><?php echo "depurando .... " . $title . " (" . $description .") " . $N."x".$M."x".$P; ?></p>
-			<?php
 		}
 
 

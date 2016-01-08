@@ -80,8 +80,8 @@ class VikorHFL extends MCDM
 		//system_message("Granularity ". $this->G);
 		
 		//Step 3: transform assessments into the HFLTS
-		//parent::run();
-		self::vikorCase();//self::realEstateCase();
+		parent::run();
+		//self::vikorCase();//todimCase();//realEstateCase();
 
 		//Step 4: find out the positive ideal and the negative ideal solution
 		self::crossAlternativesWithCriteria();
@@ -247,23 +247,56 @@ class VikorHFL extends MCDM
 		$IR_plus = min($this->HFLIR);
 		$IR_minus = max($this->HFLIR);
 
-		if ($this->debug)
-			echo "GU_plus=" . $GU_plus. " GU_minus=".$GU_minus." IR_plus=" . $IR_plus . " IR_minus=" . $IR_minus. "<br>";
+		//echo "GU_plus=" . $GU_plus. " GU_minus=".$GU_minus." IR_plus=" . $IR_plus . " IR_minus=" . $IR_minus. "<br>";
 
 		for ($i=0;$i<$this->N;$i++)//forall alternatives
 		{
 			$this->HFLC[$i] = ( $this->theta*(($this->HFLGU[$i]-$GU_plus)/($GU_minus-$GU_plus)) )
 							+ ( (1.0-$this->theta)*(($this->HFLIR[$i]-$IR_plus)/($IR_minus-$IR_plus)) );
 
-			if ($this->debug)
-				echo "P" . ($i+1). " HFLGU=".$this->HFLGU[$i]." HFLIR=" . $this->HFLIR[$i] . " HFLC=" . $this->HFLC[$i]. "<br>";
+			//echo "P" . ($i+1). " HFLGU=".$this->HFLGU[$i]." HFLIR=" . $this->HFLIR[$i] . " HFLC=" . $this->HFLC[$i]. "<br>";
+		}
+
+		//the best are the minimum values in these measures
+		asort($this->HFLGU);//used to confirm rank (pending)
+		asort($this->HFLIR);//used to confirm rank (pending)
+		asort($this->HFLC);	//used to rank
+    	
+    	if ($this->debug) 
+		{
+			echo('<br>GU <pre>');	print_r($this->HFLGU);	echo('</pre>');
+			echo('<br>IR <pre>');	print_r($this->HFLIR);	echo('</pre>');
+			echo('<br>LC <pre>');	print_r($this->HFLC);	echo('</pre>');
 		}
 	}
 		
     private function ranking()
     {
+    	$pre = 0;
+    	$inv = 1.0 / ($this->M-1);
+    	for ($i=0;$i<$this->N;$i++)	
+    	{
+      		$index = key($this->HFLC);
+      		//echo "<p>candidate ".$i." is ranked as ".$index." </p>";
+     		$value = current($this->HFLC);
+      		$this->ranking[$i]['vikor']['ref'] = $this->alternatives[$index] ;
+      		$this->ranking[$i]['vikor']['value'] = $value;
+      		
+      		if ($i==1)//check first vs second ranked
+      		{
+      			if ($value - $pre >= $inv) $advantage = "Aceptable advantage";
+      			else  $advantage = "Not enought advantage";
+      			$this->ranking[0]['vikor']['label'] = $advantage;
+      		}
+      		else
+	      		$this->ranking[$i]['vikor']['label'] = "--";
+	      	$pre = $value;
+      		next($this->HFLC);
+		}  	
+
     	if ($this->debug)
     	{
+    		echo "Advantage if ". $inv ;
     		echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
     	}
     	return $this->ranking;

@@ -33,6 +33,7 @@ class TodimHFL extends MCDM
 	var $score;//measure of the hesitant
 	var $variance; //variance of the granularity
 	var $dominance; //the dominance degree matrix
+	var $overall;
 
 	var $ranking; //array of ranked alternatives ranked
 
@@ -54,6 +55,7 @@ class TodimHFL extends MCDM
     	$this->hesitants = array();
     	$this->score = array();
     	$this->dominance = array();		
+    	$this->overall = array();
 	}
 
 	
@@ -75,8 +77,8 @@ class TodimHFL extends MCDM
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
 		$this->variance = $this->variance();
-		// or $this->todimCase();//realEstateCase();
-
+		// or $this->todimCase();//realEstateCase();vikorCase
+		
 		//step 1 find the most important factor and calculate the relative weights
 		$this->relativeWeights();
 
@@ -256,11 +258,10 @@ class TodimHFL extends MCDM
 	*/
 	private function overallDominance()
 	{
-		$overall = array();//array NxN
 		$min = $max = 0;
 		for ($i=0;$i<$this->N;$i++)
 		{
-			$overall[$i] = 0; 
+			$this->overall[$i] = 0; 
 			for ($k=0;$k<$this->N;$k++)
 			{
 				if ($i != $k)
@@ -270,23 +271,29 @@ class TodimHFL extends MCDM
 					for ($j=0;$j<$this->M;$j++)
 						$delta += $this->dominance[$i][$k][$j];
 					//echo " delta=". $delta . "<br>";
-					$overall[$i] += $delta;
+					$this->overall[$i] += $delta;
 				}
 			}
-			//echo " overall = " . $overall[$i] . "<br>";
+			//echo " overall = " . $this->overall[$i] . "<br>";
 		}	
 	}
 
     private function ranking()
     {
-		$min = min($overall);
-		$max = max($overall);
+		$min = min($this->overall);
+		$max = max($this->overall);
 		$den = $max - $min;
+		//echo "$min / $max / $den<br>";
+
 		$values = array();
 		for ($i=0;$i<$this->N;$i++)		
 		{
-			$values[$i] = ($overall[$i] - $min)/$den;
-			if ($this->debug) echo " X(".$this->data[$i]["ref"].") = " . $values[$i] ."<br>";
+			$a = $this->overall[$i] - $min;
+			$b = $a / $den;
+			//echo "$a / $b / $den<br>";
+			$values[$i] = ($this->overall[$i] - $min)/$den;
+			if ($this->debug) 
+				echo $b . " X(".$this->data[$i]["ref"].") = " . $values[$i] ."<br>";
 		}
 
 		arsort($values);
@@ -301,8 +308,8 @@ class TodimHFL extends MCDM
     	{
       		$index = key($values);
       		$this->ranking[$i]['todim']['ref'] = $this->alternatives[$index] ;
-      		$this->ranking[$i]['todim']['tuple'] = "--";
-      		$this->ranking[$i]['todim']['label'] = toLabel( $this->ranking[$i]['todim']['tuple'][0] );
+      		$this->ranking[$i]['todim']['value'] = current($values);
+      		$this->ranking[$i]['todim']['label'] = "--";
       		//echo "<p>index ".$i." is ranked as ".$index." </p>";
       		next($values);
 		}  	
@@ -348,9 +355,9 @@ class TodimHFL extends MCDM
 
 	public function realEstateCase()
 	{
-		$this->N=5; //numero de alternatives
-		$this->M=9; //numero de criterios
-		$this->P=5; //numero de expertos
+		$this->N=5; //num of alternatives
+		$this->M=9; //num of criteria
+		$this->P=5; //num of experts
 		
 	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
 		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
@@ -361,6 +368,17 @@ class TodimHFL extends MCDM
 
 		$this->variance = $this->variance();		
 		$this->parse_csv("ejemplo_casas.csv");		
+	}
+
+	public function vikorCase()
+	{
+		$this->N=3; //num of alternatives
+		$this->M=3; //num of criteria
+		$this->P=1; //num of experts
+		$this->alternatives = array('p1','p2','p3');
+		$this->W = array(0.3, 0.5, 0.2);
+
+		$this->parse_csv("ejemplo_vikor.csv");	
 	}
 
 }

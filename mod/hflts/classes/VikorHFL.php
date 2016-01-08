@@ -19,14 +19,21 @@
 class VikorHFL extends MCDM
 {
 
-	var $label;//shortname
-	var $lambda; //to set the distance measure
+	var $label;		//shortname
+	var $lambda; 	//to set the distance measure
+	var $xhi;		//to set the distance measure
+	var $theta;		//the strategy of the majority of griteria
 
-	var $hesitants;//parsed data
-	var $score;//measure of the hesitant
-	var $variance; //variance of the granularity
+	var $hesitants;	//parsed data
+	var $score;		//measure of the hesitant
+	var $variance; //variance of the hesitant
 	var $positive; //ideal positive solution
 	var $negative; //ideal negative solution
+
+	var $HFLGU;	//group utility for each alternative
+	var $HFLIR;	//indivisual regret of the oponent
+	var $HFLC;	//linguistic compromise of alternatives
+
 	var $ranking; //alternatives ranked array
 
 	public function	VikorHFL($username)
@@ -39,13 +46,19 @@ class VikorHFL extends MCDM
 		$this->alternatives = array($username);
 		$this->W = array(1.0, 1.0, 1.0); //same important
 
+    	$this->lambda = 2; 	//hamming distance 
+    	$this->xhi = 0.5; 	//risk attitudes
+    	$this->theta = 0.5; //maximul overall utility. The larger, the preferences of the expert over criteria will be more average
+
 		//init class variables
     	$this->hesitants = array();
     	$this->score = array();
     	$this->variance = array();
     	$this->positive = array();
     	$this->negative = array();    	    	
-    	$this->lambda = 2; //hamming distance 
+    	$this->HFLGU = array();
+    	$this->HFLIR = array();
+    	$this->HFLC = array();
 	}
 
 	public function vikorCase()
@@ -75,6 +88,7 @@ class VikorHFL extends MCDM
 		self::idealSolution();
 
 		//Step 5: derive the compromise solutions
+		self::linguisticCompromise();
 		$this->ranking();	
 
 		return $this->ranking[0]['vikor']['label'];
@@ -145,7 +159,7 @@ class VikorHFL extends MCDM
 
 			if ($var_1 < $var_2)
 				return $H1;
-			else //case of v1 > v2 but if  v1=v2 then max is either H1 or H2, so ... the second
+			else //case of v1 > v2 but if  v1=v2 then max is either H1 or H2, so ...
 				return $H2;
 		}
 		return $H2;
@@ -153,10 +167,26 @@ class VikorHFL extends MCDM
 
 	/**
 	* Min operator of two hesitant given their indexes
+	* Return: index of the smaller hesitant
 	*/
 	private function minH($H1, $H2, $j)
 	{
+		$rho_1 = $this->score[$j][$H1];
+		$rho_2 = $this->score[$j][$H2];
 
+		if ($rho_1 > $rho_2)
+			return $H2;
+		else if ($rho_1 == $rho_2)
+		{
+			$var_1 = $this->variance[$j][$H1];
+			$var_2 = $this->variance[$j][$H2];
+
+			if ($var_1 < $var_2)
+				return $H2;
+			else //case of v1 > v2 but if  v1=v2 then max is either H1 or H2, so ... 
+				return $H1;
+		}
+		return $H1;
 	}
 
 	/**
@@ -164,6 +194,8 @@ class VikorHFL extends MCDM
 	*/
 	private function idealSolution()
 	{
+		$l_metric = array();
+
 		for ($j=0;$j<$this->M;$j++)//forall criteria
 		{
 			$max = array_keys($this->score[$j], max($this->score[$j]));
@@ -178,20 +210,56 @@ class VikorHFL extends MCDM
     		echo('negative: <pre>');	print_r($this->negative);	echo('</pre><br>');
     	}
 
-  			/*$max_key = -1;
-  			$max_val = -1;
-    		for ($i=0;$i<$this->N;$i++)
-    		for ($k=$i;$k<$this->N;$k++)
-    		{
-    			if ($value > $max_val) 
-    			{
-      				$max_key = $key;
-      				$max_val = $value;
-    			}
-    		}*/
+		for ($j=0;$j<$this->M;$j++)//forall criteria
+		{
+			//echo "C".($j+1)."<br>" ;
+			$d_IN = euclideanDistance($this->negative[$j], $this->positive[$j], $this->lambda, $this->G, $this->xhi);
+
+			for ($i=0;$i<$this->N;$i++)//forall alternatives
+			{
+				$d_IP = euclideanDistance($this->hesitants[$j][$i], $this->positive[$j], $this->lambda, $this->G, $this->xhi);
+				$l_metric[$i][$j] = ($d_IP / $d_IN) * $this->W[$j]; 
+	        	//echo "d=".$d_IP." .... " . $l_metric[$i][$j] . "<br>";
+			}
+		}
+		
+		for ($i=0;$i<$this->N;$i++)//forall alternatives
+		{
+			$sumGU = 0;
+			for ($j=0;$j<$this->M;$j++)//forall criteria
+			{
+				$sumGU += $l_metric[$i][$j];
+			}
+
+			$this->HFLGU[$i] = $sumGU;				// HFLGU	group utility measure = Lp metric with p =1 
+			$this->HFLIR[$i] = max($l_metric[$i]);	// HFLIR	individual regret measure = Lp metric con p \inf
+		}
 	}
 
+	/**
+	* computes the	linguistic compromise measure (HFLC) using as weight the value of param strategy = 0.5
+	*     			echo('H: <pre>');	print_r($this->hesitants[$j][$i]);	echo('</pre><br>');
+	*/
+	private function linguisticCompromise()
+	{
+		$GU_plus = min($this->HFLGU);
+		$GU_minus = max($this->HFLGU);
+		$IR_plus = min($this->HFLIR);
+		$IR_minus = max($this->HFLIR);
 
+		if ($this->debug)
+			echo "GU_plus=" . $GU_plus. " GU_minus=".$GU_minus." IR_plus=" . $IR_plus . " IR_minus=" . $IR_minus. "<br>";
+
+		for ($i=0;$i<$this->N;$i++)//forall alternatives
+		{
+			$this->HFLC[$i] = ( $this->theta*(($this->HFLGU[$i]-$GU_plus)/($GU_minus-$GU_plus)) )
+							+ ( (1.0-$this->theta)*(($this->HFLIR[$i]-$IR_plus)/($IR_minus-$IR_plus)) );
+
+			if ($this->debug)
+				echo "P" . ($i+1). " HFLGU=".$this->HFLGU[$i]." HFLIR=" . $this->HFLIR[$i] . " HFLC=" . $this->HFLC[$i]. "<br>";
+		}
+	}
+		
     private function ranking()
     {
     	if ($this->debug)

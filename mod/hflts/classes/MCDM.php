@@ -42,7 +42,6 @@ abstract class MCDM
 	{
 		// make title for Teranga
 		$header = $this->label;
-		system_message($this->label . " title " . $header);
 		$header = elgg_echo("hflts:label:{$this->label}");
 		return $header;
 	}
@@ -56,11 +55,9 @@ abstract class MCDM
 	{
 		// Make name for Teranga
 		$result = $this->label;
-		system_message("description " . $result);
 		$result = elgg_echo("hflts:help:{$this->label}");
 		return $result;
 	}
-
 
 
 	/**
@@ -107,6 +104,11 @@ abstract class MCDM
 	*/
 	public function run()
 	{
+		if (elgg_get_plugin_setting('debug', 'hflts') == 1)
+			$this->debug = true;
+		else
+			$this->debug = false;
+		
 		if (!$this->data || $this->num == 0 || $this->P == 0)
 		{
 			register_error(elgg_echo("hflts:mcdm:fail"));

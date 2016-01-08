@@ -37,6 +37,7 @@ if ($list)
 
 
 $simple_settings = [
+	'debug',
 	'profile_display',
 	'termset',
 	'classic',

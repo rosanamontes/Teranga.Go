@@ -37,6 +37,8 @@ return array(
 
 	'hflts:label:profile_display' => 'Display karma on users profile? ',
 	'hflts:help:profile_display' => 'The driver karma is the result of the decision making process considering overall satisfaction with the driver and his vehicle, and for all trips and valorations.',	
+	'hflts:label:debug' => 'Show strings outputs',
+	'hflts:help:debug' => 'Display the values of the interval model variables related to the code.',	
 	'hflts:settings:yes' => 'Yes',
 	'hflts:settings:no' => 'No',
 

@@ -36,6 +36,8 @@ return array(
 
 	'hflts:label:profile_display' => '¿Mostrar karma en Perfil de Usuario?',
 	'hflts:help:profile_display' => 'El karma del conductor es el resultado del proceso de toma de decisión de los compañeros de un viaje relativo a la satisfacción general con el conductor y su vehículo, y para todos los viajes en los que intervenga el conductor.',	
+	'hflts:label:debug' => 'Mostrar mensajes del modelo',
+	'hflts:help:debug' => 'Permite conocer el valor de las variables internas del modelo tal y como éste se ha programado.',	
 	'hflts:settings:yes' => 'Si',
 	'hflts:settings:no' => 'No',
 

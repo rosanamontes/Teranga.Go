@@ -71,6 +71,13 @@ $data = array(
 		'readonly' => false,
 	),
 
+	'debug' => array(
+		'type' => 'dropdown',
+		'value' => $plugin->debug,
+                'options_values' => array('1' => elgg_echo('hflts:settings:yes'), '0' => elgg_echo('hflts:settings:no')),
+		'readonly' => false,
+	),
+
 );
 
 /*$form .= "<br><br><b>" . elgg_echo('elggx_userpoints:settings:profile_display') . "</b>";

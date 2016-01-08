@@ -60,18 +60,6 @@ class VikorHFL extends MCDM
     	$this->HFLIR = array();
     	$this->HFLC = array();
 	}
-
-	public function vikorCase()
-	{
-		$this->N=3; //num of alternatives
-		$this->M=3; //num of criteria
-		$this->P=1; //num of experts
-		$this->alternatives = array('p1','p2','p3');
-		$this->W = array(0.3, 0.5, 0.2);
-
-		$this->parse_csv("ejemplo_vikor.csv");	
-		//$this->testing();
-	}
 	
 	public function run()
 	{
@@ -105,8 +93,7 @@ class VikorHFL extends MCDM
 				$inf = "L".($j+1);
 				$sup = "U".($j+1);
 				$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-		        if ($this->debug) 
-		        	echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
+		        //echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
 		        $this->hesitants[$j][$i] = toHesitant($envelope,$length,$delta);
 		        if ($this->hesitants[$j][$i] == -1)
 		        	register_error("wrong hesitant in score function");
@@ -115,7 +102,7 @@ class VikorHFL extends MCDM
 		        $this->variance[$j][$i] = $this->varianceFunction($this->hesitants[$j][$i], $length);
 
 				if ($this->debug) 
-					echo $this->data[$i]["ref"] . " - C" . $j . " rho=" . $this->score[$j][$i] ." sigma=". $this->variance[$j][$i] . "<br>";
+					echo $this->data[$i]["ref"] . " - C" . $j . " score=" . $this->score[$j][$i] ." variance=". $this->variance[$j][$i] . "<br>";
 			}	
 		}
 	}
@@ -134,8 +121,7 @@ class VikorHFL extends MCDM
 		}
 
 		$var = (1.0/$L) * sqrt($sumSquaredDiff);
-    	if ($this->debug)
-	    	echo " 1/L=" . (1.0/$L) . " sum=".$sumSquaredDiff . " -> " . $var ."<br>";
+    	//echo " 1/L=" . (1.0/$L) . " sum=".$sumSquaredDiff . " -> " . $var ."<br>";
 
 	    return $var;
 	}
@@ -324,29 +310,6 @@ class VikorHFL extends MCDM
 	        	echo "score=".$deltas[$i] . " variance=" . $V."<br>";
 	        }
 		}
-	}
-
-	public function todimCase()
-	{
-		$this->N=4; //num of alternatives
-		$this->M=4; //num of criteria
-		$this->P=1; //num of experts
-		$this->alternatives = array('p1','p2','p3','p4');
-		$this->W = array(0.2, 0.15, 0.15,0.5);
-
-		$this->parse_csv("ejemplo_todim.csv");	
-	}
-
-	public function realEstateCase()
-	{
-		$this->N=5; //num of alternatives
-		$this->M=9; //num of criteria
-		$this->P=5; //num of experts
-		
-	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
-		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //user_1
-		
-		$this->parse_csv("ejemplo_casas.csv");	
 	}
 
 }

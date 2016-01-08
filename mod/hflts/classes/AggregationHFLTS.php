@@ -41,9 +41,10 @@ class AggregationHFLTS extends MCDM
 	
 	public function run()
 	{
-		//self::vikorCase();
+		//parent::vikorCase();
+        parent::run();
+        $this->debug = false;//no matter the settings
 
-		parent::run();
 		$this->translation();
 		$this->envelope();
 		$this->average();
@@ -161,6 +162,20 @@ class AggregationHFLTS extends MCDM
 		}
     }
 
+    /**
+    * a range must satisfy the condition of being monotonically increasing
+    */
+    private function checkRange( $a, $b )
+    {
+        if ($a <= $b) return;
+
+        $temp = $a;
+        $a = $b;
+        $b = $temp;
+
+        if ($this->debug) echo '['.$a.', '.$b.']';
+    }
+
     private function envelope()
     {
     	for($p=0;$p<$this->N;$p++)
@@ -181,7 +196,7 @@ class AggregationHFLTS extends MCDM
     			$this->avg['sup'][$p] += $this->W[$c] * $this->beta[$p][$c]['sup'];
     		}
     		
-    		if ($this->debug) echo "Acumu=" . $sum . "<br>";
+    		//echo "Acumu=" . $sum . "<br>";
     		$this->avg['inf'][$p] = $this->avg['inf'][$p] / $sum;
     		$this->avg['sup'][$p] = $this->avg['sup'][$p] / $sum;
 
@@ -222,43 +237,6 @@ class AggregationHFLTS extends MCDM
     		echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
     	}
     	return $this->ranking;
-    }
-
-	public function realEstateCase()
-	{
-		$this->N=5; //num of alternatives
-		$this->M=9; //num of criteria
-		$this->P=5; //num of experts
-		
-	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
-		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
-		
-		$this->parse_csv("ejemplo_casas.csv");		
-		$this->num = $this->N*$this->P;
-	}
-
-	public function todimCase()
-	{
-		$this->N=4; //num of alternatives
-		$this->M=4; //num of criteria
-		$this->P=1; //num of experts
-		$this->alternatives = array('p1','p2','p3','p4');
-		$this->W = array(0.2, 0.15, 0.15,0.5);
-
-		$this->parse_csv("ejemplo_todim.csv");	
-		$this->num = $this->N*$this->P;
-	}	
-
-    public function vikorCase()
-    {
-        $this->N=3; //num of alternatives
-        $this->M=3; //num of criteria
-        $this->P=1; //num of experts
-        $this->alternatives = array('p1','p2','p3');
-        $this->W = array(0.3, 0.5, 0.2);
-
-        $this->parse_csv("ejemplo_vikor.csv");  
-        //$this->testing();
     }
 
 }

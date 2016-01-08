@@ -20,7 +20,7 @@ abstract class MCDM
 {
 	var $alternatives;//list of canditates
 	var $data;//valorations of experts for each alternative and criteria
-	var $num;//number of total valoracions
+	var $num;//number of the total assessments
 	
 	var $N; //number of alternatives
 	var $M; //number of criteria
@@ -114,6 +114,7 @@ abstract class MCDM
 			register_error(elgg_echo("hflts:mcdm:fail"));
 			forward(REFERER);
 		}
+		$this->num = $this->N*$this->P;
 	} 
 
 
@@ -223,18 +224,53 @@ abstract class MCDM
     	}
     }
 
-	/**
-	* a range must satisfy the condition of being monotonically increasing
-	*/
-    protected function checkRange( $a, $b )
+	public function realEstateCase()
+	{
+		$this->N=5; //num of alternatives
+		$this->M=9; //num of criteria
+		$this->P=5; //num of experts
+		
+	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
+		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
+		
+		$this->parse_csv("ejemplo_casas.csv");		
+		if ($this->debug) system_message("realEstateCase");
+	}
+
+	public function todimCase()
+	{
+		$this->N=4; //num of alternatives
+		$this->M=4; //num of criteria
+		$this->P=1; //num of experts
+		$this->alternatives = array('p1','p2','p3','p4');
+		$this->W = array(0.2, 0.15, 0.15,0.5);
+
+		$this->parse_csv("ejemplo_todim.csv");	
+		$this->num = $this->N*$this->P;
+		if ($this->debug) system_message("todimCase");
+	}	
+
+    public function vikorCase()
     {
-	    if ($a <= $b) return;
+        $this->N=3; //num of alternatives
+        $this->M=3; //num of criteria
+        $this->P=1; //num of experts
+        $this->alternatives = array('p1','p2','p3');
+        $this->W = array(0.3, 0.5, 0.2);
 
-    	$temp = $a;
-		$a = $b;
-		$b = $temp;
-
-		if ($this->debug) echo '['.$a.', '.$b.']';
+        $this->parse_csv("ejemplo_vikor.csv");  
+        if ($this->debug) system_message("vikorCase");
     }
     
+    public function prometheeCase()
+    {
+        $this->N=3; //num of alternatives
+        $this->M=3; //num of criteria
+        $this->P=1; //num of experts
+        $this->alternatives = array('p1','p2','p3');
+        $this->W = array(0.3, 0.5, 0.2);
+
+        $this->parse_csv("ejemplo_vikor.csv");  
+        if ($this->debug) system_message("prometheeCase");
+    }    
 }

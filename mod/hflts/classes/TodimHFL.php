@@ -58,18 +58,6 @@ class TodimHFL extends MCDM
     	$this->overall = array();
 	}
 
-	
-	public function todimCase()
-	{
-		$this->N=4; //numero de alternatives
-		$this->M=4; //numero de criterios
-		$this->P=1; //numero de expertos
-		$this->alternatives = array('p1','p2','p3','p4');
-		$this->W = array(0.2, 0.15, 0.15,0.5);
-
-		$this->parse_csv("ejemplo_todim.csv");	
-		//$this->testing();
-	}
 
 	public function run()
 	{
@@ -77,7 +65,7 @@ class TodimHFL extends MCDM
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
 		$this->variance = $this->variance();
-		// or $this->todimCase();//realEstateCase();vikorCase
+		parent::todimCase();//realEstateCase();vikorCase
 		
 		//step 1 find the most important factor and calculate the relative weights
 		$this->relativeWeights();
@@ -353,32 +341,5 @@ class TodimHFL extends MCDM
         	echo "intervalDominance " . $is1 . " " . $is1ov2 . " " . $is3ov5 . "<br>";
     }
 
-	public function realEstateCase()
-	{
-		$this->N=5; //num of alternatives
-		$this->M=9; //num of criteria
-		$this->P=5; //num of experts
-		
-	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
-		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
-		$this->W_r = array();
-    	$this->hesitants = array();
-    	$this->score = array();
-    	$this->dominance = array();
-
-		$this->variance = $this->variance();		
-		$this->parse_csv("ejemplo_casas.csv");		
-	}
-
-	public function vikorCase()
-	{
-		$this->N=3; //num of alternatives
-		$this->M=3; //num of criteria
-		$this->P=1; //num of experts
-		$this->alternatives = array('p1','p2','p3');
-		$this->W = array(0.3, 0.5, 0.2);
-
-		$this->parse_csv("ejemplo_vikor.csv");	
-	}
 
 }

@@ -18,13 +18,8 @@
 
 class PrometheeHF extends MCDM
 {
-
 	var $label;//shortname
-	var $CSi; //array with lower interval values (for all criteria)
-	var $CSj; //array with upper interval values (for all criteria)
-	
-	var $beta; //2-tuples
-	var $avg; //average aggregation array
+
 	var $ranking; //alternatives ranked array
 
 	public function	PrometheeHF($username)
@@ -38,64 +33,13 @@ class PrometheeHF extends MCDM
 		$this->W = array(1.0, 1.0, 1.0); //same important
 	}
 
-	public function realEstateCase()
-	{
-		$this->N=5; //numero de alternatives
-		$this->M=9; //numero de criterios
-		$this->P=5; //numero de expertos
-		
-	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
-		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
-		
-		$this->parse_csv();		
-		$this->num = $this->N*$this->P;
-		
-		$this->translation();
-		$this->envelope();
-
-		$this->average();
-		$this->ranking();
-	}
-	
 	public function run()
 	{
-		//self::realEstateCase();
-
+		parent::prometheeCase();//realEstateCase();
 		parent::run();
-		$this->translation();
-		$this->envelope();
-		$this->average();
-		$this->ranking();	
+
 
 		return $this->ranking[0]['promethee']['label'];
-	}
-
-	/**
-	 * Returns the title of the method
-	 *
-	 * @return string
-	 */
-	public function getTitle() 
-	{
-		// make title for Teranga
-		$header = $this->label;
-		system_message($this->label . " title " . $header);
-		$header = elgg_echo("hflts:label:{$this->label}");
-		return $header;
-	}
-		
-	/**
-	 * Returns the method full name
-	 *
-	 * @return string
-	 */
-	public function getDescription() 
-	{
-		// Make name for Teranga
-		$result = $this->label;
-		system_message("description " . $result);
-		$result = elgg_echo("hflts:help:{$this->label}");
-		return $result;
 	}
 
 

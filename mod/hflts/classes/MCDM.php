@@ -268,7 +268,7 @@ abstract class MCDM
         $this->M=4; //num of criteria
         $this->P=1; //num of experts
         $this->alternatives = array('p1','p2','p3');
-        $this->W = array(1.0, 1.0, 1.0);//there isn't
+        $this->W = array(0.3, 0.2, 0.4, 0.1);
 
         $this->parse_csv("ejemplo_electre.csv");  
         if ($this->debug) system_message("electreCase");

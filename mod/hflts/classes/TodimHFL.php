@@ -65,7 +65,7 @@ class TodimHFL extends MCDM
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
 		$this->variance = $this->variance();
-		parent::todimCase();//realEstateCase();vikorCase
+		//parent::todimCase();//realEstateCase();vikorCase
 		
 		//step 1 find the most important factor and calculate the relative weights
 		$this->relativeWeights();

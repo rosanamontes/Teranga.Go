@@ -262,15 +262,15 @@ abstract class MCDM
         if ($this->debug) system_message("vikorCase");
     }
     
-    public function prometheeCase()
+    public function electreCase()
     {
         $this->N=3; //num of alternatives
-        $this->M=3; //num of criteria
+        $this->M=4; //num of criteria
         $this->P=1; //num of experts
         $this->alternatives = array('p1','p2','p3');
-        $this->W = array(0.3, 0.5, 0.2);
+        $this->W = array(1.0, 1.0, 1.0);//there isn't
 
-        $this->parse_csv("ejemplo_vikor.csv");  
-        if ($this->debug) system_message("prometheeCase");
+        $this->parse_csv("ejemplo_electre.csv");  
+        if ($this->debug) system_message("electreCase");
     }    
 }

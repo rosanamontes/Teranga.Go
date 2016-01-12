@@ -139,6 +139,17 @@ function intervalDominance( $a1, $a2, $b1, $b2 )
 }
 
 
+/**
+* Distance of two HFLTS function proposed by J.Q. Wang et al / Information sciences 280
+* where d(H1,H2) = sqrt(  I(upH1)-I(upH2)^2 + I(lowH1)-I(lowH2)^2 ) and it is simetric
+* if d=0 then H1=H2
+*/
+function distanceEnvelope( $Env1, $Env2 )
+{
+    return sqrt( pow( $Env1['sup']-$Env2['sup'], 2) + pow($Env1['inf']-$Env2['inf'], 2) );
+}
+
+
 //________________________________________________________________________
 
 //_____________________ > REPRESENTATION UTILITIES < _____________________
@@ -174,30 +185,12 @@ function toTuple( $value )
  
 
 /**
-* Falta traducir con elgg strings
+* elgg strings terms 
 */
 function toLabel( $term )
 {
-	switch ($term) 
-	{
-    	case 0:
-        	return "Nada";
-    	case 1:
-        	return "Muy Bajo";
-    	case 2:
-        	return "Bajo";
-    	case 3:
-        	return "Medio";
-    	case 4:
-        	return "Alto";
-    	case 5:
-        	return "Muy Alto";
-    	case 6:
-        	return "Perfecto";
-    	default:
-        	return "No valorado";
-	   } 
-    }
+	return elgg_echo("hflts:karma:s{$term}");
+}
 
 /**
 * Detailed hesitant description

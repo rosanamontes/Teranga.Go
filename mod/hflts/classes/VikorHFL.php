@@ -46,19 +46,19 @@ class VikorHFL extends MCDM
 		$this->alternatives = array($username);
 		$this->W = array(1.0, 1.0, 1.0); //same important
 
-    	$this->lambda = 2; 	//hamming distance 
-    	$this->xhi = 0.5; 	//risk attitudes
-    	$this->theta = 0.5; //maximul overall utility. The larger, the preferences of the expert over criteria will be more average
+		$this->lambda = 2; 	//hamming distance 
+		$this->xhi = 0.5; 	//risk attitudes
+		$this->theta = 0.5; //maximul overall utility. The larger, the preferences of the expert over criteria will be more average
 
 		//init class variables
-    	$this->hesitants = array();
-    	$this->score = array();
-    	$this->variance = array();
-    	$this->positive = array();
-    	$this->negative = array();    	    	
-    	$this->HFLGU = array();
-    	$this->HFLIR = array();
-    	$this->HFLC = array();
+		$this->hesitants = array();
+		$this->score = array();
+		$this->variance = array();
+		$this->positive = array();
+		$this->negative = array();    	    	
+		$this->HFLGU = array();
+		$this->HFLIR = array();
+		$this->HFLC = array();
 	}
 	
 	public function run()
@@ -84,7 +84,7 @@ class VikorHFL extends MCDM
 
 	private function crossAlternativesWithCriteria()
 	{
-    	$length = $delta = 0;
+		$length = $delta = 0;
 
 		for ($j=0;$j<$this->M;$j++)//forall criteria
 		{
@@ -93,13 +93,13 @@ class VikorHFL extends MCDM
 				$inf = "L".($j+1);
 				$sup = "U".($j+1);
 				$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-		        //echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
-		        $this->hesitants[$j][$i] = toHesitant($envelope,$length,$delta);
-		        if ($this->hesitants[$j][$i] == -1)
-		        	register_error("wrong hesitant in score function");
+				//echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
+				$this->hesitants[$j][$i] = toHesitant($envelope,$length,$delta);
+				if ($this->hesitants[$j][$i] == -1)
+					register_error("wrong hesitant in score function");
  
-		        $this->score[$j][$i] = $delta; //similar to mean in statistics
-		        $this->variance[$j][$i] = $this->varianceFunction($this->hesitants[$j][$i], $length);
+				$this->score[$j][$i] = $delta; //similar to mean in statistics
+				$this->variance[$j][$i] = $this->varianceFunction($this->hesitants[$j][$i], $length);
 
 				if ($this->debug) 
 					echo $this->data[$i]["ref"] . " - C" . $j . " score=" . $this->score[$j][$i] ." variance=". $this->variance[$j][$i] . "<br>";
@@ -112,7 +112,7 @@ class VikorHFL extends MCDM
 	*/
 	private function varianceFunction($hesitant, $L)
 	{
-    	$sumSquaredDiff = 0;
+		$sumSquaredDiff = 0;
 		for ($l=0;$l<$L;$l++)
 		for ($k=$l;$k<$L;$k++)
 		{
@@ -121,9 +121,9 @@ class VikorHFL extends MCDM
 		}
 
 		$var = (1.0/$L) * sqrt($sumSquaredDiff);
-    	//echo " 1/L=" . (1.0/$L) . " sum=".$sumSquaredDiff . " -> " . $var ."<br>";
+		//echo " 1/L=" . (1.0/$L) . " sum=".$sumSquaredDiff . " -> " . $var ."<br>";
 
-	    return $var;
+		return $var;
 	}
 
 	/**
@@ -191,10 +191,10 @@ class VikorHFL extends MCDM
 		}
 
 		if ($this->debug) 
-    	{
-    		echo('positive: <pre>');	print_r($this->positive);	echo('</pre><br>');
-    		echo('negative: <pre>');	print_r($this->negative);	echo('</pre><br>');
-    	}
+		{
+			echo('positive: <pre>');	print_r($this->positive);	echo('</pre><br>');
+			echo('negative: <pre>');	print_r($this->negative);	echo('</pre><br>');
+		}
 
 		for ($j=0;$j<$this->M;$j++)//forall criteria
 		{
@@ -205,7 +205,7 @@ class VikorHFL extends MCDM
 			{
 				$d_IP = euclideanDistance($this->hesitants[$j][$i], $this->positive[$j], $this->lambda, $this->G, $this->xhi);
 				$l_metric[$i][$j] = ($d_IP / $d_IN) * $this->W[$j]; 
-	        	//echo "d=".$d_IP." .... " . $l_metric[$i][$j] . "<br>";
+				//echo "d=".$d_IP." .... " . $l_metric[$i][$j] . "<br>";
 			}
 		}
 		
@@ -247,8 +247,8 @@ class VikorHFL extends MCDM
 		asort($this->HFLGU);//used to confirm rank (pending)
 		asort($this->HFLIR);//used to confirm rank (pending)
 		asort($this->HFLC);	//used to rank
-    	
-    	if ($this->debug) 
+		
+		if ($this->debug) 
 		{
 			echo('<br>GU <pre>');	print_r($this->HFLGU);	echo('</pre>');
 			echo('<br>IR <pre>');	print_r($this->HFLIR);	echo('</pre>');
@@ -256,37 +256,37 @@ class VikorHFL extends MCDM
 		}
 	}
 		
-    private function ranking()
-    {
-    	$pre = 0;
-    	$inv = 1.0 / ($this->M-1);
-    	for ($i=0;$i<$this->N;$i++)	
-    	{
-      		$index = key($this->HFLC);
-      		//echo "<p>candidate ".$i." is ranked as ".$index." </p>";
-     		$value = current($this->HFLC);
-      		$this->ranking[$i]['vikor']['ref'] = $this->alternatives[$index] ;
-      		$this->ranking[$i]['vikor']['value'] = $value;
-      		
-      		if ($i==1)//check first vs second ranked
-      		{
-      			if ($value - $pre >= $inv) $advantage = "Aceptable advantage";
-      			else  $advantage = "Not enought advantage";
-      			$this->ranking[0]['vikor']['label'] = $advantage;
-      		}
-      		else
-	      		$this->ranking[$i]['vikor']['label'] = "--";
-	      	$pre = $value;
-      		next($this->HFLC);
+	private function ranking()
+	{
+		$pre = 0;
+		$inv = 1.0 / ($this->M-1);
+		for ($i=0;$i<$this->N;$i++)	
+		{
+			$index = key($this->HFLC);
+			//echo "<p>candidate ".$i." is ranked as ".$index." </p>";
+			$value = current($this->HFLC);
+			$this->ranking[$i]['vikor']['ref'] = $this->alternatives[$index] ;
+			$this->ranking[$i]['vikor']['value'] = $value;
+			
+			if ($i==1)//check first vs second ranked
+			{
+				if ($value - $pre >= $inv) $advantage = "Aceptable advantage";
+				else  $advantage = "Not enought advantage";
+				$this->ranking[0]['vikor']['label'] = $advantage;
+			}
+			else
+				$this->ranking[$i]['vikor']['label'] = "--";
+			$pre = $value;
+			next($this->HFLC);
 		}  	
 
-    	if ($this->debug)
-    	{
-    		echo "Advantage if ". $inv ;
-    		echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
-    	}
-    	return $this->ranking;
-    }
+		if ($this->debug)
+		{
+			echo "Advantage if ". $inv ;
+			echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
+		}
+		return $this->ranking;
+	}
 
 
 	private function testing()
@@ -295,20 +295,20 @@ class VikorHFL extends MCDM
 		* Example 1 in paper
 		*/
 		$envelopes = array(['inf'=>1, 'sup'=>1],['inf'=>-3,'sup'=>0],['inf'=>1,'sup'=>3],['inf'=>0,'sup'=>2]);
-    	$n = sizeof($envelopes); //system_message("n " . $n);
-    	$hesitants = array();
-    	$lengths = array();
-    	$deltas = array();
+		$n = sizeof($envelopes); //system_message("n " . $n);
+		$hesitants = array();
+		$lengths = array();
+		$deltas = array();
 
-    	for ($i=0;$i<$n;$i++)
-    	{
-	        echo "[".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
-	        $hesitants[$i] = toHesitant($envelopes[$i],$lengths[$i],$deltas[$i]);
-	        if ($hesitants[$i] != -1)
-	        {
-	        	$V = $this->varianceFunction($hesitants[$i],$lengths[$i]);
-	        	echo "score=".$deltas[$i] . " variance=" . $V."<br>";
-	        }
+		for ($i=0;$i<$n;$i++)
+		{
+			echo "[".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
+			$hesitants[$i] = toHesitant($envelopes[$i],$lengths[$i],$deltas[$i]);
+			if ($hesitants[$i] != -1)
+			{
+				$V = $this->varianceFunction($hesitants[$i],$lengths[$i]);
+				echo "score=".$deltas[$i] . " variance=" . $V."<br>";
+			}
 		}
 	}
 

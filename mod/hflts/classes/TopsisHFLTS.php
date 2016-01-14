@@ -48,14 +48,14 @@ class TopsisHFLTS extends MCDM
 
 
 
-    private function ranking()
-    {
-    	if ($this->debug)
-    	{
-    		echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
-    	}
-    	return $this->ranking;
-    }
+	private function ranking()
+	{
+		if ($this->debug)
+		{
+			echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
+		}
+		return $this->ranking;
+	}
 
 
 

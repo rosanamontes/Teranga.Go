@@ -42,14 +42,14 @@ class ElectreHFLTS extends MCDM
 		$this->W = array(1.0, 1.0, 1.0); //same important
 
 		//init local variables
-    	$this->hesitants = array();
-   		$this->W_distance = array();//d() * W_j
-   		$this->maxWD = array();
-    	$this->outrank = array(); //r()
-    	$this->strong = array();				
-    	$this->weak = array();				
-    	$this->C = array();				
-    	$this->D = array();				
+		$this->hesitants = array();
+		$this->W_distance = array();//d() * W_j
+		$this->maxWD = array();
+		$this->outrank = array(); //r()
+		$this->strong = array();				
+		$this->weak = array();				
+		$this->C = array();				
+		$this->D = array();				
 	}
 
 	
@@ -82,13 +82,13 @@ class ElectreHFLTS extends MCDM
 	{
 		$sum = 0;
 		for ($i=0;$i<$l1;$i++)
-	    for ($j=0;$j<$l2;$j++)
-	    {
-	    	$sum += $this->binary($h1[$i],$h2[$j]);
-	    	//echo "is " . $h1[$i] . " > " . $h2[$j]. "? ";
-	    }
-	    //echo "=> P=".$sum."<br>";
-	    return $sum;
+		for ($j=0;$j<$l2;$j++)
+		{
+			$sum += $this->binary($h1[$i],$h2[$j]);
+			//echo "is " . $h1[$i] . " > " . $h2[$j]. "? ";
+		}
+		//echo "=> P=".$sum."<br>";
+		return $sum;
 	}
 
 	private function binary($s1, $s2)
@@ -109,11 +109,11 @@ class ElectreHFLTS extends MCDM
 				$inf = "L".($j+1);
 				$sup = "U".($j+1);
 				$envelope[$i][$j] = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-		        if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
-		        $this->hesitants[$i][$j] = toHesitant($envelope[$i][$j],$length[$i][$j],$delta);
-		        if ($this->hesitants[$i][$j] == -1)
-		        	register_error("wrong hesitant in score function");
- 			}	
+				if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
+				$this->hesitants[$i][$j] = toHesitant($envelope[$i][$j],$length[$i][$j],$delta);
+				if ($this->hesitants[$i][$j] == -1)
+					register_error("wrong hesitant in score function");
+			}	
 		}
 		
 		
@@ -122,7 +122,7 @@ class ElectreHFLTS extends MCDM
 			for ($k=$i;$k<$this->N;$k++)//with half alternatives
 			{
 				if ($i!=$k)
-			 	{
+				{
 					for ($j=0;$j<$this->M;$j++)//forall criteria
 					{
 						$this->W_distance[$i][$j] = distanceEnvelope($envelope[$i][$j],$envelope[$k][$j]) * $this->W[$j];
@@ -133,55 +133,55 @@ class ElectreHFLTS extends MCDM
 						$this->outrank[$k][$i][$j] = $this->binaryRelation($this->hesitants[$k][$j], $this->hesitants[$i][$j], 
 							$length[$k][$j],$length[$i][$j]) / $len;
 
-		    	    	if ($this->debug) 
-		    	    	{
-		        			echo "C".($j+1)." (".($i+1).",".($k+1).") ";
-		        			echo "W_d=" .$this->W_distance[$i][$j]." Conc_r=".$this->outrank[$i][$k][$j]." Dis_r=".$this->outrank[$k][$i][$j]."<br>" ;
+						if ($this->debug) 
+						{
+							echo "C".($j+1)." (".($i+1).",".($k+1).") ";
+							echo "W_d=" .$this->W_distance[$i][$j]." Conc_r=".$this->outrank[$i][$k][$j]." Dis_r=".$this->outrank[$k][$i][$j]."<br>" ;
 
-			        		if ($this->outrank[$i][$k][$j] == 1.0)
-			        			echo "C_S in " . ($j+1) . "<br>";
-			        		else
-			        			if ($this->outrank[$i][$k][$j] >= 0.5) 
-			        				echo "C_W in " . ($j+1) . "<br>";
+							if ($this->outrank[$i][$k][$j] == 1.0)
+								echo "C_S in " . ($j+1) . "<br>";
+							else
+								if ($this->outrank[$i][$k][$j] >= 0.5) 
+									echo "C_W in " . ($j+1) . "<br>";
 
-			        		if ($this->outrank[$k][$i][$j] == 1.0)
-			        			echo "D_S in " . ($j+1) . "<br>";
-			        		else
-			        			if ($this->outrank[$k][$i][$j] >= 0.5) 
-			        				echo "D_W in " . ($j+1) . "<br>";
-			        	}
+							if ($this->outrank[$k][$i][$j] == 1.0)
+								echo "D_S in " . ($j+1) . "<br>";
+							else
+								if ($this->outrank[$k][$i][$j] >= 0.5) 
+									echo "D_W in " . ($j+1) . "<br>";
+						}
 
-			        	//concordance indices
-		        		if ($this->outrank[$i][$k][$j] == 1.0)
-		        			$this->strong[$i][$k][$j] = $j;
-		        		else
-		        		{
-		        			if ($this->outrank[$i][$k][$j] >= 0.5) 
-		        				$this->weak[$i][$k][$j] = $j;
-		        		}
+						//concordance indices
+						if ($this->outrank[$i][$k][$j] == 1.0)
+							$this->strong[$i][$k][$j] = $j;
+						else
+						{
+							if ($this->outrank[$i][$k][$j] >= 0.5) 
+								$this->weak[$i][$k][$j] = $j;
+						}
 
-		        		//discordance indices
-		        		if ($this->outrank[$k][$i][$j] == 1.0)
-		        			$this->strong[$k][$i][$j] = $j;
-		        		else
-		        		{
-		        			if ($this->outrank[$k][$i][$j] >= 0.5) 
-		        				$this->weak[$k][$i][$j] = $j;
-		        		}
- 		        	}	
+						//discordance indices
+						if ($this->outrank[$k][$i][$j] == 1.0)
+							$this->strong[$k][$i][$j] = $j;
+						else
+						{
+							if ($this->outrank[$k][$i][$j] >= 0.5) 
+								$this->weak[$k][$i][$j] = $j;
+						}
+					}	
 			
 
-   					$this->maxWD[$i] = max($this->W_distance[$i]);
-	   				if ($this->debug) echo "max  " . $this->maxWD[$i] . "<br>";
-   				}
+					$this->maxWD[$i] = max($this->W_distance[$i]);
+					if ($this->debug) echo "max  " . $this->maxWD[$i] . "<br>";
+				}
 			}
 		}
 
 		//if ($this->debug)
 		{
-   			echo('strong: <pre>');	print_r($this->strong);	echo('</pre><br>');
-   			echo('weak: <pre>');	print_r($this->weak);	echo('</pre><br>');
-   		}
+			echo('strong: <pre>');	print_r($this->strong);	echo('</pre><br>');
+			echo('weak: <pre>');	print_r($this->weak);	echo('</pre><br>');
+		}
 
 	}	
 
@@ -229,14 +229,14 @@ class ElectreHFLTS extends MCDM
 		}
 	}
 
-    private function ranking()
-    {
-    	if ($this->debug)
-    	{
-    		echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
-    	}
-    	return $this->ranking;
-    }
+	private function ranking()
+	{
+		if ($this->debug)
+		{
+			echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
+		}
+		return $this->ranking;
+	}
 
 	private function testing()
 	{
@@ -244,31 +244,31 @@ class ElectreHFLTS extends MCDM
 		* Example 1 and 4 in paper
 		*/
 		$envelopes = array(['inf'=>3, 'sup'=>3],['inf'=>2,'sup'=>3],['inf'=>3,'sup'=>5],['inf'=>4,'sup'=>5]);
-    	$n = sizeof($envelopes); //system_message("n " . $n);
-    	$hesitants = array();
-    	$lengths = array();
-    	$deltas = array();
+		$n = sizeof($envelopes); //system_message("n " . $n);
+		$hesitants = array();
+		$lengths = array();
+		$deltas = array();
 
-    	for ($i=0;$i<$n;$i++)
-    	{
-	        $hesitants[$i] = toHesitant($envelopes[$i],$lengths[$i],$deltas[$i]);
-	        if ($hesitants[$i] == -1)
-	            echo "stop here!<br>";
-	    }
+		for ($i=0;$i<$n;$i++)
+		{
+			$hesitants[$i] = toHesitant($envelopes[$i],$lengths[$i],$deltas[$i]);
+			if ($hesitants[$i] == -1)
+				echo "stop here!<br>";
+		}
 
-	    for ($i=0;$i<$n;$i++)
-	    for ($j=0;$j<$n;$j++)
-	    {
-	    	if ($i!=$j)
-	    	{
-	    		//distanceEnvelope($envelopes[$i],$envelopes[$j]);
+		for ($i=0;$i<$n;$i++)
+		for ($j=0;$j<$n;$j++)
+		{
+			if ($i!=$j)
+			{
+				//distanceEnvelope($envelopes[$i],$envelopes[$j]);
 
-	        	//r(H,H) = sum p() / #h * #h 
-	        	$R = $this->binaryRelation($hesitants[$i], $hesitants[$j],$lengths[$i],$lengths[$j]);
-	        	$R /= ($lengths[$i] * $lengths[$j]);
+				//r(H,H) = sum p() / #h * #h 
+				$R = $this->binaryRelation($hesitants[$i], $hesitants[$j],$lengths[$i],$lengths[$j]);
+				$R /= ($lengths[$i] * $lengths[$j]);
 
-	        	echo "r(".($i+1).",".($j+1).") = ".$R."<br>";	        	
-	        }
-	    }
-    }
+				echo "r(".($i+1).",".($j+1).") = ".$R."<br>";	        	
+			}
+		}
+	}
 }

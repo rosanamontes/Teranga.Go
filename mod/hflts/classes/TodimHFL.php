@@ -10,7 +10,7 @@
 *	Website: http://lsi.ugr.es/rosana
 *	
 *	File: A Hesitant Fuzzy Linguistic TODIM Method Based on a Score Function
-*   Couping Wei, Zhilian Ren, Rosa Mª Rodiguez. IJCIS'15
+*	Couping Wei, Zhilian Ren, Rosa Mª Rodiguez. IJCIS'15
 *
 * 	@package DecisionMaking
 *
@@ -52,10 +52,10 @@ class TodimHFL extends MCDM
 		$this->chi = 0.5; //extension factor
 
 		$this->W_r = array();
-    	$this->hesitants = array();
-    	$this->score = array();
-    	$this->dominance = array();		
-    	$this->overall = array();
+		$this->hesitants = array();
+		$this->score = array();
+		$this->dominance = array();		
+		$this->overall = array();
 	}
 
 
@@ -118,9 +118,9 @@ class TodimHFL extends MCDM
 		
 		if ($this->debug)
 		{
-   			echo('W_r: <pre>');	print_r($this->W_r);	echo('</pre><br>');
-	   		system_message("Total relative weight " . $this->T_Wr);
-   		}
+			echo('W_r: <pre>');	print_r($this->W_r);	echo('</pre><br>');
+			system_message("Total relative weight " . $this->T_Wr);
+		}
 	}
 
 
@@ -132,10 +132,10 @@ class TodimHFL extends MCDM
 	*/
 	private function scoreFunction($hesitant, $L, $D)
 	{
-    	if ($this->debug)
-    	{
-    		echo('<br>F <pre>');	print_r($hesitant);	echo('</pre>');
-    	}
+		if ($this->debug)
+		{
+			echo('<br>F <pre>');	print_r($hesitant);	echo('</pre>');
+		}
 
 		$sum=0;
 		for ($l=0; $l<$L;$l++)
@@ -157,7 +157,7 @@ class TodimHFL extends MCDM
 	*/
 	private function crossAlternativesWithCriteria()
 	{
-    	$length = $delta = 0;
+		$length = $delta = 0;
 
 		for ($i=0;$i<$this->N;$i++)//forall alternatives
 		{
@@ -166,12 +166,12 @@ class TodimHFL extends MCDM
 				$inf = "L".($j+1);
 				$sup = "U".($j+1);
 				$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-		        if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
-		        $this->hesitants[$i][$j] = toHesitant($envelope,$length,$delta);
-		        if ($this->hesitants[$i][$j] == -1)
-		        	register_error("wrong hesitant in score function");
+				if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
+				$this->hesitants[$i][$j] = toHesitant($envelope,$length,$delta);
+				if ($this->hesitants[$i][$j] == -1)
+					register_error("wrong hesitant in score function");
  
-		        $this->score[$i][$j] = $this->scoreFunction($this->hesitants[$i][$j], $length, $delta);
+				$this->score[$i][$j] = $this->scoreFunction($this->hesitants[$i][$j], $length, $delta);
 				if ($this->debug) echo $this->data[$i]["ref"] . " - C" . $j . " F=" . $this->score[$i][$j] ."<br>";
 			}	
 		}
@@ -220,7 +220,7 @@ class TodimHFL extends MCDM
 
 		$dd = sqrt( ($d * $this->W_r[$j])/ $this->T_Wr );
 
-    	return $dd;
+		return $dd;
 	}	
 
 	/**
@@ -236,7 +236,7 @@ class TodimHFL extends MCDM
 
 		$dd = $factor * sqrt( ($d *  $this->T_Wr) / $this->W_r[$j]);
 
-    	return $dd;
+		return $dd;
 
 	}	
 
@@ -266,8 +266,8 @@ class TodimHFL extends MCDM
 		}	
 	}
 
-    private function ranking()
-    {
+	private function ranking()
+	{
 		$min = min($this->overall);
 		$max = max($this->overall);
 		$den = $max - $min;
@@ -285,29 +285,29 @@ class TodimHFL extends MCDM
 		}
 
 		arsort($values);
-    	if ($this->debug) 
+		if ($this->debug) 
 		{
 			echo('<br><pre>');	print_r($values);	echo('</pre>');
 		}
 
-    	//$p=0;  while ($candidato = current($values))   	
+		//$p=0;  while ($candidato = current($values))   	
 
-    	for ($i=0;$i<$this->N;$i++)	
-    	{
-      		$index = key($values);
-      		$this->ranking[$i]['todim']['ref'] = $this->alternatives[$index] ;
-      		$this->ranking[$i]['todim']['value'] = current($values);
-      		$this->ranking[$i]['todim']['label'] = "--";
-      		//echo "<p>index ".$i." is ranked as ".$index." </p>";
-      		next($values);
+		for ($i=0;$i<$this->N;$i++)	
+		{
+			$index = key($values);
+			$this->ranking[$i]['todim']['ref'] = $this->alternatives[$index] ;
+			$this->ranking[$i]['todim']['value'] = current($values);
+			$this->ranking[$i]['todim']['label'] = "--";
+			//echo "<p>index ".$i." is ranked as ".$index." </p>";
+			next($values);
 		}  	
-		    	
-    	if ($this->debug)
-    	{
-    		echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
-    	}
-    	return $this->ranking;
-    }
+				
+		if ($this->debug)
+		{
+			echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
+		}
+		return $this->ranking;
+	}
 
 
 	private function testing()
@@ -317,29 +317,29 @@ class TodimHFL extends MCDM
 		*/
 		$envelopes = array(['inf'=>3, 'sup'=>3],['inf'=>3,'sup'=>4],['inf'=>1,'sup'=>6]);
 		//$envelopes = array(['inf'=>2, 'sup'=>4],['inf'=>0,'sup'=>1],['inf'=>0,'sup'=>2],['inf'=>2,'sup'=>5]);
-    	$n = sizeof($envelopes); //system_message("n " . $n);
-    	$hesitants = array();
-    	$lengths = array();
-    	$deltas = array();
+		$n = sizeof($envelopes); //system_message("n " . $n);
+		$hesitants = array();
+		$lengths = array();
+		$deltas = array();
 
-    	for ($i=0;$i<$n;$i++)
-    	{
-	        echo "[".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
-	        $hesitants[$i] = toHesitant($envelopes[$i],$lengths[$i],$deltas[$i]);
-	        if ($hesitants[$i] != -1)
-	            echo "score=".$this->scoreFunction($hesitants[$i],$lengths[$i],$deltas[$i])."<br>";
-	    }
+		for ($i=0;$i<$n;$i++)
+		{
+			echo "[".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
+			$hesitants[$i] = toHesitant($envelopes[$i],$lengths[$i],$deltas[$i]);
+			if ($hesitants[$i] != -1)
+				echo "score=".$this->scoreFunction($hesitants[$i],$lengths[$i],$deltas[$i])."<br>";
+		}
 
-        /*
-        * test intervalDominance. 
-        * Example 2 in the paper
-        */
-        $is1 = intervalDominance($envelopes[1]['inf'], $envelopes[1]['sup'], $envelopes[0]['inf'], $envelopes[0]['sup']);//must be 1 
-        $is1ov2 = intervalDominance($envelopes[1]['inf'], $envelopes[1]['sup'], $envelopes[2]['inf'], $envelopes[2]['sup']);//must be 0.5
-        $is3ov5 = intervalDominance($envelopes[2]['inf'], $envelopes[2]['sup'], $envelopes[0]['inf'], $envelopes[0]['sup']);//must be 0.6
-        if ($this->debug)
-        	echo "intervalDominance " . $is1 . " " . $is1ov2 . " " . $is3ov5 . "<br>";
-    }
+		/*
+		* test intervalDominance. 
+		* Example 2 in the paper
+		*/
+		$is1 = intervalDominance($envelopes[1]['inf'], $envelopes[1]['sup'], $envelopes[0]['inf'], $envelopes[0]['sup']);//must be 1 
+		$is1ov2 = intervalDominance($envelopes[1]['inf'], $envelopes[1]['sup'], $envelopes[2]['inf'], $envelopes[2]['sup']);//must be 0.5
+		$is3ov5 = intervalDominance($envelopes[2]['inf'], $envelopes[2]['sup'], $envelopes[0]['inf'], $envelopes[0]['sup']);//must be 0.6
+		if ($this->debug)
+			echo "intervalDominance " . $is1 . " " . $is1ov2 . " " . $is3ov5 . "<br>";
+	}
 
 
 }

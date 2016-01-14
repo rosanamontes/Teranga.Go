@@ -5,7 +5,7 @@
 *	Author: Rosana Montes Soldado
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
-*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+*	Reference:	CEI BioTIC Micro.proyect Ref. 11-2015
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
@@ -39,7 +39,7 @@ class ElectreHFLTS extends MCDM
 		$this->label="electre";
 
 		$this->alternatives = array($username);
-		$this->W = array(1.0, 1.0, 1.0); //same important
+		$this->W = array(1.0, 1.0, 1.0); //same importance by default
 
 		//init local variables
 		$this->hesitants = array();
@@ -121,7 +121,7 @@ class ElectreHFLTS extends MCDM
 		{
 			for ($k=$i;$k<$this->N;$k++)//with half alternatives
 			{
-				if ($i!=$k)
+				if ($i!=$k)//not me
 				{
 					for ($j=0;$j<$this->M;$j++)//forall criteria
 					{
@@ -192,7 +192,7 @@ class ElectreHFLTS extends MCDM
 			for ($k=$i;$k<$this->N;$k++)//with half alternatives
 			{
 				$acum1 = $acum2 = $s1 = $s2 =0;
-				if ($i!=$k)
+				if ($i!=$k)//not me
 				{
 					//concordance matrix
 					for($x=0;$x<count($this->strong[$i][$k]);$x++)

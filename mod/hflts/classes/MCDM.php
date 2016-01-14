@@ -7,11 +7,11 @@
 *	Author: Rosana Montes Soldado
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
-*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+*	Reference:	CEI BioTIC Micro.proyect Ref. 11-2015
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
-*	File: Tipo de problema MCDM
+*	File: General MultiCriteria-DecisionMaking problem
 *
 * 	@package DecisionMaking
 *
@@ -93,10 +93,10 @@ abstract class MCDM
 			$this->W[$m] = $temp[$m] * $delta;
 		}
 
-    	if ($this->debug) 
-    	{
-    		echo($this->num . 'data: <pre>');	print_r($this->W);	echo('</pre><br>');
-    	}		
+		if ($this->debug) 
+		{
+			echo($this->num . 'data: <pre>');	print_r($this->W);	echo('</pre><br>');
+		}		
 	}
 
 	/**
@@ -204,9 +204,9 @@ abstract class MCDM
 	/**
 	* Read data from csv file
 	*/
-    function parse_csv($name) 
-    { 	
-    	$filename = elgg_get_plugins_path() . "hflts/classes/" . $name;
+	function parse_csv($name) 
+	{ 	
+		$filename = elgg_get_plugins_path() . "hflts/classes/" . $name;
 
 		$importer = new CsvImporter($filename,true,","); 
 		$this->data = $importer->get(); 
@@ -218,11 +218,11 @@ abstract class MCDM
 		else
 			$this->num = $num;
 		
-    	if ($this->debug) 
-    	{
-    		echo($this->num . 'data: <pre>');	print_r($this->data);	echo('</pre><br>');
-    	}
-    }
+		if ($this->debug) 
+		{
+			echo($this->num . 'data: <pre>');	print_r($this->data);	echo('</pre><br>');
+		}
+	}
 
 	public function realEstateCase()
 	{
@@ -230,7 +230,7 @@ abstract class MCDM
 		$this->M=9; //num of criteria
 		$this->P=5; //num of experts
 		
-	    $this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
+		$this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
 		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
 		
 		$this->parse_csv("ejemplo_casas.csv");		
@@ -250,27 +250,27 @@ abstract class MCDM
 		if ($this->debug) system_message("todimCase");
 	}	
 
-    public function vikorCase()
-    {
-        $this->N=3; //num of alternatives
-        $this->M=3; //num of criteria
-        $this->P=1; //num of experts
-        $this->alternatives = array('p1','p2','p3');
-        $this->W = array(0.3, 0.5, 0.2);
+	public function vikorCase()
+	{
+		$this->N=3; //num of alternatives
+		$this->M=3; //num of criteria
+		$this->P=1; //num of experts
+		$this->alternatives = array('p1','p2','p3');
+		$this->W = array(0.3, 0.5, 0.2);
 
-        $this->parse_csv("ejemplo_vikor.csv");  
-        if ($this->debug) system_message("vikorCase");
-    }
-    
-    public function electreCase()
-    {
-        $this->N=3; //num of alternatives
-        $this->M=4; //num of criteria
-        $this->P=1; //num of experts
-        $this->alternatives = array('p1','p2','p3');
-        $this->W = array(0.3, 0.2, 0.4, 0.1);
+		$this->parse_csv("ejemplo_vikor.csv");  
+		if ($this->debug) system_message("vikorCase");
+	}
+	
+	public function electreCase()
+	{
+		$this->N=3; //num of alternatives
+		$this->M=4; //num of criteria
+		$this->P=1; //num of experts
+		$this->alternatives = array('p1','p2','p3');
+		$this->W = array(0.3, 0.2, 0.4, 0.1);
 
-        $this->parse_csv("ejemplo_electre.csv");  
-        if ($this->debug) system_message("electreCase");
-    }    
+		$this->parse_csv("ejemplo_electre.csv");  
+		if ($this->debug) system_message("electreCase");
+	}    
 }

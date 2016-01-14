@@ -5,7 +5,7 @@
 *	Author: Rosana Montes Soldado
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
-*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+*	Reference:	CEI BioTIC Micro.proyect Ref. 11-2015
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
@@ -30,7 +30,7 @@ class PrometheeHF extends MCDM
 		$this->label="promethee";
 
 		$this->alternatives = array($username);
-		$this->W = array(1.0, 1.0, 1.0); //same important
+		$this->W = array(1.0, 1.0, 1.0); //same importance by default
 	}
 
 	public function run()

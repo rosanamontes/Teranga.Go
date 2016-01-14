@@ -5,7 +5,7 @@
 *	Author: Rosana Montes Soldado
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
-*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+*	Reference:	CEI BioTIC Micro.proyect Ref. 11-2015
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	

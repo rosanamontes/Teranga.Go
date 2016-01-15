@@ -18,7 +18,6 @@
 
 class AggregationHFLTS extends MCDM
 {
-
 	var $label;//shortname
 	var $CSi; //array with lower interval values (for all criteria)
 	var $CSj; //array with upper interval values (for all criteria)
@@ -41,8 +40,8 @@ class AggregationHFLTS extends MCDM
 	
 	public function run()
 	{
-		//parent::vikorCase();
 		parent::run();
+		//parent::electreCase();
 		$this->debug = false;//no matter the settings
 
 		$this->translation();

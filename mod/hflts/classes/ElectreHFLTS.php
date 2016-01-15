@@ -28,6 +28,7 @@ class ElectreHFLTS extends MCDM
 	var $outrank;  //outrank degree between two hesitants. Seams always <=1 
 	var $strong, $weak; //strong and weak criteria indexes
 	var $C, $D; //concordance and discordance matrices	
+	var $dom, $dis; //dominance and disadvantage alternative indexes
 
 	var $ranking; //alternatives ranked array
 
@@ -50,24 +51,28 @@ class ElectreHFLTS extends MCDM
 		$this->weak = array();				
 		$this->C = array();				
 		$this->D = array();				
+		$this->dom = array();				
+		$this->dis = array();				
 	}
 
 	
 	public function run()
 	{
 		parent::run();
-		parent::electreCase();//realEstateCase();
+		//parent::vikorCase();//electreCase();//realEstateCase//todimCase
 
 		//step 1: transform teh linguistic expressions into HFLTS. 
 		//Since all criteria are of the maximizing type no normalization is needed
+
 		//step 2: identify the concordance an discordance indices
 		$this->crossAlternativesWithCriteria();
 		
 		//step 3: construct the concordance and discordance matrices
-		$this->computeMatrices();
+		$this->concordanceBalance();
 
 		//step 4: get the net dominance and disadvantage indices (c_i and d_i)
-		//$this->testing();
+		$this->dominanceBalance();
+
 		//step 5: rank the alternatives in acoordance with c_i and d_i
 		$this->ranking();	
 
@@ -116,7 +121,7 @@ class ElectreHFLTS extends MCDM
 			}	
 		}
 		
-		
+		$cc = 0; //case count
 		for ($i=0;$i<$this->N;$i++)//forall alternatives
 		{
 			for ($k=$i;$k<$this->N;$k++)//with half alternatives
@@ -125,7 +130,7 @@ class ElectreHFLTS extends MCDM
 				{
 					for ($j=0;$j<$this->M;$j++)//forall criteria
 					{
-						$this->W_distance[$i][$j] = distanceEnvelope($envelope[$i][$j],$envelope[$k][$j]) * $this->W[$j];
+						$this->W_distance[$i][$k][$j] = distanceEnvelope($envelope[$i][$j],$envelope[$k][$j]) * $this->W[$j];
 
 						$len = $length[$i][$j] * $length[$k][$j];
 						$this->outrank[$i][$k][$j] = $this->binaryRelation($this->hesitants[$i][$j], $this->hesitants[$k][$j], 
@@ -136,7 +141,7 @@ class ElectreHFLTS extends MCDM
 						if ($this->debug) 
 						{
 							echo "C".($j+1)." (".($i+1).",".($k+1).") ";
-							echo "W_d=" .$this->W_distance[$i][$j]." Conc_r=".$this->outrank[$i][$k][$j]." Dis_r=".$this->outrank[$k][$i][$j]."<br>" ;
+							echo "W_d=" .$this->W_distance[$i][$k][$j]." Conc_r=".$this->outrank[$i][$k][$j]." Dis_r=".$this->outrank[$k][$i][$j]."<br>" ;
 
 							if ($this->outrank[$i][$k][$j] == 1.0)
 								echo "C_S in " . ($j+1) . "<br>";
@@ -153,84 +158,210 @@ class ElectreHFLTS extends MCDM
 
 						//concordance indices
 						if ($this->outrank[$i][$k][$j] == 1.0)
+						{
 							$this->strong[$i][$k][$j] = $j;
+							$this->weak[$i][$k][$j] = -1;
+						}
 						else
 						{
+							$this->strong[$i][$k][$j] = -1;
 							if ($this->outrank[$i][$k][$j] >= 0.5) 
 								$this->weak[$i][$k][$j] = $j;
+							else
+								$this->weak[$i][$k][$j] = -1;
 						}
 
 						//discordance indices
 						if ($this->outrank[$k][$i][$j] == 1.0)
+						{
 							$this->strong[$k][$i][$j] = $j;
+							$this->weak[$k][$i][$j] = -1;
+						}
 						else
 						{
+							$this->strong[$k][$i][$j] = -1;
 							if ($this->outrank[$k][$i][$j] >= 0.5) 
 								$this->weak[$k][$i][$j] = $j;
+							else
+								$this->weak[$k][$i][$j] = -1;
 						}
 					}	
 			
 
-					$this->maxWD[$i] = max($this->W_distance[$i]);
-					if ($this->debug) echo "max  " . $this->maxWD[$i] . "<br>";
+					$this->maxWD[$cc] = max($this->W_distance[$i][$k]);
+					if ($this->debug) 
+						echo $cc. "# max  " . $this->maxWD[$cc] . "<br>";
+					$cc++;//case count
 				}
 			}
 		}
 
-		//if ($this->debug)
+		if ($this->debug)
 		{
-			echo('strong: <pre>');	print_r($this->strong);	echo('</pre><br>');
-			echo('weak: <pre>');	print_r($this->weak);	echo('</pre><br>');
+			echo('strong indices: <pre>');	print_r($this->strong);	echo('</pre><br>');
+			echo('weak indices: <pre>');	print_r($this->weak);	echo('</pre><br>');
 		}
 
 	}	
 
-	private function computeMatrices()
+	private function concordanceBalance()
 	{
+		//concordance matrix
 		for ($i=0;$i<$this->N;$i++)//for all alternatives
 		{
 			for ($k=$i;$k<$this->N;$k++)//with half alternatives
 			{
-				$acum1 = $acum2 = $s1 = $s2 =0;
+				$acum1 = $acum2 = $s1 = $s2 =0; 
 				if ($i!=$k)//not me
 				{
-					//concordance matrix
-					for($x=0;$x<count($this->strong[$i][$k]);$x++)
+					for ($j=0;$j<$this->M;$j++)//forall criteria
 					{
-						$acum1 += $this->W[$this->strong[$i][$k][$x]];
-						//echo " C_S " . ($this->C_strong[$i][$k]+1) . " sum " . $acum1 ;
-					} 					
-					for($x=0;$x<count($this->weak[$i][$k]);$x++)
-					{
-						$s1 += $this->W[$this->weak[$i][$k][$x]] * $this->outrank[$i][$k][$this->weak[$i][$k][$x]];//upper half
-						//echo " C_W ". ($this->C_weak[$i][$k]+1). " s1 " . $s1  ;
-					} 
+						if ($this->strong[$i][$k][$j] != -1)
+							$acum1 += $this->W[$this->strong[$i][$k][$j]];
+						//echo " C_S " . ($this->strong[$i][$k][$j]+1) . " sum " . $acum1 ;
+
+						if ($this->weak[$i][$k][$j] != -1)
+							$s1 += $this->W[$this->weak[$i][$k][$j]] * $this->outrank[$i][$k][$this->weak[$i][$k][$j]];//upper half
+						//echo " C_W ". ($this->weak[$i][$k][$j]+1). " s1 " . $s1  ;
+					}
 						
-					$this->C[$i][$k] = $acum1 + $s1;//upper half
-					echo " (".($i+1).",".($k+1).") -> C=" . $this->C[$i][$k] . "<br>";
-
-
-					//disconcordance matrix
-					for($x=0;$x<count($this->strong[$k][$i]);$x++)
+					$this->C[$i][$k] = $acum1 + $s1;
+					//echo " (".($i+1).",".($k+1).") -> C=" . $this->C[$i][$k] . "<br>";
+					for ($j=0;$j<$this->M;$j++)//forall criteria
 					{
-						$acum2 += $this->W[$this->strong[$k][$i][$x]];
-						echo " D_S " . ($this->strong[$k][$i][$x]+1) . " sum " . $acum2 ;
-					} 					
-					for($x=0;$x<count($this->weak[$k][$i]);$x++)
+						if ($this->strong[$k][$i][$j] != -1)
+							$acum2 += $this->W[$this->strong[$k][$i][$j]];
+						//echo " D_S " . ($this->strong[$k][$i][$j]+1) . " sum " . $acum2 ;
+		
+						if ($this->weak[$k][$i][$j] != -1)
+							$s2 += $this->W[$this->weak[$k][$i][$j]] * $this->outrank[$k][$i][$this->weak[$k][$i][$j]];//lower half
+						//echo " D_W ". ($this->weak[$k][$i][$j]+1). " s2 " . $s2 ;
+					}
+
+					$this->C[$k][$i] = $acum2 + $s2;
+					//echo " (".($k+1).",".($i+1).") -> C=" . $this->C[$k][$i] . "<br>";
+				}
+			}			
+		}
+
+		if ($this->debug)
+		{
+			echo('C matrix: <pre>');	print_r($this->C);	echo('</pre><br>');
+			echo('Dwj: <pre>');	print_r($this->W_distance);	echo('</pre><br>');
+		}
+
+		//disconcordance matrix		
+		$cc = 0; //case count
+		for ($i=0;$i<$this->N;$i++)//for all alternatives
+		{
+			for ($k=$i;$k<$this->N;$k++)//with half alternatives
+			{
+				if ($i!=$k)//not me
+				{
+					$upper = array();
+					$lower = array();
+
+					for ($j=0;$j<$this->M;$j++)//forall criteria in upper half matrix
 					{
-						$s2 += $this->W[$this->weak[$k][$i][$x]] * $this->outrank[$k][$i][$this->weak[$k][$i][$x]];//lower half
-						echo " D_W ". ($this->weak[$k][$i][$x]+1). " s2 " . $s2 ;
-					} 
-					$this->C[$k][$i] = $acum2 + $s2;//lower half
-					echo " (".($k+1).",".($i+1).") -> C=" . $this->C[$k][$i] . "<br>";
+						if ($this->strong[$i][$k][$j] != -1)
+						{
+							$upper[$j] = $this->W_distance[$i][$k][$this->strong[$i][$k][$j]];
+							//echo $this->strong[$i][$k][$j]. " Cs =" .$this->W_distance[$i][$k][$this->strong[$i][$k][$j]] . "<br>";
+						}
+
+						if ($this->weak[$i][$k][$j] != -1)
+						{
+							$upper[$j] = $this->W_distance[$i][$k][$this->weak[$i][$k][$j]];
+							//echo $this->weak[$i][$k][$j] . " Cw =" .$this->W_distance[$i][$k][$this->weak[$i][$k][$j]] . "<br>";
+						}
+					}
+
+					$this->D[$k][$i] = max($upper) / $this->maxWD[$cc];//same walkthrought same case index
+					//echo " (".($k+1).",".($i+1).") -> D=" . $this->D[$k][$i] . "<br>";
+
+					for ($j=0;$j<$this->M;$j++)//forall criteria in lower half matrix
+					{
+
+						if ($this->strong[$k][$i][$j] != -1)
+						{
+							$lower[$j] = $this->W_distance[$i][$k][$this->strong[$k][$i][$j]];//simetric
+							//echo $this->strong[$k][$i][$j] . " DS =" .$this->W_distance[$i][$k][$this->strong[$k][$i][$j]] . "<br>";
+						}
+		
+						if ($this->weak[$k][$i][$j] != -1)
+						{
+							$lower[$j] = $this->W_distance[$i][$k][$this->weak[$k][$i][$j]];
+							//echo $this->weak[$k][$i][$j] . " DW =" .$this->W_distance[$i][$k][$this->weak[$k][$i][$j]] . "<br>";
+						}
+					}
+					
+					$this->D[$i][$k] = max($lower) / $this->maxWD[$cc];//same walkthrought same case index
+					//echo " (".($i+1).",".($k+1).") -> D=" . $this->D[$i][$k] . "<br>";
+
+					$cc++; //case count increment
 				}
 			}
-			
 		}
+
+		if ($this->debug)
+		{
+			echo('D matrix: <pre>');	print_r($this->D);	echo('</pre><br>');
+		}
+
+	}
+
+	private function dominanceBalance()
+	{
+		for ($i=0;$i<$this->N;$i++)//for all alternatives
+		{
+			$this->dom[$i] = 0;
+			$this->dis[$i] = 0;
+			for ($k=0;$k<$this->N;$k++)//with all alternatives
+			{
+				if ($i!=$k)//but me
+				{
+					$this->dom[$i] += $this->C[$i][$k] - $this->C[$k][$i];//dominance 
+					$this->dis[$i] += $this->D[$i][$k] - $this->D[$k][$i];//disadvantage
+				}
+			}	
+			if ($this->debug)echo $i . "# c_k=" . $this->dom[$i] . " d_k=" . $this->dis[$i]. "<br>";	
+		}	
 	}
 
 	private function ranking()
 	{
+		//the best is the maximun dominance and minimun disadvantage
+		arsort($this->dom);
+		asort($this->dis);
+
+		if ($this->debug) 
+		{
+			echo('<br>Max de <pre>');	print_r($this->dom);	echo('</pre>');
+			echo('<br>Mim de <pre>');	print_r($this->dis);	echo('</pre>');
+		}
+
+		for ($i=0;$i<$this->N;$i++)	
+		{
+			$x = key($this->dom);
+			$y = key($this->dis);
+
+			if ($this->debug) 
+			if ($x == $y)
+				echo "fine! ... "; //go on your way
+			else
+				echo "oh boy ... "; //nothing to do in this case
+
+			$this->ranking[$i]['electre']['ref'] = $this->alternatives[$x] ;
+			$this->ranking[$i]['electre']['value'] = current($this->dom);
+			$this->ranking[$i]['electre']['label'] = "--";
+			
+			if ($this->debug)
+				echo "<p>index ".$i." is ranked as ".$x." in positive and as " . $y . " in negative (should be the same) </p>";
+			
+			next($this->dom);
+			next($this->dis);
+		}  	
+
 		if ($this->debug)
 		{
 			echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
@@ -262,7 +393,6 @@ class ElectreHFLTS extends MCDM
 			if ($i!=$j)
 			{
 				//distanceEnvelope($envelopes[$i],$envelopes[$j]);
-
 				//r(H,H) = sum p() / #h * #h 
 				$R = $this->binaryRelation($hesitants[$i], $hesitants[$j],$lengths[$i],$lengths[$j]);
 				$R /= ($lengths[$i] * $lengths[$j]);

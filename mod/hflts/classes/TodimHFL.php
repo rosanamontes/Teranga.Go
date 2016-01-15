@@ -45,7 +45,7 @@ class TodimHFL extends MCDM
 		$this->label="todim";
 
 		$this->alternatives = array($username);
-		$this->W = array(1.0, 1.0, 1.0); //supose the same importance. Allow the user to change
+		$this->W = array(1.0, 1.0, 1.0); //supose here the same importance. Allow the user to change it
 
 		$this->lambda = 1.5;
 		$this->theta = 1.0; //losses factor in case of >0
@@ -62,6 +62,7 @@ class TodimHFL extends MCDM
 	public function run()
 	{
 		parent::run();
+		parent::electreCase();
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
 		$this->variance = $this->variance();

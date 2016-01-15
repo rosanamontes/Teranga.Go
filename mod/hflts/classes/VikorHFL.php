@@ -69,7 +69,7 @@ class VikorHFL extends MCDM
 		
 		//Step 3: transform assessments into the HFLTS
 		parent::run();
-		//self::vikorCase();//todimCase();//realEstateCase();
+		parent::electreCase();//vikorCase();//todimCase();//realEstateCase();
 
 		//Step 4: find out the positive ideal and the negative ideal solution
 		self::crossAlternativesWithCriteria();

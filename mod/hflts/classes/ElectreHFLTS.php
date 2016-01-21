@@ -35,12 +35,12 @@ class ElectreHFLTS extends MCDM
 	public function	ElectreHFLTS($username)
 	{
 		$this->N=1;
-		$this->M=3;
+		$this->M=4;
 		$this->P=$this->num=0;
 		$this->label="electre";
 
 		$this->alternatives = array($username);
-		$this->W = array(1.0, 1.0, 1.0); //same importance by default
+		$this->W = array(1.0, 1.0, 1.0,1.0); //same importance by default
 
 		//init local variables
 		$this->hesitants = array();

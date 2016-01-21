@@ -29,12 +29,12 @@ class AggregationHFLTS extends MCDM
 	public function	AggregationHFLTS($username)
 	{
 		$this->N=1;
-		$this->M=3;
+		$this->M=4;
 		$this->P=$this->num=0;
 		$this->label="classic";
 
 		$this->alternatives = array($username);
-		$this->W = array(1.0, 1.0, 1.0); //same importance by default
+		$this->W = array(1.0, 1.0, 1.0,1.0); //same importance by default
 	}
 
 	

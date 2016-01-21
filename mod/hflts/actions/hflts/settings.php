@@ -37,6 +37,10 @@ if ($list)
 
 
 $simple_settings = [
+	'weight_assessments',
+	'weight_experts',
+	'base_expertise',
+	'allowMany',
 	'debug',
 	'profile_display',
 	'termset',

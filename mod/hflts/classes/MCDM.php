@@ -95,7 +95,7 @@ abstract class MCDM
 
 		if ($this->debug) 
 		{
-			echo($this->num . 'data: <pre>');	print_r($this->W);	echo('</pre><br>');
+			echo("#". $this->num . ' data: <pre>');	print_r($this->data);	echo('</pre><br>');
 		}		
 	}
 

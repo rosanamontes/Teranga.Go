@@ -5,7 +5,7 @@
 *	Author: Rosana Montes Soldado
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
-*	Reference:	CEI BioTIC Micro.proyect Ref. 11-2015
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
@@ -27,12 +27,12 @@ class TopsisHFLTS extends MCDM
 	public function	TopsisHFLTS($username)
 	{
 		$this->N=1;
-		$this->M=3;
+		$this->M=4;
 		$this->P=$this->num=0;
 		$this->label="topsis";
 
 		$this->alternatives = array($username);
-		$this->W = array(1.0, 1.0, 1.0); //same importance by default
+		$this->W = array(1.0, 1.0, 1.0,1.0); //same importance by default
 	}
 	
 	public function run()
@@ -48,14 +48,14 @@ class TopsisHFLTS extends MCDM
 
 
 
-	private function ranking()
-	{
-		if ($this->debug)
-		{
-			echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
-		}
-		return $this->ranking;
-	}
+    private function ranking()
+    {
+    	if ($this->debug)
+    	{
+    		echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
+    	}
+    	return $this->ranking;
+    }
 
 
 

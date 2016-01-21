@@ -78,6 +78,32 @@ $data = array(
 		'readonly' => false,
 	),
 
+	'allowMany' => array(
+		'type' => 'dropdown',
+		'value' => $plugin->allowMany,
+                'options_values' => array('1' => elgg_echo('hflts:settings:yes'), '0' => elgg_echo('hflts:settings:no')),
+		'readonly' => false,
+	),
+
+	'weight_assessments' => array(
+		'type' => 'dropdown',
+		'value' => $plugin->weight_assessments,
+                'options_values' => array('1' => elgg_echo('hflts:settings:yes'), '0' => elgg_echo('hflts:settings:no')),
+		'readonly' => false,
+	),
+
+	'weight_experts' => array(
+		'type' => 'dropdown',
+		'value' => $plugin->weight_experts,
+                'options_values' => array('1' => elgg_echo('hflts:settings:yes'), '0' => elgg_echo('hflts:settings:no')),
+		'readonly' => false,
+	),
+
+	'base_expertise' => array(
+		'type' => 'range',
+		'value' => $plugin->base_expertise,
+		'readonly' => false,
+	),
 );
 
 /*$form .= "<br><br><b>" . elgg_echo('elggx_userpoints:settings:profile_display') . "</b>";
@@ -92,3 +118,4 @@ $form .= elgg_view('input/dropdown', array(
 $form_vars = array('id' => 'hflts-settings-form', 'class' => 'elgg-form-settings');
 $body_vars = array('data' => $data);
 echo elgg_view_form('hflts/settings', $form_vars, $body_vars);
+

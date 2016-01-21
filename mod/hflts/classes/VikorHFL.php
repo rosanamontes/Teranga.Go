@@ -39,12 +39,12 @@ class VikorHFL extends MCDM
 	public function	VikorHFL($username)
 	{
 		$this->N=1;
-		$this->M=3;
+		$this->M=4;
 		$this->P=$this->num=0;
 		$this->label="vikor";
 
 		$this->alternatives = array($username);
-		$this->W = array(1.0, 1.0, 1.0); //same importance by default
+		$this->W = array(1.0, 1.0, 1.0,1.0); //same importance by default
 
 		$this->lambda = 2; 	//hamming distance 
 		$this->xhi = 0.5; 	//risk attitudes

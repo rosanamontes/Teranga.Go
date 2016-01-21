@@ -22,9 +22,11 @@ return array(
 	'hflts:users' => 'users\' valorations.',
 	'hflts:karma:s0' => 'unknown',
 	'hflts:karma:s1' => 'novel',
-	'hflts:karma:s2' => 'satisfying',
-	'hflts:karma:s3' => 'trusted',
-	'hflts:karma:s4' => 'excelent',
+	'hflts:karma:s2' => 'mejorable',
+	'hflts:karma:s3' => 'satisfying',
+	'hflts:karma:s4' => 'trusted',
+	'hflts:karma:s5' => 'very good',
+	'hflts:karma:s6' => 'excelent',
 
 
 	/**
@@ -41,7 +43,15 @@ return array(
 	'hflts:help:debug' => 'Display the values of the interval model variables related to the code.',	
 	'hflts:settings:yes' => 'Yes',
 	'hflts:settings:no' => 'No',
-
+	'hflts:label:allowMany' => 'Many assessments',
+	'hflts:help:allowMany' => 'Allow many assessments from one user to other in the context of a trip',
+	'hflts:label:weight_assessments' => 'Double assessment',
+	'hflts:help:weight_assessments' => 'Enable to use importance per criteria and per evaluation (more subjetive information)',
+	'hflts:label:weight_experts' => 'Consider Expersise',
+	'hflts:help:weight_experts' => 'Allow many assessments from one user to other in the context of a trip',
+	'hflts:label:base_expertise' => 'Base expertise',
+	'hflts:help:base_expertise' => 'In case of considering expersise, this is a value in [0,1] that determines how to include the expersise characterization. 0=all from the platform 1=ignore the platform information (i.e. all user are equal).',
+	
 	'hflts:label:termset' => 'Linguistic terms',
 	'hflts:help:termset' => 'Linguistic Term set to be used in the decision-making linguistics.',
 	'hflts:settings:s3' => '3 terms',

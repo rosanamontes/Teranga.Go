@@ -22,9 +22,12 @@ return array(
 	'hflts:users' => 'valoraciones de usuarios.',
 	'hflts:karma:s0' => 'desconocido',
 	'hflts:karma:s1' => 'novel',
-	'hflts:karma:s2' => 'satisfactorio',
-	'hflts:karma:s3' => 'confiable',
-	'hflts:karma:s4' => 'excelente',
+	'hflts:karma:s2' => 'mejorable',
+	'hflts:karma:s3' => 'satisfactorio',
+	'hflts:karma:s4' => 'confiable',
+	'hflts:karma:s5' => 'muy bueno',
+	'hflts:karma:s6' => 'excelente',
+
 
 	/**
 	*  Plugin settings for admins
@@ -40,6 +43,14 @@ return array(
 	'hflts:help:debug' => 'Permite conocer el valor de las variables internas del modelo tal y como éste se ha programado.',	
 	'hflts:settings:yes' => 'Si',
 	'hflts:settings:no' => 'No',
+	'hflts:label:allowMany' => 'Repetir valoraciones',
+	'hflts:help:allowMany' => 'Permite almacenar varias valoraciones para un mismo usuario y viaje.',	
+	'hflts:label:weight_assessments' => 'Doble valoración',
+	'hflts:help:weight_assessments' => 'Permite expresar la importancia de cada criterio en cada valoración (doble información subjetiva)',
+	'hflts:label:weight_experts' => 'Considerar experiencia',
+	'hflts:help:weight_experts' => 'Permite añadir el grado de experiencia en la valoración del usuario',
+	'hflts:label:base_expertise' => 'Experiencia base',
+	'hflts:help:base_expertise' => 'En caso de considerar la experincia, este valor [0,1] la caracteriza su inclusión siendo 0=todo desde la plataforma 1=nada desde la plataforma (en este caso todos los usarios serian iguales).',
 
 	'hflts:label:termset' => 'Escala lingüistica',
 	'hflts:help:termset' => 'Conjunto de etiquetas a utilizar en la evaluación y en el resultado del proceso de toma de decisión lingüistica.',
@@ -49,9 +60,9 @@ return array(
 
 	'hflts:settings:explanation' => 'Seleccione los métodos que desee ejecutar como modelos de toma de decisión lingüistica.',
 	'hflts:label:classic' => 'Agregación HFLTS',
-	'hflts:help:classic' => 'Rodriguez et al. IEEETFS\'12 - Hesitant fuzzy Linguistic Term Sets',
+	'hflts:help:classic' => 'R.M. Rodríguez et al. IEEE-TFS\'12 - Hesitant Fuzzy Linguistic Term Sets',
 	'hflts:label:todim' => 'HFL Todim',
-	'hflts:help:todim' => 'Couping Wei, Rosa. IJCIS\'15',
+	'hflts:help:todim' => 'Couping Wei, Rosa M. Rodríguez IJCIS\'15',
 	'hflts:label:electre' => 'HFLTS-Electre I',
 	'hflts:help:electre' => 'Jian-quang Wang IS\'14',
 	'hflts:label:topsis' => 'Topsis para HFLTS',

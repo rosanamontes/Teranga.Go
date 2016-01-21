@@ -9,11 +9,13 @@
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
-*	File: private zone to get all info about the valorations of a user (mainly for drivers)
+*	File: private zone to get all info about the valorations of a user (a driver in Teranga)
+*		It runs the methods to be compared
 */
 
 
 $valorationlist = $vars['valorations'];//system_message(" Size\n " . sizeof($valorationlist));
+//	echo('driver: <pre>');	print_r($valorationlist);	echo('</pre><br>');		
 	
 if (sizeof($valorationlist) > 0) 
 {
@@ -41,16 +43,83 @@ if (sizeof($valorationlist) > 0)
 				]),
 		));
 
-		$hesitant = "#".$count." => G=" .  $evaluation->granularity;
-		$hesitant .= " H={".$evaluation->criterion1 .",".$evaluation->criterion2.",".$evaluation->criterion3."}";
-		$hesitant .= " W={".$evaluation->weight1.",". $evaluation->weight2.",".$evaluation->weight3."}";
 		$data[$count] = array(
 			'ref' => $evaluation->user_guid, 'co_codigo'=>$evaluation->owner_guid, 
-			'U1' => $evaluation->criterion1, 'L1' => $evaluation->criterion1, 
-			'U2' => $evaluation->criterion2, 'L2' => $evaluation->criterion2,
-			'U3' => $evaluation->criterion3, 'L3' => $evaluation->criterion3
-		);
-		$weight[$count] = array( $evaluation->weight1, $evaluation->weight2, $evaluation->weight3 );
+		);//more to come
+		$weight[$count] = array( $evaluation->weight1, $evaluation->weight2, $evaluation->weight3, $evaluation->weight4 );
+
+		$hesitant = "#".$count." => G=" .  $evaluation->granularity . " ";
+		if (!is_array($evaluation->criterion1))
+		{
+			$hesitant .= "Ev_1=".$evaluation->criterion1 . " - "; 
+			$data[$count]['U1']=$evaluation->criterion1; $data[$count]['L1']=$evaluation->criterion1;
+		}
+		else
+		{
+			$n = count($evaluation->criterion1) - 1;
+			$hesitant .= "H_1={";
+			for ($x=0;$x<$n;$x++)
+				$hesitant .= $evaluation->criterion1[$x] . ",";
+			$hesitant .= $evaluation->criterion1[$x] . "} - "; 
+			$data[$count]['U1']=$evaluation->criterion1[$n]; $data[$count]['L1']=$evaluation->criterion1[0];
+		}
+
+		if (!is_array($evaluation->criterion2))
+		{
+			$hesitant .= "Ev_2=".$evaluation->criterion2 . " - "; 
+			$data[$count]['U2']=$evaluation->criterion2; $data[$count]['L2']=$evaluation->criterion2;
+		}
+		else
+		{
+			$n = count($evaluation->criterion2) - 1;
+			$hesitant .= "H_2={";
+			for ($x=0;$x<$n;$x++)
+				$hesitant .= $evaluation->criterion2[$x] . ",";
+			$hesitant .= $evaluation->criterion2[$x] . "} - "; 
+			$data[$count]['U2']=$evaluation->criterion2[$n]; $data[$count]['L2']=$evaluation->criterion2[0];
+		}
+
+		if (!is_array($evaluation->criterion3))
+		{
+			$hesitant .= "Ev_3=".$evaluation->criterion3 . " - ";
+			$data[$count]['U3']=$evaluation->criterion3; $data[$count]['L3']=$evaluation->criterion3;			
+		}
+		else
+		{
+			$n = count($evaluation->criterion3) - 1;
+			$hesitant .= "H_3={";
+			for ($x=0;$x<$n;$x++)
+				$hesitant .= $evaluation->criterion3[$x] . ",";
+			$hesitant .= $evaluation->criterion3[$x] . "} - ";
+			$data[$count]['U3']=$evaluation->criterion3[$n]; $data[$count]['L3']=$evaluation->criterion3[0];
+		}
+
+		if (!is_array($evaluation->criterion4))
+		{
+			$hesitant .= "Ev_4=".$evaluation->criterion4 ; 
+			$data[$count]['U4']=$evaluation->criterion4; $data[$count]['L4']=$evaluation->criterion4;			
+		}
+		else
+		{
+			$n = count($evaluation->criterion4) - 1;
+			$hesitant .= "H_4={";
+			for ($x=0;$x<$n;$x++)
+				$hesitant .= $evaluation->criterion4[$x] . ",";
+			$hesitant .= $evaluation->criterion4[$x] . "}"; 
+			$data[$count]['U4']=$evaluation->criterion4[$n]; $data[$count]['L4']=$evaluation->criterion4[0];			
+		}
+
+		$hesitant .= " W={". $evaluation->weight1 . ", ". $evaluation->weight2. ", ". $evaluation->weight3. ", ". $evaluation->weight4 ."} ";
+
+		$expert = get_user($evaluation->owner_guid);
+		$hesitant .= "E_".$expert->name . " #" . $expert->userpoints_points."<br>";
+
+		$ifPesos = elgg_get_plugin_setting('weight_assessments', 'hflts');
+		$ifExpertos = elgg_get_plugin_setting('weight_experts', 'hflts');
+		$base = elgg_get_plugin_setting('base_expertise', 'hflts');
+
+		system_message($ifExpertos . " expertise " . $base . " pesos " . $ifPesos);
+
 		$count++;
 		?>
 		<h3 class="mbm"><?php echo $person_link; ?></h3>
@@ -100,6 +169,7 @@ else {
 		if ($model->label == "topsis")
 		{
 			$method = new TopsisHFLTS($evaluation->user_guid); 
+			$method->setData($data,$weight,$count,$evaluation->granularity);
 			$model->collectiveValoration = $method->run();
 			unset($method);//destroys the object 
 		}
@@ -119,7 +189,6 @@ else {
 			$model->collectiveValoration = $method->run();
 			unset($method);//destroys the object 
 		}
-
 
 		if ($model->label == "todim")
 		{
@@ -145,7 +214,7 @@ else {
 	}
 }
 
-//To show objects we get the list
+//To show the objects first we get the list
 $method_list = elgg_list_entities_from_metadata([
 	'type' => 'object',
 	'subtype' => 'mcdm',

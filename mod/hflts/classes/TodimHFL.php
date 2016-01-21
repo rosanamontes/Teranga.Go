@@ -40,12 +40,12 @@ class TodimHFL extends MCDM
 	public function	TodimHFL($username)
 	{
 		$this->N=1;
-		$this->M=3;
+		$this->M=4;
 		$this->P=$this->num=0;
 		$this->label="todim";
 
 		$this->alternatives = array($username);
-		$this->W = array(1.0, 1.0, 1.0); //supose here the same importance. Allow the user to change it
+		$this->W = array(1.0, 1.0, 1.0,1.0); //same importance by default. Allow the user to change it
 
 		$this->lambda = 1.5;
 		$this->theta = 1.0; //losses factor in case of >0

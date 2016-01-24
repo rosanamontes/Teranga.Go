@@ -13,10 +13,11 @@
 
 
 if ($vars['size'] == 'large') {
-    if (elgg_get_plugin_setting('profile_display', 'hflts')) {
-		if (!$vars['entity']->karma)	
-			$vars['entity']->karma = elgg_echo('hflts:karma:s0');
-		if (!$vars['entity']->nValorations) $vars['entity']->nValorations = 0;
+    if (elgg_get_plugin_setting('profile_display', 'hflts')) 
+    {
+		$vars['entity']->karma = userKarma($vars['entity']->guid);
+		if (!$vars['entity']->nValorations) 
+			$vars['entity']->nValorations = 0;
 ?>
 
         <div class="hflts_profile">

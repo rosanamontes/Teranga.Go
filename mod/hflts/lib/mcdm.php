@@ -234,11 +234,17 @@ function toEnvelope($H, $G)
 //______________________ > MODEL INPUT PARAMETERS < ______________________
 //________________________________________________________________________
 
+
+/**
+* Input: 	set of criteria preferences
+*			number of criteria
+* Output:	average preference per criteria
+*/
 function averagedUserPreference($C_weight, $length)
 {
 	$temp = array();
 	$avg = array();
-	
+
 	$size = sizeof($C_weight);//n input elements
 	$delta = 1.0/$size;
 
@@ -258,8 +264,148 @@ function averagedUserPreference($C_weight, $length)
 	return $avg;
 }
 
-function verifyUserExpertise($user_guid)
-{
 
+/**
+* Input:	absolute expertise per expert
+*			guarantee of expertise (== do we trust in our platflorm users?) 0% all from the platform 100% nothing from the platform
+* Output:	relative expertise per expert (normalized)
+*/
+function relativeUserExpertise($E_weight)
+{
+	$relExp = array();
+
+	$n = sizeof($E_weight);//n experts
+	$guru = max($E_weight); 
+
+	$base = elgg_get_plugin_setting('base_expertise', 'hflts') / 100.0;
+	$fill = 1.0 - $base;
+	$guru = $fill / $guru;
+
+	$sum = 0;
+	for ($i=0;$i<$n;$i++)
+	{
+		$relExp[$i] = $base + ($E_weight[$i] * $guru) ;
+		$sum += $relExp[$i];
+		//echo  $relExp[$i] . " = " . ($E_weight[$i] * $guru) . "<br>";
+	}
+
+	for ($i=0;$i<$n;$i++)
+		$relExp[$i] /= $sum;
+
+	return $relExp;
 }
 
+
+/**
+* compute karma using decision making processes of computing with words
+*	Input: user guid
+*	Output: karma term
+*/
+function userKarma($guid)
+{
+	$user = get_user($guid);
+	if (!$user)
+		return elgg_echo('hflts:karma:none');
+
+	$content = elgg_get_entities_from_metadata([
+		'type' => 'object',
+		'subtype' => 'evaluation_content',
+		'metadata_name_value_pairs' => 
+	        array(
+	             array('name'=>'user_guid','value'=>$guid,'operand'=>'='),
+	        ),	
+	]);	
+
+	return userKarma_decisionMaking($content);	
+}
+
+
+/**
+* Gather and parse assessments made about user
+*	Input: set of assessments already filtered
+*	Output: karma term
+*/
+function userKarma_decisionMaking($valorationlist)
+{
+	if (sizeof($valorationlist) <= 0) 
+		return elgg_echo('hflts:karma:none');
+
+	$count=0;
+	$data = array('_','_');
+
+	$enablePesos = elgg_get_plugin_setting('weight_assessments', 'hflts');
+	$C_weight = null;
+
+	$enableExpertos = elgg_get_plugin_setting('weight_experts', 'hflts');
+	$E_weight = null;
+	
+	foreach ($valorationlist as $evaluation) 
+	{
+		$data[$count] = array(
+			'ref' => $evaluation->user_guid, 'co_codigo'=>$evaluation->owner_guid, 
+		);//more to come
+
+		if (!is_array($evaluation->criterion1))
+		{
+			$data[$count]['U1']=$evaluation->criterion1; $data[$count]['L1']=$evaluation->criterion1;
+		}
+		else
+		{
+			$n = count($evaluation->criterion1) - 1;
+			$data[$count]['U1']=$evaluation->criterion1[$n]; $data[$count]['L1']=$evaluation->criterion1[0];
+		}
+
+		if (!is_array($evaluation->criterion2))
+		{
+			$data[$count]['U2']=$evaluation->criterion2; $data[$count]['L2']=$evaluation->criterion2;
+		}
+		else
+		{
+			$n = count($evaluation->criterion2) - 1;			
+			$data[$count]['U2']=$evaluation->criterion2[$n]; $data[$count]['L2']=$evaluation->criterion2[0];
+		}
+
+		if (!is_array($evaluation->criterion3))
+		{
+			$data[$count]['U3']=$evaluation->criterion3; $data[$count]['L3']=$evaluation->criterion3;			
+		}
+		else
+		{
+			$n = count($evaluation->criterion3) - 1;			
+			$data[$count]['U3']=$evaluation->criterion3[$n]; $data[$count]['L3']=$evaluation->criterion3[0];
+		}
+
+		if (!is_array($evaluation->criterion4))
+		{
+			$data[$count]['U4']=$evaluation->criterion4; $data[$count]['L4']=$evaluation->criterion4;			
+		}
+		else
+		{
+			$n = count($evaluation->criterion4) - 1;			
+			$data[$count]['U4']=$evaluation->criterion4[$n]; $data[$count]['L4']=$evaluation->criterion4[0];			
+		}
+
+		if ($enablePesos)
+			$C_weight[$count] = array( $evaluation->weight1, $evaluation->weight2, $evaluation->weight3, $evaluation->weight4 );
+
+		if ($enableExpertos)
+		{
+			$expert = get_user($evaluation->owner_guid);
+			$E_weight[$count] = $expert->userpoints_points;
+		}
+		//$evaluation->delete();//to clean
+		$count++;
+	}
+
+	$method = new AggregationHFLTS($evaluation->user_guid); 
+	$method->setData($data,$C_weight,$E_weight,$count,$evaluation->granularity);
+	$model->collectiveValoration = $method->run();
+	unset($method);//destroys the object 
+
+	//set valoration on user's profile
+	$user = get_user($evaluation->user_guid);
+	system_message($count . "# " . $user->username . " @ " . $model->collectiveValoration);
+
+	return $model->collectiveValoration;
+
+}

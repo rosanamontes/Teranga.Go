@@ -34,7 +34,6 @@ if (sizeof($valorationlist) > 0)
 
 	$enableExpertos = elgg_get_plugin_setting('weight_experts', 'hflts');
 	$E_weight = null;
-	$base = null;	
 	
 	foreach ($valorationlist as $evaluation) 
 	{
@@ -141,13 +140,6 @@ if (sizeof($valorationlist) > 0)
 </div>
 
 <?php
-
-	if ($enableExpertos)
-	{
-		$base = elgg_get_plugin_setting('base_expertise', 'hflts');
-		system_message(" expertise " . $base );
-		//fill array
-	}
 
 } else {
 	echo elgg_echo('hflts:evaluation:not:found');

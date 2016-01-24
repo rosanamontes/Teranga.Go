@@ -67,24 +67,33 @@ abstract class MCDM
 	*/	
 	public function setData($values, $C_weight, $E_weight, $size, $granularity) 
 	{
-		$this->data = $values;
-		if (sizeof($values) != $size || sizeof($C_weight) != $size )
-			system_message($size . "  DMCM setData " . sizeof($values));//return; 
-
 		if ($size == 0)
 			return; 
+
+		$this->data = $values;
+		if ($this->debug) 
+		{
+			echo("#". $this->num . ' Dt: <pre>');	print_r($this->data);	echo('</pre><br>');
+		}
+
+		if (sizeof($values) != $size)
+			return; //system_message($size . "  DMCM setData " . sizeof($values));//
+
 
 		$this->P = $this->num = $size;
 		$this->G = $granularity;
 
 		//compute the averaged expert preference over criteria 
-		$this->W = averagedUserPreference($C_weight, $this->M);
-		$this->E = $E_weight;
+		if ($C_weight != null)
+			$this->W = averagedUserPreference($C_weight, $this->M);
 
-		//if ($this->debug) 
+		if ($E_weight != null)
+			$this->E = relativeUserExpertise($E_weight);
+
+		if ($this->debug) 
 		{
-			echo("#". $this->num . ' W: <pre>');	print_r($this->W);	echo('</pre><br>');
-			echo("#". $this->num . ' E: <pre>');	print_r($this->E);	echo('</pre><br>');
+			echo(' W: <pre>');	print_r($this->W);	echo('</pre><br>');
+			echo(' E: <pre>');	print_r($this->E);	echo('</pre><br>');
 		}		
 	}
 
@@ -98,11 +107,11 @@ abstract class MCDM
 		else
 			$this->debug = false;
 		
-		/*if (!$this->data || $this->num == 0 || $this->P == 0)
+		if (!$this->data || $this->num == 0 || $this->P == 0)
 		{
 			register_error(elgg_echo("hflts:mcdm:fail"));
 			forward(REFERER);
-		}*/
+		}
 		$this->num = $this->N*$this->P;
 	} 
 

@@ -37,6 +37,7 @@ if ($list)
 
 
 $simple_settings = [
+	'auto_moderation',
 	'weight_assessments',
 	'weight_experts',
 	'base_expertise',

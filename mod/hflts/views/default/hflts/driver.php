@@ -14,7 +14,7 @@
 */
 
 
-$valorationlist = $vars['valorations'];//system_message(" Size\n " . sizeof($valorationlist));
+$valorationlist = $vars['valorations'];
 //	echo('driver: <pre>');	print_r($valorationlist);	echo('</pre><br>');		
 	
 if (sizeof($valorationlist) > 0) 
@@ -29,6 +29,13 @@ if (sizeof($valorationlist) > 0)
 	$count=0;
 	$data = array('_','_');
 
+	$enablePesos = elgg_get_plugin_setting('weight_assessments', 'hflts');
+	$C_weight = null;
+
+	$enableExpertos = elgg_get_plugin_setting('weight_experts', 'hflts');
+	$E_weight = null;
+	$base = null;	
+	
 	foreach ($valorationlist as $evaluation) 
 	{
 		$person_link = elgg_view('output/text', array(
@@ -46,12 +53,11 @@ if (sizeof($valorationlist) > 0)
 		$data[$count] = array(
 			'ref' => $evaluation->user_guid, 'co_codigo'=>$evaluation->owner_guid, 
 		);//more to come
-		$weight[$count] = array( $evaluation->weight1, $evaluation->weight2, $evaluation->weight3, $evaluation->weight4 );
 
 		$hesitant = "#".$count." => G=" .  $evaluation->granularity . " ";
 		if (!is_array($evaluation->criterion1))
 		{
-			$hesitant .= "Ev_1=".$evaluation->criterion1 . " - "; 
+			$hesitant .= "H_1={".$evaluation->criterion1."} - " ; 
 			$data[$count]['U1']=$evaluation->criterion1; $data[$count]['L1']=$evaluation->criterion1;
 		}
 		else
@@ -66,7 +72,7 @@ if (sizeof($valorationlist) > 0)
 
 		if (!is_array($evaluation->criterion2))
 		{
-			$hesitant .= "Ev_2=".$evaluation->criterion2 . " - "; 
+			$hesitant .= "H_2={".$evaluation->criterion2."} - " ; 
 			$data[$count]['U2']=$evaluation->criterion2; $data[$count]['L2']=$evaluation->criterion2;
 		}
 		else
@@ -81,7 +87,7 @@ if (sizeof($valorationlist) > 0)
 
 		if (!is_array($evaluation->criterion3))
 		{
-			$hesitant .= "Ev_3=".$evaluation->criterion3 . " - ";
+			$hesitant .= "H_3={".$evaluation->criterion3."} - " ; 
 			$data[$count]['U3']=$evaluation->criterion3; $data[$count]['L3']=$evaluation->criterion3;			
 		}
 		else
@@ -96,7 +102,7 @@ if (sizeof($valorationlist) > 0)
 
 		if (!is_array($evaluation->criterion4))
 		{
-			$hesitant .= "Ev_4=".$evaluation->criterion4 ; 
+			$hesitant .= "H_4={".$evaluation->criterion4."} - " ; 
 			$data[$count]['U4']=$evaluation->criterion4; $data[$count]['L4']=$evaluation->criterion4;			
 		}
 		else
@@ -109,16 +115,20 @@ if (sizeof($valorationlist) > 0)
 			$data[$count]['U4']=$evaluation->criterion4[$n]; $data[$count]['L4']=$evaluation->criterion4[0];			
 		}
 
-		$hesitant .= " W={". $evaluation->weight1 . ", ". $evaluation->weight2. ", ". $evaluation->weight3. ", ". $evaluation->weight4 ."} ";
+		if ($enablePesos)
+		{
+			$C_weight[$count] = array( $evaluation->weight1, $evaluation->weight2, $evaluation->weight3, $evaluation->weight4 );
+			$hesitant .= " C_W={". $evaluation->weight1 . ", ". $evaluation->weight2. ", ". $evaluation->weight3. ", ". $evaluation->weight4 ."} ";
+		}
 
-		$expert = get_user($evaluation->owner_guid);
-		$hesitant .= "E_".$expert->name . " #" . $expert->userpoints_points."<br>";
+		if ($enableExpertos)
+		{
+			$expert = get_user($evaluation->owner_guid);
+			$hesitant .= "E_".$expert->name . " #" . $expert->userpoints_points ;
+			$E_weight[$count] = $expert->userpoints_points;
+		}
 
-		$ifPesos = elgg_get_plugin_setting('weight_assessments', 'hflts');
-		$ifExpertos = elgg_get_plugin_setting('weight_experts', 'hflts');
-		$base = elgg_get_plugin_setting('base_expertise', 'hflts');
-
-		system_message($ifExpertos . " expertise " . $base . " pesos " . $ifPesos);
+		$hesitant .= "<br>";
 
 		$count++;
 		?>
@@ -131,6 +141,13 @@ if (sizeof($valorationlist) > 0)
 </div>
 
 <?php
+
+	if ($enableExpertos)
+	{
+		$base = elgg_get_plugin_setting('base_expertise', 'hflts');
+		system_message(" expertise " . $base );
+		//fill array
+	}
 
 } else {
 	echo elgg_echo('hflts:evaluation:not:found');
@@ -161,7 +178,7 @@ else {
 		if ($model->label == "electre")
 		{
 			$method = new ElectreHFLTS($evaluation->user_guid); 
-			$method->setData($data,$weight,$count,$evaluation->granularity);
+			$method->setData($data,$C_weight,$E_weight,$count,$evaluation->granularity);
 			$model->collectiveValoration = $method->run();
 			unset($method);//destroys the object 
 		}
@@ -169,7 +186,7 @@ else {
 		if ($model->label == "topsis")
 		{
 			$method = new TopsisHFLTS($evaluation->user_guid); 
-			$method->setData($data,$weight,$count,$evaluation->granularity);
+			$method->setData($data,$C_weight,$E_weight,$count,$evaluation->granularity);
 			$model->collectiveValoration = $method->run();
 			unset($method);//destroys the object 
 		}
@@ -177,7 +194,7 @@ else {
 		if ($model->label == "promethee")
 		{
 			$method = new PrometheeHF($evaluation->user_guid); 
-			$method->setData($data,$weight,$count,$evaluation->granularity);
+			$method->setData($data,$C_weight,$E_weight,$count,$evaluation->granularity);
 			$model->collectiveValoration = $method->run();
 			unset($method);//destroys the object 
 		}
@@ -185,7 +202,7 @@ else {
 		if ($model->label == "vikor")
 		{
 			$method = new VikorHFL($evaluation->user_guid); 
-			$method->setData($data,$weight,$count,$evaluation->granularity);
+			$method->setData($data,$C_weight,$E_weight,$count,$evaluation->granularity);
 			$model->collectiveValoration = $method->run();
 			unset($method);//destroys the object 
 		}
@@ -193,7 +210,7 @@ else {
 		if ($model->label == "todim")
 		{
 			$method = new TodimHFL($evaluation->user_guid); 
-			$method->setData($data,$weight,$count,$evaluation->granularity);
+			$method->setData($data,$C_weight,$E_weight,$count,$evaluation->granularity);
 			$model->collectiveValoration = $method->run();
 			unset($method);//destroys the object 
 		}
@@ -202,13 +219,14 @@ else {
 		if ($model->label == "classic")
 		{
 			$method = new AggregationHFLTS($evaluation->user_guid); 
-			$method->setData($data,$weight,$count,$evaluation->granularity);
+			$method->setData($data,$C_weight,$E_weight,$count,$evaluation->granularity);
 			$model->collectiveValoration = $method->run();
 			unset($method);//destroys the object 
 
 			//set valoration on user's profile
-			$user = get_entity($evaluation->user_guid);
-			$user->karma=$model->collectiveValoration;
+			$user = get_user($evaluation->user_guid);
+			//$user->karma=$model->collectiveValoration;
+			system_message($user->username . " @ " . $model->collectiveValoration);
 		}
 
 	}

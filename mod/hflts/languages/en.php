@@ -45,6 +45,8 @@ return array(
 	'hflts:settings:no' => 'No',
 	'hflts:label:allowMany' => 'Many assessments',
 	'hflts:help:allowMany' => 'Allow many assessments from one user to other in the context of a trip',
+	'hflts:label:auto_moderation' => 'Auto-Moderation',
+	'hflts:help:auto_moderation' => 'If enabled, assessments would be automatically archived (no manual moderation)',	
 	'hflts:label:weight_assessments' => 'Double assessment',
 	'hflts:help:weight_assessments' => 'Enable to use importance per criteria and per evaluation (more subjetive information)',
 	'hflts:label:weight_experts' => 'Consider Expersise',

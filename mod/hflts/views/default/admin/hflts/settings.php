@@ -85,6 +85,13 @@ $data = array(
 		'readonly' => false,
 	),
 
+	'auto_moderation' => array(
+		'type' => 'dropdown',
+		'value' => $plugin->auto_moderation,
+                'options_values' => array('1' => elgg_echo('hflts:settings:yes'), '0' => elgg_echo('hflts:settings:no')),
+		'readonly' => false,
+	),
+
 	'weight_assessments' => array(
 		'type' => 'dropdown',
 		'value' => $plugin->weight_assessments,

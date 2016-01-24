@@ -32,48 +32,48 @@
 
 function euclideanDistance($H1, $H2, $lambda, $G, $X)
 {
-    $size = [ sizeof($H1), sizeof($H2) ];
-    $L = max($size);
-    $exp = $lambda;
-    $den = $G+1;
+	$size = [ sizeof($H1), sizeof($H2) ];
+	$L = max($size);
+	$exp = $lambda;
+	$den = $G+1;
 
-       /* {
-            echo('<br>H1 <pre>');    print_r($H1); echo('</pre>');
-            echo('<br>H2 <pre>');    print_r($H2); echo('</pre>');
-        }*/
+	   /* {
+			echo('<br>H1 <pre>');    print_r($H1); echo('</pre>');
+			echo('<br>H2 <pre>');    print_r($H2); echo('</pre>');
+		}*/
 
 
-    if ($size[0] == $size[1])
-    {
-        $EH1 = extend($H1, 0, $G, $X);
-        $EH2 = extend($H2, 0, $G, $X);
-    }
-    else if ($size[0] < $size[1])
-    {
-        $EH1 = extend($H1, $size[1]-$size[0], $G, $X);
-        $EH2 = extend($H2, 0, $G, $X);
-        //system_message(" extend H1 " . ($size[1]-$size[0])) ;
-    }
-    else if ($size[0] > $size[1])
-    {
-        $EH1 = extend($H1, 0, $G, $X);
-        $EH2 = extend($H2, $size[0]-$size[1], $G, $X);
-        //system_message(" extend H2 " . ($size[0]-$size[1])) ;
-    }
+	if ($size[0] == $size[1])
+	{
+		$EH1 = extend($H1, 0, $G, $X);
+		$EH2 = extend($H2, 0, $G, $X);
+	}
+	else if ($size[0] < $size[1])
+	{
+		$EH1 = extend($H1, $size[1]-$size[0], $G, $X);
+		$EH2 = extend($H2, 0, $G, $X);
+		//system_message(" extend H1 " . ($size[1]-$size[0])) ;
+	}
+	else if ($size[0] > $size[1])
+	{
+		$EH1 = extend($H1, 0, $G, $X);
+		$EH2 = extend($H2, $size[0]-$size[1], $G, $X);
+		//system_message(" extend H2 " . ($size[0]-$size[1])) ;
+	}
 
-    $sum = 0;
-    for ($g=0;$g<$L;$g++)
-    {
-        $d_abs= abs($EH1[$g]-$EH2[$g]);
-        $fracc2 = pow( $d_abs / $den, $exp );
-        $sum += $fracc2;
-        //echo "<br>d_abs=".$d_abs." frac=".$fracc2." ";
-    }
+	$sum = 0;
+	for ($g=0;$g<$L;$g++)
+	{
+		$d_abs= abs($EH1[$g]-$EH2[$g]);
+		$fracc2 = pow( $d_abs / $den, $exp );
+		$sum += $fracc2;
+		//echo "<br>d_abs=".$d_abs." frac=".$fracc2." ";
+	}
 
-    $exp = 1.0 / $lambda;
-    $sumL = $sum / $L;
-    $d = pow( $sumL, $exp);
-    //echo "<br>sumL=".$sumL." exp=".$exp." distance=".$d;
+	$exp = 1.0 / $lambda;
+	$sumL = $sum / $L;
+	$d = pow( $sumL, $exp);
+	//echo "<br>sumL=".$sumL." exp=".$exp." distance=".$d;
 
 	return $d;
 }
@@ -83,38 +83,38 @@ function euclideanDistance($H1, $H2, $lambda, $G, $X)
 */
 function extend($hesitant, $n, $tau, $chi)
 {
-    $E = $hesitant;
-    $N = sizeof($hesitant);
-    $min = min($hesitant);
-    $max = max($hesitant);
-    
-    $s = ($max * $chi) - ($min * $chi) + $min;//value
-    $k = min($tau,round($chi * $N) );    //index
-    //echo $n." extend with ".$k." at ".$s."<br>";
+	$E = $hesitant;
+	$N = sizeof($hesitant);
+	$min = min($hesitant);
+	$max = max($hesitant);
+	
+	$s = ($max * $chi) - ($min * $chi) + $min;//value
+	$k = min($tau,round($chi * $N) );    //index
+	//echo $n." extend with ".$k." at ".$s."<br>";
 
-    while ($n>0)
-    {
-        $E = insertBeforeKey($E, $k, array($k => $s));
-        $n--;
-        $k++;
-    }
+	while ($n>0)
+	{
+		$E = insertBeforeKey($E, $k, array($k => $s));
+		$n--;
+		$k++;
+	}
 
-    /*{
-        echo('<br>Ext <pre>');  print_r($E);    echo('</pre>');
-    }*/
+	/*{
+		echo('<br>Ext <pre>');  print_r($E);    echo('</pre>');
+	}*/
 
-    return $E;
+	return $E;
 }
 
 function insertBeforeKey($array, $key, $data = null)
 {
-    if (($offset = array_search($key, array_keys($array))) === false) // if the key doesn't exist
-    {
-        $offset = 0; // should we prepend $array with $data?
-        $offset = count($array); // or should we append $array with $data? lets pick this one...
-    }
+	if (($offset = array_search($key, array_keys($array))) === false) // if the key doesn't exist
+	{
+		$offset = 0; // should we prepend $array with $data?
+		$offset = count($array); // or should we append $array with $data? lets pick this one...
+	}
 
-    return array_merge(array_slice($array, 0, $offset), (array) $data, array_slice($array, $offset));
+	return array_merge(array_slice($array, 0, $offset), (array) $data, array_slice($array, $offset));
 }
 
 /**
@@ -124,7 +124,7 @@ function insertBeforeKey($array, $key, $data = null)
 */
 function negate($index, $G)
 {
-    return $G - $index;
+	return $G - $index;
 }
 
 /**
@@ -146,7 +146,7 @@ function intervalDominance( $a1, $a2, $b1, $b2 )
 */
 function distanceEnvelope( $Env1, $Env2 )
 {
-    return sqrt( pow( $Env1['sup']-$Env2['sup'], 2) + pow($Env1['inf']-$Env2['inf'], 2) );
+	return sqrt( pow( $Env1['sup']-$Env2['sup'], 2) + pow($Env1['inf']-$Env2['inf'], 2) );
 }
 
 
@@ -171,16 +171,16 @@ function toRange( $value, $g=6.0 )
 */
 function toBeta( $term, $alpha ) 
 {
-   	return $term + $alpha;
+	return $term + $alpha;
 }
-    
+	
 /**
 * converts from beta value to 2-tuple representation
 */
 function toTuple( $value )
 {
-    $i = round($value);
-    return array ( $i, $value - $i );
+	$i = round($value);
+	return array ( $i, $value - $i );
 }
  
 
@@ -199,27 +199,27 @@ function toLabel( $term )
 */
 function toHesitant($envelope, &$length, &$deltaAvg)
 {
-    $hesitant = array();
-    $sum = 0;
-    $i=0;
-    for ($j=$envelope['inf']; $j<=$envelope['sup']; $j++)
-    {
-        $hesitant[$i++] = $j;
-        $sum += $j;
-    }
+	$hesitant = array();
+	$sum = 0;
+	$i=0;
+	for ($j=$envelope['inf']; $j<=$envelope['sup']; $j++)
+	{
+		$hesitant[$i++] = $j;
+		$sum += $j;
+	}
 
-    //validate it
-    if ((min($hesitant) != $envelope['inf']) || (max($hesitant) != $envelope['sup']))
-    {
-        echo "return -1 -> " . min($hesitant) . " - " . max($hesitant) ." <br>";
-        return -1; //wrong!
-    }
-    
-    $length = $envelope['sup'] - $envelope['inf'] + 1;
-    $deltaAvg = $sum / $length;
-    //echo "L=" . $length  . " D=" . $deltaAvg ."<br>";
-    //echo('<br>Hesitant <pre>');  print_r($hesitant);    echo('</pre>');
-    return $hesitant;
+	//validate it
+	if ((min($hesitant) != $envelope['inf']) || (max($hesitant) != $envelope['sup']))
+	{
+		echo "return -1 -> " . min($hesitant) . " - " . max($hesitant) ." <br>";
+		return -1; //wrong!
+	}
+	
+	$length = $envelope['sup'] - $envelope['inf'] + 1;
+	$deltaAvg = $sum / $length;
+	//echo "L=" . $length  . " D=" . $deltaAvg ."<br>";
+	//echo('<br>Hesitant <pre>');  print_r($hesitant);    echo('</pre>');
+	return $hesitant;
 }
 
 
@@ -227,3 +227,39 @@ function toEnvelope($H, $G)
 {
 
 }
+
+
+//________________________________________________________________________
+
+//______________________ > MODEL INPUT PARAMETERS < ______________________
+//________________________________________________________________________
+
+function averagedUserPreference($C_weight, $length)
+{
+	$temp = array();
+	$avg = array();
+	
+	$size = sizeof($C_weight);//n input elements
+	$delta = 1.0/$size;
+
+	for ($i=0;$i<$size;$i++)
+	{
+		for ($m=0;$m<$length;$m++)
+		{
+			$temp[$m] += $C_weight[$i][$m];
+		}
+	}
+
+	for ($m=0;$m<$length;$m++)
+	{
+		$avg[$m] = $temp[$m] * $delta;
+	}
+
+	return $avg;
+}
+
+function verifyUserExpertise($user_guid)
+{
+
+}
+

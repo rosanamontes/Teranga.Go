@@ -25,7 +25,9 @@ abstract class MCDM
 	var $N; //number of alternatives
 	var $M; //number of criteria
 	var $P; //number of experts
-	var $W; //weight of criteria
+
+	var $W; //weight of criteria (array)
+	var $E; //weight of experts (array)
 
 	var $G;
 	var $collectiveValue;
@@ -63,11 +65,11 @@ abstract class MCDM
 	/**
 	* get from the system the values needed in the model
 	*/	
-	public function setData($values, $weight, $size, $granularity) 
+	public function setData($values, $C_weight, $E_weight, $size, $granularity) 
 	{
 		$this->data = $values;
-		if (sizeof($values) != $size || sizeof($weight) != $size )
-			return; //system_message($size . "  DMCM setData " . sizeof($values));
+		if (sizeof($values) != $size || sizeof($C_weight) != $size )
+			system_message($size . "  DMCM setData " . sizeof($values));//return; 
 
 		if ($size == 0)
 			return; 
@@ -76,26 +78,13 @@ abstract class MCDM
 		$this->G = $granularity;
 
 		//compute the averaged expert preference over criteria 
-		$x=$y=$z=0;
-		$temp = array();
-		$delta = 1.0/$size;
+		$this->W = averagedUserPreference($C_weight, $this->M);
+		$this->E = $E_weight;
 
-		for ($i=0;$i<$size;$i++)
+		//if ($this->debug) 
 		{
-			for ($m=0;$m<$this->M;$m++)
-			{
-				$temp[$m] += $weight[$i][$m];
-			}
-		}
-
-		for ($m=0;$m<$this->M;$m++)
-		{
-			$this->W[$m] = $temp[$m] * $delta;
-		}
-
-		if ($this->debug) 
-		{
-			echo("#". $this->num . ' data: <pre>');	print_r($this->data);	echo('</pre><br>');
+			echo("#". $this->num . ' W: <pre>');	print_r($this->W);	echo('</pre><br>');
+			echo("#". $this->num . ' E: <pre>');	print_r($this->E);	echo('</pre><br>');
 		}		
 	}
 
@@ -109,11 +98,11 @@ abstract class MCDM
 		else
 			$this->debug = false;
 		
-		if (!$this->data || $this->num == 0 || $this->P == 0)
+		/*if (!$this->data || $this->num == 0 || $this->P == 0)
 		{
 			register_error(elgg_echo("hflts:mcdm:fail"));
 			forward(REFERER);
-		}
+		}*/
 		$this->num = $this->N*$this->P;
 	} 
 

@@ -45,12 +45,14 @@ return array(
 	'hflts:settings:no' => 'No',
 	'hflts:label:allowMany' => 'Repetir valoraciones',
 	'hflts:help:allowMany' => 'Permite almacenar varias valoraciones para un mismo usuario y viaje.',	
+	'hflts:label:auto_moderation' => 'Moderación automática',
+	'hflts:help:auto_moderation' => 'Cuando se habilita, las valoraciones se archivan automáticamente y no se requiere moderación manual.',		
 	'hflts:label:weight_assessments' => 'Doble valoración',
 	'hflts:help:weight_assessments' => 'Permite expresar la importancia de cada criterio en cada valoración (doble información subjetiva)',
 	'hflts:label:weight_experts' => 'Considerar experiencia',
 	'hflts:help:weight_experts' => 'Permite añadir el grado de experiencia en la valoración del usuario',
 	'hflts:label:base_expertise' => 'Experiencia base',
-	'hflts:help:base_expertise' => 'En caso de considerar la experincia, este valor [0,1] la caracteriza su inclusión siendo 0=todo desde la plataforma 1=nada desde la plataforma (en este caso todos los usarios serian iguales).',
+	'hflts:help:base_expertise' => 'En caso de considerar la experincia, este valor [0,1] caracteriza su inclusión, siendo: 0=todo desde la plataforma 1=nada desde la plataforma (en este caso todos los usuarios serian iguales).',
 
 	'hflts:label:termset' => 'Escala lingüistica',
 	'hflts:help:termset' => 'Conjunto de etiquetas a utilizar en la evaluación y en el resultado del proceso de toma de decisión lingüistica.',
@@ -80,7 +82,7 @@ return array(
 	*  Consulta a los hesitant
 	*/
 	'hflts:evaluation:not:found' => 'Pendiente realizar la consulta',
-	'hflts:mcdm:fail' => 'No hay suficienes valoraciones para ejecutar el modelo de toma de decisión',
+	'hflts:mcdm:fail' => 'No hay suficientes valoraciones para ejecutar el modelo de toma de decisión.',
 );
 
 ?>

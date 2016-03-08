@@ -30,7 +30,7 @@ $site_url = elgg_get_site_url();
 
 <h1>
     <a class="elgg-heading-site" href="<?php echo $site_url; ?>">
-    <img border="0" src="<?php echo elgg_get_site_url(); ?>mod/teranga_theme/graphics/logo.gif" />	
+    <img border="0" src="<?php echo elgg_get_site_url(); ?>mod/teranga_theme/graphics/logo.png" />	
     </a>
 </h1>
 <img class="et2headerimg" style="width: 100%; height: auto;" src="<?php echo elgg_get_site_url(); ?>mod/teranga_theme/graphics/headimg.jpg" />

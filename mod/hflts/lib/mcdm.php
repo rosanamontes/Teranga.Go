@@ -397,15 +397,19 @@ function userKarma_decisionMaking($valorationlist)
 		$count++;
 	}
 
-	$method = new AggregationHFLTS($evaluation->user_guid); 
-	$method->setData($data,$C_weight,$E_weight,$count,$evaluation->granularity);
-	$model->collectiveValoration = $method->run();
-	unset($method);//destroys the object 
+	if ($count >= 2)
+	{
+		$method = new AggregationHFLTS($evaluation->user_guid); 
+		$method->setData($data,$C_weight,$E_weight,$count,$evaluation->granularity);
+		$model->collectiveValoration = $method->run();
+		unset($method);//destroys the object 
 
-	//set valoration on user's profile
-	$user = get_user($evaluation->user_guid);
-	system_message($count . "# " . $user->username . " @ " . $model->collectiveValoration);
+		//set valoration on user's profile
+		$user = get_user($evaluation->user_guid);
+		system_message($count . "# " . $user->username . " @ " . $model->collectiveValoration);
 
-	return $model->collectiveValoration;
-
+		return $model->collectiveValoration;
+	}
+	else
+		return elgg_echo("hflts:karma:none");
 }

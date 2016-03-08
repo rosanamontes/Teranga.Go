@@ -38,6 +38,8 @@ return array(
 	'groups:my_status' => 'My status',
 	'groups:my_status:group_owner' => 'You own this trip',
 	'groups:my_status:group_member' => 'You are in this trip',
+	'groups:my_status:group_PreOrder' => 'You\'ve made a pre-booking this trip',
+	'groups:my_status:group_Confirmed' => 'You have confirmed your reservation for this trip',
 	'groups:subscribed' => 'Trip notifications on',
 	'groups:unsubscribed' => 'Trip notifications off',
 
@@ -361,7 +363,7 @@ or click below to view the trip's follow requests:
 
 	//categorías
 	'profile:categories:sobremi' => 'About me',
-	'profile:categories:coche' => 'My car',
+	'profile:categories:micoche' => 'My car',
 	'profile:categories:preferencias' => 'Trip Preferences',
 
 	//custom fields
@@ -373,6 +375,10 @@ or click below to view the trip's follow requests:
 	'profile:hint:pais' => 'Let people know were are you from',
 	'profile:twitter' => 'Twitter account',
 	'profile:hint:twitter' => 'Let people know your digital identity',
+
+	'profile:fexpedicion' => 'Driving license',	
+	'profile:hint:fexpedicion' => 'Driving license date of issue',
+
 	'profile:marca' => 'Brand',
 	'profile:hint:marca' => 'Let people know if you have a car',
 	'profile:modelo' => 'Model',
@@ -420,10 +426,21 @@ or click below to view the trip's follow requests:
 
 	'groups:flexible' => 'Open dates',	
 	'groups:gender' => 'Security for woman',
-	'groups:plazas' => 'Free seats',
+	'groups:nplazas' => 'Free seats',
 	'profile:hint:flexible' => 'Dates to be disscussed with participants',
 	'profile:hint:gender' => 'Explicit user engagement',
-	'profile:hint:plazas' => 'The total number of seats cannot be greater than the car capacity',
+	'profile:hint:nplazas' => 'The total number of seats cannot be greater than the car capacity',
+
+	// Paqueteria	
+	'groups:servicioPaqueteria' => 'Shipment allowed',	
+	'profile:hint:servicioPaqueteria' => 'In this trip can be included a domestic service of weight limited packaged',
+	'groups:tamaMaletero' => 'Car Trunk',	
+	'profile:hint:tamaMaletero' => 'Aproximate free trunk size to allocate packages (volume measure)',
+	'groups:tipoBultos' => 'Package categories',	
+	'profile:hint:tipoBultos' => 'Size and weight is described in similitude to an animal (a metaphor)',
+    'custom:package:raton' => '<img src=\"mouse.gif\"',
+    'custom:package:gato' => 'img cat',
+    'custom:package:tigre' => 'img tiger',	
 	
 	'groups:preReservar'=>'Pre-Order',
 	'datepicker:dateStartAfterThanDateEnd'=>'Departure date has to be before arrival date',
@@ -435,7 +452,7 @@ or click below to view the trip's follow requests:
 	'groups:PreOrderCorrect'=>'PreOrder correctly',
 	'groups:unPreOrderCorrect'=>'unPreOrder correctly',
 	'groups:confirmTrip'=>'Confirm PreOrder',
-	'groups:confirmTrip'=>'unConfirm PreOrder',
+	'groups:unconfirmTrip'=>'UnConfirm PreOrder',
 	'groups:cantPreorderSeatMax'=>'You can\'t preorder because there aren\'t seats avaible',
 	'groups:seatsAvaible'=>'Seats available',
 );

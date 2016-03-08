@@ -538,6 +538,15 @@ li.elgg-more {
     width: 33.33%;
     min-height: 500px !important;
 }
+
+.language_selector {
+    position: absolute;
+    right: 12px;
+    top: 72px;
+    color: white;
+}
+
+
 #groups-tools > li {
 width: 48%;
 }

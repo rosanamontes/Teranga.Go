@@ -109,8 +109,9 @@ abstract class MCDM
 		
 		if (!$this->data || $this->num == 0 || $this->P == 0)
 		{
-			register_error(elgg_echo("hflts:mcdm:fail"));
-			forward(REFERER);
+			return ;
+			//register_error(elgg_echo("hflts:mcdm:fail"));
+			//forward(REFERER);
 		}
 		$this->num = $this->N*$this->P;
 	} 

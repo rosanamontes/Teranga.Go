@@ -37,7 +37,9 @@ return array(
 	'groups:members' => 'Participantes del viaje',
 	'groups:my_status' => 'Mi estado',
 	'groups:my_status:group_owner' => 'Eres dueño de este viaje',
-	'groups:my_status:group_member' => 'Usted participa en este viaje',
+	'groups:my_status:group_member' => 'Usted sigue éste viaje',
+	'groups:my_status:group_PreOrder' => 'Usted ha realizado una pre-reserva en éste viaje',
+	'groups:my_status:group_Confirmed' => 'Usted ha confirmado su reserva para éste viaje',
 	'groups:subscribed' => 'Habilitar notificaciones',
 	'groups:unsubscribed' => 'Deshabilitar notificaciones',
 
@@ -368,14 +370,14 @@ O click a continuaci&oacute;n para ver las solicitudes de inclusi&oacute;n del v
 	'profile_manager:profile:edit:custom_profile_type:description' => 'Rol en un viaje',
 	'profile_manager:profile:edit:custom_profile_type:default' => "Por favor seleccione ...",	
 	'profile:types:conductor' => 'Conductor',
-	'profile:types:conductor:description' => 'Puedo turnarme para conducir en los viajes. Si soy el conductor princiipal, añadiré más información en el apartado Mi coche.',
+	'profile:types:conductor:description' => 'Puedo turnarme para conducir en los viajes. Si soy el conductor principal, añadiré más información en el apartado Mi coche.',
 	'profile:types:pasajero' => 'Pasajero',
 	'profile:types:pasajero:description' => 'No soy de los que disfrutan por conducir, pero sí por viajar.',
 
 	//categorías
 	'profile:categories:sobremi' => 'Sobre mi',
-	'profile:categories:coche' => 'Mi coche',
-	'profile:categories::preferencias' => 'Preferencias en un viaje',
+	'profile:categories:micoche' => 'Mi coche',
+	'profile:categories:preferencias' => 'Preferencias en un viaje',
 	
 	//custom fields
 	'profile:descripcion' => 'Breve descripción',
@@ -386,6 +388,9 @@ O click a continuaci&oacute;n para ver las solicitudes de inclusi&oacute;n del v
 	'profile:hint:pais' => 'Es muy importante completar bien el perfil',
 	'profile:twitter' => 'Cuenta en Twitter',
 	'profile:hint:twitter' => '¿Estás en redes sociales?',
+
+	'profile:fexpedicion' => 'Antiguedad del carnet',	
+	'profile:hint:fexpedicion' => 'Fecha de expedición del carnet de conducir',	
 
 	'profile:marca' => 'Marca',
 	'profile:hint:marca' => '¿De qué marca es tu coche?',
@@ -435,8 +440,19 @@ O click a continuaci&oacute;n para ver las solicitudes de inclusi&oacute;n del v
 	'profile:hint:flexible' => 'Indica si las fechas son fijas o flexibles y pendientes de acordar',	
 	'groups:gender' => 'Seguridad para mujeres',
 	'profile:hint:gender' => 'Compromiso explicito del usuario',
-	'groups:plazas' => 'Plazas disponibles',	
-	'profile:hint:plazas' => 'El numero de plazas no puede ser mayor que la descripción dada por el usuario en su coche (custom:asientos)',
+	'groups:nplazas' => 'Plazas ofertadas',	
+	'profile:hint:nplazas' => 'Numero de plazas total que el conductor oferta y que no puede superar lo indicado en la descripción del coche',
+
+	// Paqueteria		
+	'groups:servicioPaqueteria' => 'Paquetería',	
+	'profile:hint:servicioPaqueteria' => 'En este viaje se permite un servicio doméstico de paquetería limitada al peso',
+	'groups:tamaMaletero' => 'Capacidad del maletero',	
+	'profile:hint:tamaMaletero' => 'Capacidad del maletero disponible, expresada de forma aproximada en litros',
+	'groups:tipoBultos' => 'Tipo de bultos',	
+	'profile:hint:tipoBultos' => 'Tipo de bultos aceptados conforme a las categorías Tigre (grande y pesado), Gato (intermedio y algo voluminoso) y Ratón (pequeño y ligero)',
+    'custom:package:raton' => '<img src=\"mouse.gif\"',
+    'custom:package:gato' => 'img cat',
+    'custom:package:tigre' => 'img tiger',
 
 
 	'groups:preReservar'=>'Pre-reservar',

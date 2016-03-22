@@ -70,8 +70,8 @@ class AggregationHFLTS extends MCDM
 		
 		for ($j=0;$j<$this->M;$j++)//forall criteria
  		{
-			$this->cSi[$j] = min($upper[$j]);
-			$this->cSj[$j] = max($lower[$j]);
+			$this->cSi[$j] = min((array)$upper[$j]);
+			$this->cSj[$j] = max((array)$lower[$j]);
 			$this->checkRange($this->cSi[$j], $this->cSj[$j]);
 			if ($this->debug) 
 				echo $this->data[$i]["ref"] . "- C" . $j . " (". $this->cSi[$j] .",". $this->cSj[$j] .")<br>";

@@ -1,5 +1,10 @@
 <?php
-return array(
+return array(	
+	'custom:bookmarks' => "Latest bookmarks",
+	'custom:groups' => "Latest Trips",
+	'custom:files' => "Latest files",
+	'custom:blogs' => "Latest blog posts",
+	'custom:members' => "Newest members",
 
 	/**
 	 * Traducciones para Teranga Go!
@@ -8,12 +13,13 @@ return array(
 	'comment:unsubscribe:long' => 'Desuscribirse a estos comentarios',
 	'comment:subscribe:success' => 'Te has subscrito con éxito',
 	'comment:unsubscribe:success' => 'Te has desubscrito con éxito',	
-	'custom:groups' => "Last planning trips",
+	//'custom:groups' => "Last planning trips",
 
 	/**
 	 * Menu items and titles
 	 */
 	'groups' => "Trip planning",
+	'item:group' => "Trip planning",
 	'groups:owned' => "Trip planning I own",
 	'groups:owned:user' => 'Trip planning %s owns',
 	'groups:yours' => "My trips",
@@ -36,10 +42,11 @@ return array(
 	'groups:website' => 'Website',
 	'groups:members' => 'Trip followers',
 	'groups:my_status' => 'My status',
-	'groups:my_status:group_owner' => 'You own this trip',
-	'groups:my_status:group_member' => 'You are in this trip',
-	'groups:my_status:group_PreOrder' => 'You\'ve made a pre-booking this trip',
+	'groups:my_status:group_owner' => 'You drive in this trip',
+	'groups:my_status:group_member' => 'You are interested in this trip',
+	'groups:my_status:group_PreOrder' => 'You\'ve pre-booked this trip',
 	'groups:my_status:group_Confirmed' => 'You have confirmed your reservation for this trip',
+
 	'groups:subscribed' => 'Trip notifications on',
 	'groups:unsubscribed' => 'Trip notifications off',
 
@@ -51,10 +58,10 @@ return array(
 	'groups:content_access_mode:unrestricted' => "Unrestricted - Access depends on content-level settings",
 	'groups:content_access_mode:membersonly' => "Followers Only - Non-members can never access trip content",
 	'groups:access' => "Access permissions",
-	'groups:owner' => "Owner",
-	'groups:owner:warning' => "Warning: if you change this value, you will no longer be the owner of this trip.",
+	'groups:owner' => "Driver",
+	'groups:owner:warning' => "Warning: if you change this value, you will no longer be the promoter of this trip.",
 	'groups:widget:num_display' => 'Number of trips to display',
-	'groups:widget:membership' => 'Trip membership',
+	'groups:widget:membership' => 'My Trips',
 	'groups:widgets:description' => 'Display the trips you are a member of on your profile',
 
 	'groups:widget:group_activity:title' => 'Trip activity',
@@ -234,7 +241,7 @@ View and reply to the discussion:
 	'groups:joinrequestmade' => 'Requested to follow trip',
 	'groups:joined' => 'Successfully joined trip!',
 	'groups:left' => 'Successfully left trip',
-	'groups:notowner' => 'Sorry, you are not the owner of this trip.',
+	'groups:notowner' => 'Sorry, you are not the promoter of this trip.',
 	'groups:notmember' => 'Sorry, you are not a member of this trip.',
 	'groups:alreadymember' => 'You are already a member of this trip!',
 	'groups:userinvited' => 'User has been invited.',
@@ -329,9 +336,8 @@ or click below to view the trip's follow requests:
 
 
 	/**
-	 * profile manager / custom profile / group fields
+	 *  profile_manager / custom profile / group fields
 	 */
-
 	// non_editable
 	'profile_manager:non_editable:info' => 'This field can not be edited',
 	
@@ -347,8 +353,54 @@ or click below to view the trip's follow requests:
 	
 	// register profile icon
 	'profile_manager:register:profile_icon' => 'This site requires you to upload a profile icon',	
+
+		// register accept terms
 	'profile_manager:registration:accept_terms' => "I have read and accept the %sTerms of Service%s",
 	'profile_manager:simple_access_control' => 'Select who is able to see this information',
+	'profile_manager:register_pre_check:missing' => 'The next field must be filled: %s',
+	'profile_manager:register_pre_check:terms' => 'You need to accept the terms to complete the registration',
+	'profile_manager:settings:registration:free_text:content' => "
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><strong>Register</strong></p>
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'>&nbsp;</p>
+	<ul>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>To post a trip you must be registered. It's simple: you just need to give your mail and set a good password.</i></span></p>
+		</li>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Post your trip: If you plan to travel between Europe and Africa soon, let the community know. People interested in the same experience will book a seat in your vehicle. You save expenses, meet new people and share with other users your experience. When adding a trip, you can give the origin and destination of your journey, on what dates, the space available, etc.</i></span></p>
+		</li>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Looking for a trip: You can find the travel plans that best suit your needs, knowing the origin, destination and date they were made.</i></span></p>
+		</li>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Assess the experience. This application uses Decison Making under uncertainty build in model which is pioneer and use the opinions of all users to compute the karma of drivers.</i></span></p>
+		</li>
+	</ul>
+
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><strong><span style='font-size: 8pt;'>Honor Code</span></strong></p>
+
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'>&nbsp;</p>
+
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 12px; font-style: normal;'>People who register on the platform must agree to abide by the following code of conduct:</span><br/>
+	<br/>
+	<span style='font-size: 12px; font-style: normal;'>1. Each person signs up with a single account.</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>2. The texts, comments, photos or any othe data will be subject to the use of intellectual property. The user is responsible for observing a good practice at this respect.</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>3. The members of this platform did not participate in any dishonest activity that improves own results or foreseen to improve or worsen the results of the other participants.</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>4. Everyone should carefully read our terms of use and recommendations before using the platform for a better understanding of its operation, and to avoid any misunderstanding.</span></p>
+	",
+
+	// widgets
+	'widgets:profile_completeness:title' => 'Profile Completeness',
+	'widgets:profile_completeness:description' => 'Show the profile completeness',
+	'widgets:profile_completeness:view:tips' => 'Tip! Update your %s to improve the Profile Completeness.',
+	'widgets:profile_completeness:view:complete' => 'Congratulations! Your profile is 100% complete!',
+	
+	'widgets:register:title' => "Register",
+	'widgets:register:description' => "Show a register box",
+	'widgets:register:loggedout' => "You need to be logged out to use this widget",
+
+	'profile_manager:input:multi_select:empty_text' => 'Please select ...',
+
 
 	//tipo de perfil
 	'profile_manager:user_details:profile_type' => 'User type',
@@ -364,7 +416,7 @@ or click below to view the trip's follow requests:
 	//categorías
 	'profile:categories:sobremi' => 'About me',
 	'profile:categories:micoche' => 'My car',
-	'profile:categories:preferencias' => 'Trip Preferences',
+	'profile:categories:preferencias' => 'Trip preferences',
 
 	//custom fields
 	'profile:descripcion' => 'A few words',
@@ -385,7 +437,6 @@ or click below to view the trip's follow requests:
 	'profile:hint:modelo' => 'Let people know if you have a car, which one is it',
 	'profile:asientos' => 'Seats number',
 	'profile:hint:asientos' => 'Let people know the total number of seats of your car',
-
     'profile:ecologico' => 'Level of pollutant emissions',
 	'profile:hint:ecologico' => 'Do you have an environment-friendly car?',
 
@@ -417,9 +468,9 @@ or click below to view the trip's follow requests:
 
 	'profile:hint:origen' => 'Place origin of the journey',
 	'profile:hint:destino' => 'Intermedium or final point',
-	'profile:hint:trayecto' => 'Type of journey',
+	'profile:hint:trayecto' => 'Type of journey',	
 	'profile:hint:fechaIda' => 'Select the day using the calendar',
-	'profile:hint:fechaVuelta' => 'Select the day using the calendar',
+	'profile:hint:fechaVuelta' => 'Select the day using the calendar',	
 	'custom:trayecto:ida' => 'One way journey',
 	'custom:trayecto:vuelta' => 'Journey to home / round trip',
 	'custom:trayecto:acordar' => 'To be set',
@@ -427,9 +478,15 @@ or click below to view the trip's follow requests:
 	'groups:flexible' => 'Open dates',	
 	'groups:gender' => 'Security for woman',
 	'groups:nplazas' => 'Free seats',
+	'groups:aportacionViajero' => 'Contribution per traveler',	
 	'profile:hint:flexible' => 'Dates to be disscussed with participants',
 	'profile:hint:gender' => 'Explicit user engagement',
-	'profile:hint:nplazas' => 'The total number of seats cannot be greater than the car capacity',
+	'profile:hint:nplazas' => 'Total number of seats offered plus driver cannot be greater than the car capacity',
+	'groups:distancia'=>'Distance of trip',
+	'groups:tiempo'=>'Estimated time',
+	'groups:precio'=>'Precio price',
+	'groups:showMap'=>'show | hide map',
+	'group:nplazasUncorrect'=>'Number of seats wrong',
 
 	// Paqueteria	
 	'groups:servicioPaqueteria' => 'Shipment allowed',	
@@ -437,22 +494,64 @@ or click below to view the trip's follow requests:
 	'groups:tamaMaletero' => 'Car Trunk',	
 	'profile:hint:tamaMaletero' => 'Aproximate free trunk size to allocate packages (volume measure)',
 	'groups:tipoBultos' => 'Package categories',	
-	'profile:hint:tipoBultos' => 'Size and weight is described in similitude to an animal (a metaphor)',
-    'custom:package:raton' => '<img src=\"mouse.gif\"',
-    'custom:package:gato' => 'img cat',
-    'custom:package:tigre' => 'img tiger',	
+	'profile:hint:tipoBultos' => 'Size and weight is described in similitude to an animal (a metaphor): mouse (small and light), cat (intermediate) and tiger (big and heavy)',
+    'custom:package:raton' => 'backpack (small)',
+    'custom:package:gato' => 'small suitcase (intermediate)',
+    'custom:package:tigre' => 'big suitcase (big)',	
+    'custom:fecha:hint' => 'You should select a date from this calendar.',
+
 	
 	'groups:preReservar'=>'Pre-Order',
 	'datepicker:dateStartAfterThanDateEnd'=>'Departure date has to be before arrival date',
 	'datepicker:dateEndBeforeThanDateStart'=>'Return date has to be after arrival date',
 	'datepicker:WrongDates'=>'You make a miskate with de dates of the trip',
 	'datepicker:noTripAtPast'=>'You can\'t travel at Past',
-	'groups:confirm'=>'confirm preOrder',
-	'groups:unPreorder'=>'Cancel PreOrder',
-	'groups:PreOrderCorrect'=>'PreOrder correctly',
-	'groups:unPreOrderCorrect'=>'unPreOrder correctly',
-	'groups:confirmTrip'=>'Confirm PreOrder',
-	'groups:unconfirmTrip'=>'UnConfirm PreOrder',
+	'groups:confirm'=>'Confirm Pre-Order',
+	'groups:unPreorder'=>'Cancel Pre-Order',
+	'groups:PreOrderCorrect'=>'Pre-Order correctly',
+	'groups:unPreOrderCorrect'=>'Pre-Order cancel correctly',
+	'groups:confirmTrip'=>'Confirm Order',
+	'groups:unconfirmTrip'=>'Cancel Order',
 	'groups:cantPreorderSeatMax'=>'You can\'t preorder because there aren\'t seats avaible',
 	'groups:seatsAvaible'=>'Seats available',
+
+	//Member list summary view (spaces important)
+	'profile_manager:user_summary_control:options:spacers:teranga_car' => " My car: ",	
+	'profile_manager:user_summary_control:options:spacers:teranga_asientos' => " Total seats: ",
+
+
+	// traducciones externas a modificar
+	'usersettings:statistics:label:membersince' => "Miembro desde",	
+	'item:object:reported_content' => "Reported content",	
+	'item:object:image' => "Uploaded photos",
+	'item:object:hflts' => "Settings Decision Making",	
+	'item:object:terms' => "Terms",	
+	'item:object:album' => "Photo Album",	
+	'item:object:mcdm' => "Decision Making",	
+	'item:object:about' => "About",	
+	'item:object:badge' => "Badges",	
+	'item:object:tidypics_batch' => "Tidipics",	
+	'item:object:privacy' => "Privacy",	
+	'item:object:thewire' => "The wire posts",	
+    'notifications:subscriptions:changesettings:groups' => "Trips notifications",	
+	'access:overridenotice' => "Note: Due to site policy, this content will be accessible only by trip members. If you select private, no one but you will see it.",
+	'elggx_userpoints:toppoints' => 'Assessment Points awarded',
+
+	// nuevas etiquetas - marzo 2016
+	'group:nplazasNoDato' => 'It is required to indicate the number of offered seats',
+	'group:overbooking' => "It's not possible to overbook your car",	
+	'welcome:title' => "A brief journey through this platform will allow you to:",
+	'welcome:item1' => "Edit your profile and let people know what are your travel preferences!",
+	'welcome:item2' => "Join the trip that you love and comunicate with its promoter to agree the trip's details",
+	'welcome:item3' => "Send messages to people community by click-in on their avatar",
+	'welcome:item4' => "Follow the best drivers and get to know their karma!",
+	'welcome:item5' => "Express your opinion about your trip companions after the real trip experience. We will use some of the information to calculate their karma!",
+	'welcome:item6' => "Take hospitality in your pocket by downloading the Teranga Go App!",
+	'footer:ugr' => "Promoter: University of Granada CEI BioTIC project.",
+	'footer:rosana' => "Rosana Montes (Coordinator)",
+	'footer:acento' => "Partner: ",
+
+	'teranga:public' => "Notice",
+	'teranga:public:mustlogin' => "You must be logged in to contact with the driver. Register here",
+	
 );

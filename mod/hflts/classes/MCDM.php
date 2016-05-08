@@ -29,11 +29,14 @@ abstract class MCDM
 	var $W; //weight of criteria (array)
 	var $E; //weight of experts (array)
 
-	var $G;
+	var $G = 6; //max scale by default
 	var $collectiveValue;
 	var $collectiveTerm;	
 
 	var $debug = false;
+	var $information = false;
+
+	var $case = 'platform'; //by default data comes from the platform
 
 	/**
 	 * Returns the title of the method
@@ -71,9 +74,9 @@ abstract class MCDM
 			return; 
 
 		$this->data = $values;
-		if ($this->debug) 
+		if ($this->information) 
 		{
-			echo("#". $this->num . ' Dt: <pre>');	print_r($this->data);	echo('</pre><br>');
+			echo("#". $size . ' Dt: <pre>');	print_r($this->data);	echo('</pre><br>');
 		}
 
 		if (sizeof($values) != $size)
@@ -88,9 +91,9 @@ abstract class MCDM
 			$this->W = averagedUserPreference($C_weight, $this->M);
 
 		if ($E_weight != null)
-			$this->E = relativeUserExpertise($E_weight);
+			$this->E = relativeUserExpertise($E_weight);//Idea: no normalizar aqui sino fuera en driver + mcdm lib
 
-		if ($this->debug) 
+		if ($this->information) 
 		{
 			echo(' W: <pre>');	print_r($this->W);	echo('</pre><br>');
 			echo(' E: <pre>');	print_r($this->E);	echo('</pre><br>');
@@ -99,21 +102,67 @@ abstract class MCDM
 
 	/**
 	* Check premises before to run
+	* Choose experiment to run
 	*/
 	public function run()
 	{
 		if (elgg_get_plugin_setting('debug', 'hflts') == 1)
-			$this->debug = true;
+			$this->information = true;
 		else
-			$this->debug = false;
+			$this->information = false;
 		
-		if (!$this->data || $this->num == 0 || $this->P == 0)
+		if ($this->debug) system_message("case csv file " . $this->case);
+		switch ($this->case)
 		{
-			return ;
-			//register_error(elgg_echo("hflts:mcdm:fail"));
-			//forward(REFERER);
-		}
-		$this->num = $this->N*$this->P;
+		 	case 'platform':
+				if (!$this->data || $this->num == 0 || $this->P == 0)
+				{
+					//return ;
+					register_error(elgg_echo("hflts:mcdm:fail"));
+					//forward(REFERER);
+				}
+				$this->num = $this->N*$this->P;
+		 		break;
+
+		 	case 'classic':
+		 		self::realEstateCase();
+		 		break;
+
+		 	case 'todim':
+		 		self::todimCase();
+		 		break;
+
+		 	case 'vikor':
+		 		self::vikorCase("-3..3");
+		 		break;
+		 	case 'vikorS7':
+		 		self::vikorCase("S7");
+		 		break;
+
+		 	case 'electre':
+		 		self::electreCase();
+		 		break;
+
+		 	case 'imported':
+		 		if ($this->debug) system_message("choose csv file " . $this->alternatives[0]);
+		 		self::parse_csv($this->alternatives[0]);
+
+		 		for ($i=0; $i<$this->N;$i++)
+		 			$this->alternatives[$i] = 'x_'.$i;
+
+		 		for ($i=0; $i<$this->M;$i++)
+		 			$this->W[$i] = 1.0;
+
+		 		for ($i=0; $i<$this->P;$i++)
+		 			$this->E[$i] = 1.0;
+
+		 		break;
+	 	
+		 	default://promeetee/topsis not impleented
+		 		register_error("MCDM_not_be_here");
+		 		break;
+		} 
+
 	} 
 
 
@@ -203,10 +252,8 @@ abstract class MCDM
 	/**
 	* Read data from csv file
 	*/
-	function parse_csv($name) 
+	function parse_csv($filename) 
 	{ 	
-		$filename = elgg_get_plugins_path() . "hflts/classes/" . $name;
-
 		$importer = new CsvImporter($filename,true,","); 
 		$this->data = $importer->get(); 
 		$num = count($this->data);
@@ -217,10 +264,10 @@ abstract class MCDM
 		else
 			$this->num = $num;
 		
-		if ($this->debug) 
+		/*if ($this->debug) 
 		{
-			echo($this->num . 'data: <pre>');	print_r($this->data);	echo('</pre><br>');
-		}
+			echo($this->num . ' assessments in file: <pre>');	print_r($this->data);	echo('</pre><br>');
+		}*/
 	}
 
 	public function realEstateCase()
@@ -230,10 +277,18 @@ abstract class MCDM
 		$this->P=5; //num of experts
 		
 		$this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
-		$this->W = array(1.0, 1.0, 0.5,0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
+		$this->W = array(1.0, 1.0, 0.5, 0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
+		$this->E = array(
+			1.0, 1.0, 1.0, 1.0, 1.0,
+			1.0, 1.0, 1.0, 1.0, 1.0,
+			1.0, 1.0, 1.0, 1.0, 1.0,
+			1.0, 1.0, 1.0, 1.0, 1.0,
+			1.0, 1.0, 1.0, 1.0, 1.0
+		); //same importance of each assessment
 		
-		$this->parse_csv("ejemplo_casas.csv");		
-		if ($this->debug) system_message("realEstateCase");
+		$name = elgg_get_plugins_path() . "hflts/samples/set_classic.csv";
+		$this->parse_csv($name);		
+		if ($this->information) system_message("realEstateCase");
 	}
 
 	public function todimCase()
@@ -243,22 +298,31 @@ abstract class MCDM
 		$this->P=1; //num of experts
 		$this->alternatives = array('p1','p2','p3','p4');
 		$this->W = array(0.2, 0.15, 0.15,0.5);
+		$this->E = array(1.0, 1.0, 1.0, 1.0);
 
-		$this->parse_csv("ejemplo_todim.csv");	
+		$name = elgg_get_plugins_path() . "hflts/samples/set_todim.csv";
+		$this->parse_csv($name);		
+
 		$this->num = $this->N*$this->P;
-		if ($this->debug) system_message("todimCase");
+		if ($this->information) system_message("todimCase");
 	}	
 
-	public function vikorCase()
+	public function vikorCase($rangeTerms)
 	{
 		$this->N=3; //num of alternatives
 		$this->M=3; //num of criteria
 		$this->P=1; //num of experts
 		$this->alternatives = array('p1','p2','p3');
 		$this->W = array(0.3, 0.5, 0.2);
+		$this->E = array(1.0, 1.0, 1.0);
 
-		$this->parse_csv("ejemplo_vikor.csv");  
-		if ($this->debug) system_message("vikorCase");
+		if ($rangeTerms == "S7")
+			$name = elgg_get_plugins_path() . "hflts/samples/set_vikorS7.csv";
+		else
+			$name = elgg_get_plugins_path() . "hflts/samples/set_vikor.csv";
+		$this->parse_csv($name);		
+
+		if ($this->information) system_message("vikorCase");
 	}
 	
 	public function electreCase()
@@ -268,8 +332,11 @@ abstract class MCDM
 		$this->P=1; //num of experts
 		$this->alternatives = array('p1','p2','p3');
 		$this->W = array(0.3, 0.2, 0.4, 0.1);
+		$this->E = array(1.0, 1.0, 1.0);
 
-		$this->parse_csv("ejemplo_electre.csv");  
-		if ($this->debug) system_message("electreCase");
+		$name = elgg_get_plugins_path() . "hflts/samples/set_electre.csv";
+		$this->parse_csv($name);		
+
+		if ($this->information) system_message("electreCase");
 	}    
 }

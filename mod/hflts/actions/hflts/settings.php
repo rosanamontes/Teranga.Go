@@ -26,6 +26,7 @@ $list = elgg_get_entities_from_metadata([
 
 if ($list) 
 {
+	if (!is_array($list)) system_error("Revisar foreach de settings");
 	foreach ($list as $old_object) 
 	{
 		if (!$old_object->delete()) 

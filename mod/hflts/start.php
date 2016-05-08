@@ -56,6 +56,7 @@ function hflts_init()
 
 	//teranga add user_hover_menu entry
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'hflts_user_hover_menu');
+	elgg_register_plugin_hook_handler('admin:teranga:import', 'system', 'hflts_import_external_data');
 
 	/* to handle mcdm objects
     elgg_register_event_handler('create','object', 'hflts_mcdm_object');
@@ -66,6 +67,28 @@ function hflts_init()
 
 function hflts_page_handler($page)
 {
+	if (elgg_extract(0, $page) === 'collective') 
+	{
+		$content = elgg_view('hflts/collective', array(
+			'nAlternativas' => $page[1],
+			'nCriterios' => $page[2],
+			'nExpertos' => $page[3],
+			'G' => $page[4],
+			'import_file' => $page[5]
+		));
+		$params = array(
+			'title' => 'DM con datos de samples/set_'.$page[5].'.csv',
+			'content' => $content,
+			'filter' => '',
+		);
+		$body = elgg_view_layout('content', $params);
+
+		echo elgg_view_page('hflts', $body);
+
+		return true;
+	}
+
+
 	set_input('username', $page[0]);//necesario
 	$user = elgg_get_page_owner_entity();// ej strem
 	$guid = elgg_get_page_owner_guid();// id de strem
@@ -129,6 +152,20 @@ function hflts_mcdm_object($event, $object_type, $object)
 		system_message("evento delete MCMD " . $object_type . " y " . $object->description);
 	}
     return(true);
+}
+
+/**
+ * This method is called when a ...
+*/
+function hflts_import_external_data($hook, $type, $return, $params) 
+{
+	$nAlternativas = $params['nAlternativas'];
+	$nCriterios = $params['nCriterios'];
+	$nExpertos = $params['nExpertos'];
+	$G = $params['G'];
+	$import_file = $params['import_file'];
+
+	forward('hflts/collective/'.$nAlternativas."/".$nCriterios."/".$nExpertos."/".$G."/".$import_file);
 }
 
 ?>

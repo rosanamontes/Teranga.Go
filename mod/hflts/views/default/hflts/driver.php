@@ -35,6 +35,7 @@ if (sizeof($valorationlist) > 0)
 	$enableExpertos = elgg_get_plugin_setting('weight_experts', 'hflts');
 	$E_weight = null;
 	
+	if (is_array($valorationlist)) 
 	foreach ($valorationlist as $evaluation) 
 	{
 		$person_link = elgg_view('output/text', array(
@@ -123,7 +124,7 @@ if (sizeof($valorationlist) > 0)
 		if ($enableExpertos)
 		{
 			$expert = get_user($evaluation->owner_guid);
-			$hesitant .= "E_".$expert->name . " #" . $expert->userpoints_points ;
+			$hesitant .= "E_".$expert->name . " with " . ($expert->expertise*100) . " %" ;
 			$E_weight[$count] = $expert->userpoints_points;
 		}
 

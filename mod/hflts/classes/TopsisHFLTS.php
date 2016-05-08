@@ -37,8 +37,6 @@ class TopsisHFLTS extends MCDM
 	
 	public function run()
 	{
-		//self::realEstateCase();
-
 		parent::run();
 
 		$this->ranking();	
@@ -50,7 +48,7 @@ class TopsisHFLTS extends MCDM
 
     private function ranking()
     {
-    	if ($this->debug)
+    	if ($this->information)
     	{
     		echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
     	}

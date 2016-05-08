@@ -59,7 +59,6 @@ class ElectreHFLTS extends MCDM
 	public function run()
 	{
 		parent::run();
-		//parent::vikorCase();//electreCase();//realEstateCase//todimCase
 
 		//step 1: transform teh linguistic expressions into HFLTS. 
 		//Since all criteria are of the maximizing type no normalization is needed
@@ -355,14 +354,14 @@ class ElectreHFLTS extends MCDM
 			$this->ranking[$i]['electre']['value'] = current($this->dom);
 			$this->ranking[$i]['electre']['label'] = "--";
 			
-			if ($this->debug)
+			if ($this->information)
 				echo "<p>index ".$i." is ranked as ".$x." in positive and as " . $y . " in negative (should be the same) </p>";
 			
 			next($this->dom);
 			next($this->dis);
 		}  	
 
-		if ($this->debug)
+		if ($this->information)
 		{
 			echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
 		}

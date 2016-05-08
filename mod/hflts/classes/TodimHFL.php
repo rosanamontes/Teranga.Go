@@ -62,7 +62,6 @@ class TodimHFL extends MCDM
 	public function run()
 	{
 		parent::run();
-		parent::electreCase();
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
 		$this->variance = $this->variance();
@@ -97,7 +96,8 @@ class TodimHFL extends MCDM
 			$sum += pow($i - $taumed,2);
 		}
 		$var = $sum / ($this->G + 1);
-		if ($this->debug) system_message("G=" . $this->G . " variance=" . $var);
+		if ($this->debug) 
+			system_message("G=" . $this->G . " variance=" . $var);
 		return $var;
 	}
 
@@ -145,6 +145,7 @@ class TodimHFL extends MCDM
 		}
 
 		$var = $this->variance*$L;
+
 		if ($this->debug) 
 			echo "score = " .$D . " - (" . $sum." / " . $var . ") L=".$L."<br>" ;
 		
@@ -303,7 +304,7 @@ class TodimHFL extends MCDM
 			next($values);
 		}  	
 				
-		if ($this->debug)
+		if ($this->information)
 		{
 			echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
 		}

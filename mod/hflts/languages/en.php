@@ -21,13 +21,13 @@ return array(
 	'hflts:number' => 'From',
 	'hflts:users' => 'users\' valorations.',
 	'hflts:karma:none' => 'unknown',
-	'hflts:karma:s0' => 'very poor',
-	'hflts:karma:s1' => 'poor',
-	'hflts:karma:s2' => 'novel',
-	'hflts:karma:s3' => 'satisfying',
-	'hflts:karma:s4' => 'trusted',
-	'hflts:karma:s5' => 'very good',
-	'hflts:karma:s6' => 'excelent',
+	'hflts:karma:s0' => 'Very poor',
+	'hflts:karma:s1' => 'Poor',
+	'hflts:karma:s2' => 'Novel',
+	'hflts:karma:s3' => 'Satisfying',
+	'hflts:karma:s4' => 'Trusted',
+	'hflts:karma:s5' => 'Very good',
+	'hflts:karma:s6' => 'Excellent',
 
 
 	/**

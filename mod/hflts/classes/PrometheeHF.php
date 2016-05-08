@@ -35,10 +35,9 @@ class PrometheeHF extends MCDM
 
 	public function run()
 	{
-		parent::prometheeCase();//realEstateCase();
 		parent::run();
-
-
+		//method not implemented 
+		
 		return $this->ranking[0]['promethee']['label'];
 	}
 
@@ -46,7 +45,7 @@ class PrometheeHF extends MCDM
 
 	private function ranking()
 	{
-		if ($this->debug)
+		if ($this->information)
 		{
 			echo('<br>Ranking <pre>');	print_r($this->ranking);	echo('</pre>');
 		}

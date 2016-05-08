@@ -268,7 +268,7 @@ function averagedUserPreference($C_weight, $length)
 /**
 * Input:	absolute expertise per expert
 *			guarantee of expertise (== do we trust in our platflorm users?) 0% all from the platform 100% nothing from the platform
-* Output:	relative expertise per expert (normalized)
+* Output:	relative expertise per expert (each one maximum 1)
 */
 function relativeUserExpertise($E_weight)
 {
@@ -278,19 +278,21 @@ function relativeUserExpertise($E_weight)
 	$guru = max($E_weight); 
 
 	$base = elgg_get_plugin_setting('base_expertise', 'hflts') / 100.0;
+	//system_message($base . " guru " . $guru);
+
 	$fill = 1.0 - $base;
 	$guru = $fill / $guru;
 
-	$sum = 0;
+	//$sum = 0; no es necesario que sumen 1 los pesos de los expertos.
 	for ($i=0;$i<$n;$i++)
 	{
 		$relExp[$i] = $base + ($E_weight[$i] * $guru) ;
-		$sum += $relExp[$i];
-		//echo  $relExp[$i] . " = " . ($E_weight[$i] * $guru) . "<br>";
+		//$sum += $relExp[$i];
+		//echo  $relExp[$i] . " =>> " . $guid_array[$i] . "<br>";
 	}
 
-	for ($i=0;$i<$n;$i++)
-		$relExp[$i] /= $sum;
+	//for ($i=0;$i<$n;$i++)
+	//	$relExp[$i] /= $sum;
 
 	return $relExp;
 }
@@ -300,6 +302,7 @@ function relativeUserExpertise($E_weight)
 * compute karma using decision making processes of computing with words
 *	Input: user guid
 *	Output: karma term
+*	Uses: assessments made and stored in the platform
 */
 function userKarma($guid)
 {
@@ -339,6 +342,7 @@ function userKarma_decisionMaking($valorationlist)
 	$enableExpertos = elgg_get_plugin_setting('weight_experts', 'hflts');
 	$E_weight = null;
 	
+	if (is_array($valorationlist))
 	foreach ($valorationlist as $evaluation) 
 	{
 		$data[$count] = array(
@@ -397,6 +401,9 @@ function userKarma_decisionMaking($valorationlist)
 		$count++;
 	}
 
+	$computed_weight = relativeUserExpertise($E_weight);
+
+
 	if ($count >= 2)
 	{
 		$method = new AggregationHFLTS($evaluation->user_guid); 
@@ -406,7 +413,7 @@ function userKarma_decisionMaking($valorationlist)
 
 		//set valoration on user's profile
 		$user = get_user($evaluation->user_guid);
-		system_message($count . "# " . $user->username . " @ " . $model->collectiveValoration);
+		//system_message($count . "# " . $user->username . " @ " . $model->collectiveValoration);
 
 		return $model->collectiveValoration;
 	}

@@ -22,7 +22,8 @@ if ((elgg_get_plugin_setting('limited_groups', 'groups') != 'yes') || elgg_is_ad
 }
 
 $selected_tab = get_input('filter');
-system_message("selected tab " . $selected_tab);
+//system_message("selected tab " . $selected_tab);
+
 // default group options
 $group_options = [
 	'type' => 'group',
@@ -30,7 +31,7 @@ $group_options = [
 ];
 
 $dbprefix = elgg_get_config('dbprefix');
-system_message("teranga selected tab es ... " . $selected_tab);
+//system_message("teranga selected tab es ... " . $selected_tab);
 
 switch ($selected_tab) 
 {

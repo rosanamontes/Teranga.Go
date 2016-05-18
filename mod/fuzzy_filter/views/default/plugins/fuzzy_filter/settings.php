@@ -18,12 +18,12 @@ $listing_options = [
 	'yours' => elgg_echo('groups:yours'),
 	'newest' => elgg_echo('sort:newest'),
 	'popular' => elgg_echo('sort:popular'),
-	'open' => elgg_echo('fuzzy_filter:groups:sorting:open'),
-	'closed' => elgg_echo('fuzzy_filter:groups:sorting:closed'),
+	'open' => elgg_echo('fuzzy_filter:trips:sorting:open'),
+	'closed' => elgg_echo('fuzzy_filter:trips:sorting:closed'),
 	'alpha' => elgg_echo('sort:alpha'),
-	'ordered' => elgg_echo('fuzzy_filter:groups:sorting:ordered'),
+	'ordered' => elgg_echo('fuzzy_filter:trips:sorting:ordered'),
 	'featured' => elgg_echo('status:featured'),
-	'suggested' => elgg_echo('fuzzy_filter:groups:sorting:suggested'),//Rosana: el que voy a implementar
+	'suggested' => elgg_echo('fuzzy_filter:trips:sorting:suggested'),//Rosana: el que voy a implementar
 ];
 
 $body .= '<div>';
@@ -50,7 +50,7 @@ foreach ($listing_options as $tab => $tab_title)
 	];
 	$tab_value = $plugin->$tab_setting_name;
 
-	system_message("en settings " . $tab_title . " activo = " . $tab_value);
+	//system_message("en settings " . $tab_title . " activo = " . $tab_value);
 
 
 	if ($tab_value !== '0') {

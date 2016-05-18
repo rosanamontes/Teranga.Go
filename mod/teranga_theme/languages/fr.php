@@ -1,4 +1,4 @@
-﻿f<?php
+﻿<?php
 return array(	
 	'custom:bookmarks' => "Derniers accords",
 	'custom:groups' => "Derniers voyages",
@@ -16,26 +16,28 @@ return array(
 	'comment:unsubscribe:success' => "ta souscription a supprimé avec succès",	
 	//'custom:groups' => "derniers voyages",
 
+	'friends' => "Personnes que je suivre",	
+
 	/**
 	 * Menu items and titles Teranga Go 
 	 */
-	'groups' => "planification de voyage",
-	'groups:owned' => "planification de voyage déjà réalisée",
-	'groups:owned:user' => "planification de voyage de l'utilisateur %s",
+	'groups' => "Voyages",
+	'groups:owned' => "Voyage déjà réalisée",
+	'groups:owned:user' => "Voyage de l'utilisateur %s",
 	'groups:yours' => "Mes voyages",
-	'groups:user' => "planification de voyage de l'utilisateur (% S)",
+	'groups:user' => "Voyage de l'utilisateur (% S)",
 	'groups:all' => "Tous les voyages",
-	'groups:add' => "créer un nouveau voyage",
-	'groups:edit' => "éditer un voyage",
-	'groups:delete' => "annuler un voyage",
+	'groups:add' => "Créer un nouveau voyage",
+	'groups:edit' => "Éditer un voyage",
+	'groups:delete' => "Annuler un voyage",
 	'groups:membershiprequests' => "gérer les intentions de voyages",
 	'groups:membershiprequests:pending' => "gérer les manifestations d'intérêt (%s)",
 	'groups:invitations' => "Invitations a un voyage",
 	'groups:invitations:pending' => "Invitation a (%s)",
 
-	'groups:icon' => "icone du voyage (laisser en blanc pour ne pas opérer des changements)",
+	'groups:icon' => "Icone du voyage (laisser en blanc pour ne pas opérer des changements)",
 	'groups:name' => "Dénomination du voyage",
-	'groups:username' => "nom abbrégé du voyage(comment l'écrire dans l'url, caractères alphanumériques uniquement)",
+	'groups:username' => "Nom abbrégé du voyage(comment l'écrire dans l'url, caractères alphanumériques uniquement)",
 	'groups:description' => "description complète",
 	'groups:briefdescription' => "brève description",
 	'groups:interests' => "étiquettes",
@@ -85,7 +87,7 @@ return array(
 	'groups:joinrequest' => "soliciter une adhésion",
 	'groups:join' => "participer à un voyage",
 	'groups:leave' => "renoncer au voyage",
-	'groups:invite' => "inviter des amis",
+	'groups:invite' => "Inviter",
 	'groups:invite:title' => "inviter des amis pour ce voyage",
 	'groups:inviteto' => "inviter des amis à (% s)",
 	'groups:nofriends' => "pas d'amis invités pour ce voyage",
@@ -129,12 +131,12 @@ Voir et commenter:%s",
 
 	'groups:invitations:none' => "il n'y a pas d'invitation pour le moment.",
 
-	'item:object:groupforumtopic' => "thèmes de discussion",
+	'item:object:groupforumtopic' => "Les arrangements de voyage",
 	'item:object:discussion_reply' => "réponses de la discussion",
 
-	'groupforumtopic:new' => "ajouter un thème de discussion",
+	'groupforumtopic:new' => "ajouter un arrangement de voyage",
 
-	'groups:count' => "planification de voyages créés",
+	'groups:count' => "Voyages créés",
 	'groups:open' => "voyage ouvert",
 	'groups:closed' => "voyage fermé",
 	'groups:member' => "affiliés",
@@ -192,7 +194,7 @@ Voir et commenter:%s",
 
 	'discussion:search:title' => "répondre par thème  (% s) ",
 	
-	'admin:groups' => "planification de voyage",
+	'admin:groups' => "Voyage",
 
 	'reply:this' => "répondre à ceci",
 
@@ -356,33 +358,33 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 	'profile_manager:register_pre_check:missing' => 'Le champ suivant doit être rempli: %s',
 	'profile_manager:register_pre_check:terms' => "Vous devez accepter les conditions pour terminer l'enregistrement",
 	'profile_manager:settings:registration:free_text:content' => "
-	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><strong>Registro</strong></p>
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><strong>Enregistrement</strong></p>
 	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'>&nbsp;</p>
 	<ul>
 		<li>
-		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>***.</i></span></p>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Pour pouvoir publier un voyage, tu dois être inscrit comme membre. Pour cela, rien de plus facile : il te suffit d’insérer ton e-mail et ton mot de passe.</i></span></p>
 		</li>
 		<li>
-		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>***</i></span></p>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Publie ton voyage: si tu as prévu de voyager entre l’Europe et l’Afrique prochainement, fais le savoir aux personnes qui souhaiteraient faire le trajet avec toi ou aimeraient transporter des colis dans ton véhicule. Ainsi, tu économiseras sur les frais, feras de nouvelles connaissances et pourras partager ton expérience avec d’autres utilisateurs. Concernant le voyage, tu pourras donner des informations sur l’origine et la destination, le trajet à parcourir, les dates, le nombre de places et l’espace disponible pour le transport de colis, etc.</i></span></p>
 		</li>
 		<li>
-		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>***</i></span></p>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Cherche un voyage: tu pourras consulter les voyages planifiés qui s’adaptent le plus à tes besoins, avec des informations sur les lieux de départs, les destinations et les dates auxquelles ces trajets s’effectueront.</i></span></p>
 		</li>
 		<li>
-		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>***</i></span></p>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Évalue l’expérience: cette application utilise un système pionnier d’aide à la prise de décision face aux incertitudes, en se basant sur l’opinion de l’ensemble des utilisateurs pour calculer le karma des conducteurs.</i></span></p>
 		</li>
 	</ul>
 
-	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><strong><span style='font-size: 8pt;'>C&oacute;digo de Honor</span></strong></p>
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><strong><span style='font-size: 8pt;'>Code d’honneur</span></strong></p>
 
 	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'>&nbsp;</p>
 
-	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 12px; font-style: normal;'>***:</span><br/>
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 12px; font-style: normal;'>Les personnes qui s’enregistrent sur le site doivent respecter le code de conduite suivant:</span><br/>
 	<br/>
-	<span style='font-size: 12px; font-style: normal;'>1. ***</span><br/>
-	<span style='font-size: 12px; font-style: normal;'>2. ***</span><br/>
-	<span style='font-size: 12px; font-style: normal;'>3. ***.</span><br/>
-	<span style='font-size: 12px; font-style: normal;'>4. ***.</span></p>
+	<span style='font-size: 12px; font-style: normal;'>1. Chaque personne ne s’inscrira qu’avec un seul compte personnel.</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>2. Les textes, commentaires, photos et toute autre donnée sera soumis à la propriété intellectuelle et il incombe à l’utilisateur la responsabilité d’en faire bon usage.</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>3. Les membres de cette plateforme ne participeront à aucune activité malhonnête en vue d’améliorer leurs propres résultats, ou d’améliorer ou altérer les résultats des autres participants..</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>4. Chaque personne devra lire avec attention nos conditions d’utilisation et nos recommandations avant d’utiliser la plateforme afin d’avoir une meilleure compréhension de son fonctionnement et éviter toute confusion.</span></p>
 	",
 
 	// widgets
@@ -395,7 +397,7 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 	'widgets:register:description' => "publie un registre d'enregistrement",
 	'widgets:register:loggedout' => "il faut être connecté pour utiliser ce widget",
 
-	'profile_manager:input:multi_select:empty_text' => "merci de sélectionner... ...",	
+	'profile_manager:input:multi_select:empty_text' => "merci de sélectionner...",	
 
 	//tipo de perfil
 	'profile_manager:user_details:profile_type' => "type d'utilisateur",
@@ -408,21 +410,21 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 	'profile:types:pasajero:description' => "je ne suis pas de ceux qui aime conduire mais plutôt de ceux qui aime voyager",
 
 	//categorías
-	'profile:categories:sobremi' => "à propos de moi",
-	'profile:categories:micoche' => "ma voiture",
-	'profile:categories:preferencias' => "mes préférence lors d'un voyage",
+	'profile:categories:sobremi' => "À propos de moi",
+	'profile:categories:micoche' => "Ma voiture",
+	'profile:categories:preferencias' => "Mes préférence lors d'un voyage",
 	
 	//custom fields
-	'profile:descripcion' => "brève description",
-	'profile:hint:descripcion' => "il est très important de compléter le profil",
+	'profile:descripcion' => "Brève description",
+	'profile:hint:descripcion' => "Il est très important de compléter le profil",
 	'profile:telefono' => "téléphone",
-	'profile:hint:telefono' => "indiquer ton numéro de téléphone (avec l'indicatif du pays) si tu souhaites contacter en privé par whattsap tes compagnons de voyage",
-	'profile:pais' => "pays",
-	'profile:hint:pais' => "il est très important de compléter le profil",
-	'profile:twitter' => "compte twitter",
-	'profile:hint:twitter' => "es-tu actif dans les réseaux sociaux?",
-	'profile:fexpedicion' => "ancienneté du permis de conduire",	
-	'profile:hint:fexpedicion' => "date d'expiration du permis de conduire",
+	'profile:hint:telefono' => "Indiquer ton numéro de téléphone (avec l'indicatif du pays) si tu souhaites contacter en privé par whattsap tes compagnons de voyage",
+	'profile:pais' => "Pays",
+	'profile:hint:pais' => "Il est très important de compléter le profil",
+	'profile:twitter' => "Compte twitter",
+	'profile:hint:twitter' => "Es-tu actif dans les réseaux sociaux?",
+	'profile:fexpedicion' => "Ancienneté du permis de conduire",	
+	'profile:hint:fexpedicion' => "Date d'expiration du permis de conduire",
 
 	'profile:marca' => "marque",
 	'profile:hint:marca' => "de quelle marque est ta voiture?",
@@ -437,7 +439,7 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
     'custom:rating:alto' => "hautement",
     'custom:rating:si' => "oui",
     'custom:rating:no' => "non",
-    'custom:rating:occasional' => "occasionnellement",
+    'custom:rating:ocasional' => "occasionnellement",
     'custom:rating:poco' => "peu",
     'custom:rating:mucho' => "très",
 
@@ -467,32 +469,21 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 	'groups:llegadaVuelta' => "Arrivée au point du départ",
 
 	'groups:flexible' => "Les dates sont flexibles",	
-	'groups:gender' => "Sécurité pour les femmes",
-	'groups:nplazas' => "Places disponibles",	
-	'groups:aportacionViajero' => 'Contribution par voyageur',		
 	'profile:hint:flexible' => "Indique si les dates sont fixes ou flexibles",
-	'profile:hint:gender' => "Engagement ferme de l'utilisateur",
-	'profile:hint:nplazas' => "Nombre total de places offertes par le conducteur",
+	'groups:gender' => "Sécurité pour les femmes",
+	'profile:hint:gender' => "engagement ferme de l'utilisateur",
+	'groups:nplazas' => "Places disponibles",	
+	'profile:hint:nplazas' => "nombre total de places offertes par le conducteur",
+	'groups:aportacionViajero' => 'Contribution par voyageur',	
 	'groups:distancia'=>'Distance du parcours',
 	'groups:tiempo'=>'Durée approximative du voyage',
 	'groups:precio'=>'Tarif',
-	'groups:showMap'=>"montre | carte cachée",
-	'group:nplazasUncorrect'=>"Mauvais nombre de sièges",
+	'groups:showMap'=>'montre | carte cachée',
+	'group:nplazasWrong'=>"Valeur non autorisée. Le nombre maximum de sièges ne doit pas être supérieure à celle de votre véhicule.",
+    'custom:fecha:hint' => 'Vous devez sélectionner une date dans le calendrier',
 
 
-	// Paqueteria	
-	'groups:servicioPaqueteria' => "Colis",
-	'profile:hint:servicioPaqueteria' => "Ce voyage propose une livraison à domicile de colis selon le poids",
-	'groups:taille du réservoir' => "Taille du réservoir",
-	'profile:hint:tamaMaletero' => "Taille du réservoir en litres",
-	'groups:tipoBultos' => "Type de paquets",
-	'profile:hint:tipoBultos' => "Types de paquets autorisés selon les catégories tigre (gros et lourd) chat (intermédiaire) et souris (petit et léger)",
-    'custom:package:raton' => "cartable (petit)",
-    'custom:package:gato' => "petite valise (intermédiaire)",
-    'custom:package:tigre' => "grande valise (gros et lourd)",
-
-
-	'groups:preReservar' => "pré-réserver",
+	'groups:preReservar' => "Pré-réserver",
 	'datepicker:dateStartAfterThanDateEnd' => "Vous ne pouvez pas choisir une date de début postérieure au voyage",
 	'datepicker:dateEndBeforeThanDateStart' => "Vous ne pouvez pas choisir une date de début antérieure au voyage",
 	'datepicker:WrongDates' => "dates entrées incorrectes",
@@ -505,7 +496,7 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 	'groups:unconfirmTrip' => "reporter la réservation",
 	'groups:cantPreorderSeatMax' => "réservation impossible parce qu'il n’y a plus de sièges disponibles dans ce voyage",
 	
-	'groups:seatsAvaible' => "sièges disponibles",
+	'groups:seatsAvaible' => "Sièges disponibles",
 
 
 	//Member list summary view (spaces important)
@@ -541,6 +532,7 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 
 	//modificaciones por el traductor
 	'back' => 'Retour',
+	'activity:owner' => 'Consulter l\'activité',
 
 	// nuevas etiquetas - marzo 2016
 	'group:nplazasNoDato' => 'Il est obligatoire introduire le nombre de places que tu offres',
@@ -559,5 +551,94 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 
 	'teranga:public' => "Avis",
 	'teranga:public:mustlogin' => "Vous devez être connecté en contact avec le conducteur. Inscrivez-vous ici",
+
+
+
+	//gestion de reservas
+	'groups:manageOrders' => "Gérer les réservations",
+	'groups:manageOrders:title' => "Gestion des réserations",
+	'groups:manageOrders:save' => 'Derrière',
+	'groups:manageOrders:saved' => "Reservation enregistrée avec succès",
+	'groups:manageOrders:confirmar' => "Confirmer",
+	'groups:manageOrders:desconfirmar' => "Supprimér",
+	'groups:manageOrders:confirmadoOk' => "Réservation confirmée avec succès",
+	'groups:manageOrders:confirmadoKo' => "Erreur survenue lors de la confirmation",
+	'groups:manageOrders:desconfirmadoOk' => "Réservation annulée avec succès",
+	'groups:manageOrders:desconfirmadoKo' => "Erreur survenue lors de l’annulation de la réservation",
+	'groups:preorder' => "Pre-réserver",	
+	'custom:empty' => '(vide champ de profil)',	
+
+	//Mails internos de gestión de reservas
+	'groups:manageOrders:preorderOk:subjet' => 'PRE-RESERVA DEL VIAJE %s',
+	'groups:manageOrders:preorderOk:message'=>'El usuario %s ha hecho una pre-reserva de plaza. <br />
+	Usted ahora debe gestionar esta solicitud accediendo a su viaje %s para confirmarla o cancelarla.
+		<br />
+		Atentamente, <br />
+			El equipo de Teranga Go!',
+	'groups:manageOrders:confirmadoOk:subjet' => 'RESERVA DEL VIAJE %s',
+	'groups:manageOrders:confirmadoOk:message'=>'
+	El usuario promotor del viaje <strong>%s</strong> ha aceptado su reserva de plaza para el viaje %s en modalidad de trayecto %s y por el que se compromete a pagarle la cantidad de %s en su defecto u otra cantidad que haya sido acordada previa a la realización del viaje.<br />
+	Ustedes ahora viajarán juntos atendiendo a los Acuerdos del viaje que hayan establecido en esta plataforma. 	
+		<br />
+		Atentamente, <br />
+			El equipo de Teranga Go!',
+	'groups:manageOrders:desconfirmadoOk:subjet' => 'RESERVA CANCELADA DEL VIAJE %s',
+	'groups:manageOrders:desconfirmadoOk:message' => 'El usuario ha cancelado su reserva de plaza en el viaje. <br />
+	Usted ahora puede gestionar otras pre-reservas de su viaje o modificar los datos de su viaje (fechas o numero de plazas ofertadas). 
+		<br />
+		Atentamente, <br />
+			El equipo de Teranga Go!',
+
+	//Acuerdos de viaje (foros)
+	'groups:discussion:title1' => 'Pick-up points',
+	'groups:discussion:description1' => 'Ceci est un endroit pour discuter avec vos passagers le pick-up et déposer endroits.',
+	'groups:discussion:title2' => 'Des repos et des arrêts durant le voyage',
+	'groups:discussion:description2' => 'Les repos et les arrêts que nous ferons durant le voyage.',
+	'groups:discussion:title3' => 'Sur le colis',
+	'groups:discussion:description3' => 'Des accords sur le envoye du colis, un lieu de distribution, etc.',
+
+
+	//Trip planning sidebar
+	'groups:follower' => 'Les membres intéressés par voyage esta',
+	'groups:preorders' => 'Membres ayant pré-réservé siège',
+	'groups:confirmed' => 'Membres avec siège confirmé',
+
+	//integracion con blog
+	//'elgg:powered' => "",
 	
+	//ajustes para custom_index
+	'teranga:settings:title' => 'Aspecto para el tema de Teranga Go! por Rosana Montes',
+	'teranga:settings:isugr' => 'Seleccione cabecera, pie y CSS para Teranga Go!',
+	'teranga:settings:ugr' => 'Universidad de Granada',
+	'teranga:settings:css' => 'Simplificado',
+	'teranga:settings:elgg' => 'Acento Comunicacion',
+
+
+	// Paqueteria	 ===============================
+	'groups:servicioPaqueteria' => "Colis",
+	'profile:hint:servicioPaqueteria' => "Ce voyage propose une livraison à domicile de colis selon le poids",
+	'groups:tamaMaletero' => "Taille du réservoir",
+	'profile:hint:tamaMaletero' => "Taille du réservoir en litres",
+	'groups:tipoBultos' => "Type de paquets",
+	'profile:hint:tipoBultos' => "Types de paquets autorisés selon les catégories tigre (gros et lourd) chat (intermédiaire) et souris (petit et léger)",
+    'custom:package:raton' => "Cartable (petit)",
+    'custom:package:gato' => "Petite valise (intermédiaire)",
+    'custom:package:tigre' => "Grande valise (gros et lourd)",
+	'groups:nbultos' => 'Max permis paquets',	
+	'profile:hint:nbultos' => 'Estimation du nombre alloué en emballage dans le véhicule',
+	'package:nbultosWrong'=>'Valeur non autorisée. Le nombre maximum de paquets doit être une valeur comprise entre 0 et 49',//valor entre 0--49
+	'groups:bultosDisponibles'=>'Paquets disponibles',
+	'profile:hint:bultosDisponibles' => 'internal variable (admin only)',
+
+
+	//summaryPreOrder==============
+	'groups:summaryPreOrder:title'=> 'Réservation Voyage ou Colis',
+	'groups:summaryOrder'=>'Résumé de pré-réserve',
+	'groups:summaryPreOrder:ViajoYO'=>'Occupé un siège',
+	'groups:summaryPreOrder:ViajoYOBulto'=>"J'occupe une expédition de siège et colis",
+	'groups:summaryPreOrder:ViajaBulto'=>'Je ne voyage pas, seule parcelle',
+	'groups:summaryPreOrder:Elijo'=>'Sélectionner',
+	'groups:summaryPreOrder:ElijoViajar'=>'Je choisis voyager',
+	'groups:summaryPreOrder:numBultos'=>'Num forfaits'	
+
 );

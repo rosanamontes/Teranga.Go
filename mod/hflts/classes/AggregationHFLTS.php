@@ -79,7 +79,7 @@ class AggregationHFLTS extends MCDM
 				$this->cSj[$p][$c] = max($lower[$c]);
 				$this->checkRange($this->cSi[$p][$c], $this->cSj[$p][$c]);
 				if ($this->debug) 
-					echo $this->data[$p*$this->N]["ref"] . ": c" . ($c+1) . " (". $this->cSi[$p][$c] .",". $this->cSj[$p][$c] .") ";
+					echo $this->alternatives[$p] . ": c" . ($c+1) . " [". $this->cSi[$p][$c] .",". $this->cSj[$p][$c] ."] ";
 			}
 			if ($this->debug) 
 				echo "<br>";	
@@ -124,7 +124,7 @@ class AggregationHFLTS extends MCDM
 				$this->avg['sup'][$p] += $this->W[$c] * $this->beta[$p][$c]['sup'];
 			}
 			
-			//echo "Acumu=" . $sum . "<br>";
+			echo "Acumu=" . $sum . "<br>";
 			$this->avg['inf'][$p] = $this->avg['inf'][$p] / $sum;
 			$this->avg['sup'][$p] = $this->avg['sup'][$p] / $sum;
 
@@ -175,7 +175,7 @@ class AggregationHFLTS extends MCDM
 			$this->ranking[$p]['optimistic']['tuple'] =  toTuple ($optimistic[$index]) ;
 
 
-			if ($this->debug) echo "<p>2-tupla ".$candidato." & index ".$p." is ranked as ".$index." </p>";
+			//echo "<p>2-tupla ".$candidato." & index ".$p." is ranked as ".$index." </p>";
 			$p++;
 			next($values);
 		}  

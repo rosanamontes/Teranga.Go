@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
+	<name>Teranga App Ad</name>
+	<id>terangapp</id>
+	<author>Rosana Montes Soldado</author>
+	<version>1.2</version>
+	<description>Publica los enlaces para iOS, Android y AppsUGR de la app de Teranga Go!</description>
+	<website>http://tamen.ugr.es/teranga/</website>
+	<copyright>Universidad de Granada</copyright>
+	<license>GNU General Public License version 2</license>
+
+	<requires>
+		<type>elgg_release</type>
+		<version>1.9</version>
+	</requires>
+</plugin_manifest>

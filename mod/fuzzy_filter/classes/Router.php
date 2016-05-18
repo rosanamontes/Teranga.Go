@@ -41,7 +41,7 @@ class Router
 			case 'all':
 				$filter = get_input('filter');
 				$default_filter = elgg_get_plugin_setting('group_listing', 'fuzzy_filter');
-				system_message("el filter por defecto es " . $default_filter);
+				//system_message("el filter por defecto es " . $default_filter);
 
 				if (empty($filter) && !empty($default_filter)) {
 					$filter = $default_filter;

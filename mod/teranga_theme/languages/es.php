@@ -16,14 +16,17 @@ return array(
 	'comment:unsubscribe:success' => 'Te has desubscrito con éxito',	
 	//'custom:groups' => "Ultimos viajes",
 
+	//widgets 
+	'friends' => 'Usuarios que sigo',	
+
 	/**
 	 * Menu items and titles Teranga Go 
 	 */
-	'groups' => "Planificación de viaje",
-	'groups:owned' => "Planificación de viaje que administro",
-	'groups:owned:user' => 'Planificación de viaje que administra %s',
+	'groups' => "Tu viaje",
+	'groups:owned' => "Viajes que administro",
+	'groups:owned:user' => 'Viaje que administra %s',
 	'groups:yours' => "Mis viajes",
-	'groups:user' => "Planificación de viaje de %s",
+	'groups:user' => "Viaje de %s",
 	'groups:all' => "Todos los viajes",
 	'groups:add' => "Crear un nuevo viaje",
 	'groups:edit' => "Editar viaje",
@@ -50,16 +53,16 @@ return array(
 	'groups:unsubscribed' => 'Deshabilitar notificaciones',
 
 	'groups:members:title' => 'Participantes de %s',
-	'groups:members:more' => "Ver todos los seguidores",
-	'groups:membership' => "Ver los permisos de los seguidores",
+	'groups:members:more' => "Ver todos los participantes",
+	'groups:membership' => "Ver los permisos de los participantes",
 	'groups:content_access_mode' => "Accesabilidad del contenido del viaje",
 	'groups:content_access_mode:warning' => "Advertencia: Cambiar esta preferencia no cambiara los permisos de acceso al contenido existente en el viaje.",
 	'groups:content_access_mode:unrestricted' => "Sin restringir &mdash; el acceso depende de la configuración individual de cada contenido.",
-	'groups:content_access_mode:membersonly' => "Solo seguidores - Los que no son seguidores no podrán ver el contenido del viaje",
+	'groups:content_access_mode:membersonly' => "Solo participantes - Los que no son participantes no podrán ver el contenido del viaje",
 	'groups:access' => "Permisos de acceso",
 	'groups:owner' => "Conductor",
 	'groups:owner:warning' => "Advertencia: si cambia este valor, usted ya no será el promotor de este viaje.",
-	'groups:widget:num_display' => 'N&uacute;mero de seguidores a mostrar',
+	'groups:widget:num_display' => 'N&uacute;mero de participantes a mostrar',
 	'groups:widget:membership' => 'Mis Viajes',
 	'groups:widgets:description' => 'Muestra los viajes en los que te interesaste',
 
@@ -83,13 +86,13 @@ return array(
 	'groups:featured_error' => 'Viaje no válido.',
 	'groups:nofeatured' => 'Sin viajes destacados.',
 	'groups:joinrequest' => 'Solicitar unirse',
-	'groups:join' => 'Unirse al viaje',
-	'groups:leave' => 'Abandonar el viaje',
-	'groups:invite' => 'Invitar amigos',
-	'groups:invite:title' => 'Invitar amigos a este viaje',
-	'groups:inviteto' => "Invitar amigos a '%s'",
-	'groups:nofriends' => "No hay amigos que no hayan sido invitados al viaje.",
-	'groups:nofriendsatall' => 'No hay amigos para invitar',
+	'groups:join' => 'Me interesa el viaje',
+	'groups:leave' => 'No me interesa el viaje',
+	'groups:invite' => 'Invitar',
+	'groups:invite:title' => 'Invitar a este viaje',
+	'groups:inviteto' => "Invitar seguidores a '%s'",
+	'groups:nofriends' => "No hay seguidores que no hayan sido invitados al viaje.",
+	'groups:nofriendsatall' => 'No hay seguidores para invitar',
 	'groups:viagroups' => "via viajes",
 	'groups:group' => "Viaje",
 	'groups:search:tags' => "etiqueta",
@@ -133,15 +136,15 @@ Ver y comentar:
 
 	'groups:invitations:none' => 'Actualmente no hay avisos.',
 
-	'item:object:groupforumtopic' => "Temas de discusión",
+	'item:object:groupforumtopic' => "Acuerdos del viaje",
 	'item:object:discussion_reply' => "Respuestas de la discusión",
 
 	'groupforumtopic:new' => "A&ntilde;adir un tema de discusión",
 
-	'groups:count' => "Planificación de viaje creados",
+	'groups:count' => "Viaje creados",
 	'groups:open' => "viaje abierto",
 	'groups:closed' => "viaje cerrado",
-	'groups:member' => "seguidores",
+	'groups:member' => "Participantes",
 	'groups:searchtag' => "Buscar viajes por etiqueta",
 
 	'groups:more' => 'M&aacute;s viajes',
@@ -150,14 +153,14 @@ Ver y comentar:
 	/**
 	 * Access
 	 */
-	'groups:access:private' => 'Cerrado &mdash; los seguidores deben ser invitados',
+	'groups:access:private' => 'Cerrado &mdash; los participantes deben ser invitados',
 	'groups:access:public' => 'Abierto &mdash; cualquiera puede unirse',
-	'groups:access:group' => 'Sólo seguidores del viaje',
+	'groups:access:group' => 'Sólo participantes del viaje',
 	'groups:closedgroup' => "La inclusión a este viaje esta cerrada.",
 	'groups:closedgroup:request' => 'Para pedir ser agregado, de click sobre el link "Pedir inclusión".',
-	'groups:closedgroup:membersonly' => "La inclusión a este viaje es cerrada y su contenido solo puede ser accesible para los seguidores.",
-	'groups:opengroup:membersonly' => "El contenido de este viaje solo es accesible por sus seguidores.",
-	'groups:opengroup:membersonly:join' => 'Para ser un seguidor, de click sobre el link de "Unirse al viaje".',
+	'groups:closedgroup:membersonly' => "La inclusión a este viaje es cerrada y su contenido solo puede ser accesible a los participantes.",
+	'groups:opengroup:membersonly' => "El contenido de este viaje solo es accesible a los participantes.",
+	'groups:opengroup:membersonly:join' => 'Para ser participante pulse el botón "Me interesa el viaje".',
 	'groups:visibility' => '&iquest;Quienes pueden ver este viaje?',
 
 	/**
@@ -195,7 +198,7 @@ Ver y comentar:
 
 	'discussion:search:title' => 'Responder en tema: %s',
 	
-	'admin:groups' => 'Planificación de viaje',
+	'admin:groups' => 'Viaje',
 
 	'reply:this' => 'Responder a esto',
 
@@ -288,8 +291,8 @@ O click a continuación para ver las solicitudes de inclusión del viaje:
 
 
 	'groups:widgets:members:title' => 'Participantes del viaje',
-	'groups:widgets:members:description' => 'Listar los seguidores del viaje.',
-	'groups:widgets:members:label:displaynum' => 'Listar los seguidores de un viaje.',
+	'groups:widgets:members:description' => 'Listar los participantes del viaje.',
+	'groups:widgets:members:label:displaynum' => 'Listar los participantes de un viaje.',
 	'groups:widgets:members:label:pleaseedit' => 'Por favor configura este widget.',
 
 	'groups:widgets:entities:title' => "Objetos en el viaje",
@@ -482,19 +485,16 @@ O click a continuación para ver las solicitudes de inclusión del viaje:
 	'groups:tiempo'=>'Tiempo estimado',
 	'groups:precio'=>'Precio estimado',
 	'groups:showMap'=>'Ver / ocultar mapa',
-	'group:nplazasUncorrect'=>'Número de plazas incorrecto',
-	// Paqueteria	
-	'groups:servicioPaqueteria' => 'Paquetería',	
-	'profile:hint:servicioPaqueteria' => 'En este viaje se permite un servicio doméstico de paquetería limitada al peso',
-	'groups:tamaMaletero' => 'Capacidad del maletero',	
-	'profile:hint:tamaMaletero' => 'Capacidad del maletero disponible, expresada de forma aproximada en litros',
-	'groups:tipoBultos' => 'Tipo de bultos',	
-	'profile:hint:tipoBultos' => 'Tipo de bultos aceptados conforme a las categorías Tigre (grande y pesado), Gato (intermedio y algo voluminoso) y Ratón (pequeño y ligero)',
-    'custom:package:raton' => 'mochila (pequeño)',
-    'custom:package:gato' => 'maleta pequeña (intermedio)',
-    'custom:package:tigre' => 'maleta grande (pesado)',
+	'group:nplazasWrong'=>'Valor no permitido. Debe indicar un valor que no supere los asientos de su vehículo',
+	
+	'groups:aportacionViajero' => 'Aportación por viajero',	
     'custom:fecha:hint' => 'Debe seleccionar una fecha de este calendario',
-
+	'groups:nplazas' => 'Plazas ofertadas',	
+	'profile:hint:nplazas' => 'Numero de plazas total que el conductor oferta y que no puede superar lo indicado en la descripción del coche',
+	'groups:distancia'=>'Distancia estimada del trayecto',
+	'groups:tiempo'=>'Tiempo estimado',
+	'groups:precio'=>'Precio estimado',
+	'groups:showMap'=>'Ver / ocultar mapa',
 
 	'groups:preReservar'=>'Pre-reservar',
 	'datepicker:dateStartAfterThanDateEnd'=>'No se puede elegir una fecha de inicio posterior al viaje',
@@ -558,24 +558,95 @@ O click a continuación para ver las solicitudes de inclusión del viaje:
 	'usersettings:user:opt:linktext' => "Ir a configuración",
 	'item:object:comment' => 'comentarios',
 	'notifications:usersettings' => "Configuraci&oacute;n de notificaciones",
-	
-	//Plugin Búsqueda
-	'busqueda:OrigenyDestino' => "Origen y Destino",
-	'busqueda:fida' => "Fecha de Ida",
-	'busqueda:fvuelta' => "Fecha de Vuelta",
-	'busqueda:follower' => "Seguidores",
-	'busqueda:preorder' => "Pre-Reservas",
-	'busqueda:confirmed' => "Confirmados",
-	'busqueda:miembros' => "Miembros",
-	'busqueda:origen' => "Origen",
-	'busqueda:destino' => "Destino",
-	'busqueda:fechaSalida' => "Fecha de Salida",
-	'busqueda:inputSubmit' => "Buscar!",
-	'busqueda:results' => "Resultados",
-	'busqueda:travelFinder' => "Buscador de Viajes",
-	'busqueda:breadcrum' => "Buscador"
-	
-	
 
+	'teranga:public' => "Aviso",
+	'teranga:public:mustlogin' => "Debe estar logueado para contactar con el conductor. Registrese aquí",
+
+
+	//gestion de reservas
+	'groups:manageOrders' => 'Gestionar Reservas',
+	'groups:manageOrders:title' => 'Gestión de Reservas',
+	'groups:manageOrders:save' => 'Atrás',
+	'groups:manageOrders:saved' => 'Reservas guardadas correctamente',
+	'groups:manageOrders:confirmar' => 'Confirmar',
+	'groups:manageOrders:desconfirmar' => 'Cancelar',
+	'groups:manageOrders:confirmadoOk' => 'Confirmado correctamente',
+	'groups:manageOrders:confirmadoKo' => 'Hubo algún error en la confirmación',
+	'groups:manageOrders:desconfirmadoOk' => 'Desconfirmado correctamente',
+	'groups:manageOrders:desconfirmadoKo' => 'Hubo algún error en la desconfirmación',
+	'groups:preorder' => 'Pre-reservar',
+	'custom:empty' => '(sin datos en su perfil)',	
+
+	//Mails internos de gestión de reservas
+	'groups:manageOrders:preorderOk:subjet' => 'PRE-RESERVA DEL VIAJE %s',
+	'groups:manageOrders:preorderOk:message'=>'El usuario %s ha hecho una pre-reserva de plaza. <br />
+	Usted ahora debe gestionar esta solicitud accediendo a su viaje %s para confirmarla o cancelarla.
+		<br />
+		Atentamente, <br />
+			El equipo de Teranga Go!',
+	'groups:manageOrders:confirmadoOk:subjet' => 'RESERVA DEL VIAJE %s',
+	'groups:manageOrders:confirmadoOk:message'=>'
+	El usuario promotor del viaje <strong>%s</strong> ha aceptado su reserva de plaza para el viaje %s en modalidad de trayecto %s, y por el que se compromete a pagarle la cantidad de %s en su defecto u otra cantidad que haya sido acordada previa a la realización del viaje.<br />
+	Ustedes ahora viajarán juntos atendiendo a los %s que hayan establecido en este viaje. 	
+		<br />
+		Atentamente, <br />
+			El equipo de Teranga Go!',
+	'groups:manageOrders:desconfirmadoOk:subjet' => 'RESERVA CANCELADA DEL VIAJE %s',
+	'groups:manageOrders:desconfirmadoOk:message' => 'El usuario ha cancelado su reserva de plaza en el viaje. <br />
+	Usted ahora puede gestionar otras pre-reservas de su viaje o modificar los datos de su viaje (fechas o numero de plazas ofertadas). 
+		<br />
+		Atentamente, <br />
+			El equipo de Teranga Go!',
+
+
+	//Acuerdos de viaje (foros)
+	'groups:discussion:title1' => 'Puntos de recogida',
+	'groups:discussion:description1' => 'Espacio para acordar con los pasajeros los lugares de recogida de ida y vuelta.',
+	'groups:discussion:title2' => 'Descansos y paradas durante el viaje',
+	'groups:discussion:description2' => 'Espacio para comentar la frecuencia de descansos y lugares de parada a realizar durante el viaje.',
+	'groups:discussion:title3' => 'Paquetería',
+	'groups:discussion:description3' => 'Acuerdos sobre el envío de paquetería, lugar de distribución, responsable, etc.',
+
+	//Trip planning sidebar
+	'groups:follower' => 'Interesados en el viaje',
+	'groups:preorders' => 'Viajeros que han prereservado',
+	'groups:confirmed' => 'Viajeros han confirmado su reserva',
+
+	//integracion con blog
+	//'elgg:powered' => "",
+
+	//ajustes para custom_index
+	'teranga:settings:title' => 'Aspecto para el tema de Teranga Go! por Rosana Montes',
+	'teranga:settings:isugr' => 'Seleccione cabecera, pie y CSS para Teranga Go!',
+	'teranga:settings:ugr' => 'Universidad de Granada',
+	'teranga:settings:css' => 'Simplificado',
+	'teranga:settings:elgg' => 'Acento Comunicacion',
+
+
+	//Paqueteria =======================
+	'groups:servicioPaqueteria' => 'Paquetería',	
+	'profile:hint:servicioPaqueteria' => 'En este viaje se permite un servicio doméstico de paquetería limitada al peso',
+	'groups:tamaMaletero' => 'Capacidad del maletero',	
+	'profile:hint:tamaMaletero' => 'Capacidad del maletero disponible, expresada de forma aproximada en litros',
+	'groups:tipoBultos' => 'Tipo de bultos',	
+	'profile:hint:tipoBultos' => 'Tipo de bultos aceptados conforme a las categorías Tigre (grande y pesado), Gato (intermedio y algo voluminoso) y Ratón (pequeño y ligero)',
+    'custom:package:raton' => 'mochila (pequeño)',
+    'custom:package:gato' => 'maleta pequeña (intermedio)',
+    'custom:package:tigre' => 'maleta grande (pesado)',
+	'groups:nbultos' => 'Máximo número de bultos permitidos',	
+	'profile:hint:nbultos' => 'Número de bultos que el conductor estima puede alojar en el vehículo',
+	'package:nbultosWrong'=>'Valor no permitido. Debe indicar un valor entre 0 y 49',//valor entre 0--49
+	'groups:bultosDisponibles'=>'Bultos disponibles',
+	'profile:hint:bultosDisponibles' => 'internal variable (admin only)',
 	
+	//summaryPreOrder==============
+	'groups:summaryPreOrder:title'=> 'Reserva de viaje o paquetería',
+	'groups:summaryOrder'=> 'Resumen de Pre-Reserva',
+	'groups:summaryPreOrder:ViajoYO'=>'Ocupo un asiento',
+	'groups:summaryPreOrder:ViajoYOBulto'=>'Ocupo un asiento y envío paquetería',
+	'groups:summaryPreOrder:ViajaBulto'=>'No viajo, paquetería solamente',
+	'groups:summaryPreOrder:Elijo'=>'Seleccione',
+	'groups:summaryPreOrder:ElijoViajar'=>'Elijo Viajar',
+	'groups:summaryPreOrder:numBultos'=>'Num. Bultos'
 );
+	

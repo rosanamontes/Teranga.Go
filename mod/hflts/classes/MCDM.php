@@ -26,8 +26,8 @@ abstract class MCDM
 	var $M; //number of criteria
 	var $P; //number of experts
 
-	var $W; //weight of criteria (array)
-	var $E; //weight of experts (array)
+	var $W; //weight of criteria (array 1xM and same for all experts? MxP?)
+	var $E; //weight of experts (array 1xP ? NxM?)
 
 	var $G = 6; //max scale by default
 	var $collectiveValue;
@@ -111,7 +111,7 @@ abstract class MCDM
 		else
 			$this->information = false;
 		
-		if ($this->debug) system_message("case csv file " . $this->case);
+		if ($this->debug) system_message("run case " . $this->case);
 		switch ($this->case)
 		{
 		 	case 'platform':
@@ -144,11 +144,11 @@ abstract class MCDM
 		 		break;
 
 		 	case 'imported':
-		 		if ($this->debug) system_message("choose csv file " . $this->alternatives[0]);
+		 		//system_message("choose csv file " . $this->alternatives[0]);
 		 		self::parse_csv($this->alternatives[0]);
 
 		 		for ($i=0; $i<$this->N;$i++)
-		 			$this->alternatives[$i] = 'x_'.$i;
+		 			$this->alternatives[$i] = $this->data[$i*$this->P]["ref"];
 
 		 		for ($i=0; $i<$this->M;$i++)
 		 			$this->W[$i] = 1.0;
@@ -260,13 +260,33 @@ abstract class MCDM
 			
 		//numero de valoraciones es N*P
 		if ($num != $this->N*$this->P)
-			echo "esto pinta mal<br>" . $num;
-		else
-			$this->num = $num;
+			echo $num . "... esto pinta mal<br>" ;
+		
+		$this->num = $num;
 		
 		/*if ($this->debug) 
 		{
 			echo($this->num . ' assessments in file: <pre>');	print_r($this->data);	echo('</pre><br>');
+		}*/
+	}
+
+
+	/**
+	* Read weights MxP from csv file
+	*/
+	function parse_csv_weights($filename) 
+	{ 	
+		$importer = new CsvImporter($filename,true,","); 
+		$this->E = $importer->get(); 
+		$mxp = count($this->E);
+			
+		//numero de valoraciones es N*P
+		if ($mxp != $this->P)
+			echo $mxp . "... esto pinta mal<br>" ;
+		
+		/*if ($this->debug) 
+		{
+			echo($mxp . ' weights in file: <pre>');	print_r($this->E);	echo('</pre><br>');
 		}*/
 	}
 
@@ -278,13 +298,9 @@ abstract class MCDM
 		
 		$this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
 		$this->W = array(1.0, 1.0, 0.5, 0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
-		$this->E = array(
-			1.0, 1.0, 1.0, 1.0, 1.0,
-			1.0, 1.0, 1.0, 1.0, 1.0,
-			1.0, 1.0, 1.0, 1.0, 1.0,
-			1.0, 1.0, 1.0, 1.0, 1.0,
-			1.0, 1.0, 1.0, 1.0, 1.0
-		); //same importance of each assessment
+		//$this->E //same importance of each assessment??
+		$wfile = elgg_get_plugins_path() . "hflts/samples/weight_classic.csv";
+		$this->parse_csv_weights($wfile);
 		
 		$name = elgg_get_plugins_path() . "hflts/samples/set_classic.csv";
 		$this->parse_csv($name);		

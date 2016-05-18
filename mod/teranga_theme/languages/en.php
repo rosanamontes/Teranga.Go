@@ -9,27 +9,31 @@ return array(
 	/**
 	 * Traducciones para Teranga Go!
 	 */
-	'comment:subscribe:long' => 'Suscribirse a estos comentarios',
-	'comment:unsubscribe:long' => 'Desuscribirse a estos comentarios',
-	'comment:subscribe:success' => 'Te has subscrito con éxito',
-	'comment:unsubscribe:success' => 'Te has desubscrito con éxito',	
+	'comment:subscribe:long' => 'Susbcribe to comments',
+	'comment:unsubscribe:long' => 'Unsubscribe to comments',
+	'comment:subscribe:success' => 'You have susbcribed it successfully',
+	'comment:unsubscribe:success' => 'You have unsusbcribed it successfully',	
 	//'custom:groups' => "Last planning trips",
+
+	//widgets 
+	'friends' => "Users which I'm following",
+
 
 	/**
 	 * Menu items and titles
 	 */
-	'groups' => "Trip planning",
-	'item:group' => "Trip planning",
-	'groups:owned' => "Trip planning I own",
-	'groups:owned:user' => 'Trip planning %s owns',
+	'groups' => "Your Trip",
+	'item:group' => "Trips",
+	'groups:owned' => "Trips I promote",
+	'groups:owned:user' => 'Trips %s promote',
 	'groups:yours' => "My trips",
 	'groups:user' => "%s's trips",
 	'groups:all' => "All trips",
 	'groups:add' => "Create a new trip",
 	'groups:edit' => "Edit trip",
 	'groups:delete' => 'Delete trip',
-	'groups:membershiprequests' => 'Manage follow requests',
-	'groups:membershiprequests:pending' => 'Manage follow requests (%s)',
+	'groups:membershiprequests' => 'Manage order requests',
+	'groups:membershiprequests:pending' => 'Manage order requests (%s)',
 	'groups:invitations' => 'Trip invitations',
 	'groups:invitations:pending' => 'Trip invitations (%s)',
 
@@ -85,10 +89,10 @@ return array(
 	'groups:featured_error' => 'Invalid trip.',
 	'groups:nofeatured' => 'No featured trips',
 	'groups:joinrequest' => 'Request membership',
-	'groups:join' => 'Join trip',
-	'groups:leave' => 'Leave trip',
-	'groups:invite' => 'Invite friends',
-	'groups:invite:title' => 'Invite friends to this trip',
+	'groups:join' => 'Interested in trip',
+	'groups:leave' => 'Non interested in trip',
+	'groups:invite' => 'Invite',
+	'groups:invite:title' => 'Invite users to this trip',
 	'groups:inviteto' => "Invite friends to '%s'",
 	'groups:nofriends' => "You have no friends left who have not been invited to this trip.",
 	'groups:nofriendsatall' => 'You have no friends to invite!',
@@ -135,8 +139,8 @@ View and reply to the discussion:
 
 	'groups:invitations:none' => 'There are no current invitations.',
 
-	'item:object:groupforumtopic' => "Discussion topics",
-	'item:object:discussion_reply' => "Discussion replies",
+	'item:object:groupforumtopic' => "Travel arrangements",
+	'item:object:discussion_reply' => "Travel arrangements replies",
 
 	'groupforumtopic:new' => "Add discussion post",
 
@@ -159,24 +163,24 @@ View and reply to the discussion:
 	'groups:closedgroup:request' => 'To ask to be added, click the "Request membership" menu link.',
 	'groups:closedgroup:membersonly' => "This trip's membership is closed and its content is accessible only by followers.",
 	'groups:opengroup:membersonly' => "This trip's content is accessible only by followers.",
-	'groups:opengroup:membersonly:join' => 'To be a member, click the "Join trip" menu link.',
+	'groups:opengroup:membersonly:join' => 'To be a member, click the "Interested in trip" menu link.',
 	'groups:visibility' => 'Who can see this trip?',
 
 	/**
 	 * Trip tools
 	 */
-	'groups:enableforum' => 'Enable trip discussion',
+	'groups:enableforum' => 'Enable travel arrangements',
 	'groups:lastupdated' => 'Last updated %s by %s',
 	'groups:lastcomment' => 'Last comment %s by %s',
 
 	/**
 	 * Trip discussion
 	 */
-	'discussion' => 'Discussion',
-	'discussion:add' => 'Add discussion topic',
-	'discussion:latest' => 'Latest discussion',
-	'discussion:group' => 'Trip discussion',
-	'discussion:none' => 'No discussion',
+	'discussion' => 'Travel arrangement',
+	'discussion:add' => 'Add travel arrangements',
+	'discussion:latest' => 'Latest travel arrangements',
+	'discussion:group' => 'Travel arrangement',
+	'discussion:none' => 'No travel arrangement',
 	'discussion:reply:title' => 'Reply by %s',
 
 	'discussion:topic:created' => 'The discussion topic was created.',
@@ -197,20 +201,20 @@ View and reply to the discussion:
 
 	'discussion:search:title' => 'Reply on topic: %s',
 	
-	'admin:groups' => 'Trip planning',
+	'admin:groups' => 'Trips',
 
 	'reply:this' => 'Reply to this',
 
 	'group:replies' => 'Replies',
 	'groups:forum:created' => 'Created %s with %d comments',
 	'groups:forum:created:single' => 'Created %s with %d reply',
-	'groups:forum' => 'Discussion',
+	'groups:forum' => 'Travel arrangements',
 	'groups:addtopic' => 'Add a topic',
-	'groups:forumlatest' => 'Latest discussion',
-	'groups:latestdiscussion' => 'Latest discussion',
+	'groups:forumlatest' => 'Latest travel arrangement',
+	'groups:latestdiscussion' => 'Latest travel arrangements',
 	'groupspost:success' => 'Your reply was succesfully posted',
 	'groupspost:failure' => 'There was problem while posting your reply',
-	'groups:alldiscussion' => 'Latest discussion',
+	'groups:alldiscussion' => 'Latest travel arrangements',
 	'groups:edittopic' => 'Edit topic',
 	'groups:topicmessage' => 'Topic message',
 	'groups:topicstatus' => 'Topic status',
@@ -223,14 +227,14 @@ View and reply to the discussion:
 	'groups:topicclosed' => 'Closed',
 	'grouptopic:created' => 'Your topic was created.',
 	'groups:topicsticky' => 'Sticky',
-	'groups:topicisclosed' => 'This discussion is closed.',
-	'groups:topiccloseddesc' => 'This discussion is closed and is not accepting new comments.',
+	'groups:topicisclosed' => 'This trip discussion is closed.',
+	'groups:topiccloseddesc' => 'This trip discussion is closed and is not accepting new comments.',
 	'grouptopic:error' => 'Your trip topic could not be created. Please try again or contact a system administrator.',
 	'groups:forumpost:edited' => "You have successfully edited the forum post.",
 	'groups:forumpost:error' => "There was a problem editing the forum post.",
 
 	'groups:privatetrip' => 'This trip is closed. Requesting membership.',
-	'groups:notitle' => 'Trip planning must have a title',
+	'groups:notitle' => 'Trips must have a title',
 	'groups:cantjoin' => 'Can not follow trip',
 	'groups:cantleave' => 'Could not leave trip',
 	'groups:removeuser' => 'Remove from trip',
@@ -282,8 +286,8 @@ or click below to view the trip's follow requests:
 
 	'river:create:group:default' => '%s created the trip %s',
 	'river:join:group:default' => '%s joined the trip %s',
-	'river:create:object:groupforumtopic' => '%s added a new discussion topic %s',
-	'river:reply:object:groupforumtopic' => '%s replied on the discussion topic %s',
+	'river:create:object:groupforumtopic' => '%s added a new travel arrangement topic %s',
+	'river:reply:object:groupforumtopic' => '%s replied on the travel arrangement topic %s',
 	'river:reply:view' => 'view reply',
 
 	'groups:nowidgets' => 'No widgets have been defined for this trip.',
@@ -478,7 +482,7 @@ or click below to view the trip's follow requests:
 	'groups:flexible' => 'Open dates',	
 	'groups:gender' => 'Security for woman',
 	'groups:nplazas' => 'Free seats',
-	'groups:aportacionViajero' => 'Contribution per traveler',	
+	'groups:aportacionViajero' => 'Contribution per traveller',	
 	'profile:hint:flexible' => 'Dates to be disscussed with participants',
 	'profile:hint:gender' => 'Explicit user engagement',
 	'profile:hint:nplazas' => 'Total number of seats offered plus driver cannot be greater than the car capacity',
@@ -486,18 +490,7 @@ or click below to view the trip's follow requests:
 	'groups:tiempo'=>'Estimated time',
 	'groups:precio'=>'Precio price',
 	'groups:showMap'=>'show | hide map',
-	'group:nplazasUncorrect'=>'Number of seats wrong',
-
-	// Paqueteria	
-	'groups:servicioPaqueteria' => 'Shipment allowed',	
-	'profile:hint:servicioPaqueteria' => 'In this trip can be included a domestic service of weight limited packaged',
-	'groups:tamaMaletero' => 'Car Trunk',	
-	'profile:hint:tamaMaletero' => 'Aproximate free trunk size to allocate packages (volume measure)',
-	'groups:tipoBultos' => 'Package categories',	
-	'profile:hint:tipoBultos' => 'Size and weight is described in similitude to an animal (a metaphor): mouse (small and light), cat (intermediate) and tiger (big and heavy)',
-    'custom:package:raton' => 'backpack (small)',
-    'custom:package:gato' => 'small suitcase (intermediate)',
-    'custom:package:tigre' => 'big suitcase (big)',	
+	'group:nplazasWrong'=>'Value not allowed. Max number of seats should not be greater that those of your vehicle.',
     'custom:fecha:hint' => 'You should select a date from this calendar.',
 
 	
@@ -543,7 +536,7 @@ or click below to view the trip's follow requests:
 	'welcome:title' => "A brief journey through this platform will allow you to:",
 	'welcome:item1' => "Edit your profile and let people know what are your travel preferences!",
 	'welcome:item2' => "Join the trip that you love and comunicate with its promoter to agree the trip's details",
-	'welcome:item3' => "Send messages to people community by click-in on their avatar",
+	'welcome:item3' => "Send messages to community members by click-in on their avatar",
 	'welcome:item4' => "Follow the best drivers and get to know their karma!",
 	'welcome:item5' => "Express your opinion about your trip companions after the real trip experience. We will use some of the information to calculate their karma!",
 	'welcome:item6' => "Take hospitality in your pocket by downloading the Teranga Go App!",
@@ -553,5 +546,94 @@ or click below to view the trip's follow requests:
 
 	'teranga:public' => "Notice",
 	'teranga:public:mustlogin' => "You must be logged in to contact with the driver. Register here",
-	
+
+
+
+	//gestion de reservas
+	'groups:manageOrders' => 'Orders Management',
+	'groups:manageOrders:title' => 'Orders Management',
+	'groups:manageOrders:save' => 'Back',
+	'groups:manageOrders:saved' => 'Management done successfully',
+	'groups:manageOrders:confirmar' => 'Accept',
+	'groups:manageOrders:desconfirmar' => 'Decline',
+	'groups:manageOrders:confirmadoOk' => 'Aceptance done successfully',
+	'groups:manageOrders:confirmadoKo' => 'This operation failed',
+	'groups:manageOrders:desconfirmadoOk' => 'Declination done successfully',
+	'groups:manageOrders:desconfirmadoKo' => 'This operation failed',
+	'groups:preorder' => 'Pre-Order',	
+	'custom:empty' => '(empty profile field)',	
+
+	//Mails internos de gestión de reservas
+	'groups:manageOrders:preorderOk:subjet' => 'PREORDER FOR TRIP %s',
+	'groups:manageOrders:preorderOk:message'=>'The user %s has pre-order a place. <br />
+	You must now manage the orders of your trip.		
+		<br />
+		Greetings, <br />
+			The Teranga Go! team',	
+
+	'groups:manageOrders:confirmadoOk:subjet' => 'ORDER FOR TRIP %s',
+	'groups:manageOrders:confirmadoOk:message'=>'
+	%s as trip promoter has accepted your pre-order for the trip %s. By default the type is %s and you agree to pay the amount of %s or another amount dealed before departure.<br />
+	Now you will travel together attending the %s established for this journey.
+		<br />
+		Greetings, <br />
+			The Teranga Go! team',	
+
+	'groups:manageOrders:desconfirmadoOk:subjet' => 'ORDER CANCELLED FOR TRIP %s',
+	'groups:manageOrders:desconfirmadoOk:message' => 'The user has canceled the reservation fee on the trip %s<br />
+	 You can now manage other pre-booking your trip or modify your travel details (dates or number of free seats).
+		<br />
+		Greetings, <br />
+			The Teranga Go! team',	
+
+
+	//Acuerdos de viaje (foros)
+	'groups:discussion:title1' => 'Stop points',
+	'groups:discussion:description1' => 'This is a place to discuss with your passengers the pick up and drop off places.',
+	'groups:discussion:title2' => 'Breaks and journey stops',
+	'groups:discussion:description2' => 'This is a place to discuss with your passengers the fequency of breaks and the stops that should be made during the trip.',
+	'groups:discussion:title3' => 'Shipment',
+	'groups:discussion:description3' => 'This is a place to discuss shipment information.',
+
+	//Trips sidebar
+	'groups:follower' => 'Members interested in this trip',
+	'groups:preorders' => 'Members with pre-booked seat',
+	'groups:confirmed' => 'Members with confirmed seat',
+
+	//integracion con blog
+	//'elgg:powered' => "",
+	//ajustes para custom_index
+	'teranga:settings:title' => 'Appearance Settings for Teranga Go! by Rosana Montes',
+	'teranga:settings:isugr' => 'Type of header/footer/css:',
+	'teranga:settings:ugr' => 'University of Granada',
+	'teranga:settings:css' => 'Simplified',
+	'teranga:settings:elgg' => 'Acento Comunicacion',
+
+
+	// Paqueteria	===============================================================================00
+	'groups:servicioPaqueteria' => 'Shipment allowed',	
+	'profile:hint:servicioPaqueteria' => 'In this trip can be included a domestic service of weight limited packaged',
+	'groups:tamaMaletero' => 'Car Trunk',	
+	'profile:hint:tamaMaletero' => 'Approximate free trunk size to allocate packages (volume measure)',
+	'groups:tipoBultos' => 'Package categories',	
+	'profile:hint:tipoBultos' => 'Size and weight is described in similitude to an animal (a metaphor): mouse (small and light), cat (intermediate) and tiger (big and heavy)',
+    'custom:package:raton' => 'backpack (small)',
+    'custom:package:gato' => 'small suitcase (intermediate)',
+    'custom:package:tigre' => 'big suitcase (big)',	
+	'groups:nbultos' => 'Max allowed packages',	
+	'profile:hint:nbultos' => 'Estimated number of packaged allocated in the vehicle',
+	'package:nbultosWrong'=>'Value not allowed. Max number of packages should be a value between 0 and 49',//valor entre 0--49
+	'groups:bultosDisponibles'=>'Packages available',
+	'profile:hint:nbultosDisponibles' => 'internal variable (admin only)',
+
+
+	//summaryPreOrder==============
+	'groups:summaryPreOrder:title'=> 'Travel or Parcel reservation',
+	'groups:summaryOrder'=>'Summary of Pre-Reserva',
+	'groups:summaryPreOrder:ViajoYO'=>'Occupy a seat',
+	'groups:summaryPreOrder:ViajoYOBulto'=>'Occupy a seat and parcel shipping',
+	'groups:summaryPreOrder:ViajaBulto'=>'I do not travel, only parcel shipment',
+	'groups:summaryPreOrder:Elijo'=>'Select',
+	'groups:summaryPreOrder:ElijoViajar'=>'I choose to travel',
+	'groups:summaryPreOrder:numBultos'=>'Num. Packages'	
 );

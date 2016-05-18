@@ -108,16 +108,19 @@ class ElectreHFLTS extends MCDM
 
 		for ($i=0;$i<$this->N;$i++)//forall alternatives
 		{
+			echo $this->alternatives[$i] . ": ";
 			for ($j=0;$j<$this->M;$j++)//forall criteria
 			{
 				$inf = "L".($j+1);
 				$sup = "U".($j+1);
 				$envelope[$i][$j] = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-				if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
+				if ($this->debug) 
+					echo "c" . ($j+1) ." [".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
 				$this->hesitants[$i][$j] = toHesitant($envelope[$i][$j],$length[$i][$j],$delta);
 				if ($this->hesitants[$i][$j] == -1)
 					register_error("wrong hesitant in score function");
 			}	
+			if ($this->debug) echo "<br>";
 		}
 		
 		$cc = 0; //case count

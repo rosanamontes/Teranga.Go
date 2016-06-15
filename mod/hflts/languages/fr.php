@@ -62,8 +62,12 @@ return array(
 	'hflts:settings:s7' => '7 etiquettes',
 
 	'hflts:settings:explanation' => 'sélectionnez les méthodes que vous souhaitez appliquer comme modèles de prise de décision linguistique.',
-	'hflts:label:classic' => 'agrégation HFLTS',
-	'hflts:help:classic' => 'R.M. Rodríguez et al. IEEE-TFS\'12 - Hesitant Fuzzy Linguistic Term Sets',
+	'hflts:label:classic' => 'HFLTS Classic Aggregation',
+	'hflts:help:classic' => 'Rodriguez et al. IEEETFS\'12 - Hesitant fuzzy Linguistic Term Sets. Method as in:<br> 
+	<pre>R. Montes, A.M. Sanchez, P. Villar and F. Herrera, 
+	A web tool to support decision making in the housing market using hesitant fuzzy linguistic term sets. 
+	<em>Applied Soft Computing</em>, 35, (2015), pp.949--957.</pre>
+	',
 	'hflts:label:todim' => 'HFL Todim',
 	'hflts:help:todim' => 'Couping Wei, Rosa M. Rodríguez IJCIS\'15',
 	'hflts:label:electre' => 'HFLTS-Electre I',

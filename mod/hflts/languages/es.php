@@ -36,7 +36,7 @@ return array(
 	'menu:page:header:teranga' => 'Teranga',
 	'hflts:settings' => 'HFLTS',
 	'admin:hflts' => 'Universidad de Granada',
-	'admin:hflts:settings' => 'Toma de decisión lingüistica bajo incertidumbre',
+	'admin:hflts:settings' => 'Toma de decisión lingüistica con 2-tuplas bajo incertidumbre',
 
 	'hflts:label:profile_display' => '¿Mostrar karma en Perfil de Usuario?',
 	'hflts:help:profile_display' => 'El karma del conductor es el resultado del proceso de toma de decisión de los compañeros de un viaje relativo a la satisfacción general con el conductor y su vehículo, y para todos los viajes en los que intervenga el conductor.',	
@@ -62,8 +62,12 @@ return array(
 	'hflts:settings:s7' => '7 etiquetas',
 
 	'hflts:settings:explanation' => 'Seleccione los métodos que desee ejecutar como modelos de toma de decisión lingüistica.',
-	'hflts:label:classic' => 'Agregación HFLTS',
-	'hflts:help:classic' => 'R.M. Rodríguez et al. IEEE-TFS\'12 - Hesitant Fuzzy Linguistic Term Sets',
+	'hflts:label:classic' => 'Classic HFLTS',
+	'hflts:help:classic' => 'R.M. Rodríguez et al. IEEE-TFS\'12 - Hesitant Fuzzy Linguistic Term Sets. Method as in:<br> 
+	<pre>R. Montes, A.M. Sanchez, P. Villar and F. Herrera, 
+	A web tool to support decision making in the housing market using hesitant fuzzy linguistic term sets. 
+	<em>Applied Soft Computing</em>, 35, (2015), pp.949--957.</pre>
+	',
 	'hflts:label:todim' => 'HFL Todim',
 	'hflts:help:todim' => 'Couping Wei, Rosa M. Rodríguez IJCIS\'15',
 	'hflts:label:electre' => 'HFLTS-Electre I',

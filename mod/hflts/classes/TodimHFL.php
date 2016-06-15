@@ -10,7 +10,7 @@
 *	Website: http://lsi.ugr.es/rosana
 *	
 *	File: A Hesitant Fuzzy Linguistic TODIM Method Based on a Score Function
-*	Couping Wei, Zhilian Ren, Rosa Mª Rodiguez. IJCIS'15
+*		Couping Wei, Zhilian Ren, Rosa Mª Rodiguez. IJCIS'15
 *
 * 	@package DecisionMaking
 *

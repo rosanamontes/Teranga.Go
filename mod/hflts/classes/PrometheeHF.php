@@ -10,6 +10,7 @@
 *	Website: http://lsi.ugr.es/rosana
 *	
 *	File: onia Hajlaoui IEEE'13
+*		IEEE 2013 – Hesitant Fuzzy Promethee method
 *
 * 	@package DecisionMaking
 *

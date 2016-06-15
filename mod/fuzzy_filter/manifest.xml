@@ -4,7 +4,7 @@
 	<author>Rosana Montes</author>
 	<version>0.1</version>
 	<id>fuzzy_filter</id>
-	<description>This plugin uses filters (some of them fuzzy filters) to list Teranga trips</description>
+	<description>This plugin uses filters (as novelty one fuzzy filters) to list Teranga trips</description>
 	<website>http://terangago.com/</website>
 
 	<copyright>University of Granada</copyright>

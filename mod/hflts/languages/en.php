@@ -36,7 +36,7 @@ return array(
 	'menu:page:header:teranga' => 'Teranga',
 	'hflts:settings' => 'HFLTS',
 	'admin:hflts' => 'University of Granada',
-	'admin:hflts:settings' => 'Linguistic Decision Making',
+	'admin:hflts:settings' => 'Linguistic Decision Making with HFLTS and 2-tuple linguistic representation',
 
 	'hflts:label:profile_display' => 'Display karma on users profile? ',
 	'hflts:help:profile_display' => 'The driver karma is the result of the decision making process considering overall satisfaction with the driver and his vehicle, and for all trips and valorations.',	
@@ -62,8 +62,12 @@ return array(
 	'hflts:settings:s7' => '7 terms',
 
 	'hflts:settings:explanation' => 'Chose the methods to run as linguistic models in the decision making process.',
-	'hflts:label:classic' => 'HFLTS Aggregation',
-	'hflts:help:classic' => 'Rodriguez et al. IEEETFS\'12 - Hesitant fuzzy Linguistic Term Sets',
+	'hflts:label:classic' => 'HFLTS Classic Aggregation',
+	'hflts:help:classic' => 'Rodriguez et al. IEEETFS\'12 - Hesitant fuzzy Linguistic Term Sets. Method as in:<br> 
+	<pre>R. Montes, A.M. Sanchez, P. Villar and F. Herrera, 
+	A web tool to support decision making in the housing market using hesitant fuzzy linguistic term sets. 
+	<em>Applied Soft Computing</em>, 35, (2015), pp.949--957.</pre>
+	',
 	'hflts:label:todim' => 'HFL Todim',
 	'hflts:help:todim' => 'Couping Wei, Rosa. IJCIS\'15',
 	'hflts:label:electre' => 'HFLTS-Electre I',

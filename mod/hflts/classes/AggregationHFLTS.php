@@ -9,7 +9,10 @@
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
-*	File: Classic aggregation with HFLTS - Rosa'12
+*	File: Classic aggregation with HFLTS - Rosa'12. Linguistic Decision Making method as in: 
+*			R. Montes, A.M. Sanchez, P. Villar and F. Herrera, 
+*			A web tool to support decision making in the housing market using hesitant fuzzy linguistic term sets. 
+*			Applied Soft Computing, 35, (2015), pp.949--957. 
 *
 * 	@package DecisionMaking
 *
@@ -124,7 +127,7 @@ class AggregationHFLTS extends MCDM
 				$this->avg['sup'][$p] += $this->W[$c] * $this->beta[$p][$c]['sup'];
 			}
 			
-			echo "Acumu=" . $sum . "<br>";
+			//echo "Acumu=" . $sum . "<br>";
 			$this->avg['inf'][$p] = $this->avg['inf'][$p] / $sum;
 			$this->avg['sup'][$p] = $this->avg['sup'][$p] / $sum;
 

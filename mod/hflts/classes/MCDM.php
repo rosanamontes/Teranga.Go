@@ -33,7 +33,7 @@ abstract class MCDM
 	var $collectiveValue;
 	var $collectiveTerm;	
 
-	var $debug = false;
+	var $debug = true;
 	var $information = false;
 
 	var $case = 'platform'; //by default data comes from the platform

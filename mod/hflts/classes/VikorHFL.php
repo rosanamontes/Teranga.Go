@@ -9,7 +9,8 @@
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
-*	File: Huchang Liao IEEE-TFS'14
+*	File: Huchang Liao IEEE-TFS'14 / IEEE_TFS-2013
+*		Hesitant Fuzzy Linguistic VIKOR
 *
 * 	@package DecisionMaking
 *

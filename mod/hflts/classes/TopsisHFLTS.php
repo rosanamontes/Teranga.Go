@@ -9,7 +9,7 @@
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
-*	File: Agregación clasica con HFLTS - Rosa'12
+*	File: 2013-IJIS-Beg-Rasid-TOPSIS for Hesitant Fuzzy Linguistic
 *
 * 	@package DecisionMaking
 *
@@ -38,7 +38,7 @@ class TopsisHFLTS extends MCDM
 	public function run()
 	{
 		parent::run();
-
+		//method not implemented 
 		$this->ranking();	
 
 		return $this->ranking[0]['topsis']['label'];

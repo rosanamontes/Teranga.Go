@@ -52,7 +52,7 @@ class TodimHFL extends MCDM
 		$this->chi = 0.5; //extension factor
 
 		$this->W_r = array();
-		$this->hesitants = array();
+		$this->hesitants = array();//array of NxMxP
 		$this->score = array();
 		$this->dominance = array();		
 		$this->overall = array();
@@ -133,10 +133,9 @@ class TodimHFL extends MCDM
 	*/
 	private function scoreFunction($hesitant, $L, $D)
 	{
-		if ($this->debug)
-		{
+		/*{
 			echo('<br>F <pre>');	print_r($hesitant);	echo('</pre>');
-		}
+		}*/
 
 		$sum=0;
 		for ($l=0; $l<$L;$l++)
@@ -145,9 +144,7 @@ class TodimHFL extends MCDM
 		}
 
 		$var = $this->variance*$L;
-
-		if ($this->debug) 
-			echo "score = " .$D . " - (" . $sum." / " . $var . ") L=".$L."<br>" ;
+		//echo "score = " .$D . " - (" . $sum." / " . $var . ") L=".$L."<br>" ;
 		
 		return $D - ($sum / $var);
 	}
@@ -160,25 +157,42 @@ class TodimHFL extends MCDM
 	private function crossAlternativesWithCriteria()
 	{
 		$length = $delta = 0;
+		$expertValue = array();
 
-		for ($i=0;$i<$this->N;$i++)//forall alternatives
+		for ($p=0;$p<$this->N;$p++)//forall alternatives
 		{
 			for ($j=0;$j<$this->M;$j++)//forall criteria
 			{
-				$inf = "L".($j+1);
-				$sup = "U".($j+1);
-				$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-				if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
-				$this->hesitants[$i][$j] = toHesitant($envelope,$length,$delta);
-				if ($this->hesitants[$i][$j] == -1)
-					register_error("wrong hesitant in score function");
- 
-				$this->score[$i][$j] = $this->scoreFunction($this->hesitants[$i][$j], $length, $delta);
-				if ($this->debug) echo $this->data[$i]["ref"] . " - C" . $j . " F=" . $this->score[$i][$j] ."<br>";
+				$acum = 0;
+				
+				//Agregamos las F de los expertos para cada alternativa y criterio [[confirmar]]
+				for ($e=0;$e<$this->P;$e++)//forall experts
+				{
+					$i = $p*$this->P + $e; //index to get assessments
+					//system_message("#".$i);
+					
+					$inf = "L".($j+1);
+					$sup = "U".($j+1);
+					$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
+					$expert = $this->data[$i][co_codigo];
+					if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
+					$this->hesitants[$i][$j] = toHesitant($envelope,$length,$delta);
+					if ($this->hesitants[$i][$j] == -1)
+						register_error("wrong hesitant in score function");
+
+					$expertValue[$e] = $this->scoreFunction($this->hesitants[$i][$j], $length, $delta);
+					$acum += $expertValue[$e] ;
+
+					if ($this->debug) echo $this->data[$i]["ref"] . " - C" . $j . " - " . $expert ." F=" . $expertValue[$e] .";  ";
+				} 
+
+				$this->score[$p][$j] = $acum / $this->P; //aggretate
+				if ($this->debug) echo " finalF=" . $this->score[$p][$j] ."<br>";
 			}	
 		}
+
 		
-		//check cases
+		//check cases ((one expert!))
 		for ($j=0;$j<$this->M;$j++)//forall criteria
 		{
 			if ($this->debug) echo "C".($j+1);
@@ -200,7 +214,11 @@ class TodimHFL extends MCDM
 							$this->dominance[$i][$k][$j] = $this->dominanceDegreeCaseUnder($i, $j, $k);
 					}
 					if ($this->debug) 
-						echo " (".$this->data[$i]["ref"] . "," . $this->data[$k]["ref"].") -> " .$this->dominance[$i][$k][$j] ;
+					{
+						$a = $i*$this->P;
+						$b = $k*$this->P;
+						echo " (".$this->data[$a]["ref"] . "," . $this->data[$b]["ref"].") -> " .$this->dominance[$i][$k][$j] ;
+					}
 				}
 				if ($this->debug) echo "<br>&nbsp;&nbsp;&nbsp;";
 			}
@@ -217,8 +235,7 @@ class TodimHFL extends MCDM
 	private function dominanceDegreeCaseOver($i, $j, $k)
 	{
 		$d = euclideanDistance($this->hesitants[$i][$j], $this->hesitants[$k][$j], $this->lambda, $this->G, $this->chi);
-		if ($this->debug) 
-			echo " (" .$d.") W_r " . $this->W_r[$j] . " / " . $this->T_Wr ;
+		//echo " (" .$d.") W_r " . $this->W_r[$j] . " / " . $this->T_Wr ;
 
 		$dd = sqrt( ($d * $this->W_r[$j])/ $this->T_Wr );
 
@@ -233,8 +250,7 @@ class TodimHFL extends MCDM
 	{
 		$d = euclideanDistance($this->hesitants[$i][$j], $this->hesitants[$k][$j], $this->lambda, $this->G, $this->chi);
 		$factor = -1.0/$this->theta;
-		if ($this->debug) 
-			echo " (" .$d.") W_r " . $this->W_r[$j] . " / " . $this->T_Wr ;
+		//echo " (" .$d.") W_r " . $this->W_r[$j] . " / " . $this->T_Wr ;
 
 		$dd = $factor * sqrt( ($d *  $this->T_Wr) / $this->W_r[$j]);
 
@@ -278,12 +294,12 @@ class TodimHFL extends MCDM
 		$values = array();
 		for ($i=0;$i<$this->N;$i++)		
 		{
-			$a = $this->overall[$i] - $min;
-			$b = $a / $den;
+			//calculo equivalente con $a = $this->overall[$i] - $min;
+			//$b = $a / $den;
 			//echo "$a / $b / $den<br>";
 			$values[$i] = ($this->overall[$i] - $min)/$den;
 			if ($this->debug) 
-				echo $b . " X(".$this->data[$i]["ref"].") = " . $values[$i] ."<br>";
+				echo " (".$this->data[$i*$this->P]["ref"].") = " . $values[$i] ."<br>";
 		}
 
 		arsort($values);

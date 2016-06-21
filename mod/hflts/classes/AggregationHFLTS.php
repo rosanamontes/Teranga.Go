@@ -65,7 +65,7 @@ class AggregationHFLTS extends MCDM
 			for ($c=0;$c<$this->M;$c++)//forall criteria
 			for ($e=0;$e<$this->P;$e++)//for all experts
 			{
-				$i = $p*$this->N + $e; //index to get assessments
+				$i = $p*$this->P + $e; //index to get assessments
 				//echo $i . " .. " . $this->data[$i]["co_codigo"] . " = ";
 				$inf = "L".($c+1);
 				$sup = "U".($c+1);
@@ -73,7 +73,7 @@ class AggregationHFLTS extends MCDM
 				$lower[$c][$e] = $this->data[$i][$inf];//* $this->E[$i]; no es la solucion que "mengüe" la valoracion y sea peor. Nunca será mejor
 				//echo $upper[$c][$e] . "<br>"; //. $this->E[$i] . "<br>";//ojo indice para E, ver si nExpertos vs nValoraciones
 			}
-
+			if ($this->debug) echo "min-max: ";
 			for ($c=0;$c<$this->M;$c++)//forall criteria
 	 		{
 				//echo(' upper: <pre>');	print_r($upper[$c]);	echo('</pre><br>');
@@ -174,11 +174,10 @@ class AggregationHFLTS extends MCDM
 			$this->ranking[$p]['average']['ref'] = $this->alternatives[$index] ;
 			$this->ranking[$p]['average']['tuple'] = toTuple( $candidato );
 			$this->ranking[$p]['average']['label'] = toLabel( $this->ranking[$p]['average']['tuple'][0] );
-			$this->ranking[$p]['pessimistic']['tuple'] = toTuple ($pessimistic[$index]);
-			$this->ranking[$p]['optimistic']['tuple'] =  toTuple ($optimistic[$index]) ;
+			//$this->ranking[$p]['pessimistic']['tuple'] = toTuple ($pessimistic[$index]);
+			//$this->ranking[$p]['optimistic']['tuple'] =  toTuple ($optimistic[$index]) ;
 
-
-			//echo "<p>2-tupla ".$candidato." & index ".$p." is ranked as ".$index." </p>";
+			echo "<p>2-tupla ".$candidato." & index ".$p." is ranked as ".$index." </p>";
 			$p++;
 			next($values);
 		}  

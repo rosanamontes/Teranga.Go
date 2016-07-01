@@ -24,42 +24,60 @@
 * C. Wei, N. Zhao, and X. Tang. 
 */
 
-function aggregationHFLWA($data)
+function aggregationHFLWA($data, $granularity)
 {
 
 }
 
 function exampleHesitantAggegation()
 {
-	$debug = true;
+	$debug = false;
+	$granularity = 6;
 
-	//	H1={2,3,4}	H2={4,5}	H3={3}	rankingWeight (0.25,0.5,0.25) => 
+	//	H1={2,3,4}	H2={4,5}	H3={3}	rankingWeight (0.25,0.5,0.25) => C³(h2,h3,h1) = {3,4}
 	$example_1 = array(['inf'=>2, 'sup'=>4],['inf'=>4,'sup'=>5],['inf'=>3,'sup'=>3]);
-	$rankingWeight = array(0.25,0.5,0.25);
+	$rankingWeight_1 = array(0.25,0.5,0.25);
 
-	//	H1={1,2,3}	H2={4,5}	H3={4}	rankingWeight (1,0,0) => HLWA(h1,h2,h3) = C^3(1, h2, 0, h3, 0, h1) = h2
+	//	H1={1,2,3}	H2={4,5}	H3={4}	rankingWeight (1,0,0) => HLWA(h1,h2,h3) = C^3(1, h2, 0, h3, 0, h1) = h2 = {4,5}
 	$example_2 = array(['inf'=>1, 'sup'=>3],['inf'=>4,'sup'=>5],['inf'=>4,'sup'=>4]);
-	$rankingWeight = array(1,0,0);
+	$rankingWeight_2 = array(1,0,0);
 
-	//	H1={2,3}	H2={3}	H3={0,1,2}	rankingWeight (1,0,0) => HLWA(h1,h2,h3) = C^3(1, h2, 0, h1, 0, h3) = h2
+	//	H1={2,3}	H2={3}	H3={0,1,2}	rankingWeight (1,0,0) => HLWA(h1,h2,h3) = C^3(1, h2, 0, h1, 0, h3) = h2 = {3}
 	$example_3 = array(['inf'=>2, 'sup'=>3],['inf'=>3,'sup'=>3],['inf'=>0,'sup'=>2]);
-	$rankingWeight = array(1,0,0);
+	$rankingWeight_3 = array(1,0,0);
 
-	//	H1={4,5,6}	H2={1,2}	H3={4,5,6}	rankingWeight (1,0,0) => HLWA(h1,h2,h3) = C^3(1, h3, 0, h1, 0, h2) = h3
+	//	H1={4,5,6}	H2={1,2}	H3={4,5,6}	rankingWeight (1,0,0) => HLWA(h1,h2,h3) = C^3(1, h3, 0, h1, 0, h2) = h3 = {4,5,6}
 	$example_4 = array(['inf'=>4, 'sup'=>6],['inf'=>1,'sup'=>2],['inf'=>4,'sup'=>6]);
-	$rankingWeight = array(1,0,0);
+	$rankingWeight_4 = array(1,0,0);
+
+	//	H1={2}	H2={3}	H3={3}	H4={4}	rankingWeight (same) => HLWA(h1,h2,h3,h4) = C^4(h, h, h, h, h) = h?
+	$example_5 = array(['inf'=>2, 'sup'=>2],['inf'=>3, 'sup'=>3],['inf'=>3, 'sup'=>3],['inf'=>4,'sup'=>4]);
+	$w = 1.0/4.0;//all the same
+	$rankingWeight_5 = array($w,$w,$w,$w);
+
+	//	H1={3,4,5}	H2={4,5,6}	H3={5}	H4={1,2,3}	H5={3,4}	rankingWeight (same) => HLWA(h1,h2,h3,h4,h5) = C^5(h, h, h, h, h) = h?
+	$example_6 = array(['inf'=>3, 'sup'=>5],['inf'=>4, 'sup'=>6],['inf'=>5, 'sup'=>5],['inf'=>1,'sup'=>3],['inf'=>3,'sup'=>4]);
+	$w = 1.0/5.0;//all the same
+	$rankingWeight_6 = array($w,$w,$w,$w,$w);
+
+
+	//set what to do and run
+	$runSample = $example_6;
+	$weights = $rankingWeight_6;
+	$N = 5;//manual change the example size!
+	//..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-
 
 	if ($debug) 
 	{
-		echo "Step 0: data<br>";
-		for ($i=0;$i<3;$i++)
-			echo "[".$example_4[$i]['inf'].",".$example_4[$i]['sup']."] &  not-to-data-weight = " . $rankingWeight[$i] . "<br>";
+		echo "Step 0: collect data<br>";
+		for ($i=0;$i<$N;$i++)
+			echo "[".$runSample[$i]['inf'].",".$runSample[$i]['sup']."] &  not-to-data-weight = " . $weights[$i] . "<br>";
 	}
 
 	//two step aggregation processs
-	$ranking = rankingHesitantsWithPossibilityDegree($example_4);
+	$ranking = rankingHesitantsWithPossibilityDegree($runSample);
 	$hesitants = array();
-	//convertEnvelopes($ranking, $hesitants);
+	convertEnvelopes($ranking, $hesitants);
 
 	if ($debug) 
 	{ 	
@@ -67,7 +85,7 @@ function exampleHesitantAggegation()
 		echo('<hr>Hesitants<pre>');	print_r($hesitants);	echo('</pre>');
 	}
 
-	computeHLWA($hesitants, $rankingWeight);
+	computeHLWA($hesitants, $weights, $granularity);
 
 }
 
@@ -174,7 +192,10 @@ function exampleHesitantAggegation()
 			//echo " nElementos " . $nI . " en V<br>";
 			if ($nI==1)
 			{
-				$ranking[$p++] = "[".$envelopes[$V[$i][0]]['inf'].",".$envelopes[$V[$i][0]]['sup']."] ";//before:   =$V[$i][0];
+				$ranking[$p]['inf'] = $envelopes[$V[$i][0]]['inf'];
+				$ranking[$p]['sup'] = $envelopes[$V[$i][0]]['sup'];
+				$p++;
+
 				//echo " rank index =  " . $V[$i][0] . "<br>";
 			}
 			else if ($nI==2) //check which one is quasisuperior to the other?
@@ -185,22 +206,34 @@ function exampleHesitantAggegation()
 				if ($a == $b)
 				{
 					if ($debug) echo " indiferent (" . $V[$i][0] .") = (". $V[$i][1] .") <br>" ;
-					$ranking[$p++] = "[".$envelopes[$V[$i][0]]['inf'].",".$envelopes[$V[$i][0]]['sup']."] ";
-					$ranking[$p++] = "[".$envelopes[$V[$i][1]]['inf'].",".$envelopes[$V[$i][1]]['sup']."] ";
+					$ranking[$p]['inf'] = $envelopes[$V[$i][0]]['inf'];
+					$ranking[$p]['sup'] = $envelopes[$V[$i][0]]['sup'];
+					$p++;
+					$ranking[$p]['inf'] = $envelopes[$V[$i][1]]['inf'];
+					$ranking[$p]['sup'] = $envelopes[$V[$i][1]]['sup'];
+					$p++;
 				}
 				else
 				{
 					if ($a < $b)
 					{
 						if ($debug) echo $V[$i][1] ." > ". $V[$i][0] ."<br>";	//As example3. Note than Anexo do the reverse
-						$ranking[$p++] = "[".$envelopes[$V[$i][1]]['inf'].",".$envelopes[$V[$i][1]]['sup']."] ";
-						$ranking[$p++] = "[".$envelopes[$V[$i][0]]['inf'].",".$envelopes[$V[$i][0]]['sup']."] ";
+						$ranking[$p]['inf'] = $envelopes[$V[$i][1]]['inf'];
+						$ranking[$p]['sup'] = $envelopes[$V[$i][1]]['sup'];
+						$p++;
+						$ranking[$p]['inf'] = $envelopes[$V[$i][0]]['inf'];
+						$ranking[$p]['sup'] = $envelopes[$V[$i][0]]['sup'];
+						$p++;
 					}
 					else
 					{
 						if ($debug) echo $V[$i][0] ." > ". $V[$i][1] ."<br>";
-						$ranking[$p++] = "[".$envelopes[$V[$i][0]]['inf'].",".$envelopes[$V[$i][0]]['sup']."] ";
-						$ranking[$p++] = "[".$envelopes[$V[$i][1]]['inf'].",".$envelopes[$V[$i][1]]['sup']."] ";
+						$ranking[$p]['inf'] = $envelopes[$V[$i][0]]['inf'];
+						$ranking[$p]['sup'] = $envelopes[$V[$i][0]]['sup'];
+						$p++;
+						$ranking[$p]['inf'] = $envelopes[$V[$i][1]]['inf'];
+						$ranking[$p]['sup'] = $envelopes[$V[$i][1]]['sup'];
+						$p++;
 					}
 				}
 			}
@@ -357,7 +390,7 @@ function exampleHesitantAggegation()
 
 	function convertEnvelopes($envelopes,&$hesitants)
 	{
-		$debug = true;
+		$debug = false;
 		//data needed to convert envelopes to hesitants
 		
 		$lengths = array();//number of elements in the hesitant
@@ -366,7 +399,7 @@ function exampleHesitantAggegation()
 		$n = sizeof($envelopes); 
 		for ($i=0;$i<$n;$i++)
 		{
-			if ($debug) echo "[".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
+			if ($debug) echo " [".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
 			$hesitants[$i] = toHesitant($envelopes[$i],$lengths[$i],$deltas[$i]);
 			if ($hesitants[$i] != -1 && $debug)
 			{
@@ -375,7 +408,138 @@ function exampleHesitantAggegation()
 		}
 	}
 
-	function computeHLWA($hesitants, $rankingWeight)
+
+	// computes a Convex Combination of hesitants (HLWA), noted as C^n(w1,h1,w2,h2, ... wn,hn)
+	// output: an hesitant
+	function computeHLWA($hesitants, $rankingWeight, $granularity)
 	{
-		$debug = true;
+		$debug = false;
+		$H = array();//resulting aggregate hesitant
+
+		$n = count($hesitants);
+		$m = count($rankingWeight);
+
+		//check size: n and m should be the same, and must be > 1
+		if ($n != $m || $n <= 1)
+		{
+			echo "Error[computeHLWA]: unexpected number of elements in arrays<br>";
+			return;
+		}
+
+		if ($debug) 
+		{ 	
+			echo('<br>rankingWeight<pre>');	print_r($rankingWeight);	echo('</pre>');
+			echo('<br>Hesitants<pre>');	print_r($hesitants);	echo('</pre>');
+		}
+
+		$H = computeCN($n, $rankingWeight, $hesitants, $granularity );
+
+		if ($debug) 
+		{ 	
+			echo('<hr>HLWA<pre>');	print_r($H);	echo('</pre>');
+		}
+		
 	}
+
+	//computes the Convex Combination of two terms
+	//input: 2 weights 2 linguistic terms and the granularity of the linguistic term set
+	//output: s_k with k = min(g, round(w1*s1+w2*s2))
+	//example  convexCombination(0.25,5,0.75,4,6); => 4
+	function convexCombination($w1,$s1,$w2,$s2,$g)
+	{
+		//check weights
+		$sum = $w1 + $w2;
+		if ($sum != 1.0)
+		{
+			echo "Error[convexCombination]: weights " . $w1 . " and " . $w2 . " should be normalized<br>";
+			return;
+		}
+
+		$toRound = $w1*$s1 + $w2*$s2;
+		$c2 = min($g, round($toRound));
+		//echo "G=" . $g . " to round = " . $toRound . " => " . $c2 ."<br>";
+		return $c2;
+	}
+
+	//function that computes the Convex Combination of 2 Hesitants, noted as C^2(w1,h1,w2,h2)
+	function computeC2($w1,$h1,$w2,$h2,$g)
+	{
+		$debug = false;
+		$r = count($h1);
+		$s = count($h2);
+		$t = array();  //an empty hesitant
+
+		//check sizes
+		if ($r*$s < 1)	
+		{
+			echo "Error[computeC2]: at least a single element per hesitant is required<br>";
+			
+			echo('<hr>h1<pre>');	print_r($h1);	echo('</pre>');
+			echo('<hr>h2<pre>');	print_r($h2);	echo('</pre>');
+			echo $r . " x " . $s . "<br>";
+			return;		
+		}
+
+		//we call r x s times the computation of C2
+		for ($i=0;$i<$r;$i++)
+		for ($j=0;$j<$s;$j++)
+		{
+			$t[$i*$r+$j] = convexCombination($w1, $h1[$i], $w2, $h2[$j],$g);
+			if ($debug) 
+				echo $h1[$i] . " with " . $h2[$j] . " output term s_".$t[$i*$r+$j] . "<br>";
+		}
+
+		$c2 = array_unique($t); 
+		//remove redundant elements and return
+		if ($debug) 
+		{ 	
+			echo('<hr>C2<pre>');	print_r($c2);	echo('</pre>');
+		}
+
+		return $c2;
+	}
+
+
+	//function that computes the Convex Combination of 2 Hesitants
+	function computeCN($n, $w, $h,$g)
+	{
+		$debug = false;
+		echo $n . "<br>";
+		
+		if ($n == 2)
+		{
+			echo('<hr>base h1<pre>');	print_r($h[0]);	echo('</pre>');
+			echo('<hr>base h2<pre>');	print_r($h[1]);	echo('</pre>');
+			return computeC2($w[0],$h[0],1.0-$w[0],$h[1],$g);
+		}
+
+		$new_W = array();
+		$new_H = array();
+		$sumRest = 1.0-$w[0];
+
+		//remove first element & compute new weights
+		for ($i=1;$i<$n;$i++)
+		{
+			if ($sumRest==0) //avoid divO = infity
+				$new_W[$i-1] = 0;
+			else
+				$new_W[$i-1] = $w[$i-1] / $sumRest;
+			$new_H[$i-1] = $h[$i];
+		}
+
+		if ($debug) 
+		{ 	
+			echo('<br>new_W\'<pre>');	print_r($new_W);	echo('</pre>');
+			echo('<br>new_H\'<pre>');	print_r($new_H);	echo('</pre>');
+		}
+
+		$result = computeC2($w[0], $h[0], $sumRest, computeCN( $n-1, $new_W, $new_H, $g ), $g);
+
+		if ($debug) 
+		{ 	
+			echo('<hr>C^N<pre>');	print_r($result);	echo('</pre>');
+		}
+
+	}
+
+

@@ -14,6 +14,7 @@
 
 const PLUGIN_ID = 'hflts';
 require_once __DIR__ . '/lib/mcdm.php';
+require_once __DIR__ . '/lib/hesitantOp.php';
 require_once __DIR__ . '/classes/MCDM.php';
 require_once __DIR__ . '/classes/AggregationHFLTS.php';
 

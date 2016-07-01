@@ -1,0 +1,381 @@
+<?php
+
+/**
+* 	Plugin: Valoraciones linguisticas con HFLTS
+*	Author: Rosana Montes Soldado
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	HFLTS in a ELGG community: Teranga Go! CEI BioTIC project
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+*	Date: july 2016
+*	
+*	File: Hesitant Operators
+*/
+
+//________________________________________________________________________
+
+//________________________ > HFLWA aggregation operator < ________________________
+//________________________________________________________________________
+
+/**
+* Operators and Comparisons of Hesitant Fuzzy Linguistic Term Sets
+* IEEE TRANSACTIONS ON FUZZY SYSTEMS, VOL. 22, NO. 3, JUNE 2014
+* C. Wei, N. Zhao, and X. Tang. 
+*/
+
+function aggregationHFLWA($data)
+{
+
+}
+
+function exampleHesitantAggegation()
+{
+	$debug = true;
+
+	//	H1={2,3,4}	H2={4,5}	H3={3}	rankingWeight (0.25,0.5,0.25) => 
+	$example_1 = array(['inf'=>2, 'sup'=>4],['inf'=>4,'sup'=>5],['inf'=>3,'sup'=>3]);
+	$rankingWeight = array(0.25,0.5,0.25);
+
+	//	H1={1,2,3}	H2={4,5}	H3={4}	rankingWeight (1,0,0) => HLWA(h1,h2,h3) = C^3(1, h2, 0, h3, 0, h1) = h2
+	$example_2 = array(['inf'=>1, 'sup'=>3],['inf'=>4,'sup'=>5],['inf'=>4,'sup'=>4]);
+	$rankingWeight = array(1,0,0);
+
+	//	H1={2,3}	H2={3}	H3={0,1,2}	rankingWeight (1,0,0) => HLWA(h1,h2,h3) = C^3(1, h2, 0, h1, 0, h3) = h2
+	$example_3 = array(['inf'=>2, 'sup'=>3],['inf'=>3,'sup'=>3],['inf'=>0,'sup'=>2]);
+	$rankingWeight = array(1,0,0);
+
+	//	H1={4,5,6}	H2={1,2}	H3={4,5,6}	rankingWeight (1,0,0) => HLWA(h1,h2,h3) = C^3(1, h3, 0, h1, 0, h2) = h3
+	$example_4 = array(['inf'=>4, 'sup'=>6],['inf'=>1,'sup'=>2],['inf'=>4,'sup'=>6]);
+	$rankingWeight = array(1,0,0);
+
+	if ($debug) 
+	{
+		echo "Step 0: data<br>";
+		for ($i=0;$i<3;$i++)
+			echo "[".$example_4[$i]['inf'].",".$example_4[$i]['sup']."] &  not-to-data-weight = " . $rankingWeight[$i] . "<br>";
+	}
+
+	//two step aggregation processs
+	$ranking = rankingHesitantsWithPossibilityDegree($example_4);
+	$hesitants = array();
+	//convertEnvelopes($ranking, $hesitants);
+
+	if ($debug) 
+	{ 	
+		echo('<hr>Ranking<pre>');	print_r($ranking);	echo('</pre>');
+		echo('<hr>Hesitants<pre>');	print_r($hesitants);	echo('</pre>');
+	}
+
+	computeHLWA($hesitants, $rankingWeight);
+
+}
+
+
+	function rankingHesitantsWithPossibilityDegree($envelopes)
+	{
+		$debug=false;
+		$n = sizeof($envelopes); //	system_message("n " . $n);
+
+		//data for step 1
+		$l=0;
+		$indexes = array();//like envelope but consecutive
+		$degree = array();//P matrix
+		//data for step 2
+		$relation = array();//U matrix
+		$I = array();
+		$V = array();
+		// output data
+		$ranking = array();
+
+		for ($i=0;$i<$n;$i++)
+		{
+			if ($debug) echo "[".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
+
+			$indexes[$l] = $envelopes[$i]['inf'];
+			$indexes[$l+1] = $envelopes[$i]['sup'];	
+				
+			$l = $l+2;
+		}
+		//echo('<pre>');	print_r($indexes);	echo('</pre>');
+		
+		if ($debug) echo "<br>Step 1: compute the possibility matrix P<br>";
+
+		//possibility degree matrix P
+		for($i=0;$i<$n;$i++)
+	    for($j=$i;$j<$n;$j++)
+	    {
+	    	if ($i!=$j)
+	    	{ 
+	    		$degree[$i][$j] = computePossibility( $indexes[$i*2], $indexes[$i*2+1], $indexes[$j*2], $indexes[$j*2+1] );
+	    		//echo '<br>['. $i . ',' . $j . '] ' . $degree[$i][$j];
+	    		$degree[$j][$i] = 1 - $degree[$i][$j] ;
+	    		//echo '<br>['. $j . ',' . $i . '] ' . $degree[$j][$i];
+	    	}
+	    	else $degree[$i][$j] = 0.5;
+	    }
+	    	
+	    if ($debug) 
+	    {
+	    	echo('<br><pre>');	print_r($degree);	echo('</pre>');
+	    	echo "Step 2: preference relation matrix ($n)<br>";
+		}
+
+		//preference relation matrix U
+		for($i=0;$i<$n;$i++)
+		{
+	   		for($j=0;$j<$n;$j++)
+	   		{
+				if($degree[$i][$j]>=0.5)
+					$relation[$i][$j]=1.0;
+				else
+					$relation[$i][$j]=0.0;
+				//echo ' -> ['. $i . ',' . $j . '] ' . $relation[$i][$j];
+			}
+				
+			//almaceno los indices originales en la ultima columna, esto es, es Nx(N+1)
+	   		$relation[$i][$n] = $i;
+	   	}	
+	  
+	   	if ($debug) 
+	   	{
+	   		echo('<br><pre>');	print_r($relation);	echo('</pre>');
+	   	}	
+	 	
+	   	$m = $n;//tamaño inicial de U_1
+	   	$k=0;
+	   	while ($m >= 1)
+	   	{
+	   		$I = checkOnes($relation, $m);
+	   		//echo('<br>I<pre>');	print_r($I);	echo('</pre>');
+	   	
+	   		$N = count($I);
+	   		//echo " eliminar " . $n . " filas<br>";
+	    	
+	   		$V[$k] = removeCrossAt( $I, $relation );///se eliminan las referencias &$
+			//echo('<br>U<pre>');	print_r($relation);	echo('</pre>');
+			//echo('<br>V<pre>');	print_r($V[$k]);	echo('</pre>');
+			
+			$k++;
+			$m = $m-$N; //tamaño actualizado
+			//echo " tam actualizado " . $m . " <br>";
+		}
+			
+		if ($debug) 
+		{ 
+			echo('<br>V<pre>');	print_r($V);	echo('</pre>');
+		}
+
+
+		$p=0;
+		for ($i=0; $i<$k; $i++)
+		{
+			$nI = count($V[$i]);
+			//echo " nElementos " . $nI . " en V<br>";
+			if ($nI==1)
+			{
+				$ranking[$p++] = "[".$envelopes[$V[$i][0]]['inf'].",".$envelopes[$V[$i][0]]['sup']."] ";//before:   =$V[$i][0];
+				//echo " rank index =  " . $V[$i][0] . "<br>";
+			}
+			else if ($nI==2) //check which one is quasisuperior to the other?
+			{
+				$a = $envelopes[$V[$i][1]]['sup']-$envelopes[$V[$i][1]]['inf'];
+				$b = $envelopes[$V[$i][0]]['sup']-$envelopes[$V[$i][0]]['inf'];
+				
+				if ($a == $b)
+				{
+					if ($debug) echo " indiferent (" . $V[$i][0] .") = (". $V[$i][1] .") <br>" ;
+					$ranking[$p++] = "[".$envelopes[$V[$i][0]]['inf'].",".$envelopes[$V[$i][0]]['sup']."] ";
+					$ranking[$p++] = "[".$envelopes[$V[$i][1]]['inf'].",".$envelopes[$V[$i][1]]['sup']."] ";
+				}
+				else
+				{
+					if ($a < $b)
+					{
+						if ($debug) echo $V[$i][1] ." > ". $V[$i][0] ."<br>";	//As example3. Note than Anexo do the reverse
+						$ranking[$p++] = "[".$envelopes[$V[$i][1]]['inf'].",".$envelopes[$V[$i][1]]['sup']."] ";
+						$ranking[$p++] = "[".$envelopes[$V[$i][0]]['inf'].",".$envelopes[$V[$i][0]]['sup']."] ";
+					}
+					else
+					{
+						if ($debug) echo $V[$i][0] ." > ". $V[$i][1] ."<br>";
+						$ranking[$p++] = "[".$envelopes[$V[$i][0]]['inf'].",".$envelopes[$V[$i][0]]['sup']."] ";
+						$ranking[$p++] = "[".$envelopes[$V[$i][1]]['inf'].",".$envelopes[$V[$i][1]]['sup']."] ";
+					}
+				}
+			}
+			else 
+			{	
+				echo "To do: case of quasisuperior for more than 2 indiferent elements<br>";
+			}	
+		}
+
+		if ($debug) 
+		{ 	
+			echo('<hr>Ranking<pre>');	print_r($ranking);	echo('</pre>');
+		}
+
+		return $ranking;
+
+	}
+
+
+
+	//..-..-..-..-..-..-..-..-..-..-..-..-..- POSSIBILITY DEGREE SUPPORTING FUNCTIONS -..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-
+	//  private function that computes p(h1>h2)
+	//	input:  interval indexes corresponding to h1[i_1,i_m] > h2[j_1,j_m]
+	//  output: a real value in [0,1]
+
+	function computePossibility($i_1, $i_m, $j_1, $j_n)
+	{
+		$value; //possibility degree value computed by this function
+		
+		//if ($this->debug) 			echo 'compute with ('. $i_1 . ', ' . $i_m. ', ' . $j_1. ', ' . $j_n .') ';
+		$useFormula;
+		$case;
+		if ($i_m<=$j_n)
+			$useFormula=1;
+		else
+			$useFormula=2;
+			
+		if($useFormula==1)
+		{
+			if ($i_m < $j_1)
+				$case = "consecutivo";
+			else
+				if ( ($i_1<=$j_1) && ($j_1<=$i_m) && ($i_m<=$j_n) )
+					$case = "cruce";
+				else
+					$case = "caja";
+		}
+		else
+		{			
+			if($j_n<$i_1)
+				$case = "consecutivo";
+			else	
+				if ( ($j_1<=$i_1) && ($i_1<=$j_n) && ($j_n<=$i_m) )
+					$case = "cruce";
+				else
+					$case = "caja";
+		}		
+
+		//if ($this->debug) 			echo 'with ('. $useFormula . ') & 	' . $case . ' = ';
+		
+		switch ($case)
+		{
+			case "consecutivo":
+				if ($useFormula==1)
+					$value = 0;
+				else
+					$value = 1;			
+				break;
+
+			case "cruce":
+				if ($useFormula==1)
+					$value = (0.5*($i_m-$j_1+1))/($j_n-$i_1+1.0);
+				else
+					$value = (0.5*($j_n-$i_1+1)+($i_m-$j_n)+($i_1-$j_1))/($i_m-$j_1+1.0);
+				break;
+
+			case "caja":
+				if ($useFormula==1)
+					$value = ($i_1-$j_1+0.5*($i_m-$i_1+1))/($j_n-$j_1+1.0);
+				else
+					$value = (0.5*($j_n-$j_1+1)+($i_m-$j_n))/($i_m-$i_1+1.0);
+				break;
+
+			default:
+				$value = 0;
+				echo "no debería estar en este case de possibility degree computation<br>";
+		}
+		
+		//if ($this->debug) 			echo $value . '<br>';
+		return $value;
+	}
+	
+	//auxiliar private function
+	function checkOnes( $matrix, $N )
+	{
+		$V = array();
+		$k=0;
+		//assumed is a squared matrix
+		for($i=$N-1;$i>=0;$i--) //muy importante hacerlo en orden inverso de cara a recortar la matriz
+		{
+			$row2_one = true;
+			for($j=0;$j<$N;$j++) 
+				$row2_one = ($matrix[$i][$j] && $row2_one);
+					
+			//echo '['.$i.'] = ' . $row2_one . '<br>';
+			if ($row2_one == true)
+			{
+				$V[$k] = $i;
+				$k++;
+			}
+		}
+		return $V;	
+	}
+	
+	
+	//auxiliar private function
+	function delete_row(&$array, $offset) 
+	{
+		return array_splice($array, $offset, 1);//, true);//preserve_keys
+	}
+
+	//auxiliar private function
+	function delete_col(&$array, $offset) 
+	{
+		return array_walk($array, function (&$v) use ($offset) {
+			array_splice($v, $offset, 1);
+		});
+	}
+	
+	//auxiliar private function
+	function removeCrossAt( $lines, &$matrix )
+	{
+		//if ($this->debug) echo " remove index " . $index;
+		$newLines = array();
+		$n = count($lines);
+		$m = count($matrix);
+		
+		for($i=0;$i<$n;$i++) 
+		{
+			$newLines[$i] = $matrix[$lines[$i]][$m]; //guardar indices originales
+			//echo ($m) . " + old " . $lines[$i] . " new " . $newLines[$i] . "<br>";
+		}
+
+		for($i=0;$i<$n;$i++) 
+			delete_col($matrix, $lines[$i]);///se eliminan las referencias &$matrix
+		for($i=0;$i<$n;$i++) 		
+			delete_row($matrix, $lines[$i]);
+			
+		return $newLines;
+	}
+	
+
+	//..-..-..-..-..-..-..-..-..-..-..- HESITANT LINGUISTIC WEIGHTED AGGREGATION SUPPORTING FUNCTIONS -..-..-..-..-..-..-..-..-..-..-..-
+
+	function convertEnvelopes($envelopes,&$hesitants)
+	{
+		$debug = true;
+		//data needed to convert envelopes to hesitants
+		
+		$lengths = array();//number of elements in the hesitant
+		$deltas = array();//not to be used in aggregation
+
+		$n = sizeof($envelopes); 
+		for ($i=0;$i<$n;$i++)
+		{
+			if ($debug) echo "[".$envelopes[$i]['inf'].",".$envelopes[$i]['sup']."] ";
+			$hesitants[$i] = toHesitant($envelopes[$i],$lengths[$i],$deltas[$i]);
+			if ($hesitants[$i] != -1 && $debug)
+			{
+				echo('<pre>');	print_r($hesitants[$i]);	echo('</pre>');
+			}
+		}
+	}
+
+	function computeHLWA($hesitants, $rankingWeight)
+	{
+		$debug = true;
+	}

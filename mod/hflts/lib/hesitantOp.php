@@ -489,8 +489,9 @@ function exampleHesitantAggegation()
 				echo $h1[$i] . " with " . $h2[$j] . " output term s_".$t[$i*$r+$j] . "<br>";
 		}
 
-		$c2 = array_unique($t); 
-		//remove redundant elements and return
+		//remove redundant elements, reset indexes and return
+		$c2 = array_values(array_unique($t)); 
+		
 		if ($debug) 
 		{ 	
 			echo('<hr>C2<pre>');	print_r($c2);	echo('</pre>');
@@ -504,12 +505,11 @@ function exampleHesitantAggegation()
 	function computeCN($n, $w, $h,$g)
 	{
 		$debug = false;
-		echo $n . "<br>";
 		
 		if ($n == 2)
 		{
-			echo('<hr>base h1<pre>');	print_r($h[0]);	echo('</pre>');
-			echo('<hr>base h2<pre>');	print_r($h[1]);	echo('</pre>');
+			//echo('<hr>base h1<pre>');	print_r($h[0]);	echo('</pre>');
+			//echo('<hr>base h2<pre>');	print_r($h[1]);	echo('</pre>');
 			return computeC2($w[0],$h[0],1.0-$w[0],$h[1],$g);
 		}
 
@@ -534,12 +534,12 @@ function exampleHesitantAggegation()
 		}
 
 		$result = computeC2($w[0], $h[0], $sumRest, computeCN( $n-1, $new_W, $new_H, $g ), $g);
-
 		if ($debug) 
 		{ 	
-			echo('<hr>C^N<pre>');	print_r($result);	echo('</pre>');
+			echo($n . '<hr>C^N<pre>');	print_r($result);	echo('</pre>');
 		}
 
+		return $result;
 	}
 
 

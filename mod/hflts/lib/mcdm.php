@@ -215,18 +215,34 @@ function toHesitant($envelope, &$length, &$deltaAvg)
 		return -1; //wrong!
 	}
 	
-	$length = $envelope['sup'] - $envelope['inf'] + 1;
+	$length = $envelope['sup'] - $envelope['inf'] + 1;//number of terms in the hesitant
 	$deltaAvg = $sum / $length;
 	//echo "L=" . $length  . " D=" . $deltaAvg ."<br>";
 	//echo('<br>Hesitant <pre>');  print_r($hesitant);    echo('</pre>');
 	return $hesitant;
 }
 
-
+//from hesitant to linguistic interval. no g needed
 function toEnvelope($H, $G)
 {
-
+	$n = count($H) - 1;
+	$interval = array(['inf'=>$H[0], 'sup'=>$H[$n]]);
+	return $interval;
 }
+
+//compute delta as in toHesitant function to be used separately
+function deltaHesitant($H)
+{
+	$n = count($H);
+	$sum = 0;
+	for ($i=0;$i<$n;$i++)
+		$sum += $H[$i];
+	$d = $sum / $n;
+	//echo "Delta of H is " . $d . "<br>";
+
+	return $d;
+}
+
 
 
 //________________________________________________________________________

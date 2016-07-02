@@ -62,9 +62,11 @@ class TodimHFL extends MCDM
 	public function run()
 	{
 		parent::run();
+		//$this->debug = true;
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
 		$this->variance = $this->variance();
+		$this->expertWeights();
 		//parent::todimCase();//realEstateCase();vikorCase
 		
 		//step 1 find the most important factor and calculate the relative weights
@@ -81,6 +83,24 @@ class TodimHFL extends MCDM
 		$this->ranking();	
 
 		return $this->ranking[0]['todim']['label'];
+	}
+
+	/**
+	* Read expert weights from parent class | from CSV file | set as here at the same
+	* Check normalization
+	*/
+	private function expertWeights()
+	{
+		$sum = 0;
+		for ($e=0;$e<$this->P;$e++)
+			$sum += $this->E[$e];
+
+		if ($sum == 1) return;
+
+		for ($e=0;$e<$this->P;$e++)
+			$this->E[$e] /= $sum;
+		
+		//echo('<br>expertWeights: <pre>');	print_r($this->E);	echo('</pre>');
 	}
 
 
@@ -133,10 +153,8 @@ class TodimHFL extends MCDM
 	*/
 	private function scoreFunction($hesitant, $L, $D)
 	{
-		/*{
-			echo('<br>F <pre>');	print_r($hesitant);	echo('</pre>');
-		}*/
-
+		//echo('<br>F <pre>');	print_r($hesitant);	echo('</pre>');
+		
 		$sum=0;
 		for ($l=0; $l<$L;$l++)
 		{
@@ -153,46 +171,53 @@ class TodimHFL extends MCDM
 	/**
 	* Compute F(H) for all assessment regarding criteria and alternatives 
 	* Use this value to compute the dominance degree
+	* It uses aggregationHFLWA($data, $weights, $granularity) from "Operators and Comparisons of Hesitant Fuzzy Linguistic Term Sets"
 	*/
 	private function crossAlternativesWithCriteria()
 	{
 		$length = $delta = 0;
-		$expertValue = array();
+		$criterionScore = array();//score of assessment  of several experts about a single criterion. Temporal array
+		$criterionAssessment = array();//what several experts say about a single criterion. Temporal array
 
-		for ($p=0;$p<$this->N;$p++)//forall alternatives
+		for ($i=0;$i<$this->N;$i++)//forall alternatives 
 		{
 			for ($j=0;$j<$this->M;$j++)//forall criteria
 			{
-				$acum = 0;
-				
-				//Agregamos las F de los expertos para cada alternativa y criterio [[confirmar]]
-				for ($e=0;$e<$this->P;$e++)//forall experts
+				if ($this->debug)
+					echo $this->data[$i*$this->P]["ref"] . " - C" . $j ;
+
+				//Aggregate hesitants given from experts for each criterion and alternative
+				//if we compute F for each hesitant the average F is <> from the score of aggregate hesitant
+				//case: [5,5] F=5; [5,6] F=5.4375; [5,6] F=5.4375; [5,5] F=5; avgF=5.21875 vs avg hesitant = {5} and F_H=5
+				for ($k=0;$k<$this->P;$k++)//forall experts
 				{
-					$i = $p*$this->P + $e; //index to get assessments
-					//system_message("#".$i);
+					$c = $i*$this->P + $k; //index to get assessments - system_message("#".$c);
 					
 					$inf = "L".($j+1);
 					$sup = "U".($j+1);
-					$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-					$expert = $this->data[$i][co_codigo];
-					if ($this->debug) echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
-					$this->hesitants[$i][$j] = toHesitant($envelope,$length,$delta);
-					if ($this->hesitants[$i][$j] == -1)
-						register_error("wrong hesitant in score function");
+					$criterionAssessment[$k] = array ("inf" => $this->data[$c][$inf], "sup" => $this->data[$c][$sup]);
 
-					$expertValue[$e] = $this->scoreFunction($this->hesitants[$i][$j], $length, $delta);
-					$acum += $expertValue[$e] ;
-
-					if ($this->debug) echo $this->data[$i]["ref"] . " - C" . $j . " - " . $expert ." F=" . $expertValue[$e] .";  ";
+					if ($this->debug) //" - E_" . $this->data[$c]['co_codigo']
+						echo " [".$this->data[$c][$inf].",".$this->data[$c][$sup]."], ";
 				} 
 
-				$this->score[$p][$j] = $acum / $this->P; //aggretate
-				if ($this->debug) echo " finalF=" . $this->score[$p][$j] ."<br>";
+				$avgH_Cj = aggregationHLWA($criterionAssessment, $this->E, $this->G);
+				$this->hesitants[$i][$j] = $avgH_Cj;//store the aggretate hesitant and compute its length and delta
+				if ($this->hesitants[$i][$j] == -1)
+					register_error("wrong hesitant in cross function");
+
+				$length = count($avgH_Cj);//number of terms in the hesitant
+				$delta = deltaHesitant($avgH_Cj);
+				$F_H = $this->scoreFunction($avgH_Cj, $length, $delta);
+				if ($this->debug) 
+					echo " => L=".$length." d=".$delta." & F(avgH) = " . $F_H ."<br>";
+
+				$this->score[$i][$j] = $F_H; //store the score function of hte aggregate hesitant
 			}	
 		}
 
 		
-		//check cases ((one expert!))
+		//check cases ((like with one expert assessment))
 		for ($j=0;$j<$this->M;$j++)//forall criteria
 		{
 			if ($this->debug) echo "C".($j+1);

@@ -15,18 +15,28 @@
 
 //________________________________________________________________________
 
-//________________________ > HFLWA aggregation operator < ________________________
+//_____________________ > HLWA aggregation operator < ____________________
 //________________________________________________________________________
 
 /**
 * Operators and Comparisons of Hesitant Fuzzy Linguistic Term Sets
 * IEEE TRANSACTIONS ON FUZZY SYSTEMS, VOL. 22, NO. 3, JUNE 2014
 * C. Wei, N. Zhao, and X. Tang. 
+*
+* Input: linguistic intervals, normalized weights (several uses... criteria weights, experts weights o ranking weights), G
+* Output: an hesitant resulting of aggregation of several linguistic intervals
 */
 
-function aggregationHFLWA($data, $granularity)
+function aggregationHLWA($data, $weights, $granularity)
 {
+	//two step aggregation processs
+	$ranking = rankingHesitantsWithPossibilityDegree($data);
+	$hesitants = array();
+	convertEnvelopes($ranking, $hesitants);
 
+	$H =  computeHLWA($hesitants, $weights, $granularity);
+	//echo('<hr>aggregationHLWA<pre>');	print_r($H);	echo('</pre>');
+	return $H;
 }
 
 function exampleHesitantAggegation()
@@ -50,12 +60,12 @@ function exampleHesitantAggegation()
 	$example_4 = array(['inf'=>4, 'sup'=>6],['inf'=>1,'sup'=>2],['inf'=>4,'sup'=>6]);
 	$rankingWeight_4 = array(1,0,0);
 
-	//	H1={2}	H2={3}	H3={3}	H4={4}	rankingWeight (same) => HLWA(h1,h2,h3,h4) = C^4(h, h, h, h, h) = h?
+	//	H1={2}	H2={3}	H3={3}	H4={4}	rankingWeight (same) => HLWA(h1,h2,h3,h4) = C^4(h, h, h, h, h) = {}
 	$example_5 = array(['inf'=>2, 'sup'=>2],['inf'=>3, 'sup'=>3],['inf'=>3, 'sup'=>3],['inf'=>4,'sup'=>4]);
 	$w = 1.0/4.0;//all the same
 	$rankingWeight_5 = array($w,$w,$w,$w);
 
-	//	H1={3,4,5}	H2={4,5,6}	H3={5}	H4={1,2,3}	H5={3,4}	rankingWeight (same) => HLWA(h1,h2,h3,h4,h5) = C^5(h, h, h, h, h) = h?
+	//	H1={3,4,5}	H2={4,5,6}	H3={5}	H4={1,2,3}	H5={3,4}	rankingWeight (same) => HLWA(h1,h2,h3,h4,h5) = C^5(h, h, h, h, h) = {}
 	$example_6 = array(['inf'=>3, 'sup'=>5],['inf'=>4, 'sup'=>6],['inf'=>5, 'sup'=>5],['inf'=>1,'sup'=>3],['inf'=>3,'sup'=>4]);
 	$w = 1.0/5.0;//all the same
 	$rankingWeight_6 = array($w,$w,$w,$w,$w);
@@ -85,8 +95,12 @@ function exampleHesitantAggegation()
 		echo('<hr>Hesitants<pre>');	print_r($hesitants);	echo('</pre>');
 	}
 
-	computeHLWA($hesitants, $weights, $granularity);
-
+	$singleH = computeHLWA($hesitants, $weights, $granularity);
+	if ($debug) 
+	{ 	
+		echo('<hr>operatorHLWA()=<pre>');	print_r($singleH);	echo('</pre>');
+	}
+	
 }
 
 
@@ -239,7 +253,15 @@ function exampleHesitantAggegation()
 			}
 			else 
 			{	
-				echo "To do: case of quasisuperior for more than 2 indiferent elements<br>";
+				if ($debug) echo "case of quasisuperior for more than 2 indiferent elements<br>";
+				//they are equivalent so we use the same order of the V vector as the simplisctic solution
+
+				for ($x=0;$x<$nI;$x++)
+				{
+					$ranking[$p]['inf'] = $envelopes[$V[$i][$x]]['inf'];
+					$ranking[$p]['sup'] = $envelopes[$V[$i][$x]]['sup'];
+					$p++;					
+				}					
 			}	
 		}
 
@@ -438,7 +460,8 @@ function exampleHesitantAggegation()
 		{ 	
 			echo('<hr>HLWA<pre>');	print_r($H);	echo('</pre>');
 		}
-		
+
+		return $H;		
 	}
 
 	//computes the Convex Combination of two terms

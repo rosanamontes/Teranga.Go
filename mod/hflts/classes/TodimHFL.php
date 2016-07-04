@@ -63,12 +63,14 @@ class TodimHFL extends MCDM
 	{
 		parent::run();
 		//$this->debug = true;
+		parent::expertWeights();
+		
 		if ($this->debug) 
 			system_message($this->N . " x ". $this->M . " x " . $this->P);
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
 		$this->variance = $this->variance();
-		$this->expertWeights();
+		
 		//parent::todimCase();//realEstateCase();vikorCase
 		
 		//step 1 find the most important factor and calculate the relative weights
@@ -86,26 +88,6 @@ class TodimHFL extends MCDM
 
 		return $this->ranking[0]['todim']['label'];
 	}
-
-	/**
-	* Read expert weights from parent class | from CSV file | set as here at the same
-	* Check normalization
-	*/
-	private function expertWeights()
-	{
-		$sum = 0;
-		for ($e=0;$e<$this->P;$e++)
-			$sum += $this->E[$e];
-		
-		if ($sum == 1) return;
-
-		for ($e=0;$e<$this->P;$e++)
-			$this->E[$e] = $this->E[$e] / $sum;
-		
-		if ($this->debug) 
-			echo($sum .'<br>expertWeights: <pre>');	print_r($this->E);	echo('</pre>');
-	}
-
 
 	/**
 	* Computes the var(tau) = {(0 - tau/2)^2 +..+ (tau - tau/2)^2}  / tau+1

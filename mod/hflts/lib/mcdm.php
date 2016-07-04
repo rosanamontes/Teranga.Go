@@ -143,12 +143,26 @@ function intervalDominance( $a1, $a2, $b1, $b2 )
 * Distance of two HFLTS function proposed by J.Q. Wang et al / Information sciences 280
 * where d(H1,H2) = sqrt(  I(upH1)-I(upH2)^2 + I(lowH1)-I(lowH2)^2 ) and it is simetric
 * if d=0 then H1=H2
+* Input: two linguistic intervals 
 */
 function distanceEnvelope( $Env1, $Env2 )
 {
 	return sqrt( pow( $Env1['sup']-$Env2['sup'], 2) + pow($Env1['inf']-$Env2['inf'], 2) );
 }
 
+
+/**
+* Distance of two HFLTS function proposed by J.Q. Wang et al / Information sciences 280
+* where d(H1,H2) = sqrt(  I(upH1)-I(upH2)^2 + I(lowH1)-I(lowH2)^2 ) and it is simetric
+* if d=0 then H1=H2
+* Input: two hesitants
+*/
+function distanceHesitant( $H1, $H2 )
+{
+	$x = count($H1) - 1;
+	$y = count($H2) - 1;
+	return sqrt( pow( $H1[$x]-$H2[$y], 2) + pow($H1[0]-$H2[0], 2) );
+}
 
 //________________________________________________________________________
 
@@ -222,11 +236,13 @@ function toHesitant($envelope, &$length, &$deltaAvg)
 	return $hesitant;
 }
 
-//from hesitant to linguistic interval. no g needed
-function toEnvelope($H, $G)
+//function to convert from hesitant to linguistic interval
+function toEnvelope($H)
 {
 	$n = count($H) - 1;
-	$interval = array(['inf'=>$H[0], 'sup'=>$H[$n]]);
+	$interval['inf'] = $H[0];
+	$interval['sup'] = $H[$n];
+
 	return $interval;
 }
 

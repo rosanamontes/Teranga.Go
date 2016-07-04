@@ -435,7 +435,7 @@ function exampleHesitantAggegation()
 	// output: an hesitant
 	function computeHLWA($hesitants, $rankingWeight, $granularity)
 	{
-		$debug = true;
+		$debug = false;
 		$H = array();//resulting aggregate hesitant
 
 		$n = count($hesitants);

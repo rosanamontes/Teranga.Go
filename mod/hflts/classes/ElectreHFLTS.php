@@ -58,10 +58,14 @@ class ElectreHFLTS extends MCDM
 	
 	public function run()
 	{
-		parent::run();
-
-		//step 1: transform teh linguistic expressions into HFLTS. 
+		//step 1: transform the linguistic expressions into HFLTS. 
 		//Since all criteria are of the maximizing type no normalization is needed
+		parent::run();
+		//$this->debug = true;
+		if ($this->debug) 
+			system_message($this->N . " x ". $this->M . " x " . $this->P);		
+
+		parent::expertWeights();
 
 		//step 2: identify the concordance an discordance indices
 		$this->crossAlternativesWithCriteria();
@@ -105,22 +109,43 @@ class ElectreHFLTS extends MCDM
 		$envelope = array();
 		$length = array();
 		$delta = 0.0;
+		$criterionAssessment = array();//what several experts say about a single criterion. Temporal array
 
 		for ($i=0;$i<$this->N;$i++)//forall alternatives
 		{
-			echo $this->alternatives[$i] . ": ";
 			for ($j=0;$j<$this->M;$j++)//forall criteria
 			{
-				$inf = "L".($j+1);
-				$sup = "U".($j+1);
-				$envelope[$i][$j] = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-				if ($this->debug) 
-					echo "c" . ($j+1) ." [".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
-				$this->hesitants[$i][$j] = toHesitant($envelope[$i][$j],$length[$i][$j],$delta);
+				if ($this->debug)
+					echo $this->data[$i*$this->P]["ref"] . " - C" . $j+1 ;
+
+				//Aggregate hesitants given from experts for each criterion and alternative
+				for ($k=0;$k<$this->P;$k++)//forall experts
+				{
+					$c = $i*$this->P + $k; //index to get assessments - system_message("#".$c);
+					
+					$inf = "L".($j+1);
+					$sup = "U".($j+1);
+					$criterionAssessment[$k] = array ("inf" => $this->data[$c][$inf], "sup" => $this->data[$c][$sup]);
+
+					if ($this->debug) //echo " - E_" . $this->data[$c]['co_codigo'];
+						echo " [".$this->data[$c][$inf].",".$this->data[$c][$sup]."], ";
+				} 
+
+				$avgH_Cj = aggregationHLWA($criterionAssessment, $this->E, $this->G);
+
+				$this->hesitants[$i][$j] = $avgH_Cj;//store the aggretate hesitant and compute its length and delta
 				if ($this->hesitants[$i][$j] == -1)
-					register_error("wrong hesitant in score function");
+					register_error("wrong hesitant in cross function");
+
+				//temporarly store the length
+				$length[$i][$j] = count($avgH_Cj);//number of terms in the hesitant
+
+				//temporarly store the envelope
+				$envelope[$i][$j] = toEnvelope($avgH_Cj);
+				if ($this->debug) 
+					echo " = [".$envelope[$i][$j]['inf'].",".$envelope[$i][$j]['sup']."]<br>";
 			}	
-			if ($this->debug) echo "<br>";
+			
 		}
 		
 		$cc = 0; //case count
@@ -142,8 +167,8 @@ class ElectreHFLTS extends MCDM
 
 						if ($this->debug) 
 						{
-							echo "C".($j+1)." (".($i+1).",".($k+1).") ";
-							echo "W_d=" .$this->W_distance[$i][$k][$j]." Conc_r=".$this->outrank[$i][$k][$j]." Dis_r=".$this->outrank[$k][$i][$j]."<br>" ;
+							echo "C".($j+1)." (".($i+1).",".($k+1).") W_j=" .  $this->W[$j] ;
+							echo " W_d=" .$this->W_distance[$i][$k][$j]." Conc_r=".$this->outrank[$i][$k][$j]." Dis_r=".$this->outrank[$k][$i][$j]."<br>" ;
 
 							if ($this->outrank[$i][$k][$j] == 1.0)
 								echo "C_S in " . ($j+1) . "<br>";
@@ -278,6 +303,7 @@ class ElectreHFLTS extends MCDM
 						}
 					}
 
+					if ($this->maxWD[$cc] == 0) echo "[ElectreHFLTS] div 0! (1)<br>";
 					$this->D[$k][$i] = max($upper) / $this->maxWD[$cc];//same walkthrought same case index
 					//echo " (".($k+1).",".($i+1).") -> D=" . $this->D[$k][$i] . "<br>";
 
@@ -297,6 +323,7 @@ class ElectreHFLTS extends MCDM
 						}
 					}
 					
+					if ($this->maxWD[$cc] == 0) echo "[ElectreHFLTS] div 0! (2)<br>";
 					$this->D[$i][$k] = max($lower) / $this->maxWD[$cc];//same walkthrought same case index
 					//echo " (".($i+1).",".($k+1).") -> D=" . $this->D[$i][$k] . "<br>";
 

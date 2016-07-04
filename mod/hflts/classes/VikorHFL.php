@@ -73,7 +73,7 @@ class VikorHFL extends MCDM
 		parent::run();
 
 		//Step 3: establish the alternatives, criteria and the weights of the criteria
-		$this->expertWeights();		
+		parent::expertWeights();		
 
 		//Step 4: find out the positive ideal and the negative ideal solution
 		self::crossAlternativesWithCriteria();
@@ -84,26 +84,6 @@ class VikorHFL extends MCDM
 		$this->ranking();	
 
 		return $this->ranking[0]['vikor']['label'];
-	}
-
-
-	/**
-	* Read expert weights from parent class | from CSV file | set as here at the same
-	* Check normalization
-	*/
-	private function expertWeights()
-	{
-		$sum = 0;
-		for ($e=0;$e<$this->P;$e++)
-			$sum += $this->E[$e];
-
-		if ($sum == 1) return;
-
-		for ($e=0;$e<$this->P;$e++)
-			$this->E[$e] /= $sum;
-		
-		if ($this->debug) 
-			echo('<br>expertWeights: <pre>');	print_r($this->E);	echo('</pre>');
 	}
 
 	private function crossAlternativesWithCriteria()

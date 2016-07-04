@@ -358,4 +358,24 @@ abstract class MCDM
 
 		if ($this->information) system_message("electreCase");
 	}    
+
+	/**
+	* Read expert weights from parent class | from CSV file | set as here at the same
+	* Check normalization
+	*/
+	public function expertWeights()
+	{
+		$sum = 0;
+		for ($e=0;$e<$this->P;$e++)
+			$sum += $this->E[$e];
+		
+		if ($sum == 1) return;
+
+		for ($e=0;$e<$this->P;$e++)
+			$this->E[$e] = $this->E[$e] / $sum;
+		
+		if ($this->debug) 
+			echo($sum .'<br>expertWeights: <pre>');	print_r($this->E);	echo('</pre>');
+	}
+
 }

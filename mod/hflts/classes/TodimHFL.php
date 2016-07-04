@@ -63,6 +63,8 @@ class TodimHFL extends MCDM
 	{
 		parent::run();
 		//$this->debug = true;
+		if ($this->debug) 
+			system_message($this->N . " x ". $this->M . " x " . $this->P);
 
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
 		$this->variance = $this->variance();
@@ -94,13 +96,14 @@ class TodimHFL extends MCDM
 		$sum = 0;
 		for ($e=0;$e<$this->P;$e++)
 			$sum += $this->E[$e];
-
+		
 		if ($sum == 1) return;
 
 		for ($e=0;$e<$this->P;$e++)
-			$this->E[$e] /= $sum;
+			$this->E[$e] = $this->E[$e] / $sum;
 		
-		//echo('<br>expertWeights: <pre>');	print_r($this->E);	echo('</pre>');
+		if ($this->debug) 
+			echo($sum .'<br>expertWeights: <pre>');	print_r($this->E);	echo('</pre>');
 	}
 
 
@@ -197,7 +200,7 @@ class TodimHFL extends MCDM
 					$sup = "U".($j+1);
 					$criterionAssessment[$k] = array ("inf" => $this->data[$c][$inf], "sup" => $this->data[$c][$sup]);
 
-					if ($this->debug) //" - E_" . $this->data[$c]['co_codigo']
+					if ($this->debug) //echo " - E_" . $this->data[$c]['co_codigo'];
 						echo " [".$this->data[$c][$inf].",".$this->data[$c][$sup]."], ";
 				} 
 

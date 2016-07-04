@@ -80,7 +80,8 @@ abstract class MCDM
 		}
 
 		if (sizeof($values) != $size)
-			return; //system_message($size . "  DMCM setData " . sizeof($values));//
+			//return; 
+			system_message($size . "  DMCM setData " . sizeof($values));//
 
 
 		$this->P = $this->num = $size;
@@ -298,7 +299,9 @@ abstract class MCDM
 		
 		$this->alternatives = array('C-1','C-2','C-3','C-4','C-5');
 		$this->W = array(1.0, 1.0, 0.5, 0.8, 0.7, 0.7, 1.0, 0.8, 0.4); //9 pesos del usuario 1
-		//$this->E //same importance of each assessment??
+
+		//expert weights
+		$this->E = array(1.0, 1.0, 1.0, 1,0, 1.0);//same importance of each assessment in case of parsing fail
 		$wfile = elgg_get_plugins_path() . "hflts/samples/weight_classic.csv";
 		$this->parse_csv_weights($wfile);
 		
@@ -314,7 +317,7 @@ abstract class MCDM
 		$this->P=1; //num of experts
 		$this->alternatives = array('p1','p2','p3','p4');
 		$this->W = array(0.2, 0.15, 0.15,0.5);
-		$this->E = array(1.0, 1.0, 1.0, 1.0);
+		$this->E = array(1.0);
 
 		$name = elgg_get_plugins_path() . "hflts/samples/set_todim.csv";
 		$this->parse_csv($name);		
@@ -330,7 +333,7 @@ abstract class MCDM
 		$this->P=1; //num of experts
 		$this->alternatives = array('p1','p2','p3');
 		$this->W = array(0.3, 0.5, 0.2);
-		$this->E = array(1.0, 1.0, 1.0);
+		$this->E = array(1.0);
 
 		if ($rangeTerms == "S7")
 			$name = elgg_get_plugins_path() . "hflts/samples/set_vikorS7.csv";
@@ -348,7 +351,7 @@ abstract class MCDM
 		$this->P=1; //num of experts
 		$this->alternatives = array('p1','p2','p3');
 		$this->W = array(0.3, 0.2, 0.4, 0.1);
-		$this->E = array(1.0, 1.0, 1.0);
+		$this->E = array(1.0);
 
 		$name = elgg_get_plugins_path() . "hflts/samples/set_electre.csv";
 		$this->parse_csv($name);		

@@ -435,16 +435,23 @@ function exampleHesitantAggegation()
 	// output: an hesitant
 	function computeHLWA($hesitants, $rankingWeight, $granularity)
 	{
-		$debug = false;
+		$debug = true;
 		$H = array();//resulting aggregate hesitant
 
 		$n = count($hesitants);
 		$m = count($rankingWeight);
 
-		//check size: n and m should be the same, and must be > 1
-		if ($n != $m || $n <= 1)
+		//check size: must be > 1
+		if ($n == 1)
 		{
-			echo "Error[computeHLWA]: unexpected number of elements in arrays<br>";
+			//echo "[computeHLWA]: the aggregation of a single element is the element itself<br>";
+			return $hesitants[0];
+		}
+
+		//check size: n and m should be the same
+		if ($n != $m)
+		{
+			echo "Error[computeHLWA]: unexpected number of elements in arrays: $n x $m<br>";
 			return;
 		}
 

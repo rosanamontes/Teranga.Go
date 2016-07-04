@@ -64,12 +64,16 @@ class VikorHFL extends MCDM
 	
 	public function run()
 	{
-		//Step 1: establish the alternatives, criteria and the weights of the criteria
-		//Step 2: define the semantics
-		//system_message("Granularity ". $this->G);
-		
-		//Step 3: transform assessments into the HFLTS
+		//Step 1: define the semantics
+		if ($this->debug) 
+			system_message($this->N . " x ". $this->M . " x " . $this->P);
+		//$this->debug = true;
+
+		//Step 2: transform assessments into the HFLTS
 		parent::run();
+
+		//Step 3: establish the alternatives, criteria and the weights of the criteria
+		$this->expertWeights();		
 
 		//Step 4: find out the positive ideal and the negative ideal solution
 		self::crossAlternativesWithCriteria();
@@ -82,27 +86,66 @@ class VikorHFL extends MCDM
 		return $this->ranking[0]['vikor']['label'];
 	}
 
+
+	/**
+	* Read expert weights from parent class | from CSV file | set as here at the same
+	* Check normalization
+	*/
+	private function expertWeights()
+	{
+		$sum = 0;
+		for ($e=0;$e<$this->P;$e++)
+			$sum += $this->E[$e];
+
+		if ($sum == 1) return;
+
+		for ($e=0;$e<$this->P;$e++)
+			$this->E[$e] /= $sum;
+		
+		if ($this->debug) 
+			echo('<br>expertWeights: <pre>');	print_r($this->E);	echo('</pre>');
+	}
+
 	private function crossAlternativesWithCriteria()
 	{
 		$length = $delta = 0;
+		$criterionScore = array();//score of assessment  of several experts about a single criterion. Temporal array
+		$criterionAssessment = array();//what several experts say about a single criterion. Temporal array
 
-		for ($j=0;$j<$this->M;$j++)//forall criteria
+		for ($i=0;$i<$this->N;$i++)//forall alternatives 
 		{
-			for ($i=0;$i<$this->N;$i++)//forall alternatives
+			for ($j=0;$j<$this->M;$j++)//forall criteria
 			{
-				$inf = "L".($j+1);
-				$sup = "U".($j+1);
-				$envelope = array ("inf" => $this->data[$i][$inf], "sup" => $this->data[$i][$sup]);
-				//echo "[".$this->data[$i][$inf].",".$this->data[$i][$sup]."] ";
-				$this->hesitants[$j][$i] = toHesitant($envelope,$length,$delta);
+				if ($this->debug)
+					echo $this->data[$i*$this->P]["ref"] . " - C" . $j ;
+
+				//Aggregate hesitants given from experts for each criterion and alternative
+				for ($k=0;$k<$this->P;$k++)//forall experts
+				{
+					$c = $i*$this->P + $k; //index to get assessments - system_message("#".$c);
+					
+					$inf = "L".($j+1);
+					$sup = "U".($j+1);
+					$criterionAssessment[$k] = array ("inf" => $this->data[$c][$inf], "sup" => $this->data[$c][$sup]);
+
+					if ($this->debug) //" - E_" . $this->data[$c]['co_codigo']
+						echo " [".$this->data[$c][$inf].",".$this->data[$c][$sup]."], ";
+				} 
+
+				$avgH_Cj = aggregationHLWA($criterionAssessment, $this->E, $this->G);
+				$this->hesitants[$j][$i] = $avgH_Cj;//store the aggretate hesitant and compute its length and delta
 				if ($this->hesitants[$j][$i] == -1)
-					register_error("wrong hesitant in score function");
- 
+					register_error("wrong hesitant in cross function");
+
+				$length = count($avgH_Cj);//number of terms in the hesitant
+				$delta = deltaHesitant($avgH_Cj);
+
+				//store the score function of the aggregate hesitant
 				$this->score[$j][$i] = $delta; //similar to mean in statistics
-				$this->variance[$j][$i] = $this->varianceFunction($this->hesitants[$j][$i], $length);
+				$this->variance[$j][$i] = $this->varianceFunction($avgH_Cj, $length);
 
 				if ($this->debug) 
-					echo $this->data[$i]["ref"] . " - C" . $j . " score=" . $this->score[$j][$i] ." variance=". $this->variance[$j][$i] . "<br>";
+					echo " => L=".$length." delta=score(avgH)=".$delta." & variance(avgH) = " . $this->variance[$j][$i] ."<br>";
 			}	
 		}
 	}
@@ -215,6 +258,7 @@ class VikorHFL extends MCDM
 			for ($j=0;$j<$this->M;$j++)//forall criteria
 			{
 				$sumGU += $l_metric[$i][$j];
+
 			}
 
 			$this->HFLGU[$i] = $sumGU;				// HFLGU	group utility measure = Lp metric with p =1 
@@ -224,7 +268,6 @@ class VikorHFL extends MCDM
 
 	/**
 	* computes the	linguistic compromise measure (HFLC) using as weight the value of param strategy = 0.5
-	*     			echo('H: <pre>');	print_r($this->hesitants[$j][$i]);	echo('</pre><br>');
 	*/
 	private function linguisticCompromise()
 	{

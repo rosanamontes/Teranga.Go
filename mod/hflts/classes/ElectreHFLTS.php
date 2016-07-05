@@ -65,8 +65,6 @@ class ElectreHFLTS extends MCDM
 		if ($this->debug) 
 			system_message($this->N . " x ". $this->M . " x " . $this->P);		
 
-		parent::expertWeights();
-
 		//step 2: identify the concordance an discordance indices
 		$this->crossAlternativesWithCriteria();
 		

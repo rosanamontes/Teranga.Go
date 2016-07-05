@@ -33,11 +33,13 @@ abstract class MCDM
 	var $collectiveValue;
 	var $collectiveTerm;	
 
-	var $debug = true;
+	var $debug = false;
 	var $information = false;
 
 	var $case = 'platform'; //by default data comes from the platform
 
+	var $benefitCriteria;	//solo a usar en Topsis. Representa criterios a maximizar
+	var $costCriteria;	//solo a usar en Topsis. Representa criterios a minimizar
 	/**
 	 * Returns the title of the method
 	 *
@@ -144,6 +146,10 @@ abstract class MCDM
 		 		self::electreCase();
 		 		break;
 
+		 	case 'topsis':
+		 		self::topsisCase();
+		 		break;
+
 		 	case 'imported':
 		 		//system_message("choose csv file " . $this->alternatives[0]);
 		 		self::parse_csv($this->alternatives[0]);
@@ -152,18 +158,21 @@ abstract class MCDM
 		 			$this->alternatives[$i] = $this->data[$i*$this->P]["ref"];
 
 		 		for ($i=0; $i<$this->M;$i++)
-		 			$this->W[$i] = 1.0;
+		 		{
+		 			$this->W[$i] = 1.0/$this->M;
+		 			$this->benefitCriteria[$i] = $i;
+		 		}
 
 		 		for ($i=0; $i<$this->P;$i++)
-		 			$this->E[$i] = 1.0;
+		 			$this->E[$i] = 1.0/$this->P;
 
 		 		break;
 	 	
-		 	default://promeetee/topsis not impleented
+		 	default://promeetee not impleented
 		 		register_error("MCDM_not_be_here");
 		 		break;
 		} 
-
+		$this->expertWeights();//normalize expert weights
 	} 
 
 
@@ -285,10 +294,10 @@ abstract class MCDM
 		if ($mxp != $this->P)
 			echo $mxp . "... esto pinta mal<br>" ;
 		
-		/*if ($this->debug) 
+		if ($this->debug) 
 		{
 			echo($mxp . ' weights in file: <pre>');	print_r($this->E);	echo('</pre><br>');
-		}*/
+		}
 	}
 
 	public function realEstateCase()
@@ -359,6 +368,23 @@ abstract class MCDM
 		if ($this->information) system_message("electreCase");
 	}    
 
+	public function topsisCase()
+	{
+		$this->N=5; //num of alternatives
+		$this->M=4; //num of criteria
+		$this->P=7; //num of experts
+		$this->alternatives = array('p1','p2','p3','p4','p5');
+		$this->W = array(0.2, 0.2, 0.2, 0.2, 0.2);
+		$this->E = array(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+		$this->benefitCriteria = array(1,2);
+		$this->costCriteria = array(0,3);
+
+		$name = elgg_get_plugins_path() . "hflts/samples/set_topsis.csv";
+		$this->parse_csv($name);		
+
+		if ($this->information) system_message("topsisCase");
+	}    
+
 	/**
 	* Read expert weights from parent class | from CSV file | set as here at the same
 	* Check normalization
@@ -375,7 +401,9 @@ abstract class MCDM
 			$this->E[$e] = $this->E[$e] / $sum;
 		
 		if ($this->debug) 
+		{
 			echo($sum .'<br>expertWeights: <pre>');	print_r($this->E);	echo('</pre>');
+		}
 	}
 
 }

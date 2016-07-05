@@ -62,9 +62,8 @@ class TodimHFL extends MCDM
 	public function run()
 	{
 		parent::run();
-		//$this->debug = true;
-		parent::expertWeights();
 		
+		//$this->debug = true;		
 		if ($this->debug) 
 			system_message($this->N . " x ". $this->M . " x " . $this->P);
 

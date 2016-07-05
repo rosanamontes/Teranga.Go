@@ -73,10 +73,9 @@ class VikorHFL extends MCDM
 		parent::run();
 
 		//Step 3: establish the alternatives, criteria and the weights of the criteria
-		parent::expertWeights();		
+		self::crossAlternativesWithCriteria();
 
 		//Step 4: find out the positive ideal and the negative ideal solution
-		self::crossAlternativesWithCriteria();
 		self::idealSolution();
 
 		//Step 5: derive the compromise solutions

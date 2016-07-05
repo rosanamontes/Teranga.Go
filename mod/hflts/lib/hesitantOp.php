@@ -573,3 +573,50 @@ function exampleHesitantAggegation()
 	}
 
 
+//________________________________________________________________________
+
+//_____________________ > minmax aggregation operator < ____________________
+//________________________________________________________________________
+
+/**
+* TOPSIS for Hesitant Fuzzy Linguistic Term Sets
+* INTERNATIONAL JOURNAL OF INTELLIGENT SYSTEMS, VOL. 28, 1162–1171 (2013)
+* Ismat Beg, Tabasam Rashid
+*
+* Input: linguistic intervals but no weights!
+* Output: an hesitant resulting of aggregation of several linguistic intervals
+*/
+
+function aggregationMinMax($data)
+{
+	$maxH = maximumEnvelope($data);
+	$minH = minimumEnvelope($data);
+
+	$a = $minH['sup'];
+	$b = $maxH['inf'];
+
+	$E['inf'] = min($a, $b);
+	$E['sup'] = max($a, $b);
+
+	//echo('<hr>aggregationMinMax<pre>');	print_r($E);	echo('</pre>');
+	return $E;
+}
+
+
+	//..-..-..-..-..-..-..-..-..-..-..- MINMAX AGGREGATION SUPPORTING FUNCTIONS -..-..-..-..-..-..-..-..-..-..-..-
+
+	//from a list of linguistic intervals, get the one with de greater values
+	function maximumEnvelope($data)
+	{
+		$max = max($data); 
+		//echo('<hr>max<pre>');	print_r($max);	echo('</pre>');
+		return $max;
+	}
+
+	//from a list of linguistic intervals, get the one with de lower values
+	function minimumEnvelope($data)
+	{
+		$min = min($data);
+		//echo('<hr>min<pre>');	print_r($min);	echo('</pre>');
+		return $min;
+	}	

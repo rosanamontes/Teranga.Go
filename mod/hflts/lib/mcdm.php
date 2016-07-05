@@ -164,6 +164,21 @@ function distanceHesitant( $H1, $H2 )
 	return sqrt( pow( $H1[$x]-$H2[$y], 2) + pow($H1[0]-$H2[0], 2) );
 }
 
+
+/**
+* TOPSIS for HFLTS distance operator 
+* where d(H1,H2) = | I(upH1)-I(upH2) |  + | I(lowH1)-I(lowH2)^2 | 
+* Input: two linguistic intervals 
+*/
+function distanceBetween( $Env1, $Env2 )
+{
+	$d = abs( $Env1['sup']-$Env2['sup']) + abs( $Env1['inf']-$Env2['inf'] );
+	//echo "d([".$Env1['inf'].",".$Env1['sup']."], [".$Env2['inf'].",".$Env2['sup']."]) = ".$d."<br>";
+	return $d;
+}
+
+
+
 //________________________________________________________________________
 
 //_____________________ > REPRESENTATION UTILITIES < _____________________

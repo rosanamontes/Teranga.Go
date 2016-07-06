@@ -27,7 +27,8 @@ abstract class MCDM
 	var $P; //number of experts
 
 	var $W; //weight of criteria (array 1xM and same for all experts? MxP?)
-	var $E; //weight of experts (array 1xP ? NxM?)
+	var $E; //weight of experts (array 1xP)
+	var $superE; //weight of experts for each criteria(PxM)
 
 	var $G = 6; //max scale by default
 	var $collectiveValue;
@@ -100,6 +101,7 @@ abstract class MCDM
 		{
 			echo(' W: <pre>');	print_r($this->W);	echo('</pre><br>');
 			echo(' E: <pre>');	print_r($this->E);	echo('</pre><br>');
+			echo(' superE: <pre>');	print_r($this->superE);	echo('</pre><br>');
 		}		
 	}
 
@@ -147,7 +149,15 @@ abstract class MCDM
 		 		break;
 
 		 	case 'topsis':
-		 		self::topsisCase();
+		 		self::topsisCase("original");
+		 		break;
+
+		 	case 'topsisB':
+		 		self::topsisCase("benefit");
+		 		break;
+
+		 	case 'promethee':
+		 		self::prometheeCase();
 		 		break;
 
 		 	case 'imported':
@@ -282,21 +292,37 @@ abstract class MCDM
 
 
 	/**
-	* Read weights MxP from csv file
+	* Read weights MxP from csv file. Only for Teranga, only for classic method
 	*/
 	function parse_csv_weights($filename) 
 	{ 	
 		$importer = new CsvImporter($filename,true,","); 
-		$this->E = $importer->get(); 
-		$mxp = count($this->E);
-			
+		$readed= $importer->get(); 
+		$mxp = count($readed);
+					
 		//numero de valoraciones es N*P
 		if ($mxp != $this->P)
-			echo $mxp . "... esto pinta mal<br>" ;
-		
-		if ($this->debug) 
 		{
-			echo($mxp . ' weights in file: <pre>');	print_r($this->E);	echo('</pre><br>');
+			echo $mxp . "... esto pinta mal... actualizar P<br>" ;
+			$this->P = $mxp;
+		}
+		
+		//no valido el valor del campo expert, que debe estar en el mismo orden que los datos
+		//otra opcion es que el índice sea $readed[$i]['expert'] en ambos casos
+		for ($i=0;$i<$mxp;$i++)
+		{
+			$this->E[$i] = $readed[$i]['we'];
+			for ($j=0;$j<$this->M;$j++)	
+			{
+				$l = 'C'.($j+1);
+				$this->superE[$i][$j] = $readed[$i][$l];
+			}
+		}
+
+		//if ($this->debug) 
+		{
+			echo('expert weights: <pre>');	print_r($this->E);	echo('</pre><br>');
+			echo('individual weights: <pre>');	print_r($this->superE);	echo('</pre><br>');
 		}
 	}
 
@@ -311,8 +337,10 @@ abstract class MCDM
 
 		//expert weights
 		$this->E = array(1.0, 1.0, 1.0, 1,0, 1.0);//same importance of each assessment in case of parsing fail
-		//$wfile = elgg_get_plugins_path() . "hflts/samples/weight_classic.csv";
-		//$this->parse_csv_weights($wfile);
+		$wfile = elgg_get_plugins_path() . "hflts/samples/weight_classic.csv";
+		$this->parse_csv_weights($wfile);
+		system_message("parsing weights " . $this->E);
+		
 		//additionally set
 		for ($i=0;$i<$this->M;$i++)
 			$this->benefitCriteria[$i] = $i;
@@ -380,7 +408,39 @@ abstract class MCDM
 		if ($this->information) system_message("electreCase");
 	}    
 
-	public function topsisCase()
+	public function topsisCase($case)
+	{
+		$this->N=5; //num of alternatives
+		$this->M=4; //num of criteria
+		
+		$this->alternatives = array('p1','p2','p3','p4','p5');
+		$this->W = array(0.2, 0.2, 0.2, 0.2, 0.2);
+		
+		if ($case == "original")
+		{
+			$this->P=7; //num of experts
+			$this->E = array(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+
+			$this->benefitCriteria = array(1,2);
+			$this->costCriteria = array(0,3);			
+			$name = elgg_get_plugins_path() . "hflts/samples/set_topsis.csv";
+		}
+		else
+		{
+			$this->P=1; //num of experts
+			$this->E = array(1.0);
+
+			$this->benefitCriteria = array(0,1,2,3);
+			$this->costCriteria = array();			
+			$name = elgg_get_plugins_path() . "hflts/samples/set_topsis_benefit.csv";
+		}
+
+		$this->parse_csv($name);		
+
+		if ($this->information) system_message("topsisCase");
+	}    
+
+	public function prometheeCase()
 	{
 		$this->N=5; //num of alternatives
 		$this->M=4; //num of criteria
@@ -394,8 +454,8 @@ abstract class MCDM
 		$name = elgg_get_plugins_path() . "hflts/samples/set_topsis.csv";
 		$this->parse_csv($name);		
 
-		if ($this->information) system_message("topsisCase");
-	}    
+		if ($this->information) system_message("prometheeCase");		
+	}
 
 	/**
 	* Read expert weights from parent class | from CSV file | set as here at the same

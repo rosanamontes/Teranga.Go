@@ -188,7 +188,10 @@ class TodimHFL extends MCDM
 				$avgH_Cj = aggregationHLWA($criterionAssessment, $this->E, $this->G);
 				$this->hesitants[$i][$j] = $avgH_Cj;//store the aggretate hesitant and compute its length and delta
 				if ($this->hesitants[$i][$j] == -1)
-					register_error("wrong hesitant in cross function");
+				{
+					register_error("wrong hesitant in cross function ");
+					echo('wrong hesitant<pre>');	print_r($avgH_Cj);	echo('</pre><br>');
+				}
 
 				$length = count($avgH_Cj);//number of terms in the hesitant
 				$delta = deltaHesitant($avgH_Cj);

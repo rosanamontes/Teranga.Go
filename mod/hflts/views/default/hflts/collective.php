@@ -22,6 +22,7 @@ $import_file = $vars['import_file'];
 	switch ($import_file) {
 		case 'electre':
 		case 'topsis':
+		case 'topsisB':
 		case 'promethee':
 		case 'vikor':
 		case 'vikorS7':

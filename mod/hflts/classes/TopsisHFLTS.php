@@ -55,7 +55,7 @@ class TopsisHFLTS extends MCDM
 	{
 		//step 1 collect data into a fuzzy decision matrix
 		parent::run();
-		$this->debug = false;
+		//$this->debug = true;
 		if ($this->debug) 
 			system_message($this->N . " x ". $this->M . " x " . $this->P);
 
@@ -146,18 +146,19 @@ class TopsisHFLTS extends MCDM
 			{
 				$this->pis[$j] = max($assessments[$j]);
 				$this->nis[$j] = min($assessments[$j]);
-				//echo('max of <br>assessments<pre>');	print_r($assessments[$j]);	echo('</pre>');
+				//echo 'C_'. $j . " is benefit criteria<br>" ;	
 			}
 			else //cost criteria
 			{
 				$this->pis[$j] = min($assessments[$j]);
 				$this->nis[$j] = max($assessments[$j]);
-				//echo('min of <br>assessments<pre>');	print_r($assessments[$j]);	echo('</pre>');
+				//echo 'C_'. $j . " is cost criteria<br>" ;	
 			}
 		}
 
 		if ($this->debug)
 		{
+			echo('<br>benefitCriteria<pre>');	print_r($this->benefitCriteria);	echo('</pre>');
 			echo('<br>PIS<pre>');	print_r($this->pis);	echo('</pre>');
 			echo('<br>NIS<pre>');	print_r($this->nis);	echo('</pre>');
 		}
@@ -212,9 +213,9 @@ class TopsisHFLTS extends MCDM
 		for ($i=0;$i<$this->N;$i++)	
 		{
 			$index = key($this->RC);
-			$this->ranking[$i]['todim']['ref'] = $this->alternatives[$index] ;
-			$this->ranking[$i]['todim']['value'] = $this->RC[$index];
-			$this->ranking[$i]['todim']['label'] = "--";
+			$this->ranking[$i]['topsis']['ref'] = $this->alternatives[$index] ;
+			$this->ranking[$i]['topsis']['value'] = $this->RC[$index];
+			$this->ranking[$i]['topsis']['label'] = "--";
 			//echo "<p>index ".$i." is ranked as ".$index." </p>";
 			next($this->RC);
 		}  	

@@ -18,6 +18,7 @@ $nCriterios = $vars['nCriterios'];
 $nExpertos = $vars['nExpertos'];
 $G = $vars['G'];
 $import_file = $vars['import_file'];
+$expert_file = $vars['expert_file'];
 
 	switch ($import_file) {
 		case 'electre':
@@ -36,8 +37,11 @@ $import_file = $vars['import_file'];
 			break;
 	}
 
-$import_file = elgg_get_plugins_path() . "hflts/samples/set_".$import_file.".csv";
+//check if there is an complementary file 
+$weight_file = elgg_get_plugins_path() . "hflts/samples/weight_".$import_file."_".$weight_file.".csv";
 //echo $nAlternativas . "  ..... " . $nCriterios. "  ..... " . $nExpertos. "  ..... " . $G. "  ..... " . $import_file . "  ..... " . $runcase . "<br>";
+
+$import_file = elgg_get_plugins_path() . "hflts/samples/set_".$import_file.".csv";
 
 
 //To work with the objects we get the entities
@@ -100,6 +104,18 @@ else
 			$method->setGranularity($G); //granularity	
 		}
 		$method->debug = false;
+
+		if (file_exists($weight_file))
+		{	
+			//system_message("+++ uso el fichero " . $weight_file);
+			$method->setWFile($weight_file);
+		}
+		else
+		{
+			//register_error("--- no puedo leer el fichero ". $weight_file);
+			$method->setWFile("");
+		}
+
 		$model->collectiveValoration = $method->run();
 		unset($method);//destroys the object 
 		//echo "@ " . $model->collectiveValoration;

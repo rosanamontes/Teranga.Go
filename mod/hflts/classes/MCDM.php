@@ -28,7 +28,8 @@ abstract class MCDM
 
 	var $W; //weight of criteria (array 1xM and same for all experts? MxP?)
 	var $E; //weight of experts (array 1xP)
-	var $superE; //weight of experts for each criteria(PxM)
+	var $superE;//weight of experts for each criteria(PxM)
+	var $Wfile;	//name of the file that holds weight data (in case of)
 
 	var $G = 6; //max scale by default
 	var $collectiveValue;
@@ -251,6 +252,15 @@ abstract class MCDM
 		$this->G = $x;
 	}
 
+
+	/** 
+	* setter method for the auxiliary file used to store criteria & expert weights (to run experiments out from the platform data)
+	*/
+	public function setWfile($string)
+	{
+		$this->Wfile = $string;
+	}
+
 	/** 
 	* getter method for result value
 	*/
@@ -337,10 +347,16 @@ abstract class MCDM
 
 		//expert weights
 		$this->E = array(1.0, 1.0, 1.0, 1,0, 1.0);//same importance of each assessment in case of parsing fail
-		$wfile = elgg_get_plugins_path() . "hflts/samples/weight_classic.csv";
-		$this->parse_csv_weights($wfile);
-		system_message("parsing weights " . $this->E);
-		
+		//$wfile = elgg_get_plugins_path() . "hflts/samples/weight_classic.csv";
+
+		if ($this->Wfile == "")
+			system_message("no external file to parse");	
+		else
+		{
+			$this->parse_csv_weights($this->Wfile);
+			system_message("+++ uso el fichero " . $this->Wfile . " to parse weights ");
+		}
+
 		//additionally set
 		for ($i=0;$i<$this->M;$i++)
 			$this->benefitCriteria[$i] = $i;
@@ -442,16 +458,16 @@ abstract class MCDM
 
 	public function prometheeCase()
 	{
-		$this->N=5; //num of alternatives
-		$this->M=4; //num of criteria
-		$this->P=7; //num of experts
-		$this->alternatives = array('p1','p2','p3','p4','p5');
-		$this->W = array(0.2, 0.2, 0.2, 0.2, 0.2);
-		$this->E = array(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-		$this->benefitCriteria = array(1,2);
-		$this->costCriteria = array(0,3);
+		$this->N=4; //num of alternatives
+		$this->M=9; //num of criteria
+		$this->P=1; //num of experts
+		$this->alternatives = array('a1','a2','a3','a4');
+		$this->W = array();
+		$this->E = array(1.0);
+		$this->benefitCriteria = array(0,1,2,3,4,5,6,7,8);
+		$this->costCriteria = array();
 
-		$name = elgg_get_plugins_path() . "hflts/samples/set_topsis.csv";
+		$name = elgg_get_plugins_path() . "hflts/samples/set_promethee.csv";
 		$this->parse_csv($name);		
 
 		if ($this->information) system_message("prometheeCase");		

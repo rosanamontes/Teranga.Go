@@ -21,6 +21,13 @@ class PrometheeHF extends MCDM
 {
 	var $label;//shortname
 
+	var $relative;		//relative importance of criteria
+	var $preference;	//preference functions for each criterion
+
+	var $positiveFlow;	//entering flow for each alternative
+	var $negativeFlow;	//outgoing flow for each alternative
+	var $netFlow;		//difference flow for each alternative
+
 	var $ranking; //alternatives ranked array
 
 	public function	PrometheeHF($username)

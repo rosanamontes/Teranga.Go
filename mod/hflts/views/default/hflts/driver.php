@@ -15,7 +15,7 @@
 
 
 $valorationlist = $vars['valorations'];
-//	echo('driver: <pre>');	print_r($valorationlist);	echo('</pre><br>');		
+//echo('driver: <pre>');	print_r($valorationlist);	echo('</pre><br>');		
 	
 if (sizeof($valorationlist) > 0) 
 {

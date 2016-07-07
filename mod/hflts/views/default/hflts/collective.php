@@ -18,7 +18,7 @@ $nCriterios = $vars['nCriterios'];
 $nExpertos = $vars['nExpertos'];
 $G = $vars['G'];
 $import_file = $vars['import_file'];
-$expert_file = $vars['expert_file'];
+$weight_file = $vars['weight_file'];
 
 	switch ($import_file) {
 		case 'electre':
@@ -37,12 +37,13 @@ $expert_file = $vars['expert_file'];
 			break;
 	}
 
-//check if there is an complementary file 
+//echo $nAlternativas . "  ..... " . $nCriterios. "  ..... " . $nExpertos. "  ..... " . $G. "  ..... " . $import_file . "  ..... " . $weight_file . "  ..... " . $runcase . "<br>";
+
+//check if there is an complementary weight file 
 $weight_file = elgg_get_plugins_path() . "hflts/samples/weight_".$import_file."_".$weight_file.".csv";
-//echo $nAlternativas . "  ..... " . $nCriterios. "  ..... " . $nExpertos. "  ..... " . $G. "  ..... " . $import_file . "  ..... " . $runcase . "<br>";
 
+//then, add the absolute path to the set file
 $import_file = elgg_get_plugins_path() . "hflts/samples/set_".$import_file.".csv";
-
 
 //To work with the objects we get the entities
 $method_list = elgg_get_entities_from_metadata([
@@ -92,7 +93,6 @@ else
 				register_error("label_not_found");
 				break;
 		}
-
 
 		$method->case = $runcase;
 

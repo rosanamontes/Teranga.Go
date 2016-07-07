@@ -75,10 +75,11 @@ function hflts_page_handler($page)
 			'nCriterios' => $page[2],
 			'nExpertos' => $page[3],
 			'G' => $page[4],
-			'import_file' => $page[5]
+			'import_file' => $page[5],
+			'weight_file' => $page[6],
 		));
 		$params = array(
-			'title' => 'DM con datos de samples/set_'.$page[5].'.csv',
+			'title' => 'DM con datos de samples/set_'.$page[5].'.csv ('.$page[6].')',
 			'content' => $content,
 			'filter' => '',
 		);
@@ -156,7 +157,7 @@ function hflts_mcdm_object($event, $object_type, $object)
 }
 
 /**
- * This method is called when a ...
+ * This method is called when the import form is filled ...
 */
 function hflts_import_external_data($hook, $type, $return, $params) 
 {
@@ -165,8 +166,9 @@ function hflts_import_external_data($hook, $type, $return, $params)
 	$nExpertos = $params['nExpertos'];
 	$G = $params['G'];
 	$import_file = $params['import_file'];
-
-	forward('hflts/collective/'.$nAlternativas."/".$nCriterios."/".$nExpertos."/".$G."/".$import_file);
+	$weight_file = $params['weight_file'];
+	
+	forward('hflts/collective/'.$nAlternativas."/".$nCriterios."/".$nExpertos."/".$G."/".$import_file."/".$weight_file);
 }
 
 ?>

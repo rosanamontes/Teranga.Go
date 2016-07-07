@@ -125,6 +125,7 @@ function trip_companions_add_grade($source_guid, $target_guid, $group_guid)
 		else
 		{	
 			register_error(elgg_echo("groups:grade:fail")); 
+			//this creates an orfan assessment
 			forward(REFERER);
 		}		
 	}

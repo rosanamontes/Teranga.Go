@@ -149,14 +149,12 @@ function evaluationcontent_user_hover_menu($hook, $type, $return, $params)
 	$trip = elgg_get_page_owner_entity();
 	// Check for valid trip
 	if (!elgg_instanceof($trip, 'group')) 
-	{
 		return $return;
-	}	
-
-	$profile_url = urlencode($user->getURL());
-	$name = urlencode($user->name);
-	$trip = elgg_get_page_owner_entity();
 	$tripinfo = urlencode($trip->getGUID());
+	//or give a valid one $tripinfo = urlencode(309);
+	
+	$profile_url = urlencode($user->getURL());
+	$name = urlencode($user->name);	
 	$uid = urlencode($user->guid);
 
 	//desconozco por qué motivo despues de este texto se añade ?url=<group_profile> que dificulta leer los valores 

@@ -18,7 +18,7 @@ $nCriterios = get_input('nCriterios');
 $nExpertos = get_input('nExpertos');
 $G = get_input('G');
 $import_file = get_input('import_file');
-
+$weight_file = get_input('weight_file');
 
 if (($import_file == 'imported') && ($nAlternativas == 0 || $nCriterios == 0 || $nExpertos == 0))
 {
@@ -26,13 +26,14 @@ if (($import_file == 'imported') && ($nAlternativas == 0 || $nCriterios == 0 || 
 	forward("admin/teranga/import/");
 }
 
-// give another plugin a chance to override
+// give another plugin a chance to override :: hflts_import_external_data
 if (!elgg_trigger_plugin_hook('admin:teranga:import', 'system', array(
 		'nAlternativas' => $nAlternativas,
 		'nCriterios' => $nCriterios,
 		'nExpertos' => $nExpertos,
 		'G' => $G,
-		'import_file' => $import_file), true)) 
+		'import_file' => $import_file,
+		'weight_file' => $weight_file), true)) 
 {
 	register_error(elgg_echo("evaluationcontent:import:hook:error"));
 	forward(REFERER);

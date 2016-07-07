@@ -18,7 +18,7 @@ $nAlternativas = get_input('nAlternativas', 4);
 $nCriterios = get_input('nCriterios', 4);
 $nExpertos = get_input('nExpertos', 4);
 $G = get_input('G', 6);
-$import_file = get_input('import_file', "xxxx");
+$import_file = get_input('import_file', "classic");
 $weight_file = get_input('weight_file', "weight4classic");
 ?>
 

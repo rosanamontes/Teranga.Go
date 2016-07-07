@@ -366,6 +366,9 @@ function userKarma($guid)
 	        ),	
 	]);	
 
+	//hard-core clean of orfan assessments: 
+	//foreach ($content as $evaluation) $evaluation->delete();
+
 	return userKarma_decisionMaking($content);	
 }
 

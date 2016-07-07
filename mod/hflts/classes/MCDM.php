@@ -70,7 +70,10 @@ abstract class MCDM
 
 
 	/**
-	* get from the system the values needed in the model
+	* get from the system the values needed in the model. Called from driver, from icon,... but not from collective
+	* input: array of $size assessments 
+	* input: array of 1 x M criteria weights
+	* input: array of 1 x P expert weights
 	*/	
 	public function setData($values, $C_weight, $E_weight, $size, $granularity) 
 	{
@@ -78,7 +81,7 @@ abstract class MCDM
 			return; 
 
 		$this->data = $values;
-		if ($this->information) 
+		//if ($this->information) 
 		{
 			echo("#". $size . ' Dt: <pre>');	print_r($this->data);	echo('</pre><br>');
 		}
@@ -88,10 +91,11 @@ abstract class MCDM
 			system_message($size . "  DMCM setData " . sizeof($values));//
 
 
-		$this->P = $this->num = $size;
+		$this->P = $this->num = $size;//no necesariamente dos valoraciones vienen de 2 expertos
 		$this->G = $granularity;
 
-		//compute the averaged expert preference over criteria 
+		//compute the averaged expert preference over criteria. Not normalized 
+		$this->superE = $C_weight;
 		if ($C_weight != null)
 			$this->W = averagedUserPreference($C_weight, $this->M);
 
@@ -183,7 +187,7 @@ abstract class MCDM
 		 		register_error("MCDM_not_be_here");
 		 		break;
 		} 
-		$this->expertWeights();//normalize expert weights
+		$this->normalizeWeights();
 	} 
 
 
@@ -477,14 +481,24 @@ abstract class MCDM
 	* Read expert weights from parent class | from CSV file | set as here at the same
 	* Check normalization
 	*/
-	public function expertWeights()
+	public function normalizeWeights()
 	{
+		/*$sum = 0;
+		for ($j=0;$j<$this->M;$j++)
+			$sum += $this->W[$j];
+		
+		for ($j=0;$j<$this->M;$j++)
+			$this->W[$j] = $this->W[$j] / $sum;
+		
+		if ($this->debug) 
+		{
+			echo($sum .'<br>criteriaWeights: <pre>');	print_r($this->W);	echo('</pre>');
+		}*/
+
 		$sum = 0;
 		for ($e=0;$e<$this->P;$e++)
 			$sum += $this->E[$e];
 		
-		if ($sum == 1) return;
-
 		for ($e=0;$e<$this->P;$e++)
 			$this->E[$e] = $this->E[$e] / $sum;
 		

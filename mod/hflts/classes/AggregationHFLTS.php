@@ -45,7 +45,15 @@ class AggregationHFLTS extends MCDM
 	public function run()
 	{
 		parent::run();
-		
+		//$this->debug = true;
+		if ($this->debug) 
+			system_message($this->N . " x ". $this->M . " x " . $this->P);
+
+		//$this->W = array(1.0, 1.0, 1.0,1.0); //same importance by default
+
+		echo('<br>W <pre>');	print_r($this->W);	echo('</pre>');		
+		echo('<br>E <pre>');	print_r($this->E);	echo('</pre>');
+
 		$this->translation();	
 		$this->envelope();
 		$this->average();
@@ -120,19 +128,19 @@ class AggregationHFLTS extends MCDM
 				$this->beta[$p][$c]['inf'] = toBeta( $this->cSi[$p][$c], 0.0 );
 				$this->beta[$p][$c]['sup'] = toBeta( $this->cSj[$p][$c], 0.0 );
 				if ($this->debug) 
-					echo  $p . "_". $c . " [". $this->beta[$p][$c]['inf'] .", " . $this->beta[$p][$c]['sup'] . "] ";
+					echo  "C_". ($c+1) . "=[". $this->beta[$p][$c]['inf'] .", " . $this->beta[$p][$c]['sup'] . "] ";
 				
 				$sum += $this->W[$c];
 				$this->avg['inf'][$p] += $this->W[$c] * $this->beta[$p][$c]['inf'];
 				$this->avg['sup'][$p] += $this->W[$c] * $this->beta[$p][$c]['sup'];
 			}
 			
-			//echo "Acumu=" . $sum . "<br>";
+			if ($this->debug) echo "Acumu=" . $sum . "<br>";
 			$this->avg['inf'][$p] = $this->avg['inf'][$p] / $sum;
 			$this->avg['sup'][$p] = $this->avg['sup'][$p] / $sum;
 
 			if ($this->debug) 
-				echo " => [". $this->avg['inf'][$p] .", " . $this->avg['sup'][$p] . "] <hr>";
+				echo " => Avg=[". $this->avg['inf'][$p] .", " . $this->avg['sup'][$p] . "] <hr>";
 		}
 	}
 
@@ -177,7 +185,7 @@ class AggregationHFLTS extends MCDM
 			//$this->ranking[$p]['pessimistic']['tuple'] = toTuple ($pessimistic[$index]);
 			//$this->ranking[$p]['optimistic']['tuple'] =  toTuple ($optimistic[$index]) ;
 
-			echo "<p>2-tupla ".$candidato." & index ".$p." is ranked as ".$index." </p>";
+			//echo "<p>2-tupla ".$candidato." & index ".$p." is ranked as ".$index." </p>";
 			$p++;
 			next($values);
 		}  

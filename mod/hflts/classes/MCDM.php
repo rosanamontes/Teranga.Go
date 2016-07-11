@@ -312,6 +312,8 @@ abstract class MCDM
 	{ 	
 		$importer = new CsvImporter($filename,true,","); 
 		$readed= $importer->get(); 
+		weight2latex($readed, $this->label, $this->M);//export to .tex just in case needed
+
 		$mxp = count($readed);
 					
 		//numero de valoraciones es N*P
@@ -335,8 +337,8 @@ abstract class MCDM
 
 		//if ($this->debug) 
 		{
-			echo('expert weights: <pre>');	print_r($this->E);	echo('</pre><br>');
-			echo('individual weights: <pre>');	print_r($this->superE);	echo('</pre><br>');
+			echo('expert weights (E): <pre>');	print_r($this->E);	echo('</pre><br>');
+			echo('individual weights (superE): <pre>');	print_r($this->superE);	echo('</pre><br>');
 		}
 	}
 

@@ -291,7 +291,11 @@ abstract class MCDM
 		$importer = new CsvImporter($filename,true,","); 
 		$this->data = $importer->get(); 
 		$num = count($this->data);
-			
+		
+		//..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..- 
+		//set2latex($this->data, $this->label, $this->M);//export to .tex just in case needed
+		//..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..- 
+
 		//numero de valoraciones es N*P
 		if ($num != $this->N*$this->P)
 			echo $num . "... esto pinta mal<br>" ;
@@ -312,7 +316,10 @@ abstract class MCDM
 	{ 	
 		$importer = new CsvImporter($filename,true,","); 
 		$readed= $importer->get(); 
-		weight2latex($readed, $this->label, $this->M);//export to .tex just in case needed
+		
+		//..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-  
+		//weight2latex($readed, $this->label, $this->M);//export to .tex just in case needed
+		//..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..- 
 
 		$mxp = count($readed);
 					
@@ -335,7 +342,7 @@ abstract class MCDM
 			}
 		}
 
-		//if ($this->debug) 
+		if ($this->debug) 
 		{
 			echo('expert weights (E): <pre>');	print_r($this->E);	echo('</pre><br>');
 			echo('individual weights (superE): <pre>');	print_r($this->superE);	echo('</pre><br>');

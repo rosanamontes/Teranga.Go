@@ -16,17 +16,46 @@
 
 function set2latex($data, $sample_term, $M)
 {
-	echo($sample_term . '<br>Dt from .csv <pre>');	print_r($data);	echo('</pre><hr>');	
+	//echo($sample_term . '<br>Dt from .csv <pre>');	print_r($data);	echo('</pre><hr>');	
 	//ref,co_codigo,U1,L1,U2,L2,U3,L3,U4,L4,U5,L5,U6,L6,U7,L7,U8,L8,U9,L9	
-	$output = table_header(5);
-	for ($x=0;$x<2;$x++)
+	$n = count($data);
+	$output = table_header($M+2,2);
+	$length = $delta = 0;
+
+	for ($z=0;$z<$n;$z++)//for each line line
+	for ($x=-1;$x<$M;$x++)//print a line
 	{
-		$output .= "\begin{scriptsize}\$TC_1\$\\end{scriptsize} ";
-		if ($x < 1)
+		if ($x < 0)
+		{
+			$output .= "\begin{scriptsize}\$" . $data[$z]['ref'] . "\$\\end{scriptsize} & ";
+			$output .= "\begin{scriptsize}\$TC_{" . $data[$z]['co_codigo'] . "}\$\\end{scriptsize} ";
+		}
+		else
+		{
+			$inf = "L".($x+1);
+			$sup = "U".($x+1);
+			$envelope = array ("inf" => $data[$z][$inf], "sup" => $data[$z][$sup]);
+			$h = toHesitant($envelope,$length,$delta);
+			//to debug::::: $output .= "<br> [" . $envelope['inf'] . ", " . $envelope['sup'] . "] => L= " . $length . " => ";
+
+			$output .= "$\{";
+			for ($i=0;$i<$length;$i++)
+			{
+				$output .= "s_".$h[$i];
+				if ($i == $length-1)
+					$output .= "\}$";
+				else
+					$output .= ", ";
+			}			
+		}
+
+		if ($x < $M-1)
 			$output .= " & ";
+		else
+			$output .= "\\\\ <br>";
 	}
-	$output .= "";
-	$output .= table_footer("datos de prueba", $sample_term);
+
+	$output .= table_footer("$sample_term data set", $sample_term);
 
 	echo $output . "<hr>";
 }
@@ -37,15 +66,15 @@ function weight2latex($data, $sample_term, $M)
 	//echo($sample_term . '<br>W from .csv <pre>');	print_r($data);	echo('</pre><hr>');	
 	//expert,we,C1,C2,C3,C4,C5,C6,C7,C8,C9	
 
-	$output = table_header(11,2);
+	$output = table_header($M+2,2);
 	$n = count($data);
 
-	for ($z=0;$z<$n;$z++)//print a line
+	for ($z=0;$z<$n;$z++)//for each line line
 	for ($x=-1;$x<$M;$x++)//print a line
 	{
 		if ($x < 0)
 		{
-			$output .= "\begin{scriptsize}\$E_" .$data[$z]['expert']. "\$\\end{scriptsize} & ";
+			$output .= "\begin{scriptsize}\$E_{" .$data[$z]['expert']. "}\$\\end{scriptsize} & ";
 			$output .= "\begin{scriptsize}" .$data[$z]['we']. "\\end{scriptsize}";
 		}
 		else
@@ -60,7 +89,7 @@ function weight2latex($data, $sample_term, $M)
 			$output .= "\\\\ <br>";
 	}
 
-	$output .= table_footer("pesos de prueba", $sample_term);
+	$output .= table_footer("$sample_term example weights", $sample_term);
 	
 	echo $output . "<hr>";
 }
@@ -112,7 +141,6 @@ function weight2latex($data, $sample_term, $M)
 		return $string;
 	}
 
-	//..-..-..-..-..-..-..-..-..-..-..-..-..- SUPPORTING FUNCTIONS -..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-
 	function table_footer($caption, $label)
 	{
 		$string = "\hline \hline <br>
@@ -125,4 +153,4 @@ function weight2latex($data, $sample_term, $M)
 		return $string;
 	}
 
-
+	//..-..-..-..-..-..-..-..-..-..-..-..-..- SUPPORTING FUNCTIONS -..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-

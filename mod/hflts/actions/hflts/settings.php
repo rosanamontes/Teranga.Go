@@ -107,6 +107,7 @@ if (elgg_get_plugin_setting('classic', 'hflts') == 1)
 	$model1->title = elgg_echo("hflts:label:classic");
 	$model1->description = elgg_echo("hflts:help:classic");
 	$model1->scale = $scale;
+	$model1->operator = $operator;	
 	$model1->collectiveValoration ="---";	
 	if (!$model1->save()) 
 	{
@@ -123,6 +124,7 @@ if (elgg_get_plugin_setting('vikor', 'hflts') == 1)
 	$model2->title = elgg_echo("hflts:label:vikor");
 	$model2->description = elgg_echo("hflts:help:vikor");
 	$model2->scale = $scale;
+	$model2->operator = $operator;	
 	$model2->collectiveValoration ="---";	
 	if (!$model2->save()) 
 	{
@@ -139,6 +141,7 @@ if (elgg_get_plugin_setting('topsis', 'hflts') == 1)
 	$model3->title = elgg_echo("hflts:label:topsis");
 	$model3->description = elgg_echo("hflts:help:topsis");
 	$model3->scale = $scale;
+	$model3->operator = $operator;		
 	$model3->collectiveValoration ="---";	
 	if (!$model3->save()) 
 	{
@@ -155,6 +158,7 @@ if (elgg_get_plugin_setting('electre', 'hflts') == 1)
 	$model4->title = elgg_echo("hflts:label:electre");
 	$model4->description = elgg_echo("hflts:help:electre");
 	$model4->scale = $scale;
+	$model4->operator = $operator;		
 	$model4->collectiveValoration ="---";	
 	if (!$model4->save()) 
 	{
@@ -171,6 +175,7 @@ if (elgg_get_plugin_setting('promethee', 'hflts') == 1)
 	$model5->title = elgg_echo("hflts:label:promethee");
 	$model5->description = elgg_echo("hflts:help:promethee");
 	$model5->scale = $scale;
+	$model5->operator = $operator;		
 	$model5->collectiveValoration ="---";	
 	if (!$model5->save()) 
 	{
@@ -187,6 +192,7 @@ if (elgg_get_plugin_setting('todim', 'hflts') == 1)
 	$model6->title = elgg_echo("hflts:label:todim");
 	$model6->description = elgg_echo("hflts:help:todim");
 	$model6->scale = $scale;
+	$model6->operator = $operator;		
 	$model6->collectiveValoration ="---";	
 	if (!$model6->save()) 
 	{

@@ -35,7 +35,8 @@ $url="#";
 			?>
 		</h3>
 
-
-			<p><?php echo $model->description . "<br>Escala=" . $model->scale . " términos. <br>Result=" . $model->collectiveValoration; ?></p>
+		<p><?php echo $model->description . "<br>Op.Agregación=" . $model->operator . "<br>Escala=" . 
+			$model->scale . " términos. <br>Result=" . $model->collectiveValoration; ?>
+		</p>
 	</div>
 </div>

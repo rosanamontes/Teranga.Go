@@ -83,6 +83,9 @@ return array(
 	'hflts:help:aggOperator' => 'Given a set of hesitants, compute the aggretate hesitant according one of these operators',
 	'hflts:settings:minmax' => 'MinMax from Classic-HFLTS & TOPSIS-HFLTS',
 	'hflts:settings:HLWA' => 'HLWA from Operators and Comparisons of HFLTS',
+	
+	'hflts:label:exportTex' => 'Export to LaTeX',
+	'hflts:help:exportTex' => 'When using external samples (set_xxxx.csv and weight_xxxx_yyyy.csv files), automatic conversion to LaTeX tables can be output on result page if this setting is on',
 
 	'hflts:label:submit' => 'Confirmer',		
 	'hflts:settings:success' => 'Modifications enregistrées avec succès',

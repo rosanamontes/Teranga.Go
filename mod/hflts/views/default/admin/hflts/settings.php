@@ -87,6 +87,14 @@ $data = array(
 		'readonly' => false,
 	),
 
+	'exportTex' => array(
+		'type' => 'dropdown',
+		'value' => $plugin->exportTex,
+                'options_values' => array('1' => elgg_echo('hflts:settings:yes'), '0' => elgg_echo('hflts:settings:no')),
+		'readonly' => false,
+	),
+
+
 	'allowMany' => array(
 		'type' => 'dropdown',
 		'value' => $plugin->allowMany,

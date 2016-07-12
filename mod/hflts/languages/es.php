@@ -84,6 +84,9 @@ return array(
 	'hflts:aggOperator:minmax' => 'MinMax de Classic-HFLTS & TOPSIS-HFLTS',
 	'hflts:aggOperator:HLWA' => 'HLWA de Operators and Comparisons of HFLTS',
 
+	'hflts:label:exportTex' => 'Exportar a LaTeX',
+	'hflts:help:exportTex' => 'Cuando los datos usados son externos (ficheros set_xxxx.csv & weight_xxxx_yyyy.csv), la conversión a LaTeX puede ser automática (se muestra en la página de resultados)',
+
 	'hflts:label:submit' => 'Confirmar',		
 	'hflts:settings:success' => 'Cambios guardados con exito',
 	'hflts:settings:fail' => 'Hubo un problema al guardar los cambios',

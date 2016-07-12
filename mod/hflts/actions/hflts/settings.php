@@ -53,6 +53,7 @@ $simple_settings = [
 	'electre',
 	'promethee',
 	'aggOperator',
+	'exportTex',
 ];
 foreach ($simple_settings as $setting) 
 {
@@ -64,13 +65,13 @@ $aggOperator = elgg_get_plugin_setting('aggOperator', 'hflts');
 switch ( $aggOperator )
 {
 	case '0':
-		$operator = "minmax";
+		$operator = elgg_echo('hflts:aggOperator:minmax');
 		break;
 	case '1':
-		$operator = "HLWA";
+		$operator = elgg_echo('hflts:aggOperator:HLWA');
 		break;
 	default:
-		$operator = "minmax";
+		$operator = elgg_echo('hflts:aggOperator:minmax');
 		break;
 }
 
@@ -94,7 +95,7 @@ switch ( $termnumber )
 		$G = 4;
 		break;
 }
-system_message("# " . $operator);
+//system_message("# " . $operator);
 $access = ACCESS_PRIVATE; //this is private and only admins can see it
 
 

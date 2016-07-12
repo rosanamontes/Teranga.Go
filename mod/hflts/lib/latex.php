@@ -35,18 +35,25 @@ function set2latex($data, $sample_term, $M)
 			$inf = "L".($x+1);
 			$sup = "U".($x+1);
 			$envelope = array ("inf" => $data[$z][$inf], "sup" => $data[$z][$sup]);
-			$h = toHesitant($envelope,$length,$delta);
-			//to debug::::: $output .= "<br> [" . $envelope['inf'] . ", " . $envelope['sup'] . "] => L= " . $length . " => ";
 
-			$output .= "$\{";
+			//If output is an interval
+			$rangeTxt = "[ $s_" . $envelope['inf'] . "$, $s_" . $envelope['sup'] . "$ ]"; 
+
+			//If output is a hesitant
+			$h = toHesitant($envelope,$length,$delta);
+			$hTxt .= "$\{";
 			for ($i=0;$i<$length;$i++)
 			{
-				$output .= "s_".$h[$i];
+				$hTxt .= "s_".$h[$i];
 				if ($i == $length-1)
-					$output .= "\}$";
+					$hTxt .= "\}$";
 				else
-					$output .= ", ";
+					$hTxt .= ", ";
 			}			
+
+			//now choose.... 
+			//$output .= $rangeTxt;
+			$output .= $hTxt;
 		}
 
 		if ($x < $M-1)
@@ -100,7 +107,6 @@ function weight2latex($data, $sample_term, $M)
 	{
 		$string = "%done from Teranga.Go! by Rosana Montes<br>
 			\begin{table}[htp]<br>
-			\caption{default}<br>
 			\begin{center}<br>
 			\begin{tabular}{|";
 

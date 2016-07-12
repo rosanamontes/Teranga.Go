@@ -293,7 +293,8 @@ abstract class MCDM
 		$num = count($this->data);
 		
 		//..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..- 
-		//set2latex($this->data, $this->label, $this->M);//export to .tex just in case needed
+		if (elgg_get_plugin_setting('exportTex', 'hflts') == 1)
+			set2latex($this->data, $this->label, $this->M);//export to .tex just in case needed
 		//..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..- 
 
 		//numero de valoraciones es N*P
@@ -318,7 +319,8 @@ abstract class MCDM
 		$readed= $importer->get(); 
 		
 		//..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-  
-		//weight2latex($readed, $this->label, $this->M);//export to .tex just in case needed
+		if (elgg_get_plugin_setting('exportTex', 'hflts') == 1)
+			weight2latex($readed, $this->label, $this->M);//export to .tex just in case needed
 		//..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..-..- 
 
 		$mxp = count($readed);

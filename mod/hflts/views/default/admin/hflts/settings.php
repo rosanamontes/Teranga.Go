@@ -50,10 +50,19 @@ $data = array(
 		'readonly' => false,
 	),
 
+/* no implementado
 	'promethee' => array(
 		'type' => 'checkbox',
 		'value' => 1,
 		'checked' => elgg_get_plugin_setting('promethee', 'hflts') == 1,
+		'readonly' => false,
+	),
+*/
+
+	'aggOperator' => array(
+		'type' => 'dropdown',
+		'value' => $plugin->aggOperator,
+                'options_values' => array('0' => elgg_echo('hflts:aggOperator:minmax'), '1' => elgg_echo('hflts:aggOperator:HLWA')),
 		'readonly' => false,
 	),
 

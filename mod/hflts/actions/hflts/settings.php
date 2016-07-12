@@ -52,12 +52,27 @@ $simple_settings = [
 	'topsis',
 	'electre',
 	'promethee',
+	'aggOperator',
 ];
 foreach ($simple_settings as $setting) 
 {
 	elgg_set_plugin_setting($setting, get_input($setting), 'hflts');
 }
 
+
+$aggOperator = elgg_get_plugin_setting('aggOperator', 'hflts');
+switch ( $aggOperator )
+{
+	case '0':
+		$operator = "minmax";
+		break;
+	case '1':
+		$operator = "HLWA";
+		break;
+	default:
+		$operator = "minmax";
+		break;
+}
 
 $termnumber = elgg_get_plugin_setting('termset', 'hflts');
 switch ( $termnumber )
@@ -79,7 +94,7 @@ switch ( $termnumber )
 		$G = 4;
 		break;
 }
-//system_message("# " . $scale);
+system_message("# " . $operator);
 $access = ACCESS_PRIVATE; //this is private and only admins can see it
 
 

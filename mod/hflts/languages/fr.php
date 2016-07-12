@@ -61,7 +61,7 @@ return array(
 	'hflts:settings:s5' => '5 etiquettes',
 	'hflts:settings:s7' => '7 etiquettes',
 
-	'hflts:settings:explanation' => 'sélectionnez les méthodes que vous souhaitez appliquer comme modèles de prise de décision linguistique.',
+	'hflts:settings:explanation' => 'Sélectionnez les méthodes que vous souhaitez appliquer comme modèles de prise de décision linguistique.',
 	'hflts:label:classic' => 'HFLTS Classic Aggregation',
 	'hflts:help:classic' => 'Rodriguez et al. IEEETFS\'12 - Hesitant fuzzy Linguistic Term Sets. Method as in:<br> 
 	<pre>R. Montes, A.M. Sanchez, P. Villar and F. Herrera, 
@@ -79,14 +79,19 @@ return array(
 	'hflts:label:promethee' => 'HF Promethee',
 	'hflts:help:promethee' => 'Sonia Hajlaoui IEEE\'13',
 
-	'hflts:label:submit' => 'confirmer',		
-	'hflts:settings:success' => 'modifications enregistrées avec succès',
-	'hflts:settings:fail' => 'un problème est survenu lors de l\'enregistrement des modifiations',
+	'hflts:label:aggOperator' => 'Aggregation operator',
+	'hflts:help:aggOperator' => 'Given a set of hesitants, compute the aggretate hesitant according one of these operators',
+	'hflts:settings:minmax' => 'MinMax from Classic-HFLTS & TOPSIS-HFLTS',
+	'hflts:settings:HLWA' => 'HLWA from Operators and Comparisons of HFLTS',
+
+	'hflts:label:submit' => 'Confirmer',		
+	'hflts:settings:success' => 'Modifications enregistrées avec succès',
+	'hflts:settings:fail' => 'Un problème est survenu lors de l\'enregistrement des modifiations',
 
 	/**
 	*  Consulta a los hesitant
 	*/
-	'hflts:evaluation:not:found' => 'la consultation est à effectuer',
+	'hflts:evaluation:not:found' => 'La consultation est à effectuer',
 	'hflts:mcdm:fail' => 'il n\'y a pas assez d\'appréciations pour appliquer le modèle de prise de décision.',
 	
 );

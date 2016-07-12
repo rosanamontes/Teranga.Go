@@ -79,6 +79,11 @@ return array(
 	'hflts:label:promethee' => 'HF Promethee',
 	'hflts:help:promethee' => 'Sonia Hajlaoui IEEE\'13',
 
+	'hflts:label:aggOperator' => 'Operador de agregación',
+	'hflts:help:aggOperator' => 'Dado un conjunto de hesitants, se desea agregar y obtener el hesitant resultante, según uno de estos operadores',
+	'hflts:aggOperator:minmax' => 'MinMax de Classic-HFLTS & TOPSIS-HFLTS',
+	'hflts:aggOperator:HLWA' => 'HLWA de Operators and Comparisons of HFLTS',
+
 	'hflts:label:submit' => 'Confirmar',		
 	'hflts:settings:success' => 'Cambios guardados con exito',
 	'hflts:settings:fail' => 'Hubo un problema al guardar los cambios',

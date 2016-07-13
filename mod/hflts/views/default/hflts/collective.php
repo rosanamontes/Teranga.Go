@@ -103,7 +103,7 @@ else
 			$method->setExperts($nExpertos); //num of experts			
 			$method->setGranularity($G); //granularity	
 		}
-		$method->debug = false;
+		$method->debug = false;//by default
 
 		if (file_exists($weight_file))
 		{	

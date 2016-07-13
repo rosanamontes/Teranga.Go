@@ -110,7 +110,9 @@ class TopsisHFLTS extends MCDM
 						echo " [".$this->data[$c][$inf].",".$this->data[$c][$sup]."], ";
 				} 
 
-				$avgE_Cj = aggregationMinMax($criterionAssessment, $this->E, $this->G);
+				$avgE_Cj = parent::aggregate($criterionAssessment,false);
+				//-..-..-..-..-..-..-..-..-..-..-..--..-..-..-..-..-..-..-..-..-..-..--..-..-..-..-..-..-..-..-..-..-..-
+
 				$this->envelopes[$i][$j] = $avgE_Cj;//store the aggretate linguistic interval as alternative x criteria
 
 				if ($this->debug) 

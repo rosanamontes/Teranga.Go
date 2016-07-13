@@ -70,8 +70,6 @@ class TodimHFL extends MCDM
 		//Assuption: G is a normalized linguistic decision matrix, where criteria benefit is same and cost criteria es negated
 		$this->variance = $this->variance();
 		
-		//parent::todimCase();//realEstateCase();vikorCase
-		
 		//step 1 find the most important factor and calculate the relative weights
 		$this->relativeWeights();
 
@@ -185,13 +183,14 @@ class TodimHFL extends MCDM
 						echo " [".$this->data[$c][$inf].",".$this->data[$c][$sup]."], ";
 				} 
 
-				$avgH_Cj = aggregationHLWA($criterionAssessment, $this->E, $this->G);
+				$avgH_Cj = parent::aggregate($criterionAssessment,true);
+				//-..-..-..-..-..-..-..-..-..-..-..--..-..-..-..-..-..-..-..-..-..-..--..-..-..-..-..-..-..-..-..-..-..-
+
 				$this->hesitants[$i][$j] = $avgH_Cj;//store the aggretate hesitant and compute its length and delta
 				if ($this->hesitants[$i][$j] == -1)
-				{
 					register_error("wrong hesitant in cross function ");
-					echo('wrong hesitant<pre>');	print_r($avgH_Cj);	echo('</pre><br>');
-				}
+
+				//echo('hesitant<pre>');	print_r($avgH_Cj);	echo('</pre><br>');
 
 				$length = count($avgH_Cj);//number of terms in the hesitant
 				$delta = deltaHesitant($avgH_Cj);

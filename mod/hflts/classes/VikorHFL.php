@@ -19,7 +19,6 @@
 
 class VikorHFL extends MCDM
 {
-
 	var $label;		//shortname
 	var $lambda; 	//to set the distance measure
 	var $xhi;		//to set the distance measure
@@ -65,12 +64,12 @@ class VikorHFL extends MCDM
 	public function run()
 	{
 		//Step 1: define the semantics
-		if ($this->debug) 
-			system_message($this->N . " x ". $this->M . " x " . $this->P);
 		//$this->debug = true;
 
 		//Step 2: transform assessments into the HFLTS
 		parent::run();
+		if ($this->debug) 
+			system_message($this->N . " x ". $this->M . " x " . $this->P);
 
 		//Step 3: establish the alternatives, criteria and the weights of the criteria
 		self::crossAlternativesWithCriteria();
@@ -111,10 +110,14 @@ class VikorHFL extends MCDM
 						echo " [".$this->data[$c][$inf].",".$this->data[$c][$sup]."], ";
 				} 
 
-				$avgH_Cj = aggregationHLWA($criterionAssessment, $this->E, $this->G);
+				$avgH_Cj = parent::aggregate($criterionAssessment,true);
+				//-..-..-..-..-..-..-..-..-..-..-..--..-..-..-..-..-..-..-..-..-..-..--..-..-..-..-..-..-..-..-..-..-..-
+
 				$this->hesitants[$j][$i] = $avgH_Cj;//store the aggretate hesitant and compute its length and delta
 				if ($this->hesitants[$j][$i] == -1)
 					register_error("wrong hesitant in cross function");
+
+				//echo('# aggregate: <pre>');	print_r($avgH_Cj);	echo('</pre>');
 
 				$length = count($avgH_Cj);//number of terms in the hesitant
 				$delta = deltaHesitant($avgH_Cj);

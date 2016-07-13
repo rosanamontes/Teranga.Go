@@ -143,10 +143,10 @@ abstract class MCDM
 		 		break;
 
 		 	case 'vikor':
-		 		self::vikorCase("-3..3");
+		 		self::vikorCase("-3..3");//assessments withing range {-3,-2,...2,3}
 		 		break;
 		 	case 'vikorS7':
-		 		self::vikorCase("S7");
+		 		self::vikorCase("S7");//assessments withing range {0,1,...5,6}
 		 		break;
 
 		 	case 'electre':
@@ -154,11 +154,11 @@ abstract class MCDM
 		 		break;
 
 		 	case 'topsis':
-		 		self::topsisCase("original");
+		 		self::topsisCase("original");//with benefit and cost criteria
 		 		break;
 
 		 	case 'topsisB':
-		 		self::topsisCase("benefit");
+		 		self::topsisCase("benefit");//cost criteria negated so everything is benefit criteria
 		 		break;
 
 		 	case 'promethee':
@@ -166,21 +166,24 @@ abstract class MCDM
 		 		break;
 
 		 	case 'imported':
-		 		//system_message("choose csv file " . $this->alternatives[0]);
+		 		//system_message("choose csv file " . $this->Wfile);
 		 		self::parse_csv($this->alternatives[0]);
-
 		 		for ($i=0; $i<$this->N;$i++)
 		 			$this->alternatives[$i] = $this->data[$i*$this->P]["ref"];
 
 		 		for ($i=0; $i<$this->M;$i++)
+			 			$this->benefitCriteria[$i] = $i;
+
+		 		if ($this->Wfile != "")
+		 			self::parse_csv_weights($this->Wfile);
+		 		else
 		 		{
-		 			$this->W[$i] = 1.0/$this->M;
-		 			$this->benefitCriteria[$i] = $i;
-		 		}
+			 		for ($i=0; $i<$this->M;$i++)
+			 			$this->W[$i] = 1.0/$this->M;
 
-		 		for ($i=0; $i<$this->P;$i++)
-		 			$this->E[$i] = 1.0/$this->P;
-
+			 		for ($i=0; $i<$this->P;$i++)
+			 			$this->E[$i] = 1.0/$this->P;
+			 	}
 		 		break;
 	 	
 		 	default://promeetee not impleented
@@ -344,7 +347,7 @@ abstract class MCDM
 			}
 		}
 
-		if ($this->debug) 
+		//if ($this->debug) 
 		{
 			echo('expert weights (E): <pre>');	print_r($this->E);	echo('</pre><br>');
 			echo('individual weights (superE): <pre>');	print_r($this->superE);	echo('</pre><br>');
@@ -362,14 +365,13 @@ abstract class MCDM
 
 		//expert weights
 		$this->E = array(1.0, 1.0, 1.0, 1,0, 1.0);//same importance of each assessment in case of parsing fail
-		//$wfile = elgg_get_plugins_path() . "hflts/samples/weight_classic.csv";
 
 		if ($this->Wfile == "")
-			system_message("no external file to parse");	
+			system_message("housing no external file to parse");	
 		else
 		{
 			$this->parse_csv_weights($this->Wfile);
-			system_message("+++ uso el fichero " . $this->Wfile . " to parse weights ");
+			system_message("housing with " . $this->Wfile . " to parse weights ");
 		}
 
 		//additionally set
@@ -515,8 +517,41 @@ abstract class MCDM
 		
 		if ($this->debug) 
 		{
-			echo($sum .'<br>expertWeights: <pre>');	print_r($this->E);	echo('</pre>');
+			echo($this->P .'# expertWeights: <pre>');	print_r($this->E);	echo('</pre>');
 		}
+	}
+
+	/**
+	* Method of the classs MCDM that decides which operator should be used 
+	* Input: data array of envelopes
+	* Output: check boolean to decide if output is an hesitant resulting of aggregation or its envelope
+		//To Do: aggregationHLWA with array of hesitants as input
+		//To Do: aggregationMinMax with input hesitants and weights
+	*/
+	public function aggregate($assessments, $toHesitant)
+	{
+		//if pesos expertos solo aggregationHLWA??
+
+		//chequear cual es el array de pesos a usar. 
+		$aggOperator = elgg_get_plugin_setting('aggOperator', 'hflts');
+		
+		if ($aggOperator == 0)
+		{
+			//system_message(elgg_echo('hflts:aggOperator:minmax'));//does not consider weights
+			if ($toHesitant)
+				$result = aggregationMinMaxToHesitant($assessments);
+			else
+				$result = aggregationMinMaxToEnvelope($assessments);
+		}
+		else
+		{
+			//system_message(elgg_echo('hflts:aggOperator:HLWA'));//admits weights 
+			$result = aggregationHLWA($assessments, $this->E, $this->G);
+			if (!$toHesitant)
+				$result = toEnvelope($result);
+		}
+
+		return $result;
 	}
 
 }

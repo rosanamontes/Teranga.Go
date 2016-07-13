@@ -39,6 +39,7 @@ function aggregationHLWA($data, $weights, $granularity)
 	return $H;
 }
 
+
 function exampleHesitantAggegation()
 {
 	$debug = false;
@@ -432,6 +433,7 @@ function exampleHesitantAggegation()
 
 
 	// computes a Convex Combination of hesitants (HLWA), noted as C^n(w1,h1,w2,h2, ... wn,hn)
+	// input: array of hesitants
 	// output: an hesitant
 	function computeHLWA($hesitants, $rankingWeight, $granularity)
 	{
@@ -587,7 +589,7 @@ function exampleHesitantAggegation()
 * Output: an hesitant resulting of aggregation of several linguistic intervals
 */
 
-function aggregationMinMax($data)
+function aggregationMinMaxToEnvelope($data)
 {
 	$maxH = maximumEnvelope($data);
 	$minH = minimumEnvelope($data);
@@ -602,6 +604,20 @@ function aggregationMinMax($data)
 	return $E;
 }
 
+function aggregationMinMaxToHesitant($data)
+{
+	$maxH = maximumEnvelope($data);
+	$minH = minimumEnvelope($data);
+
+	$a = $minH['sup'];
+	$b = $maxH['inf'];
+
+	$E['inf'] = min($a, $b);
+	$E['sup'] = max($a, $b);
+
+	//echo('<hr>aggregationMinMax<pre>');	print_r($E);	echo('</pre>');
+	return toHesitant($E);
+}
 
 	//..-..-..-..-..-..-..-..-..-..-..- MINMAX AGGREGATION SUPPORTING FUNCTIONS -..-..-..-..-..-..-..-..-..-..-..-
 

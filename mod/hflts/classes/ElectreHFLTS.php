@@ -129,7 +129,8 @@ class ElectreHFLTS extends MCDM
 						echo " [".$this->data[$c][$inf].",".$this->data[$c][$sup]."], ";
 				} 
 
-				$avgH_Cj = aggregationHLWA($criterionAssessment, $this->E, $this->G);
+				$avgH_Cj = parent::aggregate($criterionAssessment,true);
+				//-..-..-..-..-..-..-..-..-..-..-..--..-..-..-..-..-..-..-..-..-..-..--..-..-..-..-..-..-..-..-..-..-..-
 
 				$this->hesitants[$i][$j] = $avgH_Cj;//store the aggretate hesitant and compute its length and delta
 				if ($this->hesitants[$i][$j] == -1)

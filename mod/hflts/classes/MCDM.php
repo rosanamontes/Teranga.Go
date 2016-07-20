@@ -26,9 +26,8 @@ abstract class MCDM
 	var $M; //number of criteria
 	var $P; //number of experts
 
-	var $W; //weight of criteria (array 1xM and same for all experts? MxP?)
+	var $W; //weight of criteria (different for each experts MxP)
 	var $E; //weight of experts (array 1xP)
-	var $superE;//weight of experts for each criteria(PxM)
 	var $Wfile;	//name of the file that holds weight data (in case of)
 
 	var $G = 6; //max scale by default
@@ -72,8 +71,8 @@ abstract class MCDM
 	/**
 	* get from the system the values needed in the model. Called from driver, from icon,... but not from collective
 	* input: array of $size assessments 
-	* input: array of 1 x M criteria weights
-	* input: array of 1 x P expert weights
+	* input: array of $size x M criteria weights
+	* input: array of $size x 1 expert weights
 	*/	
 	public function setData($values, $C_weight, $E_weight, $size, $granularity) 
 	{
@@ -81,7 +80,7 @@ abstract class MCDM
 			return; 
 
 		$this->data = $values;
-		//if ($this->information) 
+		if ($this->information) 
 		{
 			echo("#". $size . ' Dt: <pre>');	print_r($this->data);	echo('</pre><br>');
 		}
@@ -94,7 +93,7 @@ abstract class MCDM
 		$this->P = $this->num = $size;//no necesariamente dos valoraciones vienen de 2 expertos
 		$this->G = $granularity;
 
-		//compute the averaged expert preference over criteria. Not normalized 
+		// compute the averaged expert preference over criteria. Not normalized 
 		$this->superE = $C_weight;
 		if ($C_weight != null)
 			$this->W = averagedUserPreference($C_weight, $this->M);
@@ -104,9 +103,9 @@ abstract class MCDM
 
 		if ($this->information) 
 		{
-			echo(' W: <pre>');	print_r($this->W);	echo('</pre><br>');
-			echo(' E: <pre>');	print_r($this->E);	echo('</pre><br>');
-			echo(' superE: <pre>');	print_r($this->superE);	echo('</pre><br>');
+			echo('! W: <pre>');	print_r($this->W);	echo('</pre><br>');
+			echo('! E: <pre>');	print_r($this->E);	echo('</pre><br>');
+			echo('! superE: <pre>');	print_r($this->superE);	echo('</pre><br>');
 		}		
 	}
 
@@ -178,6 +177,7 @@ abstract class MCDM
 		 			self::parse_csv_weights($this->Wfile);
 		 		else
 		 		{
+		 			//ojo que aqui normalizo ambos
 			 		for ($i=0; $i<$this->M;$i++)
 			 			$this->W[$i] = 1.0/$this->M;
 
@@ -344,13 +344,16 @@ abstract class MCDM
 			{
 				$l = 'C'.($j+1);
 				$this->superE[$i][$j] = $readed[$i][$l];
+				if ($i==0)
+					$this->W[$j] = $readed[$i][$l];
 			}
 		}
 
-		//if ($this->debug) 
+		if ($this->debug) 
 		{
 			echo('expert weights (E): <pre>');	print_r($this->E);	echo('</pre><br>');
 			echo('individual weights (superE): <pre>');	print_r($this->superE);	echo('</pre><br>');
+			echo('simple weights (W): <pre>');	print_r($this->W);	echo('</pre><br>');
 		}
 	}
 
@@ -496,17 +499,21 @@ abstract class MCDM
 	*/
 	public function normalizeWeights()
 	{
-		/*$sum = 0;
-		for ($j=0;$j<$this->M;$j++)
-			$sum += $this->W[$j];
+		$size = count($this->superE);
+		for ($i=0;$i<$size;$i++)
+		{
+			$sum = 0;
+			for ($j=0;$j<$this->M;$j++)
+				$sum += $this->superE[$i][$j];
 		
-		for ($j=0;$j<$this->M;$j++)
-			$this->W[$j] = $this->W[$j] / $sum;
-		
+			for ($j=0;$j<$this->M;$j++)
+				$this->superE[$i][$j] = $this->superE[$i][$j] / $sum;
+		}
+
 		if ($this->debug) 
 		{
 			echo($sum .'<br>criteriaWeights: <pre>');	print_r($this->W);	echo('</pre>');
-		}*/
+		}
 
 		$sum = 0;
 		for ($e=0;$e<$this->P;$e++)
@@ -527,6 +534,7 @@ abstract class MCDM
 	* Output: check boolean to decide if output is an hesitant resulting of aggregation or its envelope
 		//To Do: aggregationHLWA with array of hesitants as input
 		//To Do: aggregationMinMax with input hesitants and weights
+	* Note: weight is not a param ... all methods use it for expert aggregation
 	*/
 	public function aggregate($assessments, $toHesitant)
 	{
@@ -553,5 +561,6 @@ abstract class MCDM
 
 		return $result;
 	}
+
 
 }

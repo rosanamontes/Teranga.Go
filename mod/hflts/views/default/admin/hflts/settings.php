@@ -109,13 +109,6 @@ $data = array(
 		'readonly' => false,
 	),
 
-	'weight_assessments' => array(
-		'type' => 'dropdown',
-		'value' => $plugin->weight_assessments,
-                'options_values' => array('1' => elgg_echo('hflts:settings:yes'), '0' => elgg_echo('hflts:settings:no')),
-		'readonly' => false,
-	),
-
 	'weight_experts' => array(
 		'type' => 'dropdown',
 		'value' => $plugin->weight_experts,
@@ -128,6 +121,14 @@ $data = array(
 		'value' => $plugin->base_expertise,
 		'readonly' => false,
 	),
+
+	'weight_assessments' => array(
+		'type' => 'dropdown',
+		'value' => $plugin->weight_assessments,
+                'options_values' => array('1' => elgg_echo('hflts:settings:yes'), '0' => elgg_echo('hflts:settings:no')),
+		'readonly' => false,
+	),
+
 );
 
 /*$form .= "<br><br><b>" . elgg_echo('elggx_userpoints:settings:profile_display') . "</b>";

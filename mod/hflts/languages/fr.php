@@ -62,7 +62,7 @@ return array(
 	'hflts:settings:s7' => '7 etiquettes',
 
 	'hflts:settings:explanation' => 'Sélectionnez les méthodes que vous souhaitez appliquer comme modèles de prise de décision linguistique.',
-	'hflts:label:classic' => 'HFLTS Classic Aggregation',
+	'hflts:label:classic' => 'HFLTS Classic',
 	'hflts:help:classic' => 'Rodriguez et al. IEEETFS\'12 - Hesitant fuzzy Linguistic Term Sets. Method as in:<br> 
 	<pre>R. Montes, A.M. Sanchez, P. Villar and F. Herrera, 
 	A web tool to support decision making in the housing market using hesitant fuzzy linguistic term sets. 
@@ -81,8 +81,8 @@ return array(
 
 	'hflts:label:aggOperator' => 'Aggregation operator',
 	'hflts:help:aggOperator' => 'Given a set of hesitants, compute the aggretate hesitant according one of these operators',
-	'hflts:settings:minmax' => 'MinMax from Classic-HFLTS & TOPSIS-HFLTS',
-	'hflts:settings:HLWA' => 'HLWA from Operators and Comparisons of HFLTS',
+	'hflts:aggOperator:minmax' => 'MinMax from Classic-HFLTS & TOPSIS-HFLTS',
+	'hflts:aggOperator:HLWA' => 'HLWA from Operators and Comparisons of HFLTS',
 	
 	'hflts:label:exportTex' => 'Export to LaTeX',
 	'hflts:help:exportTex' => 'When using external samples (set_xxxx.csv and weight_xxxx_yyyy.csv files), automatic conversion to LaTeX tables can be output on result page if this setting is on',

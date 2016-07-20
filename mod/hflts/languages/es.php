@@ -62,7 +62,7 @@ return array(
 	'hflts:settings:s7' => '7 etiquetas',
 
 	'hflts:settings:explanation' => 'Seleccione los métodos que desee ejecutar como modelos de toma de decisión lingüistica.',
-	'hflts:label:classic' => 'Classic HFLTS',
+	'hflts:label:classic' => 'HFLTS Classic',
 	'hflts:help:classic' => 'R.M. Rodríguez et al. IEEE-TFS\'12 - Hesitant Fuzzy Linguistic Term Sets. Method as in:<br> 
 	<pre>R. Montes, A.M. Sanchez, P. Villar and F. Herrera, 
 	A web tool to support decision making in the housing market using hesitant fuzzy linguistic term sets. 

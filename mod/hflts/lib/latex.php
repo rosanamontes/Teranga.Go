@@ -41,7 +41,7 @@ function set2latex($data, $sample_term, $M)
 
 			//If output is a hesitant
 			$h = toHesitant($envelope,$length,$delta);
-			$hTxt .= "$\{";
+			$hTxt = "$\{";
 			for ($i=0;$i<$length;$i++)
 			{
 				$hTxt .= "s_".$h[$i];

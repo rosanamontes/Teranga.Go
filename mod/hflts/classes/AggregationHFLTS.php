@@ -46,7 +46,7 @@ class AggregationHFLTS extends MCDM
 	{
 		parent::run();
 
-		$this->debug = false;
+		$this->debug = true;
 		if ($this->debug) 
 		{
 			system_message($this->N . " x ". $this->M . " x " . $this->P);

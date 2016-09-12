@@ -21,14 +21,13 @@ return array(
 	'hflts:number' => 'From',
 	'hflts:users' => 'users\' valorations.',
 	'hflts:karma:none' => 'unknown',
-	'hflts:karma:s0' => 'Very poor',
+	'hflts:karma:s0' => 'Terrible',
 	'hflts:karma:s1' => 'Poor',
-	'hflts:karma:s2' => 'Novel',
-	'hflts:karma:s3' => 'Satisfying',
-	'hflts:karma:s4' => 'Trusted',
+	'hflts:karma:s2' => 'Limited',
+	'hflts:karma:s3' => 'Satisfiable',
+	'hflts:karma:s4' => 'Honest',
 	'hflts:karma:s5' => 'Very good',
 	'hflts:karma:s6' => 'Excellent',
-
 
 	/**
 	*  Plugin settings for admins

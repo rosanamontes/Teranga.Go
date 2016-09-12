@@ -21,13 +21,13 @@ return array(
 	'hflts:number' => 'A partir de',
 	'hflts:users' => 'valoraciones de usuarios.',
 	'hflts:karma:none' => 'desconocido',
-	'hflts:karma:s0' => 'muy bajo',
-	'hflts:karma:s1' => 'mejorable',
-	'hflts:karma:s2' => 'novel',
-	'hflts:karma:s3' => 'satisfactorio',
-	'hflts:karma:s4' => 'confiable',
-	'hflts:karma:s5' => 'muy bueno',
-	'hflts:karma:s6' => 'excelente',
+	'hflts:karma:s0' => 'Terrible',
+	'hflts:karma:s1' => 'Pobre',
+	'hflts:karma:s2' => 'Limitado',
+	'hflts:karma:s3' => 'Satisfactorio',
+	'hflts:karma:s4' => 'Confiable',
+	'hflts:karma:s5' => 'Muy bueno',
+	'hflts:karma:s6' => 'Excelente',
 
 
 	/**

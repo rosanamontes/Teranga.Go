@@ -48,7 +48,7 @@ return array(
 	'hflts:help:allowMany' => 'Permite almacenar varias valoraciones para un mismo usuario y viaje.',	
 	'hflts:label:auto_moderation' => 'Moderación automática',
 	'hflts:help:auto_moderation' => 'Cuando se habilita, las valoraciones se archivan automáticamente y no se requiere moderación manual.',		
-	'hflts:label:weight_assessments' => 'Doble valoración',
+	'hflts:label:weight_assessments' => 'Condiderar preferencias',
 	'hflts:help:weight_assessments' => 'Permite expresar la importancia de cada criterio en cada valoración (doble información subjetiva)',
 	'hflts:label:weight_experts' => 'Considerar experiencia',
 	'hflts:help:weight_experts' => 'Permite añadir el grado de experiencia en la valoración del usuario',

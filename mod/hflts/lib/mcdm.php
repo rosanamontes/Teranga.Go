@@ -325,10 +325,13 @@ function relativeUserExpertise($E_weight)
 	$guru = max($E_weight); 
 
 	$base = elgg_get_plugin_setting('base_expertise', 'hflts') / 100.0;
-	//system_message($base . " guru " . $guru);
+	//system_message("HFLTS:MCDM debugg - B=" . $base . " & guru " . $guru);
 
 	$fill = 1.0 - $base;
-	$guru = $fill / $guru;
+	if ($guru == 0)
+		$guru = $fill;
+	else
+		$guru = $fill / $guru;
 
 	//$sum = 0; no es necesario que sumen 1 los pesos de los expertos.
 	for ($i=0;$i<$n;$i++)

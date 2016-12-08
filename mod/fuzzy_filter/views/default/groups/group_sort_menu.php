@@ -13,15 +13,15 @@
 */
 
 $tabs = [
-	'newest' => [
-		'text' => elgg_echo('sort:newest'),
-		'href' => 'groups/all?filter=newest',
-		'priority' => 200,
-	],
 	'yours' => [
 		'text' => elgg_echo('groups:yours'),
 		'href' => 'groups/all?filter=yours',
 		'priority' => 250,
+	],
+	'newest' => [
+		'text' => elgg_echo('sort:newest'),
+		'href' => 'groups/all?filter=newest',
+		'priority' => 200,
 	],
 	'popular' => [
 		'text' => elgg_echo('sort:popular'),
@@ -43,22 +43,17 @@ $tabs = [
 		'href' => 'groups/all?filter=closed',
 		'priority' => 600,
 	],
-	'alpha' => [
-		'text' => elgg_echo('sort:alpha'),
+	'ordered' => [
+		'text' => elgg_echo('fuzzy_filter:trips:sorting:ordered'),
 		'href' => 'groups/all?filter=alpha',
 		'priority' => 700,
 	],
-	'ordered' => [
-		'text' => elgg_echo('fuzzy_filter:trips:sorting:ordered'),
-		'href' => 'groups/all?filter=ordered',
-		'priority' => 800,
-	],
-	'featured' => [
+	/*'featured' => [
 		'text' => elgg_echo('status:featured'),
 		'href' => 'groups/all?filter=featured',
-		'priority' => 850,
-	],
-	// Rosana: Como este los que vayamos a añadir
+		'priority' => 800,
+	], //por defecto los activos son features y los old son fechas pasadas
+	// Rosana: Como este los que vayamos a añadir*/
 	'suggested' => [
 		'text' => elgg_echo('fuzzy_filter:trips:sorting:suggested'),
 		'href' => 'groups/suggested',

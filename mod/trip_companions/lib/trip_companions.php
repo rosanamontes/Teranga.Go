@@ -9,9 +9,8 @@
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
-*	File: Add-in library at ElggGroups plugin 
+*	File: Add-in library 
 *
-* 	@package ElggGroups
 */
 
 
@@ -20,14 +19,14 @@
 * Return:
 *	 true if is valid and a hover menu shoud be shown
 */
-function check_valid_asessment($source_guid, $target_guid, $group_guid) 
+function check_valid_asessment($source_guid, $target_guid, $trip_guid) 
 {
-	$x = check_available_user($source_guid, $group_guid) ;
-	$y = check_available_user($target_guid, $group_guid) ;
+	$x = check_available_user($source_guid, $trip_guid) ;
+	$y = check_available_user($target_guid, $trip_guid) ;
 
 	if ($x && $y)
 	{
-		$val = trip_companions_check_assessment($source_guid, $target_guid, $group_guid) ;
+		$val = trip_companions_check_assessment($source_guid, $target_guid, $trip_guid) ;
 		//system_message("---- ".$val);
 		if ($val > -1)	//there is a valoration already
 		{
@@ -50,10 +49,10 @@ function check_valid_asessment($source_guid, $target_guid, $group_guid)
 * Return:
 *	 true if available
 */
-function check_available_user($guid, $group_guid) 
+function check_available_user($guid, $trip_guid) 
 {
-	$group = get_entity($group_guid);
-	$owner = $group->getOwnerEntity();
+	$trip = get_entity($trip_guid);
+	$owner = $trip->getOwnerEntity();
 
 	//el conductor es un caso especial
 	if ($guid == $owner->guid)
@@ -61,7 +60,7 @@ function check_available_user($guid, $group_guid)
 		return true;
 	}
 
-	$key = array_search($guid, $group->confirmed);
+	$key = array_search($guid, $trip->confirmed);
 
 	if ($key == "")
 		return false;
@@ -78,7 +77,7 @@ function check_available_user($guid, $group_guid)
 * Restriction:
 *	Assessments can onccurs only between confirmed pleople
 */
-function trip_companions_check_assessment($source_guid, $target_guid, $group_guid) 
+function trip_companions_check_assessment($source_guid, $target_guid, $trip_guid) 
 {
 	$user = NULL;
 	if (!$source_guid) {
@@ -87,11 +86,11 @@ function trip_companions_check_assessment($source_guid, $target_guid, $group_gui
 		$user = get_user($source_guid);
 	}
 
-	$group = get_entity($group_guid);
+	$trip = get_entity($trip_guid);
 
 	//then verify, ...
 	$element = $source_guid.$target_guid;
-	$key = array_search($element, $group->grade);
+	$key = array_search($element, $trip->grade);
 	if ($key != "")
 		return $key; //has an assessment
 	else
@@ -99,18 +98,18 @@ function trip_companions_check_assessment($source_guid, $target_guid, $group_gui
 }
 
 /*
-* Add a user to the group's grade array
+* Add a user to the trip's grade array
 * source: the user that makes the assessment
 * target: the user that is assessed
 */
-function trip_companions_add_grade($source_guid, $target_guid, $group_guid) 
+function trip_companions_add_grade($source_guid, $target_guid, $trip_guid) 
 {
-	$key = trip_companions_check_assessment($source_guid, $target_guid, $group_guid) ;
+	$key = trip_companions_check_assessment($source_guid, $target_guid, $trip_guid) ;
 	
 	if ($key == -1)//free 
 	{
-		$group = get_entity($group_guid);
-		$copy=$group->grade;
+		$trip = get_entity($trip_guid);
+		$copy=$trip->grade;
 		$x = count($copy);
 
 		$element = $source_guid.$target_guid;
@@ -119,12 +118,12 @@ function trip_companions_add_grade($source_guid, $target_guid, $group_guid)
 
 		if ($x < $y)
 		{
-			$group->grade=$copy;
-			system_message(elgg_echo("groups:grade:success")); 
+			$trip->grade=$copy;
+			system_message(elgg_echo("trips:grade:success")); 
 		}
 		else
 		{	
-			register_error(elgg_echo("groups:grade:fail")); 
+			register_error(elgg_echo("trips:grade:fail")); 
 			//this creates an orfan assessment
 			forward(REFERER);
 		}		
@@ -132,15 +131,15 @@ function trip_companions_add_grade($source_guid, $target_guid, $group_guid)
 }
 
 /*
-* Drop a user valoration (could be many) of the group's grade array
+* Drop a user valoration (could be many) of the trip's grade array
 */
-function trip_companions_remove_grade($source_guid, $target_guid, $group_guid) 
+function trip_companions_remove_grade($source_guid, $target_guid, $trip_guid) 
 {
-	$key = trip_companions_check_assessment($source_guid, $target_guid, $group_guid) ;
+	$key = trip_companions_check_assessment($source_guid, $target_guid, $trip_guid) ;
 	if ($key != -1)//there is something to drop
 	{
-		$group = get_entity($group_guid);
-		$copy=$group->grade;
+		$trip = get_entity($trip_guid);
+		$copy=$trip->grade;
 		$x = count($copy);
 	
 		unset($copy[$key]);
@@ -148,12 +147,12 @@ function trip_companions_remove_grade($source_guid, $target_guid, $group_guid)
 
 		if ($x > $y)
 		{
-			$group->grade=$copy;
-			system_message(elgg_echo("groups:unGrade:success")); 
+			$trip->grade=$copy;
+			system_message(elgg_echo("trips:unGrade:success")); 
 		}
 		else
 		{	
-			register_error(elgg_echo("groups:unGrade:fail")); 
+			register_error(elgg_echo("trips:unGrade:fail")); 
 			forward(REFERER);
 		}
 	}

@@ -647,6 +647,8 @@ O click a continuación para ver las solicitudes de inclusión del viaje:
 	'groups:summaryPreOrder:ViajaBulto'=>'No viajo, paquetería solamente',
 	'groups:summaryPreOrder:Elijo'=>'Seleccione',
 	'groups:summaryPreOrder:ElijoViajar'=>'Elijo Viajar',
-	'groups:summaryPreOrder:numBultos'=>'Num. Bultos'
+	'groups:summaryPreOrder:numBultos'=>'Num. Bultos',
+	'groups:summaryPreOrder:numBultos:Wrong'=>'Número de bultos erróneo.',
+	'groups:summaryPreOrder:justPreorder'=>'Ya estabas insrito en el viaje'
 );
 	

@@ -14,16 +14,16 @@
 $plugin = elgg_extract('entity', $vars);
 
 $listing_options = [
-	'discussion' => elgg_echo('groups:latestdiscussion'),
 	'yours' => elgg_echo('groups:yours'),
-	'newest' => elgg_echo('sort:newest'),
-	'popular' => elgg_echo('sort:popular'),
+	//'newest' => elgg_echo('sort:newest'), => es la opcion por defecto!
+	//'popular' => elgg_echo('sort:popular'),
 	'open' => elgg_echo('fuzzy_filter:trips:sorting:open'),
 	'closed' => elgg_echo('fuzzy_filter:trips:sorting:closed'),
-	'alpha' => elgg_echo('sort:alpha'),
+	//'alpha' => elgg_echo('sort:alpha'),
 	'ordered' => elgg_echo('fuzzy_filter:trips:sorting:ordered'),
 	'featured' => elgg_echo('status:featured'),
 	'suggested' => elgg_echo('fuzzy_filter:trips:sorting:suggested'),//Rosana: el que voy a implementar
+	'discussion' => elgg_echo('groups:latestdiscussion'),
 ];
 
 $body .= '<div>';

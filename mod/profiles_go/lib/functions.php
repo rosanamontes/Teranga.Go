@@ -356,7 +356,7 @@ function profiles_go_get_categorized_fields($user = null, $edit = false, $regist
 /**
  * Function just now returns only ordered (name is prepped for future release which should support categories)
  *
- * @param ElggGroup $trip Group to check the values of the fields against
+ * @param ElggGroup $trip Trip to check the values of the fields against
  *
  * @return array
  */

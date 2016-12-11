@@ -34,13 +34,30 @@ function profiles_go_fix_access_default() {
  * Run once function
  *
  * @return void
- */
+ *
+* 	Plugin: profiles_go from previous version of @package profile_manager of Coldtrick IT Solutions 2009
+*	Author: Rosana Montes Soldado 
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+* 	Project colaborator: Antonio Moles 
+*	
+*   Project Derivative:
+*	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
+*   Advisor: Rosana Montes
+*   Student: Ricardo Luzón Fernández
+* 
+*/
+
+ 
 function profiles_go_run_once() {
 	$dbprefix = elgg_get_config("dbprefix");
 	
 	// upgrade class names for subtypes
 	$profile_field_class_name = "ProfileManagerCustomProfileField";
-	$trip_field_class_name = "ProfileManagerCustomGroupField";
+	$trip_field_class_name = "ProfileManagerCustomTripField";
 	$field_type_class_name = "ProfileManagerCustomProfileType";
 	$field_category_class_name = "ProfileManagerCustomFieldCategory";
 	
@@ -50,7 +67,7 @@ function profiles_go_run_once() {
 		add_subtype('object', ProfileManagerCustomProfileField::SUBTYPE, $profile_field_class_name);
 	}
 	
-	if ($id = get_subtype_id('object', ProfileManagerCustomGroupField::SUBTYPE)) {
+	if ($id = get_subtype_id('object', ProfileManagerCustomTripField::SUBTYPE)) {
 		update_data("UPDATE {$dbprefix}entity_subtypes set class='$trip_field_class_name' WHERE id=$id");
 	} else {
 		add_subtype('object', ProfileManagerCustomGroupField::SUBTYPE, $trip_field_class_name);
@@ -76,7 +93,7 @@ function profiles_go_run_once() {
 			"type" => "object",
 			"subtypes" => array(
 					ProfileManagerCustomProfileField::SUBTYPE,
-					ProfileManagerCustomGroupField::SUBTYPE,
+					ProfileManagerCustomTripField::SUBTYPE,
 					ProfileManagerCustomProfileType::SUBTYPE,
 					ProfileManagerCustomFieldCategory::SUBTYPE
 				),

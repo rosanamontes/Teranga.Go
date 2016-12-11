@@ -248,7 +248,7 @@ function profiles_go_delete_member_of_site($event, $object_type, $object) {
  *
  * @param string     $event       Event name
  * @param string     $object_type Event type
- * @param ElggObject $object      Group that is being edited
+ * @param ElggObject $object      Trip that is being edited
  *
  * @return void
  */
@@ -267,7 +267,7 @@ function profiles_go_name_edit_increment($event, $object_type, $object) {
  *
  * @param string     $event       Event name
  * @param string     $object_type Event type
- * @param ElggObject $object      Group that is being edited
+ * @param ElggObject $object      Trip that is being edited
  *
  * @return void
  */

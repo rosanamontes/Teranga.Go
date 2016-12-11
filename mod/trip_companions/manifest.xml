@@ -22,7 +22,7 @@
 	</requires>
     <requires>
 		<type>plugin</type>
-		<name>profile_manager</name>
+		<name>profiles_go</name>
 	</requires>	
     <requires>
 		<type>plugin</type>

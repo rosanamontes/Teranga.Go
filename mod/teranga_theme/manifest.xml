@@ -27,7 +27,7 @@
 	<requires>
 		<type>priority</type>
 		<priority>after</priority>
-		<plugin>groups</plugin>
+		<plugin>mytrips</plugin>
 	</requires>
 	<requires>
 		<type>priority</type>

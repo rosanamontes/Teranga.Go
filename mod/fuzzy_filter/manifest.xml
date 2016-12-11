@@ -17,11 +17,11 @@
 	
 	<requires>
 		<type>plugin</type>
-		<name>groups</name>
+		<name>mytrips</name>
 	</requires>
 	<requires>
 		<type>priority</type>
-		<plugin>groups</plugin>
+		<plugin>mytrips</plugin>
 		<priority>after</priority>
 	</requires>
 

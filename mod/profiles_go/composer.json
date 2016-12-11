@@ -1,0 +1,14 @@
+{
+	"name": "teranga/profiles_go",
+	"description": "Management of driver and trip profile fields",
+	"type": "elgg-plugin",
+	"keywords": ["elgg", "plugin", "profile", "trip"],
+	"license": "GPL-2.0",
+	"support": {
+		"source": "https://github.com/rosanamontes/Teranga.Go/profiles_go",
+		"issues": "https://github.com/rosanamontes/Teranga.Go/profiles_go/issues"
+	},
+	"require": {
+		"composer/installers": "^1.0.8"
+	},
+}

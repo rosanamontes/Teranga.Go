@@ -60,7 +60,7 @@ if ($is_new_trip
 	forward(REFERER);
 }
 
-$trip = $trip_guid ? get_entity($trip_guid) : register_error("****** check new instance en action/edit ****");
+$trip = $trip_guid ? get_entity($trip_guid) : new ElggGroup() ;
 			
 			//Por defecto lo hago destacado
 			$trip->featured_trip = "yes";		
@@ -129,7 +129,8 @@ if (sizeof($input) > 0)
 			}
 		}
 
-		if ($value === '') {
+		if ($value === '') 
+		{
 			// The trip profile displays all profile fields that have a value.
 			// We don't want to display fields with empty string value, so we
 			// remove the metadata completely.

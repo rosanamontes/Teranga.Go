@@ -1,6 +1,6 @@
 /**
  * JavaScript used on trip creation/editing form
- * 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+ * 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -30,7 +30,7 @@ define(function(require) {
 	 * @param {Object} event
 	 */
 	var toggleContentAccessMode = function(event) {
-		var accessModeField = $('#myTrips-content-access-mode');
+		var accessModeField = $('#mytrips-content-access-mode');
 
 		if ($(this).val() == elgg.ACCESS_PRIVATE) {
 			// trip is hidden, so force members_only mode and disable the field
@@ -41,7 +41,7 @@ define(function(require) {
 		}
 	};
 
-	$('#myTrips-vis').on('change', toggleContentAccessMode);
+	$('#mytrips-vis').on('change', toggleContentAccessMode);
 
 	return {
 		toggleContentAccessMode: toggleContentAccessMode

@@ -34,24 +34,8 @@ function profiles_go_fix_access_default() {
  * Run once function
  *
  * @return void
- *
-* 	Plugin: profiles_go from previous version of @package profile_manager of Coldtrick IT Solutions 2009
-*	Author: Rosana Montes Soldado 
-*			Universidad de Granada
-*	Licence: 	CC-ByNCSA
-*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
-* 	Project coordinator: @rosanamontes
-*	Website: http://lsi.ugr.es/rosana
-* 	Project colaborator: Antonio Moles 
-*	
-*   Project Derivative:
-*	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
-*   Advisor: Rosana Montes
-*   Student: Ricardo Luzón Fernández
-* 
-*/
-
- 
+ */
+  
 function profiles_go_run_once() {
 	$dbprefix = elgg_get_config("dbprefix");
 	
@@ -70,7 +54,7 @@ function profiles_go_run_once() {
 	if ($id = get_subtype_id('object', ProfileManagerCustomTripField::SUBTYPE)) {
 		update_data("UPDATE {$dbprefix}entity_subtypes set class='$trip_field_class_name' WHERE id=$id");
 	} else {
-		add_subtype('object', ProfileManagerCustomGroupField::SUBTYPE, $trip_field_class_name);
+		add_subtype('object', ProfileManagerCustomTripField::SUBTYPE, $trip_field_class_name);
 	}
 	
 	if ($id = get_subtype_id('object', ProfileManagerCustomProfileType::SUBTYPE)) {

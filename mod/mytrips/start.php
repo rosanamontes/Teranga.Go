@@ -27,6 +27,7 @@ elgg_register_event_handler('init', 'system', 'mytrips_fields_setup', 10000);
  */
 function mytrips_init() 
 {
+	system_message("iniciando mytrips!!");
 	elgg_register_library('elgg:mytrips', elgg_get_plugins_path() . 'mytrips/lib/mytrips.php');
 
 	// register trip entities for search
@@ -79,7 +80,7 @@ function mytrips_init()
 	);
 
 	// add activity tool option
-	add_group_tool_option('activity', elgg_echo('mytrips:enableactivity'), true);
+	//add_group_tool_option('activity', elgg_echo('mytrips:enableactivity'), true);
 	elgg_extend_view('mytrips/tool_latest', 'mytrips/profile/activity_module');
 
 	// add link to owner block

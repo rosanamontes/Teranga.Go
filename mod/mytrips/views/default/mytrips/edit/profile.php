@@ -21,7 +21,7 @@
 
 
 $name = elgg_extract("name", $vars);
-$trip_profile_fields = elgg_get_config("group");
+$trip_profile_fields = elgg_get_config("trip");
 
 ?>
 <div>

@@ -245,8 +245,6 @@ function mytrips_setup_sidebar_menus()
  */
 function mytrips_page_handler($page) 
 {
-	system_message("hola");
-
 	elgg_load_library('elgg:mytrips');
 
 	if (!isset($page[0])) {

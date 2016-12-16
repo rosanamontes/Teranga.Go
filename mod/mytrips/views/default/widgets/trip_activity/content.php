@@ -39,13 +39,13 @@ if ($guid) {
 		'wheres' => array("(e1.container_guid = $guid)"),
 	));
 	if (!$activity) {
-		$activity = '<p>' . elgg_echo('myTrips:widget:trip_activity:content:noactivity') . '</p>';
+		$activity = '<p>' . elgg_echo('mytrips:widget:trip_activity:content:noactivity') . '</p>';
 	}
 	
 	$content .= $activity;
 } else {
 	// no trip selected yet
-	$content = '<p>' . elgg_echo('myTrips:widget:trip_activity:content:noselect') . '</p>';
+	$content = '<p>' . elgg_echo('mytrips:widget:trip_activity:content:noselect') . '</p>';
 }
 
 echo $content;

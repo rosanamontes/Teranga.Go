@@ -2,7 +2,7 @@
 /**
  * widget view
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -34,13 +34,13 @@ $content = elgg_list_entities_from_relationship($options);
 echo $content;
 
 if ($content) {
-	$url = "myTrips/member/" . elgg_get_page_owner_entity()->username;
+	$url = "mytrips/member/" . elgg_get_page_owner_entity()->username;
 	$more_link = elgg_view('output/url', array(
 		'href' => $url,
-		'text' => elgg_echo('myTrips:more'),
+		'text' => elgg_echo('mytrips:more'),
 		'is_trusted' => true,
 	));
 	echo "<span class=\"elgg-widget-more\">$more_link</span>";
 } else {
-	echo elgg_echo('myTrips:none');
+	echo elgg_echo('mytrips:none');
 }

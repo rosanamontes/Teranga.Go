@@ -42,7 +42,7 @@ $trip_dropdown = elgg_view('input/select', $params);
 ?>
 
 <div>
-	<?php echo elgg_echo('myTrips:widget:trip_activity:edit:select'); ?>:
+	<?php echo elgg_echo('mytrips:widget:trip_activity:edit:select'); ?>:
 	<?php echo $trip_dropdown; ?>
 </div>
 

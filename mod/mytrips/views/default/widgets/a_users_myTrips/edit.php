@@ -33,6 +33,6 @@ $dropdown = elgg_view('input/select', $params);
 
 ?>
 <div>
-	<?php echo elgg_echo('myTrips:widget:num_display'); ?>:
+	<?php echo elgg_echo('mytrips:widget:num_display'); ?>:
 	<?php echo $dropdown; ?>
 </div>

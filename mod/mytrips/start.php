@@ -17,6 +17,7 @@
 *   Student: Ricardo Luzón Fernández
 */
 
+
 elgg_register_event_handler('init', 'system', 'mytrips_init');
 
 // Ensure this runs after other plugins

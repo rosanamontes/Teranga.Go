@@ -42,7 +42,7 @@ $poster_link = elgg_view('output/url', array(
 	'text' => $poster->name,
 	'is_trusted' => true,
 ));
-$poster_text = elgg_echo('myTrips:started', array($poster->name));
+$poster_text = elgg_echo('mytrips:started', array($poster->name));
 
 $tags = elgg_view('output/tags', array('tags' => $topic->tags));
 $date = elgg_view_friendly_time($topic->time_created);
@@ -72,7 +72,7 @@ if ($num_replies != 0) {
 
 	$poster = $last_reply->getOwnerEntity();
 	$reply_time = elgg_view_friendly_time($last_reply->time_created);
-	$reply_text = elgg_echo('myTrips:updated', array($poster->name, $reply_time));
+	$reply_text = elgg_echo('mytrips:updated', array($poster->name, $reply_time));
 
 	$replies_link = elgg_view('output/url', array(
 		'href' => $topic->getURL() . '#trip-replies',

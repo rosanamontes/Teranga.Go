@@ -34,32 +34,32 @@ $content_access_mode = elgg_extract("content_access_mode", $vars);
 
 	$visibility_options =  array(
 		ACCESS_PUBLIC => elgg_echo("PUBLIC"),
-		ACCESS_PRIVATE => elgg_echo("myTrips:access:trip"),
+		ACCESS_PRIVATE => elgg_echo("mytrips:access:trip"),
 		ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
 	);
 
 	$opt_access = array(
-		ElggGroup::CONTENT_ACCESS_MODE_MEMBERS_ONLY => elgg_echo("myTrips:content_access_mode:membersonly"),
-		ElggGroup::CONTENT_ACCESS_MODE_UNRESTRICTED => elgg_echo("myTrips:content_access_mode:unrestricted"),
+		ElggGroup::CONTENT_ACCESS_MODE_MEMBERS_ONLY => elgg_echo("mytrips:content_access_mode:membersonly"),
+		ElggGroup::CONTENT_ACCESS_MODE_UNRESTRICTED => elgg_echo("mytrips:content_access_mode:unrestricted"),
 	);
 } 
 else === These settings are common in Teranga Go */
 {
-	//$opt_member = array(ACCESS_PUBLIC => elgg_echo("myTrips:access:public"));
+	//$opt_member = array(ACCESS_PUBLIC => elgg_echo("mytrips:access:public"));
 	$opt_member = array(
-		ACCESS_PUBLIC => elgg_echo("myTrips:access:public"),
-		ACCESS_PRIVATE => elgg_echo("myTrips:access:private"),
+		ACCESS_PUBLIC => elgg_echo("mytrips:access:public"),
+		ACCESS_PRIVATE => elgg_echo("mytrips:access:private"),
 	);
 
 
 	$visibility_options =  array( ACCESS_PUBLIC => elgg_echo("PUBLIC"));
-	$opt_access = array(ElggGroup::CONTENT_ACCESS_MODE_MEMBERS_ONLY => elgg_echo("myTrips:content_access_mode:membersonly"));
+	$opt_access = array(ElggGroup::CONTENT_ACCESS_MODE_MEMBERS_ONLY => elgg_echo("mytrips:content_access_mode:membersonly"));
 }
 
 
 ?>
 <div>
-	<label for="myTrips-membership"><?php echo elgg_echo("myTrips:membership"); ?></label><br />
+	<label for="myTrips-membership"><?php echo elgg_echo("mytrips:membership"); ?></label><br />
 	<?php 
 
 	/*echo elgg_view("input/text", array(
@@ -81,7 +81,7 @@ else === These settings are common in Teranga Go */
 
 <?php if (elgg_get_plugin_setting("hidden_myTrips", "myTrips") == "yes"): ?>
 	<div>
-		<label for="myTrips-vis"><?php echo elgg_echo("myTrips:visibility"); ?></label><br />
+		<label for="myTrips-vis"><?php echo elgg_echo("mytrips:visibility"); ?></label><br />
 		<?php
 
 		if (elgg_get_config("walled_garden")) {
@@ -128,7 +128,7 @@ if ($entity) {
 }
 ?>
 <div>
-	<label for="myTrips-content-access-mode"><?php echo elgg_echo("myTrips:content_access_mode"); ?></label><br />
+	<label for="myTrips-content-access-mode"><?php echo elgg_echo("mytrips:content_access_mode"); ?></label><br />
 	<?php
 		//echo elgg_view("input/select", $access_mode_params);
 		echo elgg_view("input/text", array(
@@ -142,7 +142,7 @@ if ($entity) {
 		if ($entity && $entity->getContentAccessMode() == ElggGroup::CONTENT_ACCESS_MODE_UNRESTRICTED) {
 			// Warn the user that changing the content access mode to more
 			// restrictive will not affect the existing trip content
-			$access_mode_warning = elgg_echo("myTrips:content_access_mode:warning");
+			$access_mode_warning = elgg_echo("mytrips:content_access_mode:warning");
 			echo "<span class='elgg-text-help'>$access_mode_warning</span>";
 		}*/
 	?>
@@ -171,7 +171,7 @@ if ($entity && ($owner_guid == elgg_get_logged_in_user_guid() || elgg_is_admin_l
 	?>
 
 	<div>
-		<label for="myTrips-owner-guid"><?php echo elgg_echo("myTrips:owner"); ?></label><br />
+		<label for="myTrips-owner-guid"><?php echo elgg_echo("mytrips:owner"); ?></label><br />
 		<?php
 			echo elgg_view("input/text", array(
 				"name" => "owner_guid",
@@ -189,7 +189,7 @@ if ($entity && ($owner_guid == elgg_get_logged_in_user_guid() || elgg_is_admin_l
 			));*/
 
 			if ($owner_guid == elgg_get_logged_in_user_guid()) {
-				echo "<span class='elgg-text-help'>" . elgg_echo("myTrips:owner:warning") . "</span>";
+				echo "<span class='elgg-text-help'>" . elgg_echo("mytrips:owner:warning") . "</span>";
 			}
 		?>
 	</div>

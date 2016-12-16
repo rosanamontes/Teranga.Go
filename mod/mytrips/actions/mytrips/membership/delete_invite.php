@@ -36,7 +36,7 @@ if (!$user && !elgg_instanceof($trip, 'trip'))
 // If join request made
 if (check_entity_relationship($trip->guid, 'invited', $user->guid)) {
 	remove_entity_relationship($trip->guid, 'invited', $user->guid);
-	system_message(elgg_echo("myTrips:invitekilled"));
+	system_message(elgg_echo("mytrips:invitekilled"));
 }
 
 forward(REFERER);

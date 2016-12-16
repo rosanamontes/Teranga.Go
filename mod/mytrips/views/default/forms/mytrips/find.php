@@ -18,7 +18,7 @@
 * 
 */
 
-$tag_string = elgg_echo('myTrips:search:tags');
+$tag_string = elgg_echo('mytrips:search:tags');
 
 $params = array(
 	'name' => 'tag',

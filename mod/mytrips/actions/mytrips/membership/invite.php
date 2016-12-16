@@ -38,7 +38,7 @@ if (count($user_guids) > 0 && elgg_instanceof($trip, 'trip') && $trip->canEdit()
 
 		if (check_entity_relationship($trip->guid, 'invited', $user->guid)) 
 		{
-			register_error(elgg_echo("myTrips:useralreadyinvited"));
+			register_error(elgg_echo("mytrips:useralreadyinvited"));
 			continue;
 		}
 
@@ -53,12 +53,12 @@ if (count($user_guids) > 0 && elgg_instanceof($trip, 'trip') && $trip->canEdit()
 
 		$url = elgg_normalize_url("myTrips/invitations/$user->username");
 
-		$subject = elgg_echo('myTrips:invite:subject', array(
+		$subject = elgg_echo('mytrips:invite:subject', array(
 			$user->name,
 			$trip->name
 		), $user->language);
 
-		$body = elgg_echo('myTrips:invite:body', array(
+		$body = elgg_echo('mytrips:invite:body', array(
 			$user->name,
 			$logged_in_user->name,
 			$trip->name,
@@ -74,9 +74,9 @@ if (count($user_guids) > 0 && elgg_instanceof($trip, 'trip') && $trip->canEdit()
 		$result = notify_user($user->getGUID(), $trip->owner_guid, $subject, $body, $params);
 
 		if ($result) {
-			system_message(elgg_echo("myTrips:userinvited"));
+			system_message(elgg_echo("mytrips:userinvited"));
 		} else {
-			register_error(elgg_echo("myTrips:usernotinvited"));
+			register_error(elgg_echo("mytrips:usernotinvited"));
 		}
 	}
 }

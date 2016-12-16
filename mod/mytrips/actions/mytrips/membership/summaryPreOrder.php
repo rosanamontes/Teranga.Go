@@ -32,7 +32,7 @@ $clave=array_search($user->guid,$summaryPreOrderUserGuid);
 
 if ($clave!="")
 {
-	system_messages(elgg_echo('myTrips:summaryPreOrder:justPreorder'));
+	system_messages(elgg_echo('mytrips:summaryPreOrder:justPreorder'));
 }
 else 
 {
@@ -40,7 +40,7 @@ else
 	$summaryPreOrderBultos=$trip->summaryPreOrderBultos;
 	$summaryPreOrderConfirmed=$trip->summaryPreOrderConfirmed;
 
-	$subjet=elgg_echo('myTrips:manageOrders:preorderOk:subjet',array($trip->name));	
+	$subjet=elgg_echo('mytrips:manageOrders:preorderOk:subjet',array($trip->name));	
 	
 	switch($requestType)
 	{
@@ -77,7 +77,7 @@ else
 					$aportacionFinal=$rest." €";
 				}
 				
-			$body=elgg_echo('myTrips:manageOrders:preorderOk:Yo',array(
+			$body=elgg_echo('mytrips:manageOrders:preorderOk:Yo',array(
 			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
 			elgg_echo($trayectoViaje),
 			$aportacionFinal,
@@ -86,7 +86,7 @@ else
 			//al conductor
 			messages_send($subjet,$body, $trip->owner_guid, 0,$user->guid);
 			
-			$body=elgg_echo('myTrips:manageOrders:preorderOk:msgViajero:Yo',array(
+			$body=elgg_echo('mytrips:manageOrders:preorderOk:msgViajero:Yo',array(
 			"<a href=\"".$trip->getURL()."\">".$trip->name."</a>",
 			elgg_echo($trayectoViaje),
 			$aportacionFinal
@@ -127,7 +127,7 @@ else
 					$aportacionFinal=$rest." €";
 				}
 			
-			$body=elgg_echo('myTrips:manageOrders:preorderOk:requestType',array(
+			$body=elgg_echo('mytrips:manageOrders:preorderOk:requestType',array(
 			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
 			elgg_echo($summaryPreOrderTrayecto[$clave]),
 			$aportacionFinal,
@@ -137,7 +137,7 @@ else
 			//al conductor
 			messages_send($subjet,$body, $trip->owner_guid, 0,$user->guid);
 			
-			$body=elgg_echo('myTrips:manageOrders:preorderOk:msgViajero:requestType',array(
+			$body=elgg_echo('mytrips:manageOrders:preorderOk:msgViajero:requestType',array(
 			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
 			elgg_echo($summaryPreOrderTrayecto[$clave]),
 			$aportacionFinal,
@@ -154,7 +154,7 @@ else
 			array_push($summaryPreOrderBultos,$bultos);
 			array_push($summaryPreOrderConfirmed,0);
 			
-			$body=elgg_echo('myTrips:manageOrders:preorderOk:Maleta',array(
+			$body=elgg_echo('mytrips:manageOrders:preorderOk:Maleta',array(
 			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
 			$aportacionFinal,
 			$bultos,
@@ -165,7 +165,7 @@ else
 			//al conductor
 			messages_send($subjet,$body, $trip->owner_guid, 0,$user->guid);
 			
-			$body=elgg_echo('myTrips:manageOrders:preorderOk:msgViajero:Maleta',array(
+			$body=elgg_echo('mytrips:manageOrders:preorderOk:msgViajero:Maleta',array(
 			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
 			$aportacionFinal,
 			$bultos
@@ -182,7 +182,7 @@ else
 	$trip->summaryPreOrderBultos=$summaryPreOrderBultos;
 	$trip->summaryPreOrderConfirmed=$summaryPreOrderConfirmed;
 		
-	system_messages(elgg_echo('myTrips:manageOrders:saved'));
+	system_messages(elgg_echo('mytrips:manageOrders:saved'));
 }
 
 forward($trip->getUrl());

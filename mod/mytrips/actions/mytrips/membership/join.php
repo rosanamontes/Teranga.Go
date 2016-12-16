@@ -50,7 +50,7 @@ if ($user && elgg_instanceof($trip, 'trip'))
 
 	if ($join) {
 		if (myTrips_join_trip($trip, $user)) {
-			system_message(elgg_echo("myTrips:joined"));
+			system_message(elgg_echo("mytrips:joined"));
 			
 			//copio en variable local
 			$follower=$trip->follower;
@@ -65,7 +65,7 @@ if ($user && elgg_instanceof($trip, 'trip'))
 			
 			forward($trip->getURL());
 		} else {
-			register_error(elgg_echo("myTrips:cantjoin"));
+			register_error(elgg_echo("mytrips:cantjoin"));
 		}
 	} else {
 		add_entity_relationship($user->guid, 'membership_request', $trip->guid);
@@ -74,12 +74,12 @@ if ($user && elgg_instanceof($trip, 'trip'))
 
 		$url = "{$CONFIG->url}myTrips/requests/$trip->guid";
 
-		$subject = elgg_echo('myTrips:request:subject', array(
+		$subject = elgg_echo('mytrips:request:subject', array(
 			$user->name,
 			$trip->name,
 		), $owner->language);
 
-		$body = elgg_echo('myTrips:request:body', array(
+		$body = elgg_echo('mytrips:request:body', array(
 			$trip->getOwnerEntity()->name,
 			$user->name,
 			$trip->name,
@@ -94,13 +94,13 @@ if ($user && elgg_instanceof($trip, 'trip'))
 		
 		// Notify trip owner
 		if (notify_user($owner->guid, $user->getGUID(), $subject, $body, $params)) {
-			system_message(elgg_echo("myTrips:joinrequestmade"));
+			system_message(elgg_echo("mytrips:joinrequestmade"));
 		} else {
-			register_error(elgg_echo("myTrips:joinrequestnotmade"));
+			register_error(elgg_echo("mytrips:joinrequestnotmade"));
 		}
 	}
 } else {
-	register_error(elgg_echo("myTrips:cantjoin"));
+	register_error(elgg_echo("mytrips:cantjoin"));
 }
 
 forward(REFERER);

@@ -22,7 +22,7 @@
 $trip_guid = (int)get_input('trip_guid');
 $trip = get_entity($trip_guid);
 
-system_messages(elgg_echo('myTrips:manageOrders:saved'));
+system_messages(elgg_echo('mytrips:manageOrders:saved'));
 forward($trip->getUrl());
 
 ?>

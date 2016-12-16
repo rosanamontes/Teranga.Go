@@ -88,12 +88,12 @@ for ($i=2;$i<count($trip->summaryPreOrderUserGuid);$i++)
 		
 		if ($summaryPreOrderBultos[$clave]!=0)
 		{
-			echo elgg_echo('myTrips:summaryPreOrder:numBultos').": ";echo $summaryPreOrderBultos[$clave];
+			echo elgg_echo('mytrips:summaryPreOrder:numBultos').": ";echo $summaryPreOrderBultos[$clave];
 		}
 						
 		if ($summaryPreOrderTrayecto[$clave]!=-1)
 		{
-			echo "<br />".elgg_echo('myTrips:summaryPreOrder:Elijo').": ";echo elgg_echo($summaryPreOrderTrayecto[$clave]);
+			echo "<br />".elgg_echo('mytrips:summaryPreOrder:Elijo').": ";echo elgg_echo($summaryPreOrderTrayecto[$clave]);
 		}
 					
 	?>
@@ -101,7 +101,7 @@ for ($i=2;$i<count($trip->summaryPreOrderUserGuid);$i++)
 		</div>
 		<div class="col-md-2 opciones">
 			
-		<input id="btn-<?php echo $user->guid;?>" userguid="<?php echo $user->guid;?>" type="button" class="col-md-12 btn btn-info" value="<?php echo elgg_echo('myTrips:manageOrders:confirmar'); ?>"/>
+		<input id="btn-<?php echo $user->guid;?>" userguid="<?php echo $user->guid;?>" type="button" class="col-md-12 btn btn-info" value="<?php echo elgg_echo('mytrips:manageOrders:confirmar'); ?>"/>
 		</div>
 	</div>
 
@@ -141,12 +141,12 @@ $(document).ready(function()
 			{
 				if(data.status==0 && data.result.success)
 				{
-					$("#btn-"+userguid).removeClass("btn-info").addClass("btn-warning").attr("value","<?php echo elgg_echo('myTrips:manageOrders:desconfirmar'); ?>");
-					elgg.system_message(elgg.echo('myTrips:manageOrders:confirmadoOk'));
+					$("#btn-"+userguid).removeClass("btn-info").addClass("btn-warning").attr("value","<?php echo elgg_echo('mytrips:manageOrders:desconfirmar'); ?>");
+					elgg.system_message(elgg.echo('mytrips:manageOrders:confirmadoOk'));
 				}
 				else 
 				{
-					elgg.register_error(elgg.echo('myTrips:manageOrders:confirmadoKo'));
+					elgg.register_error(elgg.echo('mytrips:manageOrders:confirmadoKo'));
 				}
 			});
 		}
@@ -160,12 +160,12 @@ $(document).ready(function()
 			{
 				if(data.status==0  && data.result.success)
 				{
-					$("#btn-"+userguid).removeClass("btn-warning").addClass("btn-info").attr("value","<?php echo elgg_echo('myTrips:manageOrders:confirmar'); ?>");
-					elgg.system_message(elgg.echo('myTrips:manageOrders:desconfirmadoOk'));
+					$("#btn-"+userguid).removeClass("btn-warning").addClass("btn-info").attr("value","<?php echo elgg_echo('mytrips:manageOrders:confirmar'); ?>");
+					elgg.system_message(elgg.echo('mytrips:manageOrders:desconfirmadoOk'));
 				}	
 				else 
 				{
-					elgg.register_error(elgg.echo('myTrips:manageOrders:desconfirmadoKo'));
+					elgg.register_error(elgg.echo('mytrips:manageOrders:desconfirmadoKo'));
 				}
 			});	
 		}
@@ -175,5 +175,5 @@ $(document).ready(function()
 <?php
 echo "<div class=\"col-md-12\">";
 echo elgg_view('input/hidden', array('name' => 'trip_guid', 'value' => $trip->guid));
-echo elgg_view('input/submit', array('value' => elgg_echo('myTrips:manageOrders:save')));
+echo elgg_view('input/submit', array('value' => elgg_echo('mytrips:manageOrders:save')));
 echo"<div>";

@@ -38,7 +38,7 @@ if ($topic_guid) {
 
 	$trip = $topic->getContainerEntity();
 	if (!$trip->canWriteToContainer()) {
-		register_error(elgg_echo('myTrips:notmember'));
+		register_error(elgg_echo('mytrips:notmember'));
 		forward(REFERER);
 	}
 }
@@ -53,16 +53,16 @@ if ($reply_guid) {
 	}
 
 	if (!$reply->canEdit()) {
-		register_error(elgg_echo('myTrips:notowner'));
+		register_error(elgg_echo('mytrips:notowner'));
 		forward(REFERER);
 	}
 
 	$reply->description = $text;
 
 	if ($reply->save()) {
-		system_message(elgg_echo('myTrips:forumpost:edited'));
+		system_message(elgg_echo('mytrips:forumpost:edited'));
 	} else {
-		register_error(elgg_echo('myTrips:forumpost:error'));
+		register_error(elgg_echo('mytrips:forumpost:error'));
 	}
 } else {
 	// add the reply to the forum topic

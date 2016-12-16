@@ -32,7 +32,7 @@ $guid = elgg_extract('guid', $vars, null);
 	<?php echo elgg_view('input/text', array('name' => 'title', 'value' => $title)); ?>
 </div>
 <div>
-	<label><?php echo elgg_echo('myTrips:topicmessage'); ?></label>
+	<label><?php echo elgg_echo('mytrips:topicmessage'); ?></label>
 	<?php echo elgg_view('input/longtext', array('name' => 'description', 'value' => $desc)); ?>
 </div>
 <div>
@@ -40,7 +40,7 @@ $guid = elgg_extract('guid', $vars, null);
 	<?php echo elgg_view('input/tags', array('name' => 'tags', 'value' => $tags)); ?>
 </div>
 <div>
-    <label><?php echo elgg_echo("myTrips:topicstatus"); ?></label><br />
+    <label><?php echo elgg_echo("mytrips:topicstatus"); ?></label><br />
 	<?php
 		echo elgg_view('input/select', array(
 			'name' => 'status',

@@ -36,7 +36,7 @@ if ($user && elgg_instanceof($trip, 'trip'))
 {
 	if ($trip->getOwnerGUID() != elgg_get_logged_in_user_guid()) 
 	{
-		system_message(elgg_echo("myTrips:PreOrderCorrect")); 
+		system_message(elgg_echo("mytrips:PreOrderCorrect")); 
 
 			//eliminar de follower
 				//copio en variable local
@@ -58,15 +58,15 @@ if ($user && elgg_instanceof($trip, 'trip'))
 				
 				//vuelvo a copiar el array
 				$trip->preorder=$preorder;
-				messages_send(elgg_echo('myTrips:manageOrders:preorderOk:subjet',array($trip->name)), 
-					elgg_echo('myTrips:manageOrders:preorderOk:message',
+				messages_send(elgg_echo('mytrips:manageOrders:preorderOk:subjet',array($trip->name)), 
+					elgg_echo('mytrips:manageOrders:preorderOk:message',
 						array("<a href=\"".$user->getURL()."\">".$user->name."</a>","<a href=\"".$trip->getURL()."\">".$trip->name."</a>")), $trip->owner_guid, 0,$user->guid);
 		
 		
 	} else {
-		register_error(elgg_echo("myTrips:cantleave"));
+		register_error(elgg_echo("mytrips:cantleave"));
 	}
 } else {
-	register_error(elgg_echo("myTrips:cantleave"));
+	register_error(elgg_echo("mytrips:cantleave"));
 }
 forward(REFERER);

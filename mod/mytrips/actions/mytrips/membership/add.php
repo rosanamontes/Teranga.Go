@@ -40,9 +40,9 @@ if (sizeof($user_guid))
 			{
 				if (myTrips_join_trip($trip, $user)) //start.php function
 				{
-					$subject = elgg_echo('myTrips:welcome:subject', array($trip->name), $user->language);
+					$subject = elgg_echo('mytrips:welcome:subject', array($trip->name), $user->language);
 
-					$body = elgg_echo('myTrips:welcome:body', array(
+					$body = elgg_echo('mytrips:welcome:body', array(
 						$user->name,
 						$trip->name,
 						$trip->getURL(),
@@ -56,7 +56,7 @@ if (sizeof($user_guid))
 					// Send welcome notification to user
 					notify_user($user->getGUID(), $trip->owner_guid, $subject, $body, $params);
 					
-					system_message(elgg_echo('myTrips:addedtotrip'));
+					system_message(elgg_echo('mytrips:addedtotrip'));
 					
 					//copio en variable local
 					$follower=$trip->follower;
@@ -68,11 +68,11 @@ if (sizeof($user_guid))
 					$trip->follower=$follower;	
 				}
 				else {
-					$errors[] = elgg_echo('myTrips:error:addedtotrip', array($user->name));
+					$errors[] = elgg_echo('mytrips:error:addedtotrip', array($user->name));
 				}
 			}
 			else {
-				$errors[] = elgg_echo('myTrips:add:alreadymember', array($user->name));
+				$errors[] = elgg_echo('mytrips:add:alreadymember', array($user->name));
 
 				// if an invitation is still pending clear it up, we don't need it
 				remove_entity_relationship($trip->guid, 'invited', $user->guid);

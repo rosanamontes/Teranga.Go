@@ -47,15 +47,15 @@ if ($user && elgg_instanceof($trip, 'trip'))
 			unset($follower[$clave]);
 			//vuelvo a asignar
 			$trip->follower=$follower;
-			system_message(elgg_echo("myTrips:left"));
+			system_message(elgg_echo("mytrips:left"));
 		} else {
-			register_error(elgg_echo("myTrips:cantleave"));
+			register_error(elgg_echo("mytrips:cantleave"));
 		}
 	} else {
-		register_error(elgg_echo("myTrips:cantleave"));
+		register_error(elgg_echo("mytrips:cantleave"));
 	}
 } else {
-	register_error(elgg_echo("myTrips:cantleave"));
+	register_error(elgg_echo("mytrips:cantleave"));
 }
 
 forward(REFERER);

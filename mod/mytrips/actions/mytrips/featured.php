@@ -24,17 +24,17 @@ $action = get_input('action_type');
 $trip = get_entity($trip_guid);
 
 if (!elgg_instanceof($trip, 'trip')) {
-	register_error(elgg_echo('myTrips:featured_error'));
+	register_error(elgg_echo('mytrips:featured_error'));
 	forward(REFERER);
 }
 
 //get the action, is it to feature or unfeature
 if ($action == "feature") {
 	$trip->featured_trip = "yes";
-	system_message(elgg_echo('myTrips:featuredon', array($trip->name)));
+	system_message(elgg_echo('mytrips:featuredon', array($trip->name)));
 } else {
 	$trip->featured_trip = "no";
-	system_message(elgg_echo('myTrips:unfeatured', array($trip->name)));
+	system_message(elgg_echo('mytrips:unfeatured', array($trip->name)));
 }
 
 forward(REFERER);

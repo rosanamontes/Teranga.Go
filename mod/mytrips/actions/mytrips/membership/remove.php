@@ -31,15 +31,15 @@ if ($user && elgg_instanceof($trip, 'trip') && $trip->canEdit())
 	// Don't allow removing trip owner
 	if ($trip->getOwnerGUID() != $user->getGUID()) {
 		if ($trip->leave($user)) {
-			system_message(elgg_echo("myTrips:removed", array($user->name)));
+			system_message(elgg_echo("mytrips:removed", array($user->name)));
 		} else {
-			register_error(elgg_echo("myTrips:cantremove"));
+			register_error(elgg_echo("mytrips:cantremove"));
 		}
 	} else {
-		register_error(elgg_echo("myTrips:cantremove"));
+		register_error(elgg_echo("mytrips:cantremove"));
 	}
 } else {
-	register_error(elgg_echo("myTrips:cantremove"));
+	register_error(elgg_echo("mytrips:cantremove"));
 }
 
 forward(REFERER);

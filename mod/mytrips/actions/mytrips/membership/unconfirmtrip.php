@@ -32,7 +32,7 @@ $trip = get_entity($trip_guid);
 
 elgg_set_page_owner_guid($trip->guid);
 
-system_message(elgg_echo("myTrips:unPreOrderCorrect")); 
+system_message(elgg_echo("mytrips:unPreOrderCorrect")); 
 
 //eliminar de confirmed
 	//copio en variable local
@@ -83,20 +83,20 @@ system_message(elgg_echo("myTrips:unPreOrderCorrect"));
 	$trayecto = elgg_echo($trip->trayecto, array(), $user->language);//El mensaje se traduce segun el receiver.
 
 	$linktoforum = "<a href='". elgg_get_site_url() ."discussion/owner/".$trip->guid."'>".
-		elgg_echo('myTrips:forum',array(),$user->language)."</a>"; 
+		elgg_echo('mytrips:forum',array(),$user->language)."</a>"; 
 
-	$subject = elgg_echo('myTrips:manageOrders:desconfirmadoOk:subjet', array($trip->name),$user->language);
+	$subject = elgg_echo('mytrips:manageOrders:desconfirmadoOk:subjet', array($trip->name),$user->language);
 	$owner=$trip->getOwnerGUID();
 	$owner=get_entity($owner);
 	
-	$body = elgg_echo('myTrips:manageOrders:desconfirmadoOk:message',array($owner->name,$linktotrip,$trayecto,$trip->aportacionViajero,$linktoforum),$user->language);
+	$body = elgg_echo('mytrips:manageOrders:desconfirmadoOk:message',array($owner->name,$linktotrip,$trayecto,$trip->aportacionViajero,$linktoforum),$user->language);
 
 	//no tengo claro quien es el sender en esta llamada
 	//Antonio                       MANDAR A:        DE PARTE DE:
 	messages_send($subject, $body, $userguid, 0,$trip->owner_guid);
 
 /*
-$result = messages_send(elgg_echo('myTrips:manageOrders:desconfirmadoOk:subjet',array($trip->name)), elgg_echo('myTrips:manageOrders:desconfirmadoOk:message'), $trip->owner_guid, 0,$user->guid);
+$result = messages_send(elgg_echo('mytrips:manageOrders:desconfirmadoOk:subjet',array($trip->name)), elgg_echo('mytrips:manageOrders:desconfirmadoOk:message'), $trip->owner_guid, 0,$user->guid);
 if (!$result) {
 	register_error(elgg_echo("messages:error"));
 }
@@ -112,15 +112,15 @@ if ($user && elgg_instanceof($trip, 'trip')
 	if ($trip->getOwnerGUID() != elgg_get_logged_in_user_guid()) 
 	{
 		if ($trip->leave($user)) {
-			system_message(elgg_echo("myTrips:left"));
+			system_message(elgg_echo("mytrips:left"));
 		} else {
-			register_error(elgg_echo("myTrips:cantleave"));
+			register_error(elgg_echo("mytrips:cantleave"));
 		}
 	} else {
-		register_error(elgg_echo("myTrips:cantleave"));
+		register_error(elgg_echo("mytrips:cantleave"));
 	}
 } else {
-	register_error(elgg_echo("myTrips:cantleave"));
+	register_error(elgg_echo("mytrips:cantleave"));
 }
 
 forward(REFERER);*/

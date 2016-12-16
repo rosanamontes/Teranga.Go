@@ -42,14 +42,14 @@ else
 	// brief view en la misma línea, o los listados se alargan demasiado
 	$paththeme = elgg_get_site_url() . "mod/custom_index/graphics";
 	$dots = "&nbsp;<img src='". $paththeme."/dots.png' width='5px'>&nbsp;" ;
-	$trip_description = $trip->briefdescription." ".elgg_echo('myTrips:fechaIda').": ".date("d / m / Y", strtotime($trip->fechaIda));
+	$trip_description = $trip->briefdescription." ".elgg_echo('mytrips:fechaIda').": ".date("d / m / Y", strtotime($trip->fechaIda));
 		if(date("d / m / Y", strtotime($trip->fechaVuelta))!="" && date("d / m / Y", strtotime($trip->fechaVuelta))>="01/01/1970"){
-				$trip_description.=$dots. elgg_echo('myTrips:fechaVuelta').": ".date("d / m / Y", strtotime($trip->fechaVuelta)) ;
+				$trip_description.=$dots. elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($trip->fechaVuelta)) ;
 		}
-		// elgg_echo('myTrips:fechaVuelta').": ".date("d / m / Y", strtotime($trip->fechaVuelta)) ;
+		// elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($trip->fechaVuelta)) ;
 	
 	if ($trip->servicioPaqueteria == 'custom:rating:si')
-		$trip_description .= $dots . elgg_echo('myTrips:servicioPaqueteria').": ".elgg_echo($trip->servicioPaqueteria);
+		$trip_description .= $dots . elgg_echo('mytrips:servicioPaqueteria').": ".elgg_echo($trip->servicioPaqueteria);
 
 	$params = array(
 		'entity' => $trip,

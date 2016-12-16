@@ -56,7 +56,7 @@ if ($is_new_trip
 		&& (elgg_get_plugin_setting('limited_myTrips', 'myTrips') == 'yes')
 		&& !$user->isAdmin()) 
 {
-	register_error(elgg_echo("myTrips:cantcreate"));
+	register_error(elgg_echo("mytrips:cantcreate"));
 	forward(REFERER);
 }
 
@@ -104,7 +104,7 @@ $trip = $trip_guid ? get_entity($trip_guid) : new ElggGroup() ;
 
 if (elgg_instanceof($trip, "trip") && !$trip->canEdit()) 
 {
-	register_error(elgg_echo("myTrips:cantedit"));
+	register_error(elgg_echo("mytrips:cantedit"));
 	forward(REFERER);
 }
 
@@ -117,7 +117,7 @@ if (sizeof($input) > 0)
 		if (!$is_new_trip && $shortname == 'name' && $value != $trip->name) 
 		{
 			$trip_name = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
-			$ac_name = sanitize_string(elgg_echo('myTrips:trip') . ": " . $trip_name);
+			$ac_name = sanitize_string(elgg_echo('mytrips:trip') . ": " . $trip_name);
 			$acl = get_access_collection($trip->trip_acl);
 			if ($acl) 
 			{
@@ -144,7 +144,7 @@ if (sizeof($input) > 0)
 
 // Validate create
 if (!$trip->name) {
-	register_error(elgg_echo("myTrips:notitle"));
+	register_error(elgg_echo("mytrips:notitle"));
 	forward(REFERER);
 }
 
@@ -217,7 +217,7 @@ if ($is_new_trip)
 	// if new trip, we need to save so trip acl gets set in event handler
 	if (!$trip->save()) 
 	{
-		register_error(elgg_echo("myTrips:save_error"));
+		register_error(elgg_echo("mytrips:save_error"));
 		forward(REFERER);
 	} 
 	else 
@@ -225,8 +225,8 @@ if ($is_new_trip)
 		/* Foros generados automáticamente para cada trip are discussions*/
 		$topic = new ElggObject();
 		$topic->subtype = 'tripforumtopic';
-		$topic->title = elgg_echo('myTrips:discussion:title1');
-		$topic->description = elgg_echo('myTrips:discussion:description1');
+		$topic->title = elgg_echo('mytrips:discussion:title1');
+		$topic->description = elgg_echo('mytrips:discussion:description1');
 		$topic->status = "open";
 		$topic->access_id = "2";
 		$topic->container_guid = $trip->guid;
@@ -240,8 +240,8 @@ if ($is_new_trip)
 		
 		$topic = new ElggObject();
 		$topic->subtype = 'tripforumtopic';
-		$topic->title = elgg_echo('myTrips:discussion:title2');
-		$topic->description = elgg_echo('myTrips:discussion:description2');
+		$topic->title = elgg_echo('mytrips:discussion:title2');
+		$topic->description = elgg_echo('mytrips:discussion:description2');
 		$topic->status = "open";
 		$topic->access_id = "2";
 		$topic->container_guid = $trip->guid;
@@ -258,8 +258,8 @@ if ($is_new_trip)
 		{
 			$topic = new ElggObject();
 			$topic->subtype = 'tripforumtopic';
-			$topic->title = elgg_echo('myTrips:discussion:title3');
-			$topic->description = elgg_echo('myTrips:discussion:description3');
+			$topic->title = elgg_echo('mytrips:discussion:title3');
+			$topic->description = elgg_echo('mytrips:discussion:description3');
 			$topic->status = "open";
 			$topic->access_id = "2";
 			$topic->container_guid = $trip->guid;
@@ -304,7 +304,7 @@ if (elgg_get_plugin_setting('hidden_myTrips', 'myTrips') == 'yes')
 }
 
 if (!$trip->save()) {
-	register_error(elgg_echo("myTrips:save_error"));
+	register_error(elgg_echo("mytrips:save_error"));
 	forward(REFERER);
 }
 
@@ -427,6 +427,6 @@ if ($must_move_icons) {
 	}
 }
 
-system_message(elgg_echo("myTrips:saved"));
+system_message(elgg_echo("mytrips:saved"));
 
 forward($trip->getUrl());

@@ -31,5 +31,5 @@ if ($friends) {
 	echo elgg_view('input/submit', array('value' => elgg_echo('invite')));
 	echo '</div>';
 } else {
-	echo elgg_echo('myTrips:nofriendsatall');
+	echo elgg_echo('mytrips:nofriendsatall');
 }

@@ -34,12 +34,12 @@ $tabs = array(
 		'priority' => 300,
 	),
 	'featured' => array(
-		'text' => elgg_echo('myTrips:featured'),
+		'text' => elgg_echo('mytrips:featured'),
 		'href' => 'myTrips/all?filter=featured',
 		'priority' => 400,
 	),
 	'discussion' => array(
-		'text' => elgg_echo('myTrips:latestdiscussion'),
+		'text' => elgg_echo('mytrips:latestdiscussion'),
 		'href' => 'myTrips/all?filter=discussion',
 		'priority' => 500,
 	),

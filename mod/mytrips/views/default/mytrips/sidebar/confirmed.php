@@ -25,4 +25,4 @@ $limit = elgg_extract('limit', $vars, 14);
 
 $body= elgg_view('myTrips/sidebar/views/tripArrays', array('CustomArray' => $vars['entity']->confirmed,'trip_guid' => $vars['entity']->guid));
 
-echo elgg_view_module('aside', elgg_echo('myTrips:confirmed'), $body);
+echo elgg_view_module('aside', elgg_echo('mytrips:confirmed'), $body);

@@ -25,7 +25,7 @@ $limit = elgg_extract('limit', $vars, 14);
 
 $all_link = elgg_view('output/url', array(
 	'href' => 'myTrips/members/' . $vars['entity']->guid,
-	'text' => elgg_echo('myTrips:members:more'),
+	'text' => elgg_echo('mytrips:members:more'),
 	'is_trusted' => true,
 ));
 
@@ -51,4 +51,4 @@ elgg_dump($vars['entity']);*/
 
 $body .= "<div class='center mts'>$all_link</div>";
 
-echo elgg_view_module('aside', elgg_echo('myTrips:members'), $body);
+echo elgg_view_module('aside', elgg_echo('mytrips:members'), $body);

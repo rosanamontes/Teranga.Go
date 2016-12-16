@@ -39,6 +39,6 @@ else
 
 $vars['items'] = $invitations;
 $vars['item_view'] = 'trip/format/invitationrequest';
-$vars['no_results'] = elgg_echo('myTrips:invitations:none');
+$vars['no_results'] = elgg_echo('mytrips:invitations:none');
 
 echo elgg_view('page/components/list', $vars);

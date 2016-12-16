@@ -29,30 +29,30 @@ $trip = $vars['entity'];
 $forward_url = $trip->getURL();
 ?>
 
-<?php echo elgg_echo('myTrips:name').": ".$trip->name; ?><br />
+<?php echo elgg_echo('mytrips:name').": ".$trip->name; ?><br />
 <?php echo elgg_echo('busqueda:OrigenyDestino').": ".$trip->origen." - ".$trip->destino; ?><br />
-<?php echo elgg_echo('myTrips:trayecto').": ".elgg_echo($trip->trayecto); ?><br />
-<?php echo elgg_echo('myTrips:fechaIda').": ".date("d / m / Y", strtotime($trip->fechaIda)); ?><br />
+<?php echo elgg_echo('mytrips:trayecto').": ".elgg_echo($trip->trayecto); ?><br />
+<?php echo elgg_echo('mytrips:fechaIda').": ".date("d / m / Y", strtotime($trip->fechaIda)); ?><br />
 <?php 
 if($trip->trayecto!="custom:trayecto:ida"){ ?>
-<?php echo elgg_echo('myTrips:fechaVuelta').": ".date("d / m / Y", strtotime($trip->fechaVuelta)); ?><br />	
+<?php echo elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($trip->fechaVuelta)); ?><br />	
 <?php } ?>
-<?php echo elgg_echo('myTrips:servicioPaqueteria').": ".elgg_echo($trip->servicioPaqueteria); ?><br />
-<?php echo elgg_echo('myTrips:bultosDisponibles').": ".$trip->bultosDisponibles; ?><br />
+<?php echo elgg_echo('mytrips:servicioPaqueteria').": ".elgg_echo($trip->servicioPaqueteria); ?><br />
+<?php echo elgg_echo('mytrips:bultosDisponibles').": ".$trip->bultosDisponibles; ?><br />
 <br/>
 
 
 <?php
 
 if ($trip->servicioPaqueteria=="custom:rating:si"){
-echo "&nbsp;&nbsp;".elgg_echo('myTrips:summaryPreOrder:Elijo').": ";
+echo "&nbsp;&nbsp;".elgg_echo('mytrips:summaryPreOrder:Elijo').": ";
 echo elgg_view('input/select', array(
    'required' => true,
    'name' => 'opcion',
    'options_values' => array(
-      '2' => elgg_echo('myTrips:summaryPreOrder:ViajaBulto'),
-	  '1' => elgg_echo('myTrips:summaryPreOrder:ViajoYOBulto'),
-	  '0' => elgg_echo('myTrips:summaryPreOrder:ViajoYO')
+      '2' => elgg_echo('mytrips:summaryPreOrder:ViajaBulto'),
+	  '1' => elgg_echo('mytrips:summaryPreOrder:ViajoYOBulto'),
+	  '0' => elgg_echo('mytrips:summaryPreOrder:ViajoYO')
       
 	  
    )));
@@ -61,7 +61,7 @@ echo elgg_view('input/select', array(
 
 <div id="numBultos">
 <?php 
-	echo elgg_echo('myTrips:summaryPreOrder:numBultos').": ";
+	echo elgg_echo('mytrips:summaryPreOrder:numBultos').": ";
 	echo elgg_view('input/text', array('name' => 'bultos','value'=>'0'));
 ?>
 
@@ -99,7 +99,7 @@ $(document).ready(function()
 	$("[name='bultos']").blur(function(){
 		if($(this).val()=="" || $(this).val()<0 || $(this).val()>nbultos)
 		{
-			alert("<?php echo elgg_echo('myTrips:summaryPreOrder:numBultos:Wrong'); ?>");
+			alert("<?php echo elgg_echo('mytrips:summaryPreOrder:numBultos:Wrong'); ?>");
 		}
 	});
 	
@@ -149,7 +149,7 @@ $(document).ready(function()
 	$( "form" ).submit(function() {
 		if($("[name='bultos']").val()=="" || $("[name='bultos']").val()<0 || $("[name='bultos']").val()>nbultos)
 		{
-			alert("<?php echo elgg_echo('myTrips:summaryPreOrder:numBultos:Wrong'); ?>");
+			alert("<?php echo elgg_echo('mytrips:summaryPreOrder:numBultos:Wrong'); ?>");
 			return false;
 		}
 	});
@@ -162,7 +162,7 @@ $(document).ready(function()
 <?php 
 if($trip->trayecto=="custom:trayecto:vuelta")
 {
-	echo elgg_echo('myTrips:summaryPreOrder:ElijoViajar').": ";
+	echo elgg_echo('mytrips:summaryPreOrder:ElijoViajar').": ";
 	echo elgg_view('input/select', array(
    		'name' => 'opcionViaje',
    		'options_values' => array(
@@ -171,13 +171,13 @@ if($trip->trayecto=="custom:trayecto:vuelta")
    	)));
 }
 
-echo "<div id=\"aportacionViajero\"><br />".elgg_echo('myTrips:aportacionViajero').": <span id=\"spanAportacionViajero\">".$trip->aportacionViajero."<span><br /></div>";
+echo "<div id=\"aportacionViajero\"><br />".elgg_echo('mytrips:aportacionViajero').": <span id=\"spanAportacionViajero\">".$trip->aportacionViajero."<span><br /></div>";
 echo "</div>";
 
 echo "<br/><div class=\"col-md-12\">";
 
 echo elgg_view('input/hidden', array('name' => 'trip_guid', 'value' => $trip->guid));
-echo elgg_view('input/submit', array('value' => elgg_echo('myTrips:manageOrders:save')));
+echo elgg_view('input/submit', array('value' => elgg_echo('mytrips:manageOrders:save')));
 
 echo"<div>";
 

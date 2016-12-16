@@ -33,5 +33,5 @@ if ($featured_myTrips) {
 	}
 	elgg_pop_context();
 
-	echo elgg_view_module('aside', elgg_echo("myTrips:featured"), $body);
+	echo elgg_view_module('aside', elgg_echo("mytrips:featured"), $body);
 }

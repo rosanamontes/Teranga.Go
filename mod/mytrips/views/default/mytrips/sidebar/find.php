@@ -25,4 +25,4 @@ $body = elgg_view_form('myTrips/find', array(
 	'disable_security' => true,
 ));
 
-echo elgg_view_module('aside', elgg_echo('myTrips:searchtag'), $body);
+echo elgg_view_module('aside', elgg_echo('mytrips:searchtag'), $body);

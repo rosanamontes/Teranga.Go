@@ -44,18 +44,18 @@ $is_owner = $trip->getOwnerEntity() == $user;
 
 if ($is_owner) 
 {
-	elgg_register_menu_item('myTrips:my_status', array(
+	elgg_register_menu_item('mytrips:my_status', array(
 		'name' => 'membership_status',
-		'text' => '<a>' . elgg_echo('myTrips:my_status:trip_owner') . '</a>',
+		'text' => '<a>' . elgg_echo('mytrips:my_status:trip_owner') . '</a>',
 		'href' => false
 	));
-	system_message(elgg_echo('myTrips:my_status:trip_owner'));
+	system_message(elgg_echo('mytrips:my_status:trip_owner'));
 } 
 else if ($is_member) 
 {
-	/*elgg_register_menu_item('myTrips:my_status', array(
+	/*elgg_register_menu_item('mytrips:my_status', array(
 		'name' => 'membership_status',
-		'text' => '<a>' . elgg_echo('myTrips:my_status:trip_member') . '</a>',
+		'text' => '<a>' . elgg_echo('mytrips:my_status:trip_member') . '</a>',
 		'href' => false
 	));*/
 	$follower =$trip->follower;
@@ -65,25 +65,25 @@ else if ($is_member)
 
 	if(array_search($user->guid,$follower)>1)
 	{
-		elgg_register_menu_item('myTrips:my_status', array(
+		elgg_register_menu_item('mytrips:my_status', array(
 		'name' => 'membership_status',
-		'text' => '<a>' . elgg_echo('myTrips:my_status:trip_member') . '</a>',
+		'text' => '<a>' . elgg_echo('mytrips:my_status:trip_member') . '</a>',
 		'href' => false
 		));
 	} 
 	else if (array_search($user->guid,$preorder)>1)
 	{
-		elgg_register_menu_item('myTrips:my_status', array(
+		elgg_register_menu_item('mytrips:my_status', array(
 		'name' => 'membership_status',
-		'text' => '<a>' . elgg_echo('myTrips:my_status:trip_PreOrder') . ' ('.$trip->aportacionViajero.')</a>',
+		'text' => '<a>' . elgg_echo('mytrips:my_status:trip_PreOrder') . ' ('.$trip->aportacionViajero.')</a>',
 		'href' => false
 		));
 	} 
 	else if (array_search($user->guid,$confirmed)>1)
 	{
-		elgg_register_menu_item('myTrips:my_status', array(
+		elgg_register_menu_item('mytrips:my_status', array(
 		'name' => 'membership_status',
-		'text' => '<a>' . elgg_echo('myTrips:my_status:trip_Confirmed')  . ' ('.$trip->aportacionViajero.')</a>',
+		'text' => '<a>' . elgg_echo('mytrips:my_status:trip_Confirmed')  . ' ('.$trip->aportacionViajero.')</a>',
 		'href' => false
 		));
 	} 
@@ -93,9 +93,9 @@ else if ($is_member)
 	elgg_dump($user->guid);
 	*/
 } else {
-	elgg_register_menu_item('myTrips:my_status', array(
+	elgg_register_menu_item('mytrips:my_status', array(
 		'name' => 'membership_status',
-		'text' => elgg_echo('myTrips:join'),
+		'text' => elgg_echo('mytrips:join'),
 		'href' => "/action/myTrips/join?trip_guid={$trip->getGUID()}",
 		'is_action' => true
 	));
@@ -105,22 +105,22 @@ else if ($is_member)
 if (elgg_is_active_plugin('notifications') && $is_member) 
 {
 	if ($subscribed) {
-		elgg_register_menu_item('myTrips:my_status', array(
+		elgg_register_menu_item('mytrips:my_status', array(
 			'name' => 'subscription_status',
-			'text' => elgg_echo('myTrips:subscribed'),
+			'text' => elgg_echo('mytrips:subscribed'),
 			'href' => "notifications/trip/$user->username",
 			'is_action' => true
 		));
 	} else {
-		elgg_register_menu_item('myTrips:my_status', array(
+		elgg_register_menu_item('mytrips:my_status', array(
 			'name' => 'subscription_status',
-			'text' => elgg_echo('myTrips:unsubscribed'),
+			'text' => elgg_echo('mytrips:unsubscribed'),
 			'href' => "notifications/trip/$user->username"
 		));
 	}
 }
 
-$body = elgg_view_menu('myTrips:my_status');
+$body = elgg_view_menu('mytrips:my_status');
 $grade_status = "";
 
 //To do. Se debe comprobar que el viaje ya se ha realizado (lo que hablamos de pasarlo a una pesataña histórico) 
@@ -141,9 +141,9 @@ if (check_available_user($user->guid, $trip->guid)) //$is_member no es suficient
 				$key = trip_companions_check_assessment($user->guid, $bro->guid, $trip->guid);
 				
 				if ($key > -1)
-					$grade_status .= '<div class="elgg-subtext">' . elgg_echo('myTrips:my_status:grade') . $bro->name .'</div>';
+					$grade_status .= '<div class="elgg-subtext">' . elgg_echo('mytrips:my_status:grade') . $bro->name .'</div>';
 				else 
-					$grade_status .= '<div class="elgg-subtext">' . elgg_echo('myTrips:my_status:grade:pending') . $bro->name .'</div>';
+					$grade_status .= '<div class="elgg-subtext">' . elgg_echo('mytrips:my_status:grade:pending') . $bro->name .'</div>';
 			}
 		}
 	}
@@ -154,14 +154,14 @@ if (check_available_user($user->guid, $trip->guid)) //$is_member no es suficient
 		$key = trip_companions_check_assessment($user->guid, $bro->guid, $trip->guid);
 		
 		if ($key > -1)
-			$grade_status .= '<div class="elgg-subtext">' . elgg_echo('myTrips:my_status:grade') . $bro->name .'</div>';
+			$grade_status .= '<div class="elgg-subtext">' . elgg_echo('mytrips:my_status:grade') . $bro->name .'</div>';
 		else 
-			$grade_status .= '<div class="elgg-subtext">' . elgg_echo('myTrips:my_status:grade:pending') . $bro->name .'</div>';
+			$grade_status .= '<div class="elgg-subtext">' . elgg_echo('mytrips:my_status:grade:pending') . $bro->name .'</div>';
 	}
 }
 else
-	$grade_status .= '<div class="elgg-subtext">' . elgg_echo('myTrips:my_status:nograde') .'</div>';
+	$grade_status .= '<div class="elgg-subtext">' . elgg_echo('mytrips:my_status:nograde') .'</div>';
 
 $body .= $grade_status;
-echo elgg_view_module('aside', elgg_echo('myTrips:my_status'), $body);
+echo elgg_view_module('aside', elgg_echo('mytrips:my_status'), $body);
 

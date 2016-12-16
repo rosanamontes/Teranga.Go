@@ -18,6 +18,6 @@
 */
 
 echo "<div class=\"elgg-box elgg-state-notice\">";
-	echo "<h3>" . elgg_echo("myTrips:topicisclosed") . "</h3>";
-	echo "<p>" . elgg_echo("myTrips:topiccloseddesc") . "</p>";
+	echo "<h3>" . elgg_echo("mytrips:topicisclosed") . "</h3>";
+	echo "<p>" . elgg_echo("mytrips:topiccloseddesc") . "</p>";
 echo "</div>";

@@ -47,7 +47,7 @@ elgg_pop_context();
 
 $new_link = elgg_view('output/url', array(
 	'href' => "discussion/add/" . $trip->getGUID(),
-	'text' => elgg_echo('myTrips:addtopic'),
+	'text' => elgg_echo('mytrips:addtopic'),
 	'is_trusted' => true,
 ));
 

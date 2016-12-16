@@ -51,9 +51,9 @@ if ($entity)
 {
 	$delete_url = "action/myTrips/delete?guid=" . $entity->getGUID();
 	echo elgg_view("output/url", array(
-		"text" => elgg_echo("myTrips:delete"),
+		"text" => elgg_echo("mytrips:delete"),
 		"href" => $delete_url,
-		"confirm" => elgg_echo("myTrips:deletewarning"),
+		"confirm" => elgg_echo("mytrips:deletewarning"),
 		"class" => "elgg-button elgg-button-delete float-alt",
 	));
 }

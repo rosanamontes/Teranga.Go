@@ -27,4 +27,4 @@ $body = elgg_view_form('myTrips/search', array(
 	'disable_security' => true,
 ), $vars);
 
-echo elgg_view_module('aside', elgg_echo('myTrips:search_in_trip'), $body);
+echo elgg_view_module('aside', elgg_echo('mytrips:search_in_trip'), $body);

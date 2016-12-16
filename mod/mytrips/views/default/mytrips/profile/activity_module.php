@@ -51,11 +51,11 @@ $content = elgg_list_river(array(
 elgg_pop_context();
 
 if (!$content) {
-	$content = '<p>' . elgg_echo('myTrips:activity:none') . '</p>';
+	$content = '<p>' . elgg_echo('mytrips:activity:none') . '</p>';
 }
 
 echo elgg_view('myTrips/profile/module', array(
-	'title' => elgg_echo('myTrips:activity'),
+	'title' => elgg_echo('mytrips:activity'),
 	'content' => $content,
 	'all_link' => $all_link,
 ));

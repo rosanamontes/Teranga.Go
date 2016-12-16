@@ -22,9 +22,9 @@
 ?>
 <p class="mtm">
 <?php
-echo elgg_echo('myTrips:closedtrip:membersonly');
+echo elgg_echo('mytrips:closedtrip:membersonly');
 if (elgg_is_logged_in()) {
-	echo ' ' . elgg_echo('myTrips:closedtrip:request');
+	echo ' ' . elgg_echo('mytrips:closedtrip:request');
 }
 ?>
 </p>

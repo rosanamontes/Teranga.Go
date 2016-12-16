@@ -25,11 +25,11 @@ $trip_profile_fields = elgg_get_config("trip");
 
 ?>
 <div>
-<label><?php echo elgg_echo("myTrips:icon"); ?></label><br />
+<label><?php echo elgg_echo("mytrips:icon"); ?></label><br />
 	<?php echo elgg_view("input/file", array("name" => "icon")); ?>
 </div>
 <div>
-	<label><?php echo elgg_echo("myTrips:name"); ?></label><br />
+	<label><?php echo elgg_echo("mytrips:name"); ?></label><br />
 	<?php echo elgg_view("input/text", array(
 		"name" => "name",
 		"value" => $name,
@@ -51,7 +51,7 @@ foreach ((array)$trip_profile_fields as $shortname => $valtype)
 	}
 
 	$line_break = ($valtype == "longtext") ? "" : "<br />";
-	$label = elgg_echo("myTrips:{$shortname}");
+	$label = elgg_echo("mytrips:{$shortname}");
 	$input = elgg_view("input/{$valtype}", array(
 		"name" => $shortname,
 		"value" => elgg_extract($shortname, $vars),

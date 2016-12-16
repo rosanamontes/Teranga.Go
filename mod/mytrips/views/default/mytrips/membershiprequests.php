@@ -46,7 +46,7 @@ if (!empty($vars['requests']) && is_array($vars['requests']))
 		$url = 'action/myTrips/killrequest?user_guid=' . $user->guid . '&trip_guid=' . $vars['entity']->guid;
 		$delete_button = elgg_view('output/url', array(
 				'href' => $url,
-				'confirm' => elgg_echo('myTrips:joinrequest:remove:check'),
+				'confirm' => elgg_echo('mytrips:joinrequest:remove:check'),
 				'text' => elgg_echo('delete'),
 				'class' => 'elgg-button elgg-button-delete mlm',
 		));
@@ -60,5 +60,5 @@ if (!empty($vars['requests']) && is_array($vars['requests']))
 	}
 	echo '</ul>';
 } else {
-	echo '<p class="mtm">' . elgg_echo('myTrips:requests:none') . '</p>';
+	echo '<p class="mtm">' . elgg_echo('mytrips:requests:none') . '</p>';
 }

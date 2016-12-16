@@ -22,9 +22,9 @@
 ?>
 <p class="mtm">
 <?php
-echo elgg_echo('myTrips:opentrip:membersonly');
+echo elgg_echo('mytrips:opentrip:membersonly');
 if (elgg_is_logged_in()) {
-	echo ' ' . elgg_echo('myTrips:opentrip:membersonly:join');
+	echo ' ' . elgg_echo('mytrips:opentrip:membersonly:join');
 }
 ?>
 </p>

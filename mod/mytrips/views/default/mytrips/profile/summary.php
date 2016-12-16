@@ -21,7 +21,7 @@
 */
 
 if (!isset($vars['entity']) || !$vars['entity']) {
-	echo elgg_echo('myTrips:notfound');
+	echo elgg_echo('mytrips:notfound');
 	return true;
 }
 
@@ -49,7 +49,7 @@ if (!$owner) {
 		</div>
 		<div class="myTrips-stats">
 			<p>
-				<b><?php echo elgg_echo("myTrips:owner"); ?>: </b>
+				<b><?php echo elgg_echo("mytrips:owner"); ?>: </b>
 				<?php
 					echo elgg_view('output/url', array(
 						'text' => $owner->name,
@@ -62,7 +62,7 @@ if (!$owner) {
 			<?php
 				$num_members = $trip->getMembers(array('count' => true));
 				/*CAMBIA N MIEMBROS DEL GRUPO*/
-				echo elgg_echo('myTrips:members') . ": " .$num_members."<br />";
+				echo elgg_echo('mytrips:members') . ": " .$num_members."<br />";
 				
 				//Asientos usados
 				$asientosOcupados=0;
@@ -92,9 +92,9 @@ if (!$owner) {
 				}*/
 				
 				if ($owner->nAsientos!="")	
-					echo elgg_echo('myTrips:seatsAvaible').": ".($owner->nAsientos- $asientosOcupados);
+					echo elgg_echo('mytrips:seatsAvaible').": ".($owner->nAsientos- $asientosOcupados);
 				else if($trip->nplazas!="") 
-					echo elgg_echo('myTrips:seatsAvaible').": ".($trip->nplazas- $asientosOcupados);
+					echo elgg_echo('mytrips:seatsAvaible').": ".($trip->nplazas- $asientosOcupados);
 				
 				
 				$nbultos = $trip->nbultos;
@@ -121,13 +121,13 @@ if (!$owner) {
 
 				//Rosana: mostrar solo si paquetería... idem en buscador
 				if ($trip->servicioPaqueteria == "custom:rating:si")
-					echo "<br />".elgg_echo('myTrips:bultosDisponibles').": ".$total;
+					echo "<br />".elgg_echo('mytrips:bultosDisponibles').": ".$total;
 				/*echo "<br />".elgg_echo('package:bultosDisponibles').": ".$trip->bultosDisponibles;*/
 			?>
 			
 			</p>
 
-			<a id="showMap" href="#"><?php echo elgg_echo('myTrips:showMap'); ?></a>
+			<a id="showMap" href="#"><?php echo elgg_echo('mytrips:showMap'); ?></a>
 			<div id="output"></div>
 		</div>
 	</div>
@@ -136,9 +136,9 @@ if (!$owner) {
 			echo elgg_view('myTrips/profile/fields', $vars);
 		?>
 	
-		<p class="odd"><b><?php echo elgg_echo('myTrips:distancia'); ?>: </b><span id="distancia"></span></p>
-			<p class="even"><b><?php echo elgg_echo('myTrips:tiempo'); ?>: </b><span id="tiempo"></span></p>
-			<!--<p class="odd"><b><?php //echo elgg_echo('myTrips:precio'); ?>: </b><span id="precio"></span> €</p>-->
+		<p class="odd"><b><?php echo elgg_echo('mytrips:distancia'); ?>: </b><span id="distancia"></span></p>
+			<p class="even"><b><?php echo elgg_echo('mytrips:tiempo'); ?>: </b><span id="tiempo"></span></p>
+			<!--<p class="odd"><b><?php //echo elgg_echo('mytrips:precio'); ?>: </b><span id="precio"></span> €</p>-->
 	</div>
 	
 	<style>

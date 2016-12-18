@@ -1,0 +1,15 @@
+Trip Profile Fields:
+-------------------
+ 1. origen [text]
+ 2. destino [text]
+ 3. fechaIda [calendar]
+ 4. fechaVuelta [calendar]
+ 5. nplazas [text]
+ 6. flexible [go_radio] 	Values: custom:rating:si,custom:rating:mucho,custom:rating:poco,custom:rating:no
+ 7. gender [go_radio]		Values: custom:rating:bajo,custom:rating:medio,custom:rating:alto
+ 8. trayecto [go_radio]		Values: custom:trayecto:ida,custom:trayecto:vuelta,custom:trayecto:acordar
+ 9. servicioPaqueteria [go_radio]	Values: custom:rating:si,custom:rating:no
+10. tamaMaletero [text]
+11. tipoBultos [multiselect]		Values: custom:package:raton,custom:package:gato,custom:package:tigre
+12. nbultos [text]
+13. bultosDisponibles [text]

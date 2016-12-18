@@ -832,38 +832,36 @@ function mytrips_prepare_form_vars($trip = null) {
 }
 
 
+/**
+ * Gets the user's trips
+ *
+ * @param array $options Options array. Used to be the subtype string.
+ * @param int   $limit   The number of trips to retrieve (deprecated)
+ * @param int   $offset  Indexing offset, if any (deprecated)
+ *
+ * @return array|false Array of \ElggGroup, or false, depending on success
+ */
 
-
-	/**
-	 * Gets the user's trips
-	 *
-	 * @param array $options Options array. Used to be the subtype string.
-	 * @param int   $limit   The number of trips to retrieve (deprecated)
-	 * @param int   $offset  Indexing offset, if any (deprecated)
-	 *
-	 * @return array|false Array of \ElggGroup, or false, depending on success
-	 */
-	public function getmytrips($options = "", $limit = 10, $offset = 0) 
+function getmytrips($options = "", $limit = 10, $offset = 0) 
+{
+	if (is_string($options)) 
 	{
-		if (is_string($options)) 
-		{
-			$subtype = $options;
-			$options = array(
-				'type' => 'trip',
-				'relationship' => 'member',
-				'relationship_guid' => $this->guid,
-				'limit' => $limit,
-				'offset' => $offset,
-			);
-
-			if ($subtype) {
-				$options['subtype'] = $subtype;
-			}
-		} else {
-			$options['type'] = 'trip';
-			$options['relationship'] = 'member';
-			$options['relationship_guid'] = $this->guid;
+		$subtype = $options;
+		$options = array(
+			'type' => 'trip',
+			'relationship' => 'member',
+			'relationship_guid' => $this->guid,
+			'limit' => $limit,
+			'offset' => $offset,
+		);
+		if ($subtype) {
+			$options['subtype'] = $subtype;
 		}
-
-		return elgg_get_entities_from_relationship($options);
+	} else {
+		$options['type'] = 'trip';
+		$options['relationship'] = 'member';
+		$options['relationship_guid'] = $this->guid;
 	}
+
+	return elgg_get_entities_from_relationship($options);
+}

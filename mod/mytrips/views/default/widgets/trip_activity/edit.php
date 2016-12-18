@@ -2,7 +2,7 @@
 /**
  * trip activity widget settings
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -19,23 +19,23 @@
 */
 
 
-// once autocomplete is working use that
-$myTrips = elgg_get_logged_in_user_entity()->getmyTrips(array('limit' => 0));
+// once autocomplete is working use that - get entities as in ./engine/classes/ElggUser.php
+$mytrips = elgg_get_logged_in_user_entity()->getmytrips(array('limit' => 0));
 
-$mymyTrips = array();
+$allmytrips = array();
 if (!$vars['entity']->trip_guid) {
-	$mymyTrips[0] = '';
+	$allmytrips[0] = '';
 }
 
-foreach ($myTrips as $trip) 
+foreach ($mytrips as $trip) 
 {
-	$mymyTrips[$trip->guid] = $trip->name;
+	$allmytrips[$trip->guid] = $trip->name;
 }
 
 $params = array(
 	'name' => 'params[trip_guid]',
 	'value' => $vars['entity']->trip_guid,
-	'options_values' => $mymyTrips,
+	'options_values' => $allmytrips,
 );
 
 $trip_dropdown = elgg_view('input/select', $params);

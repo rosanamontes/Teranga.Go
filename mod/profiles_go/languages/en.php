@@ -26,16 +26,16 @@ $english = array(
 	'item:object:custom_profile_field' => 'Custom Profile Field',
 	'item:object:custom_profile_field_category' => 'Custom Profile Field Category',
 	'item:object:custom_profile_type' => 'Custom Profile Type',
-	'item:object:custom_trip_field' => 'Custom Group Field',
+	'item:object:custom_trip_field' => 'Custom Trip Field',
 
 	'profile:custom_profile_type' => 'Custom Profile Type',
 	
 	// admin menu
-	'admin:appearance:trip_fields' => "Edit Group Fields",
+	'admin:appearance:trip_fields' => "Edit Trip Fields",
 	'admin:appearance:export_fields' => "Export Profile Data",
 	'admin:appearance:user_summary_control' => "User Summary Control",
 
-	'admin:trips' => "Groups",
+	'admin:trips' => "Trips",
 	'admin:trips:export' => "Export trips",
 	
 	'admin:users:export' => "Export users",
@@ -45,7 +45,7 @@ $english = array(
 	'profiles_go:settings:registration' => 'Registration',
 	'profiles_go:settings:edit_profile' => 'Edit Profile',
 	'profiles_go:settings:view_profile' => 'View Profile',
-	'profiles_go:settings:trip' => "Edit Group Profile",
+	'profiles_go:settings:trip' => "Edit Trip Profile",
 
 	'profiles_go:settings:generate_username_from_email' => 'Generate username from email',
 	'profiles_go:settings:profile_icon_on_register' => 'Add mandatory profile icon input field on register form',
@@ -139,7 +139,7 @@ $english = array(
 	'profiles_go:profile_fields:add:description' => "Here you can edit the fields a user can edit on his/her profile",
 
 	// trip fields
-	'profiles_go:trip_fields:list:title' => "Group Profile Fields",
+	'profiles_go:trip_fields:list:title' => "Trip Profile Fields",
 
 	'profiles_go:trip_fields:add:description' => "Here you can edit the fields that show on a trip profile page",
 	'profiles_go:trip_fields:add' => "Add a new trip profile field",
@@ -215,7 +215,7 @@ $english = array(
 	'profiles_go:export:list:include_trip_membership' => "Include trip membership",
 	'profiles_go:export:nofields' => "No custom profile fields available for export",
 
-	// Group Edit
+	// Trip Edit
 	'profiles_go:trip:edit:limit' => "You can edit this field %s more time(s)",
 	
 	// Configuration Backup and Restore

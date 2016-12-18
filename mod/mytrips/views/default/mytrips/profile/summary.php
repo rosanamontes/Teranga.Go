@@ -4,7 +4,7 @@
  *
  * @uses $vars['trip']
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -35,9 +35,9 @@ if (!$owner) {
 }
 
 ?>
-<div class="myTrips-profile clearfix elgg-image-block">
+<div class="mytrips-profile clearfix elgg-image-block">
 	<div class="elgg-image">
-		<div class="myTrips-profile-icon">
+		<div class="mytrips-profile-icon">
 			<?php
 				// we don't force icons to be square so don't set width/height
 				echo elgg_view_entity_icon($trip, 'large', array(
@@ -47,7 +47,7 @@ if (!$owner) {
 				)); 
 			?>
 		</div>
-		<div class="myTrips-stats">
+		<div class="mytrips-stats">
 			<p>
 				<b><?php echo elgg_echo("mytrips:owner"); ?>: </b>
 				<?php
@@ -131,9 +131,9 @@ if (!$owner) {
 			<div id="output"></div>
 		</div>
 	</div>
-	<div class="myTrips-profile-fields elgg-body">
+	<div class="mytrips-profile-fields elgg-body">
 		<?php
-			echo elgg_view('myTrips/profile/fields', $vars);
+			echo elgg_view('mytrips/profile/fields', $vars);
 		?>
 	
 		<p class="odd"><b><?php echo elgg_echo('mytrips:distancia'); ?>: </b><span id="distancia"></span></p>
@@ -251,7 +251,7 @@ if (!$owner) {
 			{
 				$trip->summaryPreOrderConfirmed = array('_','_');
 			}
-	elgg_log(" CREANDO \myTrips\views\default\myTrips\profile\summary","NOTICE");
+	elgg_log(" CREANDO \mytrips\views\default\mytrips\profile\summary","NOTICE");
 	elgg_dump($trip);
 */
 

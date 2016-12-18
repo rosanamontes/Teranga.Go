@@ -3,7 +3,7 @@
 /**
  * trip edit form
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -59,12 +59,12 @@ else === These settings are common in Teranga Go */
 
 ?>
 <div>
-	<label for="myTrips-membership"><?php echo elgg_echo("mytrips:membership"); ?></label><br />
+	<label for="mytrips-membership"><?php echo elgg_echo("mytrips:membership"); ?></label><br />
 	<?php 
 
 	/*echo elgg_view("input/text", array(
 		"name" => "membership",
-		"id" => "myTrips-membership",
+		"id" => "mytrips-membership",
 		"value" => $opt_member,
 		'disabled' => true, //en true no manda el valor al action
 
@@ -72,16 +72,16 @@ else === These settings are common in Teranga Go */
 
 	echo elgg_view("input/select", array(
 		"name" => "membership",
-		"id" => "myTrips-membership",
+		"id" => "mytrips-membership",
 		"value" => $membership,
 		"options_values" => $opt_member,
 	));
 	?>
 </div>
 
-<?php if (elgg_get_plugin_setting("hidden_myTrips", "myTrips") == "yes"): ?>
+<?php if (elgg_get_plugin_setting("hidden_mytrips", "mytrips") == "yes"): ?>
 	<div>
-		<label for="myTrips-vis"><?php echo elgg_echo("mytrips:visibility"); ?></label><br />
+		<label for="mytrips-vis"><?php echo elgg_echo("mytrips:visibility"); ?></label><br />
 		<?php
 
 		if (elgg_get_config("walled_garden")) {
@@ -90,7 +90,7 @@ else === These settings are common in Teranga Go */
 
 		echo elgg_view("input/text", array(
 			"name" => "vis",
-			"id" => "myTrips-vis",
+			"id" => "mytrips-vis",
 			"value" => $$visibility_options,
 			'entity' => $entity,
 			'entity_type' => 'trip',
@@ -99,7 +99,7 @@ else === These settings are common in Teranga Go */
 		
 		echo elgg_view("input/access", array(
 			"name" => "vis",
-			"id" => "myTrips-vis",
+			"id" => "mytrips-vis",
 			"value" => $visibility,
 			"options_values" => $visibility_options,
 			'entity' => $entity,
@@ -114,13 +114,13 @@ else === These settings are common in Teranga Go */
 
 $access_mode_params = array(
 	"name" => "content_access_mode",
-	"id" => "myTrips-content-access-mode",
+	"id" => "mytrips-content-access-mode",
 	"value" => $content_access_mode,
 	"options_values" => $opt_access,
 );
 
 if ($entity) {
-	// Disable content_access_mode field for hidden myTrips because the setting
+	// Disable content_access_mode field for hidden mytrips because the setting
 	// will be forced to members_only regardless of the entered value
 	//if ($entity->access_id === $entity->trip_acl) {
 	//	$access_mode_params['disabled'] = 'disabled';
@@ -128,12 +128,12 @@ if ($entity) {
 }
 ?>
 <div>
-	<label for="myTrips-content-access-mode"><?php echo elgg_echo("mytrips:content_access_mode"); ?></label><br />
+	<label for="mytrips-content-access-mode"><?php echo elgg_echo("mytrips:content_access_mode"); ?></label><br />
 	<?php
 		//echo elgg_view("input/select", $access_mode_params);
 		echo elgg_view("input/text", array(
 			"name" => "content_access_mode",
-			"id" => "myTrips-content-access-mode",
+			"id" => "mytrips-content-access-mode",
 			"value" => $opt_access,
 			'disabled' => true, //en true no manda el valor al action
 		));
@@ -171,21 +171,21 @@ if ($entity && ($owner_guid == elgg_get_logged_in_user_guid() || elgg_is_admin_l
 	?>
 
 	<div>
-		<label for="myTrips-owner-guid"><?php echo elgg_echo("mytrips:owner"); ?></label><br />
+		<label for="mytrips-owner-guid"><?php echo elgg_echo("mytrips:owner"); ?></label><br />
 		<?php
 			echo elgg_view("input/text", array(
 				"name" => "owner_guid",
-				"id" => "myTrips-owner-guid",
+				"id" => "mytrips-owner-guid",
 				"value" =>  $members,
 				'disabled' => true, //en true no manda el valor al action
 			));
 
 			/*echo elgg_view("input/select", array(
 				"name" => "owner_guid",
-				"id" => "myTrips-owner-guid",
+				"id" => "mytrips-owner-guid",
 				"value" =>  $owner_guid,
 				"options_values" => $members,
-				"class" => "myTrips-owner-input",
+				"class" => "mytrips-owner-input",
 			));*/
 
 			if ($owner_guid == elgg_get_logged_in_user_guid()) {

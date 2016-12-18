@@ -26,7 +26,7 @@ for ($i=2;$i<count($vars["CustomArray"]);$i++)
 	<div class="elgg-avatar elgg-avatar-tiny">
 		<!--<span class="elgg-icon-hover-menu elgg-icon" style="display: none;"></span>
 		<ul rel="<?php echo $mac; ?>" class="elgg-menu elgg-menu-hover elgg-ajax-loader" data-elgg-menu-data=<?php 
-		echo "{\"g\":$guid,\"pog\":$page_owner_guid,\"c\":[\"myTrips\",\"trip_profile\",\"gallery\"],\"m\":\"$mac\",\"i\":[]}";
+		echo "{\"g\":$guid,\"pog\":$page_owner_guid,\"c\":[\"mytrips\",\"trip_profile\",\"gallery\"],\"m\":\"$mac\",\"i\":[]}";
 		/*json_encode([
 		"g" => $guid,
 		"pog" => $page_owner_guid,

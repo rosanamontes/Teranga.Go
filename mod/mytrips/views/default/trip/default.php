@@ -2,7 +2,7 @@
 /**
  * trip entity view - brief text description
  * 
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -24,7 +24,7 @@ $icon = elgg_view_entity_icon($trip, 'tiny', $vars);
 
 $metadata = elgg_view_menu('entity', array(
 	'entity' => $trip,
-	'handler' => 'myTrips',
+	'handler' => 'mytrips',
 	'sort_by' => 'priority',
 	'class' => 'elgg-menu-hz',
 ));
@@ -35,7 +35,7 @@ if (elgg_in_context('owner_block') || elgg_in_context('widgets')) {
 
 
 if ($vars['full_view']) {
-	echo elgg_view('myTrips/profile/summary', $vars);
+	echo elgg_view('mytrips/profile/summary', $vars);
 } 
 else 
 {

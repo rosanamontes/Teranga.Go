@@ -4,7 +4,7 @@
  *
  * Three states: (1)  open trip so user joins  (2) closed trip so request sent to trip owner (3) closed trip with invite so user joins
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -39,7 +39,7 @@ if ($user && elgg_instanceof($trip, 'trip'))
 	// join or request
 	$join = false;
 	if ($trip->isPublicMembership() || $trip->canEdit($user->guid)) {
-		// anyone can join public myTrips and admins can join any trip
+		// anyone can join public mytrips and admins can join any trip
 		$join = true;
 	} else {
 		if (check_entity_relationship($trip->guid, 'invited', $user->guid)) {
@@ -49,7 +49,7 @@ if ($user && elgg_instanceof($trip, 'trip'))
 	}
 
 	if ($join) {
-		if (myTrips_join_trip($trip, $user)) {
+		if (mytrips_join_trip($trip, $user)) {
 			system_message(elgg_echo("mytrips:joined"));
 			
 			//copio en variable local
@@ -72,7 +72,7 @@ if ($user && elgg_instanceof($trip, 'trip'))
 
 		$owner = $trip->getOwnerEntity();
 
-		$url = "{$CONFIG->url}myTrips/requests/$trip->guid";
+		$url = "{$CONFIG->url}mytrips/requests/$trip->guid";
 
 		$subject = elgg_echo('mytrips:request:subject', array(
 			$user->name,

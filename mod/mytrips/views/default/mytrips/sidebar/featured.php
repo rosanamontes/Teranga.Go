@@ -1,8 +1,8 @@
 <?php
 /**
- * Featured myTrips
+ * Featured mytrips
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -18,17 +18,17 @@
 * 
 */
 
-$featured_myTrips = elgg_get_entities_from_metadata(array(
+$featured_mytrips = elgg_get_entities_from_metadata(array(
 	'metadata_name' => 'featured_trip',
 	'metadata_value' => 'yes',
 	'type' => 'trip',
 ));
 
-if ($featured_myTrips) {
+if ($featured_mytrips) {
 
 	elgg_push_context('widgets');
 	$body = '';
-	foreach ($featured_myTrips as $trip) {
+	foreach ($featured_mytrips as $trip) {
 		$body .= elgg_view_entity($trip, array('full_view' => false));
 	}
 	elgg_pop_context();

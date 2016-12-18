@@ -38,7 +38,7 @@ if (sizeof($user_guid))
 		{
 			if (!$trip->isMember($user)) 
 			{
-				if (myTrips_join_trip($trip, $user)) //start.php function
+				if (mytrips_join_trip($trip, $user)) //start.php function
 				{
 					$subject = elgg_echo('mytrips:welcome:subject', array($trip->name), $user->language);
 

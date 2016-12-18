@@ -2,7 +2,7 @@
 /**
  * trip search
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -18,8 +18,8 @@
 * 
 */
 
-$url = elgg_get_site_url() . 'myTrips/search';
-$body = elgg_view_form('myTrips/find', array(
+$url = elgg_get_site_url() . 'mytrips/search';
+$body = elgg_view_form('mytrips/find', array(
 	'action' => $url,
 	'method' => 'get',
 	'disable_security' => true,

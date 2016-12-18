@@ -4,7 +4,7 @@
  *
  * @uses $vars['entity'] trip entity
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -89,14 +89,14 @@ else if ($is_member)
 	} 
 	
 	/*
-	elgg_log("MY_STATUS) myTrips/views/default/myTrips/sidebar/my_status","NOTICE");
+	elgg_log("MY_STATUS) mytrips/views/default/mytrips/sidebar/my_status","NOTICE");
 	elgg_dump($user->guid);
 	*/
 } else {
 	elgg_register_menu_item('mytrips:my_status', array(
 		'name' => 'membership_status',
 		'text' => elgg_echo('mytrips:join'),
-		'href' => "/action/myTrips/join?trip_guid={$trip->getGUID()}",
+		'href' => "/action/mytrips/join?trip_guid={$trip->getGUID()}",
 		'is_action' => true
 	));
 }

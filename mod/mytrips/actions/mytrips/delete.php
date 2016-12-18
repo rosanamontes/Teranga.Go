@@ -2,7 +2,7 @@
 /**
  * Delete a trip
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -39,7 +39,7 @@ if (($entity) && elgg_instanceof($entity, 'trip'))
 
 	// delete trip icons
 	$owner_guid = $entity->owner_guid;
-	$prefix = "myTrips/" . $entity->guid;
+	$prefix = "mytrips/" . $entity->guid;
 	$imagenames = elgg_get_config('icon_sizes');
 	$img = new ElggFile();
 	$img->owner_guid = $owner_guid;
@@ -63,4 +63,4 @@ if (($entity) && elgg_instanceof($entity, 'trip'))
 }
 
 $url_name = elgg_get_logged_in_user_entity()->username;
-forward(elgg_get_site_url() . "myTrips/member/{$url_name}");
+forward(elgg_get_site_url() . "mytrips/member/{$url_name}");

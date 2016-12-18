@@ -4,7 +4,7 @@
  *
  * @uses $vars['entity']
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -51,7 +51,7 @@ $new_link = elgg_view('output/url', array(
 	'is_trusted' => true,
 ));
 
-echo elgg_view('myTrips/profile/module', array(
+echo elgg_view('mytrips/profile/module', array(
 	'title' => elgg_echo('discussion:trip'),
 	'content' => $content,
 	'all_link' => $all_link,

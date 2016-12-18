@@ -1,10 +1,10 @@
 <?php
 /**
- * myTrips latest activity
+ * mytrips latest activity
  *
  * @todo add people joining trip to activity
  * 
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -30,7 +30,7 @@ if (!$trip) {
 }
 
 $all_link = elgg_view('output/url', array(
-	'href' => "myTrips/activity/$trip->guid",
+	'href' => "mytrips/activity/$trip->guid",
 	'text' => elgg_echo('link:view:all'),
 	'is_trusted' => true,
 ));
@@ -54,7 +54,7 @@ if (!$content) {
 	$content = '<p>' . elgg_echo('mytrips:activity:none') . '</p>';
 }
 
-echo elgg_view('myTrips/profile/module', array(
+echo elgg_view('mytrips/profile/module', array(
 	'title' => elgg_echo('mytrips:activity'),
 	'content' => $content,
 	'all_link' => $all_link,

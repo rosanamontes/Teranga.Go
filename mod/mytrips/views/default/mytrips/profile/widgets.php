@@ -2,7 +2,7 @@
 /**
 * Profile widgets/tools
 * 
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -19,14 +19,14 @@
 */
 	
 // tools widget area
-echo '<ul id="myTrips-tools" class="elgg-gallery elgg-gallery-fluid mtl clearfix">';
+echo '<ul id="mytrips-tools" class="elgg-gallery elgg-gallery-fluid mtl clearfix">';
 
 // enable tools to extend this area
-echo elgg_view("myTrips/tool_latest", $vars);
+echo elgg_view("mytrips/tool_latest", $vars);
 
 // backward compatibility
-$right = elgg_view('myTrips/right_column', $vars);
-$left = elgg_view('myTrips/left_column', $vars);
+$right = elgg_view('mytrips/right_column', $vars);
+$left = elgg_view('mytrips/left_column', $vars);
 if ($right || $left) {
 	elgg_deprecated_notice('The views right_column and left_column have been replaced by tool_latest', 1.8);
 	echo $left;

@@ -5,7 +5,7 @@
  * @uses $vars['entity'] trip entity
  * @uses $vars['limit']  The max number of members to display
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -24,7 +24,7 @@
 $limit = elgg_extract('limit', $vars, 14);
 
 $all_link = elgg_view('output/url', array(
-	'href' => 'myTrips/members/' . $vars['entity']->guid,
+	'href' => 'mytrips/members/' . $vars['entity']->guid,
 	'text' => elgg_echo('mytrips:members:more'),
 	'is_trusted' => true,
 ));

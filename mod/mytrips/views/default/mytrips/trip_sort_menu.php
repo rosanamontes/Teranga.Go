@@ -1,10 +1,10 @@
 <?php
 /**
- * All myTrips listing page navigation
+ * All mytrips listing page navigation
  *
  * @uses $vars['selected'] Name of the tab that has been selected
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -25,22 +25,22 @@
 $tabs = array(
 	'newest' => array(
 		'text' => elgg_echo('sort:newest'),
-		'href' => 'myTrips/all?filter=newest',
+		'href' => 'mytrips/all?filter=newest',
 		'priority' => 200,
 	),
 	'popular' => array(
 		'text' => elgg_echo('sort:popular'),
-		'href' => 'myTrips/all?filter=popular',
+		'href' => 'mytrips/all?filter=popular',
 		'priority' => 300,
 	),
 	'featured' => array(
 		'text' => elgg_echo('mytrips:featured'),
-		'href' => 'myTrips/all?filter=featured',
+		'href' => 'mytrips/all?filter=featured',
 		'priority' => 400,
 	),
 	'discussion' => array(
 		'text' => elgg_echo('mytrips:latestdiscussion'),
-		'href' => 'myTrips/all?filter=discussion',
+		'href' => 'mytrips/all?filter=discussion',
 		'priority' => 500,
 	),
 );

@@ -4,7 +4,7 @@
  *
  * @uses $vars['invitations'] Optional array.
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -30,8 +30,8 @@ else
 	$user = elgg_get_page_owner_entity();
 	$vars['limit'] = get_input('limit', elgg_get_config('default_limit'));
 	$vars['offset'] = get_input('offset', 0);
-	$vars['count'] = myTrips_get_invited_myTrips($user->guid, false, array('count' => true));
-	$invitations = myTrips_get_invited_myTrips($user->guid, false, array(
+	$vars['count'] = mytrips_get_invited_mytrips($user->guid, false, array('count' => true));
+	$invitations = mytrips_get_invited_mytrips($user->guid, false, array(
 		'limit' => $limit,
 		'offset' => $offset
 			));

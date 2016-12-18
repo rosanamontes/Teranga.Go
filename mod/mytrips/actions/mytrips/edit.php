@@ -1,8 +1,8 @@
 <?php
 /**
- * Elgg myTrips plugin edit action.
+ * Elgg mytrips plugin edit action.
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -18,7 +18,7 @@
 *
 */
 
-elgg_make_sticky_form('myTrips');
+elgg_make_sticky_form('mytrips');
 
 /**
  * wrapper for recursive array walk decoding
@@ -29,9 +29,12 @@ function profile_array_decoder(&$v) {
 
 // Get trip fields
 $input = array();
+print_r($input);
+
 foreach (elgg_get_config('trip') as $shortname => $valuetype) 
 {
 	$input[$shortname] = get_input($shortname);
+	system_message( $input[$shortname] ." --- " . $valuetype);
 
 	// @todo treat profile fields as unescaped: don't filter, encode on output
 	if (is_array($input[$shortname])) {
@@ -53,7 +56,7 @@ $trip_guid = (int)get_input('trip_guid');
 $is_new_trip = $trip_guid == 0;
 
 if ($is_new_trip
-		&& (elgg_get_plugin_setting('limited_myTrips', 'myTrips') == 'yes')
+		&& (elgg_get_plugin_setting('limited_mytrips', 'mytrips') == 'yes')
 		&& !$user->isAdmin()) 
 {
 	register_error(elgg_echo("mytrips:cantcreate"));
@@ -285,7 +288,7 @@ if ($is_new_trip)
 // @todo this requires save to be called to create the acl for the trip. This
 // is an odd requirement and should be removed. Either the acl creation happens
 // in the action or the visibility moves to a plugin hook
-if (elgg_get_plugin_setting('hidden_myTrips', 'myTrips') == 'yes') 
+if (elgg_get_plugin_setting('hidden_mytrips', 'mytrips') == 'yes') 
 {
 	$visibility = (int)get_input('vis');
 
@@ -293,7 +296,7 @@ if (elgg_get_plugin_setting('hidden_myTrips', 'myTrips') == 'yes')
 	{
 		// Make this trip visible only to trip members. We need to use
 		// ACCESS_PRIVATE on the form and convert it to trip_acl here
-		// because new myTrips do not have acl until they have been saved once.
+		// because new mytrips do not have acl until they have been saved once.
 		$visibility = $trip->trip_acl;
 
 		// Force all new trip content to be available only to members
@@ -309,7 +312,7 @@ if (!$trip->save()) {
 }
 
 // trip saved so clear sticky form
-elgg_clear_sticky_form('myTrips');
+elgg_clear_sticky_form('mytrips');
 
 // trip creator needs to be member of new trip and river entry created
 if ($is_new_trip) {
@@ -332,7 +335,7 @@ if ($has_uploaded_icon) {
 
 	$icon_sizes = elgg_get_config('icon_sizes');
 
-	$prefix = "myTrips/" . $trip->guid;
+	$prefix = "mytrips/" . $trip->guid;
 
 	$filehandler = new ElggFile();
 	$filehandler->owner_guid = $trip->owner_guid;
@@ -373,7 +376,7 @@ if ($has_uploaded_icon) {
 // @todo Remove this when #4683 fixed
 if ($must_move_icons) {
 	$filehandler = new ElggFile();
-	$filehandler->setFilename('myTrips');
+	$filehandler->setFilename('mytrips');
 	$filehandler->owner_guid = $old_owner_guid;
 	$old_path = $filehandler->getFilenameOnFilestore();
 
@@ -397,7 +400,7 @@ if ($must_move_icons) {
 	if ($owner_changed_flag && $old_icontime) { // @todo Remove this when #4683 fixed
 
 		$filehandler = new ElggFile();
-		$filehandler->setFilename('myTrips');
+		$filehandler->setFilename('mytrips');
 
 		$filehandler->owner_guid = $old_owner_guid;
 		$old_path = $filehandler->getFilenameOnFilestore();
@@ -412,7 +415,7 @@ if ($must_move_icons) {
 } elseif ($owner_changed_flag && $old_icontime) { // @todo Remove this when #4683 fixed
 
 	$filehandler = new ElggFile();
-	$filehandler->setFilename('myTrips');
+	$filehandler->setFilename('mytrips');
 
 	$filehandler->owner_guid = $old_owner_guid;
 	$old_path = $filehandler->getFilenameOnFilestore();

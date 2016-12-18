@@ -2,7 +2,7 @@
 /**
  * Invite users to join a trip
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -51,7 +51,7 @@ if (count($user_guids) > 0 && elgg_instanceof($trip, 'trip') && $trip->canEdit()
 		// Create relationship
 		add_entity_relationship($trip->guid, 'invited', $user->guid);
 
-		$url = elgg_normalize_url("myTrips/invitations/$user->username");
+		$url = elgg_normalize_url("mytrips/invitations/$user->username");
 
 		$subject = elgg_echo('mytrips:invite:subject', array(
 			$user->name,

@@ -2,7 +2,7 @@
 /**
  * cancel a preorder in trip action.
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -31,7 +31,7 @@ if (!$user_guid) {
 $trip = get_entity($trip_guid);
 
 elgg_set_page_owner_guid($trip->guid);
-/*elgg_log("CREANDO myTrips/actions/myTrips/membership/preorder->","NOTICE");
+/*elgg_log("CREANDO mytrips/actions/mytrips/membership/preorder->","NOTICE");
 elgg_dump($trip);*/
 
 

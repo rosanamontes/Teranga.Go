@@ -4,7 +4,7 @@
  *
  * @uses $vars['entity'] trip object
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -26,4 +26,4 @@ $form_vars = array(
 	'class' => 'elgg-form-alt',
 );
 
-echo elgg_view_form('myTrips/gestionarReservas', $form_vars, myTrips_prepare_form_vars($entity));
+echo elgg_view_form('mytrips/gestionarReservas', $form_vars, mytrips_prepare_form_vars($entity));

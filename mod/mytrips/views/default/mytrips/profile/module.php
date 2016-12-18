@@ -7,7 +7,7 @@
  * @uses $vars['all_link'] A link to list content
  * @uses $vars['add_link'] A link to create content
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -26,7 +26,7 @@
 
 $trip = elgg_get_page_owner_entity();
 
-$header = "<span class=\"myTrips-widget-viewall\">{$vars['all_link']}</span>";
+$header = "<span class=\"mytrips-widget-viewall\">{$vars['all_link']}</span>";
 $header .= '<h3>' . $vars['title'] . '</h3>';
 
 if ($trip->canWriteToContainer() && isset($vars['add_link'])) {

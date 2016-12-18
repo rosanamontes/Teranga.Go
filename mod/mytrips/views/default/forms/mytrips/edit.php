@@ -2,7 +2,7 @@
 /**
  * trip edit form
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -24,13 +24,13 @@ $entity = elgg_extract("entity", $vars, false);//a trip
 elgg_push_context("trip-edit");
 
 // build the trip profile fields
-echo elgg_view("myTrips/edit/profile", $vars);
+echo elgg_view("mytrips/edit/profile", $vars);
 
 // build the trip access options. In teranga only admins couls change the options
-echo elgg_view("myTrips/edit/access", $vars);
+echo elgg_view("mytrips/edit/access", $vars);
 
 // build the trip tools options. In teranga only admins couls change the options
-echo elgg_view("myTrips/edit/tools", $vars);
+echo elgg_view("mytrips/edit/tools", $vars);
 
 // display the save button and some additional form data
 ?>
@@ -49,7 +49,7 @@ echo elgg_view("input/submit", array("value" => elgg_echo("save")));
 
 if ($entity) 
 {
-	$delete_url = "action/myTrips/delete?guid=" . $entity->getGUID();
+	$delete_url = "action/mytrips/delete?guid=" . $entity->getGUID();
 	echo elgg_view("output/url", array(
 		"text" => elgg_echo("mytrips:delete"),
 		"href" => $delete_url,

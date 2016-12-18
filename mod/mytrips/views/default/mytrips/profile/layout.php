@@ -1,10 +1,10 @@
 <?php
 /**
- * Layout of the myTrips profile page
+ * Layout of the mytrips profile page
  *
  * @uses $vars['entity']
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -22,22 +22,22 @@
 
 $trip = elgg_extract('entity', $vars); //trip entity
 
-echo elgg_view('myTrips/profile/summary', $vars);
+echo elgg_view('mytrips/profile/summary', $vars);
 
 if (elgg_trip_gatekeeper(false)) 
 {
 	if (!$trip->isPublicMembership() && !$trip->isMember()) 
 	{
-		echo elgg_view('myTrips/profile/closed_membership');
+		echo elgg_view('mytrips/profile/closed_membership');
 	}
 
-	echo elgg_view('myTrips/profile/widgets', $vars);
+	echo elgg_view('mytrips/profile/widgets', $vars);
 } 
 else 
 {
 	if ($trip->isPublicMembership()) {
-		echo elgg_view('myTrips/profile/membersonly_open');
+		echo elgg_view('mytrips/profile/membersonly_open');
 	} else {
-		echo elgg_view('myTrips/profile/membersonly_closed');
+		echo elgg_view('mytrips/profile/membersonly_closed');
 	}
 }

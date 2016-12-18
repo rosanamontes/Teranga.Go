@@ -1,13 +1,13 @@
 <script 
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" 
 	crossorigin="anonymous"></script>
-<link href="<?php echo elgg_get_site_url()."mod/"; ?>myTrips/css/bootstrap.css" rel="stylesheet" >
+<link href="<?php echo elgg_get_site_url()."mod/"; ?>mytrips/css/bootstrap.css" rel="stylesheet" >
 
 <?php
 /**
- * Elgg myTrips summaryPreOrder form
+ * Elgg mytrips summaryPreOrder form
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA

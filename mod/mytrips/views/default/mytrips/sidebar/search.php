@@ -4,7 +4,7 @@
  *
  * @uses vars['entity'] trip entity
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -21,7 +21,7 @@
 */ 
 
 $url = elgg_get_site_url() . 'search';
-$body = elgg_view_form('myTrips/search', array(
+$body = elgg_view_form('mytrips/search', array(
 	'action' => $url,
 	'method' => 'get',
 	'disable_security' => true,

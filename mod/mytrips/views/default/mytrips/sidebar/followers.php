@@ -5,7 +5,7 @@
  * @uses $vars['entity'] trip entity
  * @uses $vars['limit']  The max number of members to display
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -23,6 +23,6 @@
 
 $limit = elgg_extract('limit', $vars, 14);
 
-$body= elgg_view('myTrips/sidebar/views/tripArrays', array('CustomArray' => $vars['entity']->follower,'trip_guid' => $vars['entity']->guid));
+$body= elgg_view('mytrips/sidebar/views/tripArrays', array('CustomArray' => $vars['entity']->follower,'trip_guid' => $vars['entity']->guid));
 
 echo elgg_view_module('aside', elgg_echo('mytrips:follower'), $body);

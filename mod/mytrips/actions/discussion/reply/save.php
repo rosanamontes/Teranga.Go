@@ -2,7 +2,7 @@
 /**
  * Save a discussion reply
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -75,7 +75,7 @@ if ($reply_guid) {
 	$reply_guid = $reply->save();
 
 	if ($reply_guid == false) {
-		register_error(elgg_echo('myTripspost:failure'));
+		register_error(elgg_echo('mytripspost:failure'));
 		forward(REFERER);
 	}
 
@@ -87,7 +87,7 @@ if ($reply_guid) {
 		'target_guid' => $topic->guid,
 	));
 
-	system_message(elgg_echo('myTripspost:success'));
+	system_message(elgg_echo('mytripspost:success'));
 }
 
 forward(REFERER);

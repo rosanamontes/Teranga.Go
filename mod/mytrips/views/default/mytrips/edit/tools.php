@@ -21,7 +21,7 @@
 * 
 */
 
-$tools = elgg_get_config("trip_tool_options");
+$tools = elgg_get_config("group_tool_options");
 
 if ($tools) 
 {

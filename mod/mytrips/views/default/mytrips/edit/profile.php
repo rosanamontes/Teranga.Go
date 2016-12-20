@@ -1,7 +1,7 @@
 <?php
 
 /**
- * profile trip edit form
+ * profile trip edit form - uses custom profile fields from @package profiles_go
  *
 * 	Plugin: myTripsTeranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
@@ -22,7 +22,7 @@
 
 $name = elgg_extract("name", $vars);
 $trip_profile_fields = elgg_get_config("trip");
-
+system_message(" profile *** name " . $name);
 ?>
 <div>
 <label><?php echo elgg_echo("mytrips:icon"); ?></label><br />
@@ -50,12 +50,13 @@ foreach ((array)$trip_profile_fields as $shortname => $valtype)
 		continue;
 	}
 
+	//system_message(" custom field name = " . $shortname);	
 	$line_break = ($valtype == "longtext") ? "" : "<br />";
 	$label = elgg_echo("mytrips:{$shortname}");
 	$input = elgg_view("input/{$valtype}", array(
 		"name" => $shortname,
 		"value" => elgg_extract($shortname, $vars),
 	));
-
+		
 	echo "<div><label>{$label}</label>{$line_break}{$input}</div>";
 }

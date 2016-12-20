@@ -78,7 +78,8 @@ if ($current_field && ($current_field->getSubtype() != CUSTOM_PROFILE_FIELDS_PRO
 		if ($metadata_type == "dropdown" || $metadata_type == "go_radio" || $metadata_type == "multiselect") 
 		{
 			$temp_options = explode(",", $metadata_options);
-			foreach ($temp_options as $key => $option) {
+			foreach ($temp_options as $key => $option) 
+			{
 				$trimmed_option = trim($option);
 				if (!empty($trimmed_option)) {
 					$new_options[$key] = $trimmed_option;

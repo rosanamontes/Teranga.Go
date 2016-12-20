@@ -119,7 +119,8 @@ function profiles_go_register_custom_field_types() {
  *
  * @return void
  */
-function profiles_go_add_custom_field_type($register_name, $field_type, $field_display_name, $options) {
+function profiles_go_add_custom_field_type($register_name, $field_type, $field_display_name, $options) 
+{
 	global $PROFILE_MANAGER_FIELD_TYPES;
 	
 	if (!isset($PROFILE_MANAGER_FIELD_TYPES)) {
@@ -144,7 +145,8 @@ function profiles_go_add_custom_field_type($register_name, $field_type, $field_d
  *
  * @return false|array
  */
-function profiles_go_get_custom_field_types($register_name) {
+function profiles_go_get_custom_field_types($register_name) 
+{
 	global $PROFILE_MANAGER_FIELD_TYPES;
 	
 	$result = false;
@@ -163,8 +165,8 @@ function profiles_go_get_custom_field_types($register_name) {
  *
  * @return boolean
  */
-function profiles_go_add_profile_icon($user) {
-	
+function profiles_go_add_profile_icon($user) 
+{	
 	$icon_sizes = elgg_get_config('icon_sizes');
 	
 	// get the images and save their file handlers into an array
@@ -209,8 +211,8 @@ function profiles_go_add_profile_icon($user) {
  *
  * @return unknown
  */
-function profiles_go_get_categorized_fields($user = null, $edit = false, $register = false, $profile_type_limit = false, $profile_type_guid = false) {
-	
+function profiles_go_get_categorized_fields($user = null, $edit = false, $register = false, $profile_type_limit = false, $profile_type_guid = false) 
+{	
 	$result = array();
 	$profile_type = null;
 	
@@ -360,8 +362,8 @@ function profiles_go_get_categorized_fields($user = null, $edit = false, $regist
  *
  * @return array
  */
-function profiles_go_get_categorized_trip_fields($trip = null) {
-	
+function profiles_go_get_categorized_trip_fields($trip = null) 
+{	
 	$result = array();
 	$result["fields"] = array();
 	
@@ -403,7 +405,8 @@ function profiles_go_get_categorized_trip_fields($trip = null) {
  *
  * @return boolean|int
  */
-function profiles_go_get_max_order($field_type) {
+function profiles_go_get_max_order($field_type) 
+{
 	$max = 0;
 	$result = false;
 	

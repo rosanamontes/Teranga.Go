@@ -17,7 +17,7 @@
 *   Student: Ricardo Luzón Fernández
 *
 */
-
+system_message("edit!");
 elgg_make_sticky_form('mytrips');
 
 /**
@@ -34,7 +34,7 @@ print_r($input);
 foreach (elgg_get_config('trip') as $shortname => $valuetype) 
 {
 	$input[$shortname] = get_input($shortname);
-	system_message( $input[$shortname] ." --- " . $valuetype);
+	system_message($shortname . "  - -  " . $input[$shortname] ." --- " . $valuetype);
 
 	// @todo treat profile fields as unescaped: don't filter, encode on output
 	if (is_array($input[$shortname])) {
@@ -53,6 +53,7 @@ $input['name'] = htmlspecialchars(get_input('name', '', false), ENT_QUOTES, 'UTF
 $user = elgg_get_logged_in_user_entity();
 
 $trip_guid = (int)get_input('trip_guid');
+system_message("trip guid=".$trip_guid);
 $is_new_trip = $trip_guid == 0;
 
 if ($is_new_trip
@@ -63,8 +64,8 @@ if ($is_new_trip
 	forward(REFERER);
 }
 
-$trip = $trip_guid ? get_entity($trip_guid) : new ElggGroup() ;
-			
+$trip = $trip_guid ? get_entity($trip_guid) : new ElggObject();///////////////////////////////////ElggGroup() ;
+system_message("*** trip=".$trip);
 			//Por defecto lo hago destacado
 			$trip->featured_trip = "yes";		
 			
@@ -120,6 +121,7 @@ if (sizeof($input) > 0)
 		if (!$is_new_trip && $shortname == 'name' && $value != $trip->name) 
 		{
 			$trip_name = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
+			system_message("trip name=".$trip_name);
 			$ac_name = sanitize_string(elgg_echo('mytrips:trip') . ": " . $trip_name);
 			$acl = get_access_collection($trip->trip_acl);
 			if ($acl) 
@@ -154,8 +156,11 @@ if (!$trip->name) {
 
 // Set trip tool options
 $tool_options = elgg_get_config('trip_tool_options');
-if ($tool_options) {
-	foreach ($tool_options as $trip_option) {
+if ($tool_options) 
+{
+	foreach ($tool_options as $trip_option) 
+	{
+		system_message("_trip_tool_options_ " . $trip_option->name);
 		$option_toggle_name = $trip_option->name . "_enable";
 		$option_default = $trip_option->default_on ? 'yes' : 'no';
 		$trip->$option_toggle_name = get_input($option_toggle_name, $option_default);

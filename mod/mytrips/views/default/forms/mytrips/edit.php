@@ -39,6 +39,7 @@ echo elgg_view("mytrips/edit/tools", $vars);
 
 if ($entity) 
 {
+	system_message("form edit *** guid " . $entity->getGUID());
 	echo elgg_view("input/hidden", array(
 		"name" => "trip_guid",
 		"value" => $entity->getGUID(),

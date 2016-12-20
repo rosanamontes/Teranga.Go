@@ -42,13 +42,13 @@ class ProfileManagerCustomTripField extends ProfileManagerCustomField
 		$title = $this->metadata_label;
 		
 		if (empty($title)) {
-			if (elgg_language_key_exists("trips:{$this->metadata_name}")) {
-				$title = elgg_echo("trips:{$this->metadata_name}");
+			if (elgg_language_key_exists("mytrips:{$this->metadata_name}")) {
+				$title = elgg_echo("mytrips:{$this->metadata_name}");
 			} else {
 				$title = $this->metadata_name;
 			}
 		}*/
-		$title = elgg_echo("trips:{$this->metadata_name}");
+		$title = elgg_echo("mytrips:{$this->metadata_name}");
 		return $title;
 	}
 }

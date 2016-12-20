@@ -764,10 +764,11 @@ function mytrips_register_profile_buttons($trip) {
 /**
  * Prepares variables for the trip edit form view.
  *
- * @param mixed $trip trip or null. If a trip, uses values from the trip.
+ * @param mixed $trip entity or null. If a trip, uses values from the trip.
  * @return array
  */
-function mytrips_prepare_form_vars($trip = null) {
+function mytrips_prepare_form_vars($trip = null) 
+{
 	$values = array(
 		'name' => '',
 		'membership' => ACCESS_PUBLIC,
@@ -779,8 +780,8 @@ function mytrips_prepare_form_vars($trip = null) {
 	);
 
 	// handle customizable profile fields
-	$fields = elgg_get_config('group'); ///check ***
-
+	$fields = elgg_get_config('trip'); 
+	
 	if ($fields) {
 		foreach ($fields as $name => $type) {
 			$values[$name] = '';
@@ -788,7 +789,7 @@ function mytrips_prepare_form_vars($trip = null) {
 	}
 
 	// handle tool options
-	$tools = elgg_get_config('trip_tool_options');
+	$tools = elgg_get_config('group_tool_options');////trip_tool_options not valid - Value: trip companions & forum enabled
 	if ($tools) {
 		foreach ($tools as $trip_option) {
 			$option_name = $trip_option->name . "_enable";
@@ -797,7 +798,8 @@ function mytrips_prepare_form_vars($trip = null) {
 	}
 
 	// get current trip settings
-	if ($trip) {
+	if ($trip) 
+	{
 		foreach (array_keys($values) as $field) {
 			if (isset($trip->$field)) {
 				$values[$field] = $trip->$field;
@@ -821,8 +823,10 @@ function mytrips_prepare_form_vars($trip = null) {
 	// get any sticky form settings
 	if (elgg_is_sticky_form('mytrips')) {
 		$sticky_values = elgg_get_sticky_values('mytrips');
+		system_message("lib *** " . $sticky_values);
 		foreach ($sticky_values as $key => $value) {
 			$values[$key] = $value;
+			system_message("lib *** " . $value);
 		}
 	}
 

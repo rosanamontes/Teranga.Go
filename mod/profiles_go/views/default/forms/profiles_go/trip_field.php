@@ -27,7 +27,7 @@ if (!elgg_is_admin_logged_in()) {
 
 if ($guid = get_input("guid")) {
 	if ($entity = get_entity($guid)) {
-		if ($entity instanceof ProfileManagerCustomGroupField) {
+		if ($entity instanceof ProfileManagerCustomTripField) {
 			$vars["entity"] = $entity;
 		}
 	}

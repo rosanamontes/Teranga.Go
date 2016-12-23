@@ -21,8 +21,8 @@
 /**
  * List all mytrips
  */
-function mytrips_handle_all_page() {
-
+function mytrips_handle_all_page() 
+{
 	// all mytrips doesn't get link to self
 	elgg_pop_breadcrumb();
 	elgg_push_breadcrumb(elgg_echo('mytrips'));
@@ -336,7 +336,7 @@ function mytrips_handle_profile_page($guid) {
 	$content = elgg_view('mytrips/profile/layout', array('entity' => $trip));
 	$sidebar = '';
 
-	if (elgg_trip_gatekeeper(false)) {
+	if (elgg_group_gatekeeper(false)) {
 		if (elgg_is_active_plugin('search')) {
 			$sidebar .= elgg_view('mytrips/sidebar/search', array('entity' => $trip));
 		}
@@ -385,7 +385,7 @@ function mytrips_handle_activity_page($guid) {
 
 	elgg_set_page_owner_guid($guid);
 
-	elgg_trip_gatekeeper();
+	elgg_group_gatekeeper();
 
 	$trip = get_entity($guid);
 
@@ -430,7 +430,7 @@ function mytrips_handle_members_page($guid) {
 
 	elgg_set_page_owner_guid($guid);
 
-	elgg_trip_gatekeeper();
+	elgg_group_gatekeeper();
 
 	$title = elgg_echo('mytrips:members:title', array($trip->name));
 

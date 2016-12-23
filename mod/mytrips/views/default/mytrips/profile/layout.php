@@ -24,7 +24,7 @@ $trip = elgg_extract('entity', $vars); //trip entity
 
 echo elgg_view('mytrips/profile/summary', $vars);
 
-if (elgg_trip_gatekeeper(false)) 
+if (elgg_group_gatekeeper(false)) 
 {
 	if (!$trip->isPublicMembership() && !$trip->isMember()) 
 	{

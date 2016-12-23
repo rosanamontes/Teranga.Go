@@ -58,7 +58,7 @@ function discussion_handle_list_page($guid) {
 
 	elgg_set_page_owner_guid($guid);
 
-	elgg_trip_gatekeeper();
+	elgg_group_gatekeeper();
 
 	$trip = get_entity($guid);
 	if (!elgg_instanceof($trip, 'trip')) {
@@ -231,7 +231,7 @@ function discussion_handle_view_page($guid) {
 
 	elgg_set_page_owner_guid($trip->getGUID());
 
-	elgg_trip_gatekeeper();
+	elgg_group_gatekeeper();
 
 	elgg_push_breadcrumb($trip->name, "discussion/owner/$trip->guid");
 	elgg_push_breadcrumb($topic->title);

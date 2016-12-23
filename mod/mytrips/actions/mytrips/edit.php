@@ -35,7 +35,7 @@ print_r($input);
 foreach (elgg_get_config('trip') as $shortname => $valuetype) 
 {
 	$input[$shortname] = get_input($shortname);
-	system_message($shortname . "  - -  " . $input[$shortname] ." --- " . $valuetype);
+	system_message($shortname . " action mytrips  " . $input[$shortname] ." --- " . $valuetype);
 
 	// @todo treat profile fields as unescaped: don't filter, encode on output
 	if (is_array($input[$shortname])) {
@@ -65,12 +65,12 @@ if ($is_new_trip
 	forward(REFERER);
 }
 
-$trip = $trip_guid ? get_entity($trip_guid) : new ElggObject();///////////////////////////////////ElggGroup() ;
-system_message("*** trip=".$trip);
-			//Por defecto lo hago destacado
+$trip = $trip_guid ? get_entity($trip_guid) : new ElggGroup() ; // ElggObject does not work
+
+			//featured by default
 			$trip->featured_trip = "yes";		
 			
-			//inicializo arrays de los metadatos
+			//Teranga metadata initilization
 			if(!is_array($trip->follower))
 			{
 				$trip->follower = array('_','_');

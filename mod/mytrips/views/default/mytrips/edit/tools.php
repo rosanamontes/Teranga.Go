@@ -26,7 +26,7 @@ $tools = elgg_get_config("group_tool_options");
 if ($tools) 
 {
 	usort($tools, create_function('$a, $b', 'return strcmp($a->label, $b->label);'));
-	
+	system_message(" edit tools *** " . $tools);
 	foreach ($tools as $trip_option) 
 	{
 		$trip_option_toggle_name = $trip_option->name . "_enable";
@@ -39,7 +39,7 @@ if ($tools)
 			$value = 'no';
 		
 		if (elgg_is_admin_logged_in())
-			echo elgg_format_element('div', null, elgg_view('input/checkbox', array(
+			echo elgg_format_element('div',array(), elgg_view('input/checkbox', array(
 				'name' => $trip_option_toggle_name,
 				'value' => 'yes',
 				'default' => 'no',

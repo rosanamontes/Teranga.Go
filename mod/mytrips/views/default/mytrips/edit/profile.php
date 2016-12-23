@@ -22,23 +22,23 @@
 
 $name = elgg_extract("name", $vars);
 $trip_profile_fields = elgg_get_config("trip");
-system_message(" profile *** name " . $name);
+//system_message(" profile name *** " . $name);
 ?>
 <div>
 <label><?php echo elgg_echo("mytrips:icon"); ?></label><br />
 	<?php echo elgg_view("input/file", array("name" => "icon")); ?>
 </div>
-<div>
+<!--div>
 	<label><?php echo elgg_echo("mytrips:name"); ?></label><br />
 	<?php echo elgg_view("input/text", array(
 		"name" => "name",
 		"value" => $name,
 	));
 	?>
-</div>
+</div-->
 <?php
 
-// show the configured trip profile fields
+// show the configured trip profile fields - it includes name
 foreach ((array)$trip_profile_fields as $shortname => $valtype) 
 {
 	if ($valtype == "hidden") 

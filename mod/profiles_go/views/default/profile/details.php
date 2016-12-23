@@ -52,12 +52,14 @@ if (count($cats) > 0) {
 		$show_header = false;
 	}
 	
-	foreach ($cats as $cat_guid => $cat) {
+	foreach ($cats as $cat_guid => $cat) 
+	{
 		$cat_title = "";
 		$field_result = "";
 		$even_odd = "even";
 		
-		if ($show_header) {
+		if ($show_header) 
+		{
 			// make nice title
 			if ($cat_guid == -1) {
 				$title = elgg_echo("profiles_go:categories:list:system");
@@ -72,7 +74,7 @@ if (count($cats) > 0) {
 			} else {
 				$title = $cat;
 			}
-//echo "<p>categories " . $title."</p>";						
+			//echo "<p>categories " . $title."</p>";						
 			$params = array(
 				'text' => ' ',
 				'href' => "#",

@@ -37,8 +37,8 @@ $simple_access_control = elgg_get_plugin_setting("simple_access_control","profil
 
 $access_id = get_default_access($vars["entity"]);
 
-if (!empty($cats)) {
-	
+if (!empty($cats)) 
+{	
 	// Profile type selector
 	$setting = elgg_get_plugin_setting("profile_type_selection", "profiles_go");
 	if (empty($setting)) {
@@ -49,7 +49,8 @@ if (!empty($cats)) {
 	$profile_type = $vars['entity']->custom_profile_type;
 	
 	// can user edit? or just admins
-	if ($setting == "user" || elgg_is_admin_logged_in()) {
+	if ($setting == "user" || elgg_is_admin_logged_in()) 
+	{
 		// get profile types
 		
 		$options = array(
@@ -59,7 +60,8 @@ if (!empty($cats)) {
 			"owner_guid" => elgg_get_site_entity()->getGUID()
 		);
 		$types = elgg_get_entities($options);
-		if ($types) {
+		if ($types) 
+		{
 			$types_description = "";
 			
 			$dropdown_options = array();
@@ -72,7 +74,8 @@ if (!empty($cats)) {
 				// preparing descriptions of profile types
 				$description = $type->getDescription();
 				
-				if (!empty($description)) { 
+				if (!empty($description)) 
+				{ 
 					$types_description .= "<div id='custom_profile_type_description_" . $type->getGUID() . "' class='custom_profile_type_description'>";
 					//$types_description .= "<h3>" . elgg_echo("profiles_go:profile:edit:custom_profile_type:description") . " - ". $type->getTitle(). "</h3>";
 					$types_description .= "<strong>" . $type->getTitle(). "</strong>";
@@ -161,12 +164,13 @@ if (!empty($cats)) {
 		
 		$visible_fields = 0;
 		
-		foreach ($fields[$cat_guid] as $field) {
+		foreach ($fields[$cat_guid] as $field) 
+		{
 			$metadata_name = $field->metadata_name;
-			
+				
 			// get options
 			$options = $field->getOptions();
-			
+			system_message( " profile edit --- " .  $metadata_name . " opt = " . $options);
 			// get type of field
 			if ($field->user_editable == "no") {
 				$valtype = "non_editable";

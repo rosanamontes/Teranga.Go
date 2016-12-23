@@ -26,7 +26,7 @@ $header .= '</h3>';
 $body = '<div class="pvm">';
 $body .= elgg_view("output/url", array("text" => elgg_echo("reset"), "title" => elgg_echo("profiles_go:actions:reset:description"), "href" => "action/profiles_go/reset?type=trip", "confirm" => elgg_echo("profiles_go:actions:reset:confirm"), "class" => "elgg-button elgg-button-action"));
 $body .= elgg_view("output/url", array("text" => elgg_echo("profiles_go:actions:import:from_default"), "title" => elgg_echo("profiles_go:actions:import:from_default:description"), "href" => "action/profiles_go/importFromDefault?type=trip", "confirm" => elgg_echo("profiles_go:actions:import:from_default:confirm"), "class" => "elgg-button elgg-button-action"));
-$body .= elgg_view("output/url", array("title" => elgg_echo("profiles_go:actions:export:description"),"text" => elgg_echo("export"), "href" => "admin/trips/export", "class" => "elgg-button elgg-button-action"));
+$body .= elgg_view("output/url", array("title" => elgg_echo("profiles_go:actions:export:description"),"text" => elgg_echo("export"), "href" => "admin/mytrips/export", "class" => "elgg-button elgg-button-action"));
 $body .= elgg_view("output/url", array("text" => elgg_echo("profiles_go:actions:configuration:backup"), "href" => "action/profiles_go/configuration/backup?fieldtype=" . CUSTOM_PROFILE_FIELDS_TRIP_SUBTYPE, "confirm" => elgg_echo("profiles_go:actions:configuration:backup:description"), "class" => "elgg-button elgg-button-action"));
 $body .= elgg_view("output/url", array("text" => elgg_echo("profiles_go:actions:configuration:restore"), "onclick" => "$('#restoreForm').toggle();", "class" => "elgg-button elgg-button-action"));
 		

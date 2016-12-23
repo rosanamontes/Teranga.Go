@@ -17,7 +17,8 @@
 *   Student: Ricardo Luzón Fernández
 *
 */
-system_message("edit!");
+
+//system_message("action edit!");
 elgg_make_sticky_form('mytrips');
 
 /**
@@ -155,7 +156,7 @@ if (!$trip->name) {
 
 
 // Set trip tool options
-$tool_options = elgg_get_config('trip_tool_options');
+$tool_options = elgg_get_config('group_tool_options');
 if ($tool_options) 
 {
 	foreach ($tool_options as $trip_option) 
@@ -171,7 +172,8 @@ if ($tool_options)
 $is_public_membership = (get_input('membership') == ACCESS_PUBLIC);
 $trip->membership = $is_public_membership ? ACCESS_PUBLIC : ACCESS_PRIVATE;
 
-$trip->setContentAccessMode(get_input('content_access_mode'));
+//$trip->setContentAccessMode(get_input('content_access_mode'));
+$trip->content_access_mode = get_input('content_access_mode');
 
 if ($is_new_trip) {
 	$trip->access_id = ACCESS_PUBLIC;

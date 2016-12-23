@@ -39,8 +39,11 @@ $options_values = array();
 $option_classes = array();
 
 $types = profiles_go_get_custom_field_types("custom_profile_field_types");
-if ($types) {
-	foreach ($types as $type) {
+if ($types) 
+{
+	foreach ($types as $type) 
+	{	
+		//admin only - mandatory value - output as a tag - count for completeness - user editable
 		$options_values[$type->type] = $type->name;
 		foreach ($type->options as $option_name => $option_value) 
 		{
@@ -72,7 +75,7 @@ if ($vars["entity"])
 	$metadata_placeholder = $vars["entity"]->metadata_placeholder;
 	$metadata_type = $vars["entity"]->metadata_type;
 	$metadata_options = $vars["entity"]->metadata_options;
-	print_r($guid . " " . $metadata_options);	
+	//print_r($guid . " " . $metadata_options);	
 	$output_as_tags = $vars["entity"]->output_as_tags;
 	$blank_available = $vars["entity"]->blank_available;
 	$admin_only = $vars["entity"]->admin_only;

@@ -25,8 +25,6 @@ $defaults = array(
 $vars = array_merge($defaults, $vars);
 
 $options = elgg_extract('options', $vars);
-print_r($vars['options']);
-
 unset($vars['options']);
 
 //if (empty($options)) return;
@@ -51,8 +49,7 @@ if (is_array($vars['value'])) {
 
 $value = $vars['value'];
 unset($vars['value']);
-system_message(" go_radio *** value " . $value);
-print_r($value);
+system_message(" go_radio value ***  " . $value);
 
 $radios = '';
 foreach ($options as $label => $option) 

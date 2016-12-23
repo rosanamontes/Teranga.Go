@@ -70,8 +70,6 @@ function profiles_go_register_custom_field_types() {
 	profiles_go_add_custom_field_type("custom_profile_field_types", 'date', elgg_echo('profile:field:date'), $profile_options);
 	profiles_go_add_custom_field_type("custom_profile_field_types", 'calendar', elgg_echo('calendar'), $profile_options);
 	profiles_go_add_custom_field_type("custom_profile_field_types", 'dropdown', elgg_echo('profiles_go:admin:options:dropdown'), $dropdown_options);
-	//Teranga go_radio en lugar de radio
-	profiles_go_add_custom_field_type("custom_profile_field_types", 'go_radio', elgg_echo('profiles_go:admin:options:go_radio'), $radio_options);
 	profiles_go_add_custom_field_type("custom_profile_field_types", 'multiselect', elgg_echo('profiles_go:admin:options:multiselect'), $profile_options);
 	profiles_go_add_custom_field_type("custom_profile_field_types", 'pm_rating', elgg_echo('profiles_go:admin:options:pm_rating'), $pm_rating_options);
 	profiles_go_add_custom_field_type("custom_profile_field_types", 'pm_twitter', elgg_echo('profiles_go:admin:options:pm_twitter'), $social_options);
@@ -79,6 +77,8 @@ function profiles_go_register_custom_field_types() {
 	profiles_go_add_custom_field_type("custom_profile_field_types", 'pm_linkedin', elgg_echo('profiles_go:admin:options:pm_linkedin'), $social_options);
 	//profiles_go_add_custom_field_type("custom_profile_field_types", 'pm_file', elgg_echo('profiles_go:admin:options:file'), $file_options);
 	profiles_go_add_custom_field_type("custom_profile_field_types", 'go_range', elgg_echo('profiles_go:admin:options:go_range'), $go_range_options);
+	//Teranga go_radio en lugar de radio
+	profiles_go_add_custom_field_type("custom_profile_field_types", 'go_radio', elgg_echo('profiles_go:admin:options:go_radio'), $radio_options);
 	
 	// registering trip field types
 	$trip_options = array(

@@ -1,9 +1,9 @@
 <?php 
 /**
- * trip entity view - brief text description
+ * Teranga Go! trip entity view
  * 
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,15 +15,13 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
+$group = $vars['entity'];
 
-$trip = $vars['entity'];
-
-$icon = elgg_view_entity_icon($trip, 'tiny', $vars);
+$icon = elgg_view_entity_icon($group, 'tiny', $vars);
 
 $metadata = elgg_view_menu('entity', array(
-	'entity' => $trip,
+	'entity' => $group,
 	'handler' => 'mytrips',
 	'sort_by' => 'priority',
 	'class' => 'elgg-menu-hz',
@@ -42,23 +40,23 @@ else
 	// brief view en la misma línea, o los listados se alargan demasiado
 	$paththeme = elgg_get_site_url() . "mod/custom_index/graphics";
 	$dots = "&nbsp;<img src='". $paththeme."/dots.png' width='5px'>&nbsp;" ;
-	$trip_description = $trip->briefdescription." ".elgg_echo('mytrips:fechaIda').": ".date("d / m / Y", strtotime($trip->fechaIda));
-		if(date("d / m / Y", strtotime($trip->fechaVuelta))!="" && date("d / m / Y", strtotime($trip->fechaVuelta))>="01/01/1970"){
-				$trip_description.=$dots. elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($trip->fechaVuelta)) ;
+	$trip_description = $group->briefdescription." ".elgg_echo('mytrips:fechaIda').": ".date("d / m / Y", strtotime($group->fechaIda));
+		if(date("d / m / Y", strtotime($group->fechaVuelta))!="" && date("d / m / Y", strtotime($group->fechaVuelta))>="01/01/1970"){
+				$trip_description.=$dots. elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($group->fechaVuelta)) ;
 		}
-		// elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($trip->fechaVuelta)) ;
+		// elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($group->fechaVuelta)) ;
 	
-	if ($trip->servicioPaqueteria == 'custom:rating:si')
-		$trip_description .= $dots . elgg_echo('mytrips:servicioPaqueteria').": ".elgg_echo($trip->servicioPaqueteria);
+	if ($group->servicioPaqueteria == 'custom:rating:si')
+		$trip_description .= $dots . elgg_echo('mytrips:servicioPaqueteria').": ".elgg_echo($group->servicioPaqueteria);
 
 	$params = array(
-		'entity' => $trip,
+		'entity' => $group,
 		'metadata' => $metadata,
 		'subtitle' => $trip_description
 	);
 	
 	$params = $params + $vars;
-	$list_body = elgg_view('trip/elements/summary', $params);
+	$list_body = elgg_view('group/elements/summary', $params);
 
 	echo elgg_view_image_block($icon, $list_body, $vars);
 }

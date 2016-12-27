@@ -2,10 +2,10 @@
 /**
  * A user's trip invitations
  *
- * @uses $vars['invitations'] Optional array.
+ * @uses $vars['invitations'] Optional. Array of ElggGroups
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -17,16 +17,12 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
-*/  
+*/
 
-if (isset($vars['invitations'])) 
-{
+if (isset($vars['invitations'])) {
 	$invitations = $vars['invitations'];
 	unset($vars['invitations']);
-} 
-else 
-{
+} else {
 	$user = elgg_get_page_owner_entity();
 	$vars['limit'] = get_input('limit', elgg_get_config('default_limit'));
 	$vars['offset'] = get_input('offset', 0);
@@ -38,7 +34,7 @@ else
 }
 
 $vars['items'] = $invitations;
-$vars['item_view'] = 'trip/format/invitationrequest';
+$vars['item_view'] = 'group/format/invitationrequest';
 $vars['no_results'] = elgg_echo('mytrips:invitations:none');
 
 echo elgg_view('page/components/list', $vars);

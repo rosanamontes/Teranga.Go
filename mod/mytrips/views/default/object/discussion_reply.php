@@ -2,8 +2,8 @@
 /**
  * Forum reply entity view
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,7 +15,6 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
 $reply = elgg_extract('entity', $vars, FALSE);

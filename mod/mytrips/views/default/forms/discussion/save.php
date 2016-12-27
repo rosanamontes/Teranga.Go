@@ -2,8 +2,8 @@
 /**
  * Discussion topic add/edit form body
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+ * 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,7 +15,6 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
 $title = elgg_extract('title', $vars, '');
@@ -65,7 +64,7 @@ $guid = elgg_extract('guid', $vars, null);
 			'value' => $access_id,
 			'entity' => get_entity($guid),
 			'entity_type' => 'object',
-			'entity_subtype' => 'tripforumtopic',
+			'entity_subtype' => 'groupforumtopic',
 		)); ?>
 	</div>
 

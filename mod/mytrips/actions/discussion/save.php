@@ -1,8 +1,7 @@
 <?php
 /**
  * Topic save action
- *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -15,7 +14,7 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
+*
 */
 
 // Get variables
@@ -36,7 +35,7 @@ if (!$title || !$desc) {
 }
 
 $container = get_entity($container_guid);
-if (!$container || !$container->canWriteToContainer(0, 'object', 'tripforumtopic')) {
+if (!$container || !$container->canWriteToContainer(0, 'object', 'groupforumtopic')) {
 	register_error(elgg_echo('discussion:error:permissions'));
 	forward(REFERER);
 }
@@ -49,11 +48,11 @@ if ($guid > 0) {
 
 if ($new_topic) {
 	$topic = new ElggObject();
-	$topic->subtype = 'tripforumtopic';
+	$topic->subtype = 'groupforumtopic';
 } else {
 	// load original file object
 	$topic = get_entity($guid);
-	if (!elgg_instanceof($topic, 'object', 'tripforumtopic') || !$topic->canEdit()) {
+	if (!elgg_instanceof($topic, 'object', 'groupforumtopic') || !$topic->canEdit()) {
 		register_error(elgg_echo('discussion:topic:notfound'));
 		forward(REFERER);
 	}
@@ -82,7 +81,7 @@ elgg_clear_sticky_form('topic');
 if ($new_topic) {
 	system_message(elgg_echo('discussion:topic:created'));
 	elgg_create_river_item(array(
-		'view' => 'river/object/tripforumtopic/create',
+		'view' => 'river/object/groupforumtopic/create',
 		'action_type' => 'create',
 		'subject_guid' => elgg_get_logged_in_user_guid(),
 		'object_guid' => $topic->guid,

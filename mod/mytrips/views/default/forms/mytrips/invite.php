@@ -1,9 +1,9 @@
 <?php
 /**
- * mytrips invite form
+ * Elgg mytrips invite form
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,19 +15,18 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
-$trip = $vars['entity'];
-$owner = $trip->getOwnerEntity();
-$forward_url = $trip->getURL();
+$group = $vars['entity'];
+$owner = $group->getOwnerEntity();
+$forward_url = $group->getURL();
 $friends = elgg_get_logged_in_user_entity()->getFriends(array('limit' => 0));
 
 if ($friends) {
 	echo elgg_view('input/friendspicker', array('entities' => $friends, 'name' => 'user_guid', 'highlight' => 'all'));
 	echo '<div class="elgg-foot">';
 	echo elgg_view('input/hidden', array('name' => 'forward_url', 'value' => $forward_url));
-	echo elgg_view('input/hidden', array('name' => 'trip_guid', 'value' => $trip->guid));
+	echo elgg_view('input/hidden', array('name' => 'group_guid', 'value' => $group->guid));
 	echo elgg_view('input/submit', array('value' => elgg_echo('invite')));
 	echo '</div>';
 } else {

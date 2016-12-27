@@ -1,10 +1,10 @@
 <?php
 
 /**
- * trip edit form
+ * edit form - trip access.
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+ * 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -16,9 +16,7 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
-
 
 $entity = elgg_extract("entity", $vars, false);
 $owner_guid = elgg_extract("owner_guid", $vars);
@@ -34,7 +32,7 @@ $content_access_mode = elgg_extract("content_access_mode", $vars);
 
 	$visibility_options =  array(
 		ACCESS_PUBLIC => elgg_echo("PUBLIC"),
-		ACCESS_PRIVATE => elgg_echo("mytrips:access:trip"),
+		ACCESS_PRIVATE => elgg_echo("mytrips:access:group"),
 		ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
 	);
 
@@ -122,7 +120,7 @@ $access_mode_params = array(
 if ($entity) {
 	// Disable content_access_mode field for hidden mytrips because the setting
 	// will be forced to members_only regardless of the entered value
-	//if ($entity->access_id === $entity->trip_acl) {
+	//if ($entity->access_id === $entity->group_acl) {
 	//	$access_mode_params['disabled'] = 'disabled';
 	//}
 }
@@ -141,7 +139,7 @@ if ($entity) {
 		/* ver si es necesario un teranga warning
 		if ($entity && $entity->getContentAccessMode() == ElggGroup::CONTENT_ACCESS_MODE_UNRESTRICTED) {
 			// Warn the user that changing the content access mode to more
-			// restrictive will not affect the existing trip content
+			// restrictive will not affect the existing group content
 			$access_mode_warning = elgg_echo("mytrips:content_access_mode:warning");
 			echo "<span class='elgg-text-help'>$access_mode_warning</span>";
 		}*/

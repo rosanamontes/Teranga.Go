@@ -1,9 +1,9 @@
 <?php
 /**
- * River view for trip discussion replies
+ * River view for group discussion replies
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,7 +15,6 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
 $item = $vars['item'];
@@ -46,7 +45,7 @@ $reply_link = elgg_view('output/url', array(
 	'is_trusted' => true,
 ));
 
-$summary = elgg_echo('river:reply:object:tripforumtopic', array($subject_link, $target_link));
+$summary = elgg_echo('river:reply:object:groupforumtopic', array($subject_link, $target_link));
 
 echo elgg_view('river/elements/layout', array(
 	'item' => $item,

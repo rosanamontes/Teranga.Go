@@ -1,22 +1,11 @@
 <?php
 /**
- * Original topic posts page 
+ * Elgg Groups topic posts page
  * 
-* 	Plugin: myTripTeranga
-*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
-*			Universidad de Granada
-*	Licence: 	CC-ByNCSA
-*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
-* 	Project coordinator: @rosanamontes
-*	Website: http://lsi.ugr.es/rosana
-* 	Project colaborator: Antonio Moles 
-*	
-*   Project Derivative:
-*	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
-*   Advisor: Rosana Montes
-*   Student: Ricardo Luzón Fernández
-* 
-*/
+ * @package ElggGroups
+ *
+ * @deprecated 1.8
+ */
 
 // Load Elgg engine
 require_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");

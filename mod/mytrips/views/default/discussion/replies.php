@@ -2,11 +2,11 @@
 /**
  * List replies with optional add form
  *
- * @uses $vars['entity']        ElggEntity the trip discussion
+ * @uses $vars['entity']        ElggEntity the group discission
  * @uses $vars['show_add_form'] Display add form or not
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -18,12 +18,11 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
-*/
+*/ 
 
 $show_add_form = elgg_extract('show_add_form', $vars, true);
 
-echo '<div id="trip-replies" class="elgg-comments">';
+echo '<div id="group-replies" class="elgg-comments">';
 
 $replies = elgg_list_entities(array(
 	'type' => 'object',
@@ -31,7 +30,7 @@ $replies = elgg_list_entities(array(
 	'container_guid' => $vars['topic']->getGUID(),
 	'reverse_order_by' => true,
 	'distinct' => false,
-	'url_fragment' => 'trip-replies',
+	'url_fragment' => 'group-replies',
 ));
 
 echo $replies;

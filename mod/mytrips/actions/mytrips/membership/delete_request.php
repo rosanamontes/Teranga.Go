@@ -1,8 +1,8 @@
 <?php
 /**
- * Delete a request to join a closed trip.
+ * Delete a request to join a closed group.
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -15,22 +15,22 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
+*
 */
 
 $user_guid = get_input('user_guid', elgg_get_logged_in_user_guid());
-$trip_guid = get_input('trip_guid');
+$group_guid = get_input('group_guid');
 
 $user = get_user($user_guid);
-$trip = get_entity($trip_guid);
+$group = get_entity($group_guid);
 
-if (!$user && !elgg_instanceof($trip, 'trip')) {
+if (!$user && !elgg_instanceof($group, 'group')) {
 	forward(REFERER);
 }
 
 // If join request made
-if (check_entity_relationship($user->guid, 'membership_request', $trip->guid)) {
-	remove_entity_relationship($user->guid, 'membership_request', $trip->guid);
+if (check_entity_relationship($user->guid, 'membership_request', $group->guid)) {
+	remove_entity_relationship($user->guid, 'membership_request', $group->guid);
 	system_message(elgg_echo("mytrips:joinrequestkilled"));
 }
 

@@ -1,26 +1,22 @@
-﻿<?php
-
-/**
- * French strings
- * 
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
-*			Universidad de Granada
-*	Licence: 	CC-ByNCSA
-*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
-* 	Project coordinator: @rosanamontes
-*	Website: http://lsi.ugr.es/rosana
-* 	Project colaborator: Antonio Moles 
-*	
-*   Project Derivative:
-*	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
-*   Advisor: Rosana Montes
-*   Student: Ricardo Luzón Fernández
-* 
-*/
-
+<?php
 return array(	
+	'custom:bookmarks' => "Derniers accords",
 	'custom:mytrips' => "Derniers voyages",
+	'custom:files' => "Derniers fichiers",
+	'custom:blogs' => "Derniers articles de blog",
+	'custom:members' => "Nouveaux membres",
+
+
+	/**
+	 * Traducciones para Teranga Go!
+	 */
+	'comment:subscribe:long' => "souscrire à ces commentaires",
+	'comment:unsubscribe:long' => "ne plus souscrire ces commentaires à ces commentaires",
+	'comment:subscribe:success' => "ta souscription a supprimé avec succès",
+	'comment:unsubscribe:success' => "ta souscription a supprimé avec succès",	
+	//'custom:mytrips' => "derniers voyages",
+
+	'friends' => "Personnes que je suivre",	
 
 	/**
 	 * Menu items and titles Teranga Go 
@@ -48,10 +44,10 @@ return array(
 	'mytrips:website' => "Site web",
 	'mytrips:members' => "participants au voyages",
 	'mytrips:my_status' => "mon statut",
-	'mytrips:my_status:trip_owner' => "tu es propriétaire de ce voyage",
-	'mytrips:my_status:trip_member' => "vous participez à ce voyage",
-	'mytrips:my_status:trip_PreOrder' => "vous avez fait une pré-réservation pour ce voyage",
-	'mytrips:my_status:trip_Confirmed' => "vous avez confirmé votre réservation pour ce voyage",	
+	'mytrips:my_status:group_owner' => "tu es propriétaire de ce voyage",
+	'mytrips:my_status:group_member' => "vous participez à ce voyage",
+	'mytrips:my_status:group_PreOrder' => "vous avez fait une pré-réservation pour ce voyage",
+	'mytrips:my_status:group_Confirmed' => "vous avez confirmé votre réservation pour ce voyage",	
 	'mytrips:subscribed' => "autoriser des notifications",
 	'mytrips:unsubscribed' => "ne plus autoriser des notifications",
 
@@ -69,15 +65,15 @@ return array(
 	'mytrips:widget:membership' => "Mes voyages",
 	'mytrips:widgets:description' => "montrer les voyages auxquels vous êtes abonné",
 
-	'mytrips:widget:trip_activity:title' => "activité lors du voyage",
-	'mytrips:widget:trip_activity:description' => "voir les activités menées lors d'un de vos voyages",
-	'mytrips:widget:trip_activity:edit:select' => "sélectionner un voyage",
-	'mytrips:widget:trip_activity:content:noactivity' => "il n'y a pas d'activité lors de ce voyage",
-	'mytrips:widget:trip_activity:content:noselect' => "éditer ce widget pour sélectionner un voyage",
+	'mytrips:widget:group_activity:title' => "activité lors du voyage",
+	'mytrips:widget:group_activity:description' => "voir les activités menées lors d'un de vos voyages",
+	'mytrips:widget:group_activity:edit:select' => "sélectionner un voyage",
+	'mytrips:widget:group_activity:content:noactivity' => "il n'y a pas d'activité lors de ce voyage",
+	'mytrips:widget:group_activity:content:noselect' => "éditer ce widget pour sélectionner un voyage",
 
 	'mytrips:noaccess' => "Pas d'accès au voyage",
 	'mytrips:permissions:error' => "vous n'êtes pas autorisé à faire ce voyage",
-	'mytrips:intrip' => "Lors du voyage",
+	'mytrips:ingroup' => "Lors du voyage",
 	'mytrips:cantcreate' => "vous ne pouvez pas créer de voyage, seuls les administrateurs le peuvent",
 	'mytrips:cantedit' => "vous ne pouvez pas éditer ce voyage",
 	'mytrips:saved' => "voyage réservé",
@@ -97,11 +93,11 @@ return array(
 	'mytrips:nofriends' => "pas d'amis invités pour ce voyage",
 	'mytrips:nofriendsatall' => "pas d'amis à inviter",
 	'mytrips:viamytrips' => "itinéraire du voyage",
-	'mytrips:trip' => "Voyage",
+	'mytrips:group' => "Voyage",
 	'mytrips:search:tags' => "etiquette",
 	'mytrips:search:title' => "recherche de voyages avec étiquettes (%s)",
 	'mytrips:search:none' => "aucun voyage ne correspond",
-	'mytrips:search_in_trip' => "chercher dans ce voyage",
+	'mytrips:search_in_group' => "chercher dans ce voyage",
 	'mytrips:acl' => "Voyage: (%s)",
 	'mytrips:seleccionar' => "Sélectionner",
 	'discussion:topic:notify:summary' => "nouveau thème de discussion ajouté %s",
@@ -135,10 +131,10 @@ Voir et commenter:%s",
 
 	'mytrips:invitations:none' => "il n'y a pas d'invitation pour le moment.",
 
-	'item:object:tripforumtopic' => "Les arrangements de voyage",
+	'item:object:groupforumtopic' => "Les arrangements de voyage",
 	'item:object:discussion_reply' => "réponses de la discussion",
 
-	'tripforumtopic:new' => "ajouter un arrangement de voyage",
+	'groupforumtopic:new' => "ajouter un arrangement de voyage",
 
 	'mytrips:count' => "Voyages créés",
 	'mytrips:open' => "voyage ouvert",
@@ -154,28 +150,28 @@ Voir et commenter:%s",
 	 */
 	'mytrips:access:private' => "fermé &mdash; les abonnés doivent être invités",
 	'mytrips:access:public' => "ouvert mdash; tout le monde peut adérer",
-	'mytrips:access:trip' => "uniquement les abonnés au voyage",
-	'mytrips:closedtrip' => "L'adhésion à ce voyage est clôturée",
-	'mytrips:closedtrip:request' => "pour demander une adhésion, cliquer sur le lien demander une adhésion",
-	'mytrips:closedtrip:membersonly' => "L'adhésion à ce voyage es clôturée, son contenu n'est accessible qu'aux abonnés",
-	'mytrips:opentrip:membersonly' => "Le contenu de ce voyage n'est accessible qu'aux abonnés",
-	'mytrips:opentrip:membersonly:join' => "pour être abonné cliquer sur le lien s'associer au voyage",
+	'mytrips:access:group' => "uniquement les abonnés au voyage",
+	'mytrips:closedgroup' => "L'adhésion à ce voyage est clôturée",
+	'mytrips:closedgroup:request' => "pour demander une adhésion, cliquer sur le lien demander une adhésion",
+	'mytrips:closedgroup:membersonly' => "L'adhésion à ce voyage es clôturée, son contenu n'est accessible qu'aux abonnés",
+	'mytrips:opengroup:membersonly' => "Le contenu de ce voyage n'est accessible qu'aux abonnés",
+	'mytrips:opengroup:membersonly:join' => "pour être abonné cliquer sur le lien s'associer au voyage",
 	'mytrips:visibility' => "iquest: qui peut voir ce voyage?",
 
 	/**
-	 * trip tools
+	 * group tools
 	 */
 	'mytrips:enableforum' => "autoriser les commentaires sur les voyages",
 	'mytrips:lastupdated' => "dernières actualisations de  (% s) à  (% s) ",
 	'mytrips:lastcomment' => "dernières de (% s) à (% s) ",
 
 	/**
-	 * trip discussion
+	 * group discussion
 	 */
 	'discussion' => "Accord",
 	'discussion:add' => "Ajouter un thème de accord",
 	'discussion:latest' => "Derniers accords",
-	'discussion:trip' => "Accords du voyage",
+	'discussion:group' => "Accords du voyage",
 	'discussion:none' => "Il n' y a pas de accords",
 	'discussion:reply:title' => "Réponses de  (% s) 
 ",
@@ -202,7 +198,7 @@ Voir et commenter:%s",
 
 	'reply:this' => "répondre à ceci",
 
-	'trip:replies' => "Réponses",
+	'group:replies' => "Réponses",
 	'mytrips:forum:created' => "créé  (% s) avec  (% s) de réponses",
 	'mytrips:forum:created:single' => "créé  (% s) avec  (% s) de réponses",
 	'mytrips:forum' => "discussion",
@@ -220,24 +216,24 @@ Voir et commenter:%s",
 	'mytrips:posts' => "Publications",
 	'mytrips:lastperson' => "dernier utilisateur",
 	'mytrips:when' => "quand",
-	'triptopic:notcreated' => "pas de thèmes créés",
+	'grouptopic:notcreated' => "pas de thèmes créés",
 	'mytrips:topicclosed' => "clôturé",
-	'triptopic:created' => "ton thème a été créé",
+	'grouptopic:created' => "ton thème a été créé",
 	'mytrips:topicsticky' => "Sticky",
 	'mytrips:topicisclosed' => "ce forum sur les accords est clos",
 	'mytrips:topiccloseddesc' => "ce thème est clos et ne reçoit plus de nouvelles réponses",
-	'triptopic:error' => "Le voyage n'a pa pu être créé. Merci de réessayer ou de recontacter l'administrateur",
+	'grouptopic:error' => "Le voyage n'a pa pu être créé. Merci de réessayer ou de recontacter l'administrateur",
 	'mytrips:forumpost:edited' => "tu as édité l'entrée avec succès",
 	'mytrips:forumpost:error' => "un problème est survenu lors de l'édition de l'entrée",
 
-	'mytrips:privatetrip' => "ceci et un voyage clôturé, vous devez demander une adhésion",
+	'mytrips:privategroup' => "ceci et un voyage clôturé, vous devez demander une adhésion",
 	'mytrips:notitle' => "Le voyage doit avoir un sous-titre",
 	'mytrips:cantjoin' => "vous ne pouvez plus participer au voyage",
 	'mytrips:cantleave' => "vous ne pouvez plus renoncer au voyage",
 	'mytrips:removeuser' => "renoncer au voyage",
 	'mytrips:cantremove' => "cet utilisateur ne peut être exclu",
 	'mytrips:removed' => "L'utilisateur a été retiré avec succès",
-	'mytrips:addedtotrip' => "L'utilisateur a été intégré avec succès",
+	'mytrips:addedtogroup' => "L'utilisateur a été intégré avec succès",
 	'mytrips:joinrequestnotmade' => "La demande d'adhésion n'a pas pu être envoyée",
 	'mytrips:joinrequestmade' => " participer à un voyage",
 	'mytrips:joined' => "tu t'es inscrit à ce voyage",
@@ -265,7 +261,7 @@ tu es pas un abonné de ce voyage
 
 %s",
 
-	'mytrips:request:subject' => "%s a souhait se joindre ton tripe %s",
+	'mytrips:request:subject' => "%s a souhait se joindre ton groupe %s",
 	'mytrips:request:body' => "bonjour %s,
 
 %s a souhait se joindre au voyage'%s'. Click dans le lien suivant pour voir le profil:
@@ -280,10 +276,10 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 	 * Forum river items
 	 */
 
-	'river:create:trip:default' => "%s a créé le voyage %s",
-	'river:join:trip:default' => "%s s'est jointe au voyage %s",
-	'river:create:object:tripforumtopic' => "%s a ouvert le th?e %s",
-	'river:reply:object:tripforumtopic' => "%s a répondu au th?e %s",
+	'river:create:group:default' => "%s a créé le voyage %s",
+	'river:join:group:default' => "%s s'est jointe au voyage %s",
+	'river:create:object:groupforumtopic' => "%s a ouvert le th?e %s",
+	'river:reply:object:groupforumtopic' => "%s a répondu au th?e %s",
 	'river:reply:view' => "Voir la réponse",
 
 	'mytrips:nowidgets' => "des widgets n'ont pas été définis pour le voyage.",
@@ -307,54 +303,191 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 	/**
 	 * Action messages
 	 */
-	'trip:deleted' => " voyage et contenus effacés",
-	'trip:notdeleted' => "Le voyage n'a pas pu être supprimé",
+	'group:deleted' => " voyage et contenus effacés",
+	'group:notdeleted' => "Le voyage n'a pas pu être supprimé",
 
-	'trip:notfound' => "On n'a pas pu trouver le Voyage",
-	'trippost:deleted' => "publication effacée du voyage avec succès",
-	'trippost:notdeleted' => "La publication du voyage n'a pas pu être supprimé",
+	'group:notfound' => "On n'a pas pu trouver le Voyage",
+	'grouppost:deleted' => "publication effacée du voyage avec succès",
+	'grouppost:notdeleted' => "La publication du voyage n'a pas pu être supprimé",
 	'mytripstopic:deleted' => "Theme supprimé",
 	'mytripstopic:notdeleted' => "Le theme ná pas pu être supprimé",
-	'triptopic:blank' => "Il n'y a pas de themes",
-	'triptopic:notfound' => "On n'a pas pu trouver le theme demandé",
-	'trippost:nopost' => "une entrée vide",
+	'grouptopic:blank' => "Il n'y a pas de themes",
+	'grouptopic:notfound' => "On n'a pas pu trouver le theme demandé",
+	'grouppost:nopost' => "une entrée vide",
 	'mytrips:deletewarning' => "attention! es-tu sur de vouloir rejeter ce voyage? On ne peut pas défaire",
 
 	'mytrips:invitekilled' => "L'invité a supprimé.",
 	'mytrips:joinrequestkilled' => "La demande a été supprimé.",
-	'mytrips:error:addedtotrip' => "Il n'a pas été possible d'ajouter à %s au voyage.",
+	'mytrips:error:addedtogroup' => "Il n'a pas été possible d'ajouter à %s au voyage.",
 	'mytrips:add:alreadymember' => "%s fait de partie du voyage.",
 
 	/**
 	 * ecml
 	 */
 	'mytrips:ecml:discussion' => "discussion lors des voyages",
-	'mytrips:ecml:tripprofile' => "profils des voyages",
+	'mytrips:ecml:groupprofile' => "profils des voyages",
 
-	//photos
-	'photos:trip' => "photos du voyage",	
+	//mytrips
+	'photos:group' => "photos du voyage",
+	'socialink:login' => "débute aussi avec",
+	
 
 	/**
-	 * custom fields
+	 *  profile_manager / custom profile / group fields
 	 */
+	
+	// non_editable
+	'profile_manager:non_editable:info' => "Ce champ ne peut pas ètre édité",
+	
+	// register form mandatory notice
+	'profile_manager:register:mandatory' => "Les éléments marqués avec un * sont obligatoires",
+
+	// register account field hints
+	'profile_manager:register:hints:name' => "introduit le nom qui sera montré dans ton profil",
+	'profile_manager:register:hints:username' => "Tu peux te servir de ton nom d´utilisateur pour te connecter",
+	'profile_manager:register:hints:email' => "Ce courrier sera utilisé pour l'envoi de notifications. D'autres utilisateurs ne peuvent pas voir ton courrier.",
+	'profile_manager:register:hints:password' => "Tu as besoin d'un code pour accéder à cet site",
+	'profile_manager:register:hints:passwordagain' => "entre le même code pour la validation",
+	
+	// register profile icon
+	'profile_manager:register:profile_icon' => "Cet site requiert que tu associes une image à ton profil",	
+
+	// register accept terms
+	'profile_manager:registration:accept_terms' => "J'ai lu et j'accepte les %sTermes du Service%s",
+	'profile_manager:simple_access_control' => "Sélectionne qui peut voir cette information ",
+	'profile_manager:register_pre_check:missing' => 'Le champ suivant doit être rempli: %s',
+	'profile_manager:register_pre_check:terms' => "Vous devez accepter les conditions pour terminer l'enregistrement",
+	'profile_manager:settings:registration:free_text:content' => "
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><strong>Enregistrement</strong></p>
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'>&nbsp;</p>
+	<ul>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Pour pouvoir publier un voyage, tu dois être inscrit comme membre. Pour cela, rien de plus facile : il te suffit d’insérer ton e-mail et ton mot de passe.</i></span></p>
+		</li>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Publie ton voyage: si tu as prévu de voyager entre l’Europe et l’Afrique prochainement, fais le savoir aux personnes qui souhaiteraient faire le trajet avec toi ou aimeraient transporter des colis dans ton véhicule. Ainsi, tu économiseras sur les frais, feras de nouvelles connaissances et pourras partager ton expérience avec d’autres utilisateurs. Concernant le voyage, tu pourras donner des informations sur l’origine et la destination, le trajet à parcourir, les dates, le nombre de places et l’espace disponible pour le transport de colis, etc.</i></span></p>
+		</li>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Cherche un voyage: tu pourras consulter les voyages planifiés qui s’adaptent le plus à tes besoins, avec des informations sur les lieux de départs, les destinations et les dates auxquelles ces trajets s’effectueront.</i></span></p>
+		</li>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Évalue l’expérience: cette application utilise un système pionnier d’aide à la prise de décision face aux incertitudes, en se basant sur l’opinion de l’ensemble des utilisateurs pour calculer le karma des conducteurs.</i></span></p>
+		</li>
+	</ul>
+
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><strong><span style='font-size: 8pt;'>Code d’honneur</span></strong></p>
+
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'>&nbsp;</p>
+
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 12px; font-style: normal;'>Les personnes qui s’enregistrent sur le site doivent respecter le code de conduite suivant:</span><br/>
+	<br/>
+	<span style='font-size: 12px; font-style: normal;'>1. Chaque personne ne s’inscrira qu’avec un seul compte personnel.</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>2. Les textes, commentaires, photos et toute autre donnée sera soumis à la propriété intellectuelle et il incombe à l’utilisateur la responsabilité d’en faire bon usage.</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>3. Les membres de cette plateforme ne participeront à aucune activité malhonnête en vue d’améliorer leurs propres résultats, ou d’améliorer ou altérer les résultats des autres participants..</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>4. Chaque personne devra lire avec attention nos conditions d’utilisation et nos recommandations avant d’utiliser la plateforme afin d’avoir une meilleure compréhension de son fonctionnement et éviter toute confusion.</span></p>
+	",
+
+	// widgets
+	'widgets:profile_completeness:title' => "un bon profil",
+	'widgets:profile_completeness:description' => "montre le niveau de réalisation de ton profil",
+	'widgets:profile_completeness:view:tips' => "attention! Actualise ton/ta/ tes et tu amélioreras ton profil.",
+	'widgets:profile_completeness:view:complete' => "Félicitations! Tu as un excellent profil 100%!",
+	
+	'widgets:register:title' => "Registre",
+	'widgets:register:description' => "publie un registre d'enregistrement",
+	'widgets:register:loggedout' => "il faut être connecté pour utiliser ce widget",
+
+	'profile_manager:input:multi_select:empty_text' => "merci de sélectionner...",	
+
+	//tipo de perfil
+	'profile_manager:user_details:profile_type' => "type d'utilisateur",
+	'profile_manager:profile:edit:custom_profile_type:label' => "sélectionne ton type d'utilisateur",
+	'profile_manager:profile:edit:custom_profile_type:description' => "rôle pendant le voyage",
+	'profile_manager:profile:edit:custom_profile_type:default' => "merci de sélectionner...",	
+	'profile:types:conductor' => "Conducteur",
+	'profile:types:conductor:description' => "je peux devenir conducteur pendant le voyage. Si je suis le conducteur officiel je fournirai plus d'informations dans la rubrique Mon véhicule.",
+	'profile:types:pasajero' => "passager",
+	'profile:types:pasajero:description' => "je ne suis pas de ceux qui aime conduire mais plutôt de ceux qui aime voyager",
+
+	//categorías
+	'profile:categories:sobremi' => "À propos de moi",
+	'profile:categories:micoche' => "Ma voiture",
+	'profile:categories:preferencias' => "Mes préférence lors d'un voyage",
+	
+	//custom fields
+	'profile:descripcion' => "Brève description",
+	'profile:hint:descripcion' => "Il est très important de compléter le profil",
+	'profile:telefono' => "téléphone",
+	'profile:hint:telefono' => "Indiquer ton numéro de téléphone (avec l'indicatif du pays) si tu souhaites contacter en privé par whattsap tes compagnons de voyage",
+	'profile:pais' => "Pays",
+	'profile:hint:pais' => "Il est très important de compléter le profil",
+	'profile:twitter' => "Compte twitter",
+	'profile:hint:twitter' => "Es-tu actif dans les réseaux sociaux?",
+	'profile:fexpedicion' => "Ancienneté du permis de conduire",	
+	'profile:hint:fexpedicion' => "Date d'expiration du permis de conduire",
+
+	'profile:marca' => "marque",
+	'profile:hint:marca' => "de quelle marque est ta voiture?",
+	'profile:modelo' => "modèle",
+	'profile:hint:modelo' => "Lequel est ta voiture",	
+	'profile:asientos' => "nombre de sièges",
+	'profile:hint:asientos' => "nombre total de sièges",
+    'profile:ecologico' => "niveau d'émission de contaminants",
+	'profile:hint:ecologico' => "ta voiture est-elle respectueuse de l'environnement?",
+    'custom:rating:bajo' => "à peine",
+    'custom:rating:medio' => "moyennement",
+    'custom:rating:alto' => "hautement",
+    'custom:rating:si' => "oui",
+    'custom:rating:no' => "non",
+    'custom:rating:ocasional' => "occasionnellement",
+    'custom:rating:poco' => "peu",
+    'custom:rating:mucho' => "très",
+
+	'profile:fumador' => "je suis fumeur",
+	'profile:hint:fumador' => "il est très important de compléter le profil",
+	'profile:humo' => "La cigarette me gêne",
+	'profile:hint:humo' => "il est très important de compléter le profil",
+	'profile:religioso' => "je suis croyant",
+	'profile:hint:religioso' => "il est très important de compléter le profil",
+	'profile:dios' => "je n'aime pas parler de religion",
+	'profile:hint:dios' => "il est très important de compléter le profil",
 
 	'mytrips:origen' => "Lieu du départ",
+	'profile:hint:origen' => "ville du départ (la direction exacte est-elle spécifiée sur un autre champ?)",
 	'mytrips:destino' => "Lieu d'arrivée",
+	'profile:hint:destino' => "ville d'arrivée",
 	'mytrips:trayecto' => "Type de voyage",
+	'profile:hint:trayecto' => "Pour ce faire : si tu active un aller et retour, la date fournie doit être autoris?",
+	'custom:trayecto:ida' => "aller simple",
+	'custom:trayecto:vuelta' => "aller-retour",
+	'custom:trayecto:acordar' => "à déterminer",
 	'mytrips:fechaIda' => "Départ",
 	'mytrips:fechaVuelta' => "Retour",
+	'profile:hint:fechaIda' => "sélectionne une date dans le calendrier",
+	'profile:hint:fechaVuelta' => "sélectionne une date dans le calendrier",
 	'mytrips:llegadaIda' => "Arrivée à destination",
 	'mytrips:llegadaVuelta' => "Arrivée au point du départ",
+
 	'mytrips:flexible' => "Les dates sont flexibles",	
+	'profile:hint:flexible' => "Indique si les dates sont fixes ou flexibles",
 	'mytrips:gender' => "Sécurité pour les femmes",
+	'profile:hint:gender' => "engagement ferme de l'utilisateur",
 	'mytrips:nplazas' => "Places disponibles",	
+	'profile:hint:nplazas' => "nombre total de places offertes par le conducteur",
 	'mytrips:aportacionViajero' => 'Contribution par voyageur',	
 	'mytrips:distancia'=>'Distance du parcours',
 	'mytrips:tiempo'=>'Durée approximative du voyage',
 	'mytrips:precio'=>'Tarif',
 	'mytrips:showMap'=>'montre | carte cachée',
-	'trip:nplazasWrong'=>"Valeur non autorisée. Le nombre maximum de sièges ne doit pas être supérieure à celle de votre véhicule.",
+	'group:nplazasWrong'=>"Valeur non autorisée. Le nombre maximum de sièges ne doit pas être supérieure à celle de votre véhicule.",
+    'custom:fecha:hint' => 'Vous devez sélectionner une date dans le calendrier',
+
+
 	'mytrips:preReservar' => "Pré-réserver",
+	'datepicker:dateStartAfterThanDateEnd' => "Vous ne pouvez pas choisir une date de début postérieure au voyage",
+	'datepicker:dateEndBeforeThanDateStart' => "Vous ne pouvez pas choisir une date de début antérieure au voyage",
+	'datepicker:WrongDates' => "dates entrées incorrectes",
+	'datepicker:noTripAtPast' => "vous ne pouvez pas voyager à une date déjà passée",
 	'mytrips:confirm' => "Confirmer la pré-réservation",
 	'mytrips:unPreorder' => "Annuler la pré-réservation",
 	'mytrips:PreOrderCorrect' => "Réservé avec succès",
@@ -362,10 +495,64 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 	'mytrips:confirmTrip' => "Confirmer la réservation",
 	'mytrips:unconfirmTrip' => "Annuler la réservation",
 	'mytrips:cantPreorderSeatMax' => "Réservation impossible parce qu'il n’y a plus de sièges disponibles dans ce voyage",
+	
 	'mytrips:seatsAvaible' => "Sièges disponibles",
 
-	'trip:nplazasNoDato' => 'Il est obligatoire introduire le nombre de places que tu offres',
-	'trip:overbooking' => 'Tu as surpassé la limite de places de ta voiture',
+
+	//Member list summary view (spaces important)
+	'profile_manager:user_summary_control:options:spacers:teranga_car' => " ma voiture ",	
+	'profile_manager:user_summary_control:options:spacers:teranga_asientos' => " nombre total de sièges ",	
+
+	// falta traduccion del login history
+	'profile_manager:account:login_history' => "historique des accès",
+	'profile_manager:account:login_history:date' => "teDa",
+	'profile_manager:account:login_history:ip' => "adresse IP",
+
+	// traducciones externas a modificar y que faltan a ES
+	'usersettings:statistics:label:membersince' => "membre depuis",	
+	'profile_manager:account:login_history' => "historique des accès",
+	'item:object:reported_content' => "contenu reportée",	
+	'item:object:image' => "images chargeés",
+	'item:object:hflts' => "Settings pour des algorithmes de prise de décision",	
+	'item:object:terms' => "Etiquettes",	
+	'item:object:album' => "Album de photos",	
+	'item:object:mcdm' => "Les modèles de prise de décision",	
+	'item:object:about' => "à propos de",	
+	'item:object:badge' => "des badges",	
+	'item:object:tidypics_batch' => "des miniatures d'images",	
+	'item:object:privacy' => "des éléments privés",	
+	'item:object:thewire' => "Le câble des posts",	
+    'notifications:subscriptions:changesettings:mytrips' => "des notifications de voyages",	
+    'spam_throttle:comment' => "Comentaires",
+	'comment:unsubscribe' => "Annuler abonnement",
+	'comment:unsubscribe:long' => "Annuler abonnement à notificaciones de comentaires",
+	'deleteconfirm' => "Est-vous sur de vouloir rejeter cet élément?",
+	'access:overridenotice' => "attention : cause de la politique de cette page web, ce contenu n'est accessible qu'aux membres du voyage. Si vous sélectionnez privé,vous seul pourrez voir ce débat.",
+	'elggx_userpoints:toppoints' => "des points évaluer",	
+
+	//modificaciones por el traductor
+	'back' => 'Retour',
+	'activity:owner' => 'Consulter l\'activité',
+
+	// nuevas etiquetas - marzo 2016
+	'group:nplazasNoDato' => 'Il est obligatoire introduire le nombre de places que tu offres',
+	'group:overbooking' => 'Tu as surpassé la limite de places de ta voiture',
+	'welcome:title' => "Un bref voyage à travers cette plateforme vous permet de:",
+	'welcome:item1' => "Créer ton profil pour que les gens connaissent tes destinations de voyage préférées!",
+	'welcome:item2' => "Participer au voyage qui me motive le plus et décider des détails avec son promoteur.",
+	'welcome:item3' => "Porter de l’intérêt envers les participants de cette communauté en cliquant sur le menu dépliant à côté de l’avatar.",
+	'welcome:item4' => "Suivre le meilleur des conducteurs et connaître son karma!",
+	'welcome:item5' => "Évaluer l’expérience d’un voyage réel avec une autre personne. Nous utiliserons une partie des informations pour calculer son karma!",
+	'welcome:item6' => "Emmène l’hospitalité dans ta poche grâce à l’application de Teranga Go!",
+	'footer:ugr' => "Participe: l’Université de Grenade, projet CEI BioTIC.",
+	'footer:rosana' => "Rosana Montes (Coordinatrice)",
+	'footer:acento' => "Collabore: Acento Comunicación ",
+	'item:object:comment' => 'commentaires',	
+
+	'teranga:public' => "Avis",
+	'teranga:public:mustlogin' => "Vous devez être connecté en contact avec le conducteur. Inscrivez-vous ici",
+
+
 
 	//gestion de reservas
 	'mytrips:manageOrders' => "Gérer les réservations",
@@ -422,13 +609,32 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 	'mytrips:preorders' => 'Membres ayant pré-réservé siège',
 	'mytrips:confirmed' => 'Membres avec siège confirmé',
 
+	//integracion con blog
+	//'elgg:powered' => "",
+	
+	//ajustes para custom_index
+	'teranga:settings:title' => 'Aspecto para el tema de Teranga Go! por Rosana Montes',
+	'teranga:settings:isugr' => 'Seleccione cabecera, pie y CSS para Teranga Go!',
+	'teranga:settings:ugr' => 'Universidad de Granada',
+	'teranga:settings:css' => 'Simplificado',
+	'teranga:settings:elgg' => 'Acento Comunicacion',
+
 
 	// Paqueteria	 ===============================
 	'mytrips:servicioPaqueteria' => "Colis",
+	'profile:hint:servicioPaqueteria' => "Ce voyage propose une livraison à domicile de colis selon le poids",
 	'mytrips:tamaMaletero' => "Taille du coffre",
+	'profile:hint:tamaMaletero' => "Taille du coffre en litres",
 	'mytrips:tipoBultos' => "Type de paquets",
+	'profile:hint:tipoBultos' => "Types de paquets autorisés selon les catégories tigre (gros et lourd) chat (intermédiaire) et souris (petit et léger)",
+    'custom:package:raton' => "Sac à dos (petit)",
+    'custom:package:gato' => "Petite valise (intermédiaire)",
+    'custom:package:tigre' => "Grande valise (gros et lourd)",
 	'mytrips:nbultos' => 'Max permis paquets',	
+	'profile:hint:nbultos' => 'Estimation du nombre alloué en emballage dans le véhicule',
+	'package:nbultosWrong'=>'Valeur non autorisée. Le nombre maximum de paquets doit être une valeur comprise entre 0 et 49',//valor entre 0--49
 	'mytrips:bultosDisponibles'=>'Paquets disponibles',
+	'profile:hint:bultosDisponibles' => 'internal variable (admin only)',
 
 
 	//summaryPreOrder==============

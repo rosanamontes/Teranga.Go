@@ -1,9 +1,9 @@
 <?php
 /**
- * trip activity widget
+ * activity widget
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,12 +15,10 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
-*/
- 
+*/ 
 
 $num = (int) $vars['entity']->num_display;
-$guid = (int) $vars['entity']->trip_guid;
+$guid = (int) $vars['entity']->group_guid;
 
 $content = '';
 
@@ -39,13 +37,13 @@ if ($guid) {
 		'wheres' => array("(e1.container_guid = $guid)"),
 	));
 	if (!$activity) {
-		$activity = '<p>' . elgg_echo('mytrips:widget:trip_activity:content:noactivity') . '</p>';
+		$activity = '<p>' . elgg_echo('mytrips:widget:group_activity:content:noactivity') . '</p>';
 	}
 	
 	$content .= $activity;
 } else {
-	// no trip selected yet
-	$content = '<p>' . elgg_echo('mytrips:widget:trip_activity:content:noselect') . '</p>';
+	// no group selected yet
+	$content = '<p>' . elgg_echo('mytrips:widget:group_activity:content:noselect') . '</p>';
 }
 
 echo $content;

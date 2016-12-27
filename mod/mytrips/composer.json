@@ -1,5 +1,5 @@
 {
-    "name": "elgg/myTrip",
+    "name": "elgg/mytrips",
     "type": "elgg-plugin",
     "require": {
         "composer/installers": ">=1.0.8"

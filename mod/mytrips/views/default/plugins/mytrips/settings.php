@@ -1,7 +1,21 @@
 <?php
 /**
- * mytrips plugin settings
- */
+ * Trip plugin settings
+ *
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+* 	Project colaborator: Antonio Moles 
+*	
+*   Project Derivative:
+*	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
+*   Advisor: Rosana Montes
+*   Student: Ricardo Luzón Fernández
+*/
 
 // set default value
 if (!isset($vars['entity']->hidden_mytrips)) {

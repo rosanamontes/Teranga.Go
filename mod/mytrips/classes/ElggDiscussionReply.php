@@ -1,11 +1,11 @@
 <?php
 /**
- * Class for discussion reply
+ * Class for trip discussion reply
  * 
  * We extend ElggComment to get the future thread support.
  */
-class ElggDiscussionReply extends ElggComment {
-
+class ElggDiscussionReply extends ElggComment 
+{
 	/**
 	 * Set subtype
 	 */

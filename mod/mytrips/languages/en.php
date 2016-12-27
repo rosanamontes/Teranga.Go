@@ -1,33 +1,29 @@
 <?php
-
-/**
- * English strings
- * 
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
-*			Universidad de Granada
-*	Licence: 	CC-ByNCSA
-*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
-* 	Project coordinator: @rosanamontes
-*	Website: http://lsi.ugr.es/rosana
-* 	Project colaborator: Antonio Moles 
-*	
-*   Project Derivative:
-*	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
-*   Advisor: Rosana Montes
-*   Student: Ricardo Luzón Fernández
-* 
-*/
-
 return array(	
-
+	'custom:bookmarks' => "Latest bookmarks",
 	'custom:mytrips' => "Latest Trips",
+	'custom:files' => "Latest files",
+	'custom:blogs' => "Latest blog posts",
+	'custom:members' => "Newest members",
+
+	/**
+	 * Traducciones para Teranga Go!
+	 */
+	'comment:subscribe:long' => 'Susbcribe to comments',
+	'comment:unsubscribe:long' => 'Unsubscribe to comments',
+	'comment:subscribe:success' => 'You have susbcribed it successfully',
+	'comment:unsubscribe:success' => 'You have unsusbcribed it successfully',	
+	//'custom:mytrips' => "Last planning trips",
+
+	//widgets 
+	'friends' => "Users which I'm following",
+
 
 	/**
 	 * Menu items and titles
 	 */
 	'mytrips' => "Your Trip",
-	'item:trip' => "Trips",
+	'item:group' => "Trips",
 	'mytrips:owned' => "Trips I promote",
 	'mytrips:owned:user' => 'Trips %s promote',
 	'mytrips:yours' => "My trips",
@@ -50,10 +46,10 @@ return array(
 	'mytrips:website' => 'Website',
 	'mytrips:members' => 'Trip followers',
 	'mytrips:my_status' => 'My status',
-	'mytrips:my_status:trip_owner' => 'You drive in this trip',
-	'mytrips:my_status:trip_member' => 'You are interested in this trip',
-	'mytrips:my_status:trip_PreOrder' => 'You\'ve pre-booked this trip',
-	'mytrips:my_status:trip_Confirmed' => 'You have confirmed your reservation for this trip',
+	'mytrips:my_status:group_owner' => 'You drive in this trip',
+	'mytrips:my_status:group_member' => 'You are interested in this trip',
+	'mytrips:my_status:group_PreOrder' => 'You\'ve pre-booked this trip',
+	'mytrips:my_status:group_Confirmed' => 'You have confirmed your reservation for this trip',
 
 	'mytrips:subscribed' => 'Trip notifications on',
 	'mytrips:unsubscribed' => 'Trip notifications off',
@@ -72,15 +68,15 @@ return array(
 	'mytrips:widget:membership' => 'My Trips',
 	'mytrips:widgets:description' => 'Display the trips you are a member of on your profile',
 
-	'mytrips:widget:trip_activity:title' => 'Trip activity',
-	'mytrips:widget:trip_activity:description' => 'View the activity in one of your trips',
-	'mytrips:widget:trip_activity:edit:select' => 'Select a trip',
-	'mytrips:widget:trip_activity:content:noactivity' => 'There is no activity in this trip',
-	'mytrips:widget:trip_activity:content:noselect' => 'Edit this widget to select a trip',
+	'mytrips:widget:group_activity:title' => 'Trip activity',
+	'mytrips:widget:group_activity:description' => 'View the activity in one of your trips',
+	'mytrips:widget:group_activity:edit:select' => 'Select a trip',
+	'mytrips:widget:group_activity:content:noactivity' => 'There is no activity in this trip',
+	'mytrips:widget:group_activity:content:noselect' => 'Edit this widget to select a trip',
 
 	'mytrips:noaccess' => 'No access to trip',
 	'mytrips:permissions:error' => 'You do not have the permissions for this',
-	'mytrips:intrip' => 'in the trip',
+	'mytrips:ingroup' => 'in the trip',
 	'mytrips:cantcreate' => 'You can not create a trip. Only admins can.',
 	'mytrips:cantedit' => 'You can not edit this trip',
 	'mytrips:saved' => 'Trip saved',
@@ -101,12 +97,12 @@ return array(
 	'mytrips:nofriends' => "You have no friends left who have not been invited to this trip.",
 	'mytrips:nofriendsatall' => 'You have no friends to invite!',
 	'mytrips:viatrips' => "via trips",
-	'mytrips:trip' => "Trip",
+	'mytrips:group' => "Trip",
 	'mytrips:search:tags' => "tag",
 	'mytrips:search:title' => "Search for trips tagged with '%s'",
 	'mytrips:search:none' => "No matching trips were found",
 	'mytrips:search_in_trip' => "Search in this trip",
-	'mytrips:acl' => "trip: %s",
+	'mytrips:acl' => "group: %s",
 	'mytrips:seleccionar' => "Select",
 	'discussion:topic:notify:summary' => 'New discussion topic called %s',
 	'discussion:topic:notify:subject' => 'New discussion topic: %s',
@@ -143,10 +139,10 @@ View and reply to the discussion:
 
 	'mytrips:invitations:none' => 'There are no current invitations.',
 
-	'item:object:tripforumtopic' => "Travel arrangements",
+	'item:object:groupforumtopic' => "Travel arrangements",
 	'item:object:discussion_reply' => "Travel arrangements replies",
 
-	'tripforumtopic:new' => "Add discussion post",
+	'groupforumtopic:new' => "Add discussion post",
 
 	'mytrips:count' => "trips created",
 	'mytrips:open' => "open trip",
@@ -162,12 +158,12 @@ View and reply to the discussion:
 	 */
 	'mytrips:access:private' => 'Closed - Users must be invited',
 	'mytrips:access:public' => 'Open - Any user may follow',
-	'mytrips:access:trip' => 'Trip followers only',
+	'mytrips:access:group' => 'Trip followers only',
 	'mytrips:closedtrip' => "This trip's membership is closed.",
-	'mytrips:closedtrip:request' => 'To ask to be added, click the "Request membership" menu link.',
-	'mytrips:closedtrip:membersonly' => "This trip's membership is closed and its content is accessible only by followers.",
-	'mytrips:opentrip:membersonly' => "This trip's content is accessible only by followers.",
-	'mytrips:opentrip:membersonly:join' => 'To be a member, click the "Interested in trip" menu link.',
+	'mytrips:closedgroup:request' => 'To ask to be added, click the "Request membership" menu link.',
+	'mytrips:closedgroup:membersonly' => "This trip's membership is closed and its content is accessible only by followers.",
+	'mytrips:opengroup:membersonly' => "This trip's content is accessible only by followers.",
+	'mytrips:opengroup:membersonly:join' => 'To be a member, click the "Interested in trip" menu link.',
 	'mytrips:visibility' => 'Who can see this trip?',
 
 	/**
@@ -183,7 +179,7 @@ View and reply to the discussion:
 	'discussion' => 'Travel arrangement',
 	'discussion:add' => 'Add travel arrangements',
 	'discussion:latest' => 'Latest travel arrangements',
-	'discussion:trip' => 'Travel arrangement',
+	'discussion:group' => 'Travel arrangement',
 	'discussion:none' => 'No travel arrangement',
 	'discussion:reply:title' => 'Reply by %s',
 
@@ -209,7 +205,7 @@ View and reply to the discussion:
 
 	'reply:this' => 'Reply to this',
 
-	'trip:replies' => 'Replies',
+	'group:replies' => 'Replies',
 	'mytrips:forum:created' => 'Created %s with %d comments',
 	'mytrips:forum:created:single' => 'Created %s with %d reply',
 	'mytrips:forum' => 'Travel arrangements',
@@ -227,13 +223,13 @@ View and reply to the discussion:
 	'mytrips:posts' => 'Posts',
 	'mytrips:lastperson' => 'Last person',
 	'mytrips:when' => 'When',
-	'triptopic:notcreated' => 'No topics have been created.',
+	'grouptopic:notcreated' => 'No topics have been created.',
 	'mytrips:topicclosed' => 'Closed',
-	'triptopic:created' => 'Your topic was created.',
+	'grouptopic:created' => 'Your topic was created.',
 	'mytrips:topicsticky' => 'Sticky',
 	'mytrips:topicisclosed' => 'This trip discussion is closed.',
 	'mytrips:topiccloseddesc' => 'This trip discussion is closed and is not accepting new comments.',
-	'triptopic:error' => 'Your trip topic could not be created. Please try again or contact a system administrator.',
+	'grouptopic:error' => 'Your trip topic could not be created. Please try again or contact a system administrator.',
 	'mytrips:forumpost:edited' => "You have successfully edited the forum post.",
 	'mytrips:forumpost:error' => "There was a problem editing the forum post.",
 
@@ -288,10 +284,10 @@ or click below to view the trip's follow requests:
 	 * Forum river items
 	 */
 
-	'river:create:trip:default' => '%s created the trip %s',
-	'river:join:trip:default' => '%s joined the trip %s',
-	'river:create:object:tripforumtopic' => '%s added a new travel arrangement topic %s',
-	'river:reply:object:tripforumtopic' => '%s replied on the travel arrangement topic %s',
+	'river:create:group:default' => '%s created the trip %s',
+	'river:join:group:default' => '%s joined the trip %s',
+	'river:create:object:groupforumtopic' => '%s added a new travel arrangement topic %s',
+	'river:reply:object:groupforumtopic' => '%s replied on the travel arrangement topic %s',
 	'river:reply:view' => 'view reply',
 
 	'mytrips:nowidgets' => 'No widgets have been defined for this trip.',
@@ -315,17 +311,17 @@ or click below to view the trip's follow requests:
 	/**
 	 * Action messages
 	 */
-	'trip:deleted' => 'Trip and trip contents deleted',
-	'trip:notdeleted' => 'Trip could not be deleted',
+	'group:deleted' => 'Trip and trip contents deleted',
+	'group:notdeleted' => 'Trip could not be deleted',
 
-	'trip:notfound' => 'Could not find the trip',
-	'trippost:deleted' => 'Trip posting successfully deleted',
-	'trippost:notdeleted' => 'Trip posting could not be deleted',
+	'group:notfound' => 'Could not find the trip',
+	'grouppost:deleted' => 'Trip posting successfully deleted',
+	'grouppost:notdeleted' => 'Trip posting could not be deleted',
 	'mytripstopic:deleted' => 'Topic deleted',
 	'mytripstopic:notdeleted' => 'Topic not deleted',
-	'triptopic:blank' => 'No topic',
-	'triptopic:notfound' => 'Could not find the topic',
-	'trippost:nopost' => 'Empty post',
+	'grouptopic:blank' => 'No topic',
+	'grouptopic:notfound' => 'Could not find the topic',
+	'grouppost:nopost' => 'Empty post',
 	'mytrips:deletewarning' => "Are you sure you want to delete this trip? There is no undo!",
 
 	'mytrips:invitekilled' => 'The invite has been deleted.',
@@ -337,14 +333,134 @@ or click below to view the trip's follow requests:
 	 * ecml
 	 */
 	'mytrips:ecml:discussion' => 'Trip Discussions',
-	'mytrips:ecml:tripprofile' => 'Trip profiles',
+	'mytrips:ecml:groupprofile' => 'Trip profiles',
 
-	//Photos
-	'photos:trip' => 'Trip Pictures',
+	'photos:group' => 'Trip pictures',
+	'socialink:login' => 'Also with ',
+
 
 	/**
-	 * custom fields
+	 *  profile_manager / custom profile / group fields
 	 */
+	// non_editable
+	'profile_manager:non_editable:info' => 'This field can not be edited',
+	
+	// register form mandatory notice
+	'profile_manager:register:mandatory' => "Items marked with a * are mandatory",
+
+	// register account field hints
+	'profile_manager:register:hints:name' => "Enter the name which will be shown on your profile",
+	'profile_manager:register:hints:username' => "You can use your username to login",
+	'profile_manager:register:hints:email' => "This emailadres will be used to send you mails. Other users can not see this emailadres",
+	'profile_manager:register:hints:password' => "You will need a password to login to the site",
+	'profile_manager:register:hints:passwordagain' => "Enter the same password again for validation",
+	
+	// register profile icon
+	'profile_manager:register:profile_icon' => 'This site requires you to upload a profile icon',	
+
+		// register accept terms
+	'profile_manager:registration:accept_terms' => "I have read and accept the %sTerms of Service%s",
+	'profile_manager:simple_access_control' => 'Select who is able to see this information',
+	'profile_manager:register_pre_check:missing' => 'The next field must be filled: %s',
+	'profile_manager:register_pre_check:terms' => 'You need to accept the terms to complete the registration',
+	'profile_manager:settings:registration:free_text:content' => "
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><strong>Register</strong></p>
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'>&nbsp;</p>
+	<ul>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>To post a trip you must be registered. It's simple: you just need to give your mail and set a good password.</i></span></p>
+		</li>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Post your trip: If you plan to travel between Europe and Africa soon, let the community know. People interested in the same experience will book a seat in your vehicle. You save expenses, meet new people and share with other users your experience. When adding a trip, you can give the origin and destination of your journey, on what dates, the space available, etc.</i></span></p>
+		</li>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Looking for a trip: You can find the travel plans that best suit your needs, knowing the origin, destination and date they were made.</i></span></p>
+		</li>
+		<li>
+		<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 8pt;'><i>Assess the experience. This application uses Decison Making under uncertainty build in model which is pioneer and use the opinions of all users to compute the karma of drivers.</i></span></p>
+		</li>
+	</ul>
+
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><strong><span style='font-size: 8pt;'>Honor Code</span></strong></p>
+
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'>&nbsp;</p>
+
+	<p style='margin-bottom: 0cm; text-align: JUSTIFY;'><span style='font-size: 12px; font-style: normal;'>People who register on the platform must agree to abide by the following code of conduct:</span><br/>
+	<br/>
+	<span style='font-size: 12px; font-style: normal;'>1. Each person signs up with a single account.</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>2. The texts, comments, photos or any othe data will be subject to the use of intellectual property. The user is responsible for observing a good practice at this respect.</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>3. The members of this platform did not participate in any dishonest activity that improves own results or foreseen to improve or worsen the results of the other participants.</span><br/>
+	<span style='font-size: 12px; font-style: normal;'>4. Everyone should carefully read our terms of use and recommendations before using the platform for a better understanding of its operation, and to avoid any misunderstanding.</span></p>
+	",
+
+	// widgets
+	'widgets:profile_completeness:title' => 'Profile Completeness',
+	'widgets:profile_completeness:description' => 'Show the profile completeness',
+	'widgets:profile_completeness:view:tips' => 'Tip! Update your %s to improve the Profile Completeness.',
+	'widgets:profile_completeness:view:complete' => 'Congratulations! Your profile is 100% complete!',
+	
+	'widgets:register:title' => "Register",
+	'widgets:register:description' => "Show a register box",
+	'widgets:register:loggedout' => "You need to be logged out to use this widget",
+
+	'profile_manager:input:multi_select:empty_text' => 'Please select ...',
+
+
+	//tipo de perfil
+	'profile_manager:user_details:profile_type' => 'User type',
+	'profile_manager:profile:edit:custom_profile_type:label' => 'Select your profile type',
+	'profile_manager:profile:edit:custom_profile_type:description' => 'Your rol in a trip',
+	'profile_manager:profile:edit:custom_profile_type:default' => "Please select ...",
+
+	'profile:types:conductor' => 'Driver',
+	'profile:types:conductor:description' => 'I can take turns driving on the road. I would add more information about My Car in the case that I am the main driver.',	
+	'profile:types:pasajero' => 'Passenger',	
+	'profile:types:pasajero:description' => 'I enjoy travel rather to drive.',
+
+	//categorías
+	'profile:categories:sobremi' => 'About me',
+	'profile:categories:micoche' => 'My car',
+	'profile:categories:preferencias' => 'Trip preferences',
+
+	//custom fields
+	'profile:descripcion' => 'A few words',
+	'profile:hint:descripcion' => 'This site requires you to introduce yourself',
+	'profile:telefono' => 'Cellphone',
+	'profile:hint:telefono' => 'Allow to use Whatsapp with your trip companions (don\'t forget the country code).',
+	'profile:pais' => 'Country',
+	'profile:hint:pais' => 'Let people know were are you from',
+	'profile:twitter' => 'Twitter account',
+	'profile:hint:twitter' => 'Let people know your digital identity',
+
+	'profile:fexpedicion' => 'Driving license',	
+	'profile:hint:fexpedicion' => 'Driving license date of issue',
+
+	'profile:marca' => 'Brand',
+	'profile:hint:marca' => 'Let people know if you have a car',
+	'profile:modelo' => 'Model',
+	'profile:hint:modelo' => 'Let people know if you have a car, which one is it',
+	'profile:asientos' => 'Seats number',
+	'profile:hint:asientos' => 'Let people know the total number of seats of your car',
+    'profile:ecologico' => 'Level of pollutant emissions',
+	'profile:hint:ecologico' => 'Do you have an environment-friendly car?',
+
+    'custom:rating:bajo' => 'Low',
+    'custom:rating:medio' => 'Medium',
+    'custom:rating:alto' => 'High',
+    'custom:rating:si' => 'Yes',
+    'custom:rating:no' => 'No',
+    'custom:rating:ocasional' => 'Sometimes',
+    'custom:rating:poco' => 'Not much',
+    'custom:rating:mucho' => 'Much',
+
+	'profile:fumador' => 'Smoker',
+	'profile:hint:fumador' => 'Let people know if you are smoker',
+	'profile:humo' => 'Smoke disturbes me',
+	'profile:hint:humo' => 'Are you friendly with smokers',
+	'profile:religioso' => 'Religious',
+	'profile:hint:religioso' => 'Let people know if you are religious',
+	'profile:dios' => 'Religious talks disturbes me',
+	'profile:hint:dios' => 'Are you friendly with religious people',
 
 	'mytrips:origen' => 'Starting point',
 	'mytrips:destino' => 'End point',
@@ -353,16 +469,36 @@ or click below to view the trip's follow requests:
 	'mytrips:fechaVuelta' => 'Return',
 	'mytrips:llegadaIda' => 'Arrival to end point',
 	'mytrips:llegadaVuelta' => 'Arrival to starting point',
+
+	'profile:hint:origen' => 'Place origin of the journey',
+	'profile:hint:destino' => 'Intermedium or final point',
+	'profile:hint:trayecto' => 'Type of journey',	
+	'profile:hint:fechaIda' => 'Select the day using the calendar',
+	'profile:hint:fechaVuelta' => 'Select the day using the calendar',	
+	'custom:trayecto:ida' => 'One way journey',
+	'custom:trayecto:vuelta' => 'Journey to home / round trip',
+	'custom:trayecto:acordar' => 'To be set',
+
 	'mytrips:flexible' => 'Open dates',	
 	'mytrips:gender' => 'Security for woman',
 	'mytrips:nplazas' => 'Free seats',
 	'mytrips:aportacionViajero' => 'Contribution per traveller',	
+	'profile:hint:flexible' => 'Dates to be disscussed with participants',
+	'profile:hint:gender' => 'Explicit user engagement',
+	'profile:hint:nplazas' => 'Total number of seats offered plus driver cannot be greater than the car capacity',
 	'mytrips:distancia'=>'Distance of trip',
 	'mytrips:tiempo'=>'Estimated time',
 	'mytrips:precio'=>'Precio price',
 	'mytrips:showMap'=>'show | hide map',
-	'trip:nplazasWrong'=>'Value not allowed. Max number of seats should not be greater that those of your vehicle.',	
+	'group:nplazasWrong'=>'Value not allowed. Max number of seats should not be greater that those of your vehicle.',
+    'custom:fecha:hint' => 'You should select a date from this calendar.',
+
+	
 	'mytrips:preReservar'=>'Pre-Order',
+	'datepicker:dateStartAfterThanDateEnd'=>'Departure date has to be before arrival date',
+	'datepicker:dateEndBeforeThanDateStart'=>'Return date has to be after arrival date',
+	'datepicker:WrongDates'=>'You make a miskate with de dates of the trip',
+	'datepicker:noTripAtPast'=>'You can\'t travel at Past',
 	'mytrips:confirm'=>'Confirm Pre-Order',
 	'mytrips:unPreorder'=>'Cancel Pre-Order',
 	'mytrips:PreOrderCorrect'=>'Pre-Order correctly',
@@ -372,8 +508,46 @@ or click below to view the trip's follow requests:
 	'mytrips:cantPreorderSeatMax'=>'You can\'t preorder because there aren\'t seats avaible',
 	'mytrips:seatsAvaible'=>'Seats available',
 
-	'trip:nplazasNoDato' => 'It is required to indicate the number of offered seats',
-	'trip:overbooking' => "It's not possible to overbook your car",	
+	//Member list summary view (spaces important)
+	'profile_manager:user_summary_control:options:spacers:teranga_car' => " My car: ",	
+	'profile_manager:user_summary_control:options:spacers:teranga_asientos' => " Total seats: ",
+
+
+	// traducciones externas a modificar
+	'usersettings:statistics:label:membersince' => "Miembro desde",	
+	'item:object:reported_content' => "Reported content",	
+	'item:object:image' => "Uploaded photos",
+	'item:object:hflts' => "Settings Decision Making",	
+	'item:object:terms' => "Terms",	
+	'item:object:album' => "Photo Album",	
+	'item:object:mcdm' => "Decision Making",	
+	'item:object:about' => "About",	
+	'item:object:badge' => "Badges",	
+	'item:object:tidypics_batch' => "Tidipics",	
+	'item:object:privacy' => "Privacy",	
+	'item:object:thewire' => "The wire posts",	
+    'notifications:subscriptions:changesettings:mytrips' => "Trips notifications",	
+	'access:overridenotice' => "Note: Due to site policy, this content will be accessible only by trip members. If you select private, no one but you will see it.",
+	'elggx_userpoints:toppoints' => 'Assessment Points awarded',
+
+	// nuevas etiquetas - marzo 2016
+	'group:nplazasNoDato' => 'It is required to indicate the number of offered seats',
+	'group:overbooking' => "It's not possible to overbook your car",	
+	'welcome:title' => "A brief journey through this platform will allow you to:",
+	'welcome:item1' => "Edit your profile and let people know what are your travel preferences!",
+	'welcome:item2' => "Join the trip that you love and comunicate with its promoter to agree the trip's details",
+	'welcome:item3' => "Send messages to community members by click-in on their avatar",
+	'welcome:item4' => "Follow the best drivers and get to know their karma!",
+	'welcome:item5' => "Express your opinion about your trip companions after the real trip experience. We will use some of the information to calculate their karma!",
+	'welcome:item6' => "Take hospitality in your pocket by downloading the Teranga Go App!",
+	'footer:ugr' => "Promoter: University of Granada CEI BioTIC project.",
+	'footer:rosana' => "Rosana Montes (Coordinator)",
+	'footer:acento' => "Partner: ",
+
+	'teranga:public' => "Notice",
+	'teranga:public:mustlogin' => "You must be logged in to contact with the driver. Register here",
+
+
 
 	//gestion de reservas
 	'mytrips:manageOrders' => 'Orders Management',
@@ -387,6 +561,7 @@ or click below to view the trip's follow requests:
 	'mytrips:manageOrders:desconfirmadoOk' => 'Declination done successfully',
 	'mytrips:manageOrders:desconfirmadoKo' => 'This operation failed',
 	'mytrips:preorder' => 'Pre-Order',	
+	'custom:empty' => '(empty profile field)',	
 
 	//Mails internos de gestión de reservas
 	'mytrips:manageOrders:preorderOk:subjet' => 'PREORDER FOR TRIP %s',
@@ -431,12 +606,31 @@ or click below to view the trip's follow requests:
 	'mytrips:preorders' => 'Members with pre-booked seat',
 	'mytrips:confirmed' => 'Members with confirmed seat',
 
+	//integracion con blog
+	//'elgg:powered' => "",
+	//ajustes para custom_index
+	'teranga:settings:title' => 'Appearance Settings for Teranga Go! by Rosana Montes',
+	'teranga:settings:isugr' => 'Type of header/footer/css:',
+	'teranga:settings:ugr' => 'University of Granada',
+	'teranga:settings:css' => 'Simplified',
+	'teranga:settings:elgg' => 'Acento Comunicacion',
+
+
 	// Paqueteria	===============================================================================00
 	'mytrips:servicioPaqueteria' => 'Shipment allowed',	
+	'profile:hint:servicioPaqueteria' => 'In this trip can be included a domestic service of weight limited packaged',
 	'mytrips:tamaMaletero' => 'Car Trunk',	
+	'profile:hint:tamaMaletero' => 'Approximate free trunk size to allocate packages (volume measure)',
 	'mytrips:tipoBultos' => 'Package categories',	
+	'profile:hint:tipoBultos' => 'Size and weight is described in similitude to an animal (a metaphor): mouse (small and light), cat (intermediate) and tiger (big and heavy)',
+    'custom:package:raton' => 'backpack (small)',
+    'custom:package:gato' => 'small suitcase (intermediate)',
+    'custom:package:tigre' => 'big suitcase (big)',	
 	'mytrips:nbultos' => 'Max allowed packages',	
+	'profile:hint:nbultos' => 'Estimated number of packaged allocated in the vehicle',
+	'package:nbultosWrong'=>'Value not allowed. Max number of packages should be a value between 0 and 49',//valor entre 0--49
 	'mytrips:bultosDisponibles'=>'Packages available',
+	'profile:hint:nbultosDisponibles' => 'internal variable (admin only)',
 
 
 	//summaryPreOrder==============

@@ -1,9 +1,9 @@
 <?php
 /**
- * Featured mytrips
+ * Featured trips (date under "current")
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,21 +15,20 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
-$featured_mytrips = elgg_get_entities_from_metadata(array(
-	'metadata_name' => 'featured_trip',
+$featured_groups = elgg_get_entities_from_metadata(array(
+	'metadata_name' => 'featured_group',
 	'metadata_value' => 'yes',
-	'type' => 'trip',
+	'type' => 'group',
 ));
 
-if ($featured_mytrips) {
+if ($featured_groups) {
 
 	elgg_push_context('widgets');
 	$body = '';
-	foreach ($featured_mytrips as $trip) {
-		$body .= elgg_view_entity($trip, array('full_view' => false));
+	foreach ($featured_groups as $group) {
+		$body .= elgg_view_entity($group, array('full_view' => false));
 	}
 	elgg_pop_context();
 

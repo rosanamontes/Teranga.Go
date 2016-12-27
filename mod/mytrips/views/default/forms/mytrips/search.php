@@ -1,11 +1,11 @@
 <?php
 /**
- * Trip search form
+ * Group search form
  *
- * @uses $vars['entity'] trip
-*
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+ * @uses $vars['entity'] ElggGroup
+ *
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -17,8 +17,7 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
-*/
+*/ 
 
 $params = array(
 	'name' => 'q',

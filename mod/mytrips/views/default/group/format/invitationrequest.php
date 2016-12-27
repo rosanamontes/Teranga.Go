@@ -1,12 +1,12 @@
 <?php
 
 /**
- * trip view for an invitation request
+ * Group view for an invitation request
  *
- * @uses $vars['entity'] trip entity
+ * @uses $vars['entity'] Group entity
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -18,7 +18,6 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
  
 $user = elgg_get_page_owner_entity();
@@ -26,24 +25,23 @@ if (!$user instanceof \ElggUser || !$user->canEdit()) {
 	return;
 }
 
-$trip = elgg_extract('entity', $vars);
+$group = elgg_extract('entity', $vars);
 
-if (!elgg_instanceof($trip, 'trip')) 
-{
+if (!$group instanceof \ElggGroup) {
 	return true;
 }
 
-$icon = elgg_view_entity_icon($trip, 'small');
+$icon = elgg_view_entity_icon($group, 'small');
 $menu = elgg_view_menu('invitationrequest', array(
-	'entity' => $trip,
+	'entity' => $group,
 	'user' => $user,
 	'order_by' => 'priority',
 	'class' => 'elgg-menu-hz float-alt',
 ));
 
-$summary = elgg_view('trip/elements/summary', array(
-	'entity' => $trip,
-	'subtitle' => $trip->briefdescription,
+$summary = elgg_view('group/elements/summary', array(
+	'entity' => $group,
+	'subtitle' => $group->briefdescription,
 	'metadata' => $menu,
 ));
 

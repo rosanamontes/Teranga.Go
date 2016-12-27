@@ -1,8 +1,7 @@
 <?php
 /**
- * Delete a trip
- *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
+ * Delete a group
+* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -15,24 +14,21 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
+*
 */
-
+	
 $guid = (int) get_input('guid');
 if (!$guid) {
 	// backward compatible
-	elgg_deprecated_notice("Use 'guid' for trip delete action", 1.8);
-	$guid = (int)get_input('trip_guid');
+	elgg_deprecated_notice("Use 'guid' for group delete action", 1.8);
+	$guid = (int)get_input('group_guid');
 }
 $entity = get_entity($guid);
 
 if (!$entity->canEdit()) {
-	register_error(elgg_echo('trip:notdeleted'));
+	register_error(elgg_echo('group:notdeleted'));
 	forward(REFERER);
 }
-
-if (($entity) && elgg_instanceof($entity, 'trip')) 
-	system_message("check_if_same");
 
 if (($entity) && ($entity instanceof ElggGroup)) 
 {
@@ -40,7 +36,7 @@ if (($entity) && ($entity instanceof ElggGroup))
 	elgg_load_library('elgg:trip_companions');
 	delete_trip_assessments($entity->guid);
 
-	// delete trip icons
+	// delete group icons
 	$owner_guid = $entity->owner_guid;
 	$prefix = "mytrips/" . $entity->guid;
 	$imagenames = elgg_get_config('icon_sizes');
@@ -55,14 +51,14 @@ if (($entity) && ($entity instanceof ElggGroup))
 	$img->setFilename("{$prefix}.jpg");
 	$img->delete();
 
-	// delete trip
+	// delete group
 	if ($entity->delete()) {
-		system_message(elgg_echo('trip:deleted'));
+		system_message(elgg_echo('group:deleted'));
 	} else {
-		register_error(elgg_echo('trip:notdeleted'));
+		register_error(elgg_echo('group:notdeleted'));
 	}
 } else {
-	register_error(elgg_echo('trip:notdeleted'));
+	register_error(elgg_echo('group:notdeleted'));
 }
 
 $url_name = elgg_get_logged_in_user_entity()->username;

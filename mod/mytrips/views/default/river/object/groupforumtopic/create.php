@@ -1,6 +1,6 @@
 <?php
 /**
- * Elgg ajax edit form for a discussion reply
+ * Trip forum topic create river view.
  *
 * 	Plugin: mytripsTeranga
 *	Author: Rosana Montes Soldado from previous version of @package ElggGroups
@@ -17,17 +17,20 @@
 *   Student: Ricardo Luzón Fernández
 */
 
-$guid = elgg_extract('guid', $vars);
-$hidden = elgg_extract('hidden', $vars, true);
+$item = $vars['item'];
+/* @var ElggRiverItem $item */
 
-$reply = get_entity($guid);
-if (!elgg_instanceof($reply, 'object', 'discussion_reply', 'ElggDiscussionReply') || !$reply->canEdit()) {
-	return false;
+$object = $item->getObjectEntity();
+$excerpt = strip_tags($object->description);
+$excerpt = elgg_get_excerpt($excerpt);
+
+$responses = '';
+if (elgg_is_logged_in() && $object->canWriteToContainer()) {
+	$responses = elgg_view('river/elements/discussion_replies', array('topic' => $object));
 }
 
-$form_vars = array(
-	'class' => ($hidden ? 'hidden ' : '') . 'mvl',
-	'id' => "edit-discussion-reply-{$guid}",
-);
-$body_vars = array('entity' => $reply);
-echo elgg_view_form('discussion/reply/save', $form_vars, $body_vars);
+echo elgg_view('river/elements/layout', array(
+	'item' => $item,
+	'message' => $excerpt,
+	'responses' => $responses,
+));

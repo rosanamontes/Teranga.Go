@@ -1,10 +1,13 @@
 <?php
 /**
- * Join a trip
+ * Join a group
  *
- * Three states: (1)  open trip so user joins  (2) closed trip so request sent to trip owner (3) closed trip with invite so user joins
+ * Three states:
+ * open group so user joins
+ * closed group so request sent to group owner
+ * closed group with invite so user joins
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -17,82 +20,80 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
+*
 */
 
 global $CONFIG;
 
 $user_guid = get_input('user_guid', elgg_get_logged_in_user_guid());
-$trip_guid = get_input('trip_guid');
+$group_guid = get_input('group_guid');
 
 $user = get_user($user_guid);
 
-// access bypass for getting invisible trip
+// access bypass for getting invisible group
 $ia = elgg_set_ignore_access(true);
-$trip = get_entity($trip_guid);
+$group = get_entity($group_guid);
 elgg_set_ignore_access($ia);
 
-
-if ($user && elgg_instanceof($trip, 'trip'))
-{
+if ($user && ($group instanceof ElggGroup)) {
 
 	// join or request
 	$join = false;
-	if ($trip->isPublicMembership() || $trip->canEdit($user->guid)) {
-		// anyone can join public mytrips and admins can join any trip
+	if ($group->isPublicMembership() || $group->canEdit($user->guid)) {
+		// anyone can join public mytrips and admins can join any group
 		$join = true;
 	} else {
-		if (check_entity_relationship($trip->guid, 'invited', $user->guid)) {
-			// user has invite to closed trip
+		if (check_entity_relationship($group->guid, 'invited', $user->guid)) {
+			// user has invite to closed group
 			$join = true;
 		}
 	}
 
 	if ($join) {
-		if (mytrips_join_trip($trip, $user)) {
+		if (mytrips_join_group($group, $user)) {
 			system_message(elgg_echo("mytrips:joined"));
 			
 			//copio en variable local
-			$follower=$trip->follower;
+			$follower=$group->follower;
 			
 			//añado al usuario
 			array_push($follower,$user_guid);
 			
 			//vuelvo a copiar el array
-			$trip->follower=$follower;
+			$group->follower=$follower;
 			
 			
 			
-			forward($trip->getURL());
+			forward($group->getURL());
 		} else {
 			register_error(elgg_echo("mytrips:cantjoin"));
 		}
 	} else {
-		add_entity_relationship($user->guid, 'membership_request', $trip->guid);
+		add_entity_relationship($user->guid, 'membership_request', $group->guid);
 
-		$owner = $trip->getOwnerEntity();
+		$owner = $group->getOwnerEntity();
 
-		$url = "{$CONFIG->url}mytrips/requests/$trip->guid";
+		$url = "{$CONFIG->url}mytrips/requests/$group->guid";
 
 		$subject = elgg_echo('mytrips:request:subject', array(
 			$user->name,
-			$trip->name,
+			$group->name,
 		), $owner->language);
 
 		$body = elgg_echo('mytrips:request:body', array(
-			$trip->getOwnerEntity()->name,
+			$group->getOwnerEntity()->name,
 			$user->name,
-			$trip->name,
+			$group->name,
 			$user->getURL(),
 			$url,
 		), $owner->language);
 
 		$params = [
 			'action' => 'membership_request',
-			'object' => $trip,
+			'object' => $group,
 		];
 		
-		// Notify trip owner
+		// Notify group owner
 		if (notify_user($owner->guid, $user->getGUID(), $subject, $body, $params)) {
 			system_message(elgg_echo("mytrips:joinrequestmade"));
 		} else {

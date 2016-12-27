@@ -1,6 +1,7 @@
 <?php
 /**
- * Topic is closed
+ * Trip creation river view.
+ *
 * 	Plugin: mytripsTeranga
 *	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
@@ -16,7 +17,15 @@
 *   Student: Ricardo Luzón Fernández
 */
 
-echo "<div class=\"elgg-box elgg-state-notice\">";
-	echo "<h3>" . elgg_echo("mytrips:topicisclosed") . "</h3>";
-	echo "<p>" . elgg_echo("mytrips:topiccloseddesc") . "</p>";
-echo "</div>";
+
+$item = $vars['item'];
+/* @var ElggRiverItem $item */
+
+$object = $item->getObjectEntity();
+$excerpt = strip_tags($object->description);
+$excerpt = elgg_get_excerpt($excerpt);
+
+echo elgg_view('river/elements/layout', array(
+	'item' => $item,
+	'message' => $excerpt,
+));

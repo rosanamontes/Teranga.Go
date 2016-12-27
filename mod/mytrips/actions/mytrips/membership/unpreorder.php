@@ -1,8 +1,8 @@
 <?php
 /**
- * cancel a preorder in trip action.
+ * preorder a group action.
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -15,11 +15,11 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
+*
 */
 
 $user_guid = get_input('user_guid');
-$trip_guid = get_input('trip_guid');
+$group_guid = get_input('group_guid');
 
 $user = NULL;
 if (!$user_guid) {
@@ -28,18 +28,19 @@ if (!$user_guid) {
 	$user = get_user($user_guid);
 }
 
-$trip = get_entity($trip_guid);
+$group = get_entity($group_guid);
 
-elgg_set_page_owner_guid($trip->guid);
+elgg_set_page_owner_guid($group->guid);
 /*elgg_log("CREANDO mytrips/actions/mytrips/membership/preorder->","NOTICE");
-elgg_dump($trip);*/
+elgg_dump($group);*/
 
 
-system_message(elgg_echo("mytrips:unPreOrderCorrect")); 
+//register_error("aaa"); //mensaje en rojo MAL
+system_message(elgg_echo("mytrips:unPreOrderCorrect")); //mensaje en negro OK
 
 //eliminar de preorder
 	//copio en variable local
-	$preorder=$trip->preorder;
+	$preorder=$group->preorder;
 
 	//busco posición del user a borrar
 	$clave=array_search($user->guid,$preorder);
@@ -47,41 +48,38 @@ system_message(elgg_echo("mytrips:unPreOrderCorrect"));
 	//lo borro
 	unset($preorder[$clave]);
 	//vuelvo a asignar
-	$trip->preorder=$preorder;
+	$group->preorder=$preorder;
 
 //añadir en follower
 	//copio en variable local
-	$follower=$trip->follower;
+	$follower=$group->follower;
 	
 	//añado al usuario
 	array_push($follower,$user->guid);
 	
 	//vuelvo a copiar el array
-	$trip->follower=$follower;
+	$group->follower=$follower;
 	
-	$summaryPreOrderUserGuid=$trip->summaryPreOrderUserGuid;
+	$summaryPreOrderUserGuid=$group->summaryPreOrderUserGuid;
 	$clave=array_search($user->guid,$summaryPreOrderUserGuid);
 	
-	$summaryPreOrderTrayecto=$trip->summaryPreOrderTrayecto;
-	$summaryPreOrderBultos=$trip->summaryPreOrderBultos;
-	$summaryPreOrderConfirmed=$trip->summaryPreOrderConfirmed;
+	$summaryPreOrderTrayecto=$group->summaryPreOrderTrayecto;
+	$summaryPreOrderBultos=$group->summaryPreOrderBultos;
+	$summaryPreOrderConfirmed=$group->summaryPreOrderConfirmed;
 	
 	unset($summaryPreOrderUserGuid[$clave]);
 	unset($summaryPreOrderTrayecto[$clave]);
 	unset($summaryPreOrderBultos[$clave]);
 	unset($summaryPreOrderConfirmed[$clave]);
 	
-	$trip->summaryPreOrderUserGuid=$summaryPreOrderUserGuid;
-	$trip->summaryPreOrderTrayecto=$summaryPreOrderTrayecto;
-	$trip->summaryPreOrderBultos=$summaryPreOrderBultos;
-	$trip->summaryPreOrderConfirmed=$summaryPreOrderConfirmed;
+	$group->summaryPreOrderUserGuid=$summaryPreOrderUserGuid;
+	$group->summaryPreOrderTrayecto=$summaryPreOrderTrayecto;
+	$group->summaryPreOrderBultos=$summaryPreOrderBultos;
+	$group->summaryPreOrderConfirmed=$summaryPreOrderConfirmed;
 	
-/*
-if ($user && elgg_instanceof($trip, 'trip')) 
-{
-	if ($trip->getOwnerGUID() != elgg_get_logged_in_user_guid()) 
-	{
-		if ($trip->leave($user)) {
+/*if ($user && ($group instanceof ElggGroup)) {
+	if ($group->getOwnerGUID() != elgg_get_logged_in_user_guid()) {
+		if ($group->leave($user)) {
 			system_message(elgg_echo("mytrips:left"));
 		} else {
 			register_error(elgg_echo("mytrips:cantleave"));

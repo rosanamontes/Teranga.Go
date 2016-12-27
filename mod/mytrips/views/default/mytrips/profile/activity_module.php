@@ -1,11 +1,10 @@
 <?php
 /**
- * mytrips latest activity
+ * Trips latest activity
+ * @todo add people joining group to activity
  *
- * @todo add people joining trip to activity
- * 
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -17,20 +16,19 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
 if ($vars['entity']->activity_enable == 'no') {
 	return true;
 }
 
-$trip = $vars['entity'];
-if (!$trip) {
+$group = $vars['entity'];
+if (!$group) {
 	return true;
 }
 
 $all_link = elgg_view('output/url', array(
-	'href' => "mytrips/activity/$trip->guid",
+	'href' => "mytrips/activity/$group->guid",
 	'text' => elgg_echo('link:view:all'),
 	'is_trusted' => true,
 ));
@@ -45,7 +43,7 @@ $content = elgg_list_river(array(
 		"LEFT JOIN {$db_prefix}entities e2 ON e2.guid = rv.target_guid",
 	),
 	'wheres' => array(
-		"(e1.container_guid = $trip->guid OR e2.container_guid = $trip->guid)",
+		"(e1.container_guid = $group->guid OR e2.container_guid = $group->guid)",
 	),
 ));
 elgg_pop_context();

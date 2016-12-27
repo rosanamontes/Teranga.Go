@@ -1,9 +1,8 @@
 <?php
 /**
- * Message for non-members on closed membership trip profile pages.
- * 
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+ * Message for non-members on closed membership group profile pages.
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,15 +14,14 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
 ?>
 <p class="mtm">
 <?php
-echo elgg_echo('mytrips:closedtrip');
+echo elgg_echo('mytrips:closedgroup');
 if (elgg_is_logged_in()) {
-	echo ' ' . elgg_echo('mytrips:closedtrip:request');
+	echo ' ' . elgg_echo('mytrips:closedgroup:request');
 }
 ?>
 </p>

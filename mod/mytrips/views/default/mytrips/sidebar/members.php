@@ -1,12 +1,12 @@
 <?php
 /**
- * trip members sidebar
+ * Trip participants sidebar
  *
  * @uses $vars['entity'] trip entity
- * @uses $vars['limit']  The max number of members to display
+ * @uses $vars['limit']  The number of members to display
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -18,7 +18,6 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
 $limit = elgg_extract('limit', $vars, 14);
@@ -28,8 +27,7 @@ $all_link = elgg_view('output/url', array(
 	'text' => elgg_echo('mytrips:members:more'),
 	'is_trusted' => true,
 ));
-
-/* Cambia ASI DE trip */
+/*Cambia ASIDE */
 /*$user=elgg_get_logged_in_user_entity();
 $db_prefix = elgg_get_config('dbprefix');*/
 
@@ -45,10 +43,8 @@ $body = elgg_list_entities_from_relationship(array(
 	'list_type' => 'gallery',
 	'gallery_class' => 'elgg-gallery-users',
 ));
-
 /*elgg_log("CREANDO members->","NOTICE");
 elgg_dump($vars['entity']);*/
-
 $body .= "<div class='center mts'>$all_link</div>";
 
 echo elgg_view_module('aside', elgg_echo('mytrips:members'), $body);

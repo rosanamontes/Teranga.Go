@@ -1,9 +1,9 @@
 <?php
 /**
- * trip activity widget settings
+ * activity widget settings
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,41 +15,32 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
-*/
+*/ 
 
-
-// once autocomplete is working use that - get entities as in ./engine/classes/ElggUser.php
-$mytrips = elgg_get_logged_in_user_entity()->getmytrips(array('limit' => 0));
-
-$allmytrips = array();
-if (!$vars['entity']->trip_guid) {
-	$allmytrips[0] = '';
+// once autocomplete is working use that
+$mytrips = elgg_get_logged_in_user_entity()->getGroups(array('limit' => 0));
+$mygroups = array();
+if (!$vars['entity']->group_guid) {
+	$mygroups[0] = '';
 }
-
-foreach ($mytrips as $trip) 
-{
-	$allmytrips[$trip->guid] = $trip->name;
+foreach ($mytrips as $group) {
+	$mygroups[$group->guid] = $group->name;
 }
-
 $params = array(
-	'name' => 'params[trip_guid]',
-	'value' => $vars['entity']->trip_guid,
-	'options_values' => $allmytrips,
+	'name' => 'params[group_guid]',
+	'value' => $vars['entity']->group_guid,
+	'options_values' => $mygroups,
 );
-
-$trip_dropdown = elgg_view('input/select', $params);
+$group_dropdown = elgg_view('input/select', $params);
 ?>
-
 <div>
-	<?php echo elgg_echo('mytrips:widget:trip_activity:edit:select'); ?>:
-	<?php echo $trip_dropdown; ?>
+	<?php echo elgg_echo('mytrips:widget:group_activity:edit:select'); ?>:
+	<?php echo $group_dropdown; ?>
 </div>
-
 <?php
+
 // set default value for number to display
-if (!isset($vars['entity']->num_display)) 
-{
+if (!isset($vars['entity']->num_display)) {
 	$vars['entity']->num_display = 8;
 }
 

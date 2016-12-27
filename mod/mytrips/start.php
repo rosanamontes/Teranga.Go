@@ -17,7 +17,6 @@
 *   Student: Ricardo Luzón Fernández
 */
 
-
 elgg_register_event_handler('init', 'system', 'mytrips_init');
 
 // Ensure this runs after other plugins
@@ -30,7 +29,7 @@ function mytrips_init()
 {
 	elgg_register_library('elgg:mytrips', elgg_get_plugins_path() . 'mytrips/lib/mytrips.php');
 
-	// register trip entities for search
+	// register group entities for search
 	elgg_register_entity_type('group', '');
 
 	// Set up the menu
@@ -41,11 +40,11 @@ function mytrips_init()
 	elgg_register_page_handler('mytrips', 'mytrips_page_handler');
 
 	// Register URL handlers for mytrips
-	elgg_register_plugin_hook_handler('entity:url', 'trip', 'mytrips_set_url');
-	elgg_register_plugin_hook_handler('entity:icon:url', 'trip', 'mytrips_set_icon_url');
+	elgg_register_plugin_hook_handler('entity:url', 'group', 'mytrips_set_url');
+	elgg_register_plugin_hook_handler('entity:icon:url', 'group', 'mytrips_set_icon_url');
 
 	// Register an icon handler for mytrips
-	elgg_register_page_handler('tripicon', 'mytrips_icon_handler');
+	elgg_register_page_handler('groupicon', 'mytrips_icon_handler');
 
 	// Register some actions
 	$action_base = elgg_get_plugins_path() . 'mytrips/actions/mytrips';
@@ -66,31 +65,31 @@ function mytrips_init()
 	elgg_register_action("mytrips/remove", "$action_base/remove.php");
 	elgg_register_action("mytrips/killrequest", "$action_base/delete_request.php");
 	elgg_register_action("mytrips/killinvitation", "$action_base/delete_invite.php");
-	elgg_register_action("mytrips/addtotrip", "$action_base/add.php");
+	elgg_register_action("mytrips/addtogroup", "$action_base/add.php");
 
 	// Add some widgets
 	elgg_register_widget_type('a_users_mytrips', elgg_echo('mytrips:widget:membership'), elgg_echo('mytrips:widgets:description'));
 
 	elgg_register_widget_type(
-			'trip_activity',
-			elgg_echo('mytrips:widget:trip_activity:title'),
-			elgg_echo('mytrips:widget:trip_activity:description'),
+			'group_activity',
+			elgg_echo('mytrips:widget:group_activity:title'),
+			elgg_echo('mytrips:widget:group_activity:description'),
 			array('dashboard'),
 			true
 	);
 
-	// add activity tool option
-	//add_group_tool_option('activity', elgg_echo('mytrips:enableactivity'), true);
+	// add group activity tool option
+	add_group_tool_option('activity', elgg_echo('mytrips:enableactivity'), true);
 	elgg_extend_view('mytrips/tool_latest', 'mytrips/profile/activity_module');
 
 	// add link to owner block
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'mytrips_activity_owner_block_menu');
 
-	// trip entity menu
+	// group entity menu
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'mytrips_entity_menu_setup');
 
 	elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'mytrips_user_entity_menu_setup');
-	// trip user hover menu
+	// group user hover menu
 
 	// invitation request actions
 	elgg_register_plugin_hook_handler('register', 'menu:invitationrequest', 'mytrips_invitationrequest_menu_setup');
@@ -104,21 +103,25 @@ function mytrips_init()
 	elgg_register_plugin_hook_handler('default', 'access', 'mytrips_access_default_override');
 
 	// Register profile menu hook
-	elgg_register_plugin_hook_handler('profile_menu', 'profile', 'teranga_activity_profile_menu');
+	elgg_register_plugin_hook_handler('profile_menu', 'profile', 'activity_profile_menu');
 
 	// allow ecml in discussion and profiles
 	elgg_register_plugin_hook_handler('get_views', 'ecml', 'mytrips_ecml_views_hook');
-	elgg_register_plugin_hook_handler('get_views', 'ecml', 'tripprofile_ecml_views_hook');
+	elgg_register_plugin_hook_handler('get_views', 'ecml', 'groupprofile_ecml_views_hook');
 
 	// Register a handler for create mytrips
-	elgg_register_event_handler('create', 'trip', 'mytrips_create_event_listener');
+	elgg_register_event_handler('create', 'group', 'mytrips_create_event_listener');
 
-	elgg_register_event_handler('join', 'trip', 'mytrips_user_join_event_listener');
-	elgg_register_event_handler('leave', 'trip', 'mytrips_user_leave_event_listener');
+	elgg_register_event_handler('join', 'group', 'mytrips_user_join_event_listener');
+	elgg_register_event_handler('leave', 'group', 'mytrips_user_leave_event_listener');
 	elgg_register_event_handler('pagesetup', 'system', 'mytrips_setup_sidebar_menus');
 
 	elgg_register_plugin_hook_handler('access:collections:add_user', 'collection', 'mytrips_access_collection_override');
 
+	elgg_register_event_handler('upgrade', 'system', 'mytrips_run_upgrades');
+
+	// Add tests
+	elgg_register_plugin_hook_handler('unit_test', 'system', 'mytrips_test');
 }
 
 /**
@@ -129,8 +132,8 @@ function mytrips_init()
  * low priority to guarantee that it is called after all other plugins have
  * initialized.
  */
-function mytrips_fields_setup() 
-{
+function mytrips_fields_setup() {
+
 	$profile_defaults = array(
 		'description' => 'longtext',
 		'briefdescription' => 'text',
@@ -138,9 +141,9 @@ function mytrips_fields_setup()
 		//'website' => 'url',
 	);
 
-	$profile_defaults = elgg_trigger_plugin_hook('profile:fields', 'trip', NULL, $profile_defaults);
+	$profile_defaults = elgg_trigger_plugin_hook('profile:fields', 'group', NULL, $profile_defaults);
 
-	elgg_set_config('trip', $profile_defaults);
+	elgg_set_config('group', $profile_defaults);
 
 	// register any tag metadata names
 	foreach ($profile_defaults as $name => $type) {
@@ -158,13 +161,13 @@ function mytrips_fields_setup()
  * Configure the mytrips sidebar menu. Triggered on page setup
  *
  */
-function mytrips_setup_sidebar_menus() 
-{
+function mytrips_setup_sidebar_menus() {
+
 	// Get the page owner entity
 	$page_owner = elgg_get_page_owner_entity();
 
-	if (elgg_in_context('trip_profile')) {
-		if (!elgg_instanceof($page_owner, 'trip')) {
+	if (elgg_in_context('group_profile')) {
+		if (!elgg_instanceof($page_owner, 'group')) {
 			forward('', '404');
 		}
 
@@ -192,7 +195,7 @@ function mytrips_setup_sidebar_menus()
 			));
 		}
 	}
-	if (elgg_get_context() == 'mytrips' && !elgg_instanceof($page_owner, 'trip')) {
+	if (elgg_get_context() == 'mytrips' && !elgg_instanceof($page_owner, 'group')) {
 		elgg_register_menu_item('page', array(
 			'name' => 'mytrips:all',
 			'text' => elgg_echo('mytrips:all'),
@@ -231,20 +234,20 @@ function mytrips_setup_sidebar_menus()
  *  All mytrips:           mytrips/all
  *  User's owned mytrips:  mytrips/owner/<username>
  *  User's member mytrips: mytrips/member/<username>
- *  trip profile:        mytrips/profile/<guid>/<title>
- *  New trip:            mytrips/add/<guid>
- *  Edit trip:           mytrips/edit/<guid>
- *  trip invitations:    mytrips/invitations/<username>
- *  Invite to trip:      mytrips/invite/<guid>
+ *  Group profile:        mytrips/profile/<guid>/<title>
+ *  New group:            mytrips/add/<guid>
+ *  Edit group:           mytrips/edit/<guid>
+ *  Group invitations:    mytrips/invitations/<username>
+ *  Invite to group:      mytrips/invite/<guid>
  *  Membership requests:  mytrips/requests/<guid>
- *  trip activity:       mytrips/activity/<guid>
- *  trip members:        mytrips/members/<guid>
+ *  Group activity:       mytrips/activity/<guid>
+ *  Group members:        mytrips/members/<guid>
  *
  * @param array $page Array of url segments for routing
  * @return bool
  */
-function mytrips_page_handler($page) 
-{
+function mytrips_page_handler($page) {
+
 	elgg_load_library('elgg:mytrips');
 
 	if (!isset($page[0])) {
@@ -305,16 +308,16 @@ function mytrips_page_handler($page)
 }
 
 /**
- * Handle trip icons.
+ * Handle group icons.
  *
  * @param array $page
  * @return bool
  */
-function mytrips_icon_handler($page) 
-{
+function mytrips_icon_handler($page) {
+
 	// The username should be the file we're getting
 	if (isset($page[0])) {
-		set_input('trip_guid', $page[0]);
+		set_input('group_guid', $page[0]);
 	}
 	if (isset($page[1])) {
 		set_input('size', $page[1]);
@@ -326,7 +329,7 @@ function mytrips_icon_handler($page)
 }
 
 /**
- * Populates the ->getUrl() method for trip objects
+ * Populates the ->getUrl() method for group objects
  *
  * @param string $hook
  * @param string $type
@@ -334,8 +337,7 @@ function mytrips_icon_handler($page)
  * @param array  $params
  * @return string
  */
-function mytrips_set_url($hook, $type, $url, $params) 
-{
+function mytrips_set_url($hook, $type, $url, $params) {
 	$entity = $params['entity'];
 	$title = elgg_get_friendly_title($entity->name);
 	return "mytrips/profile/{$entity->guid}/$title";
@@ -350,23 +352,23 @@ function mytrips_set_url($hook, $type, $url, $params)
  * @param array  $params
  * @return string Relative URL
  */
-function mytrips_set_icon_url($hook, $type, $url, $params) 
-{
-	$trip = $params['entity'];
+function mytrips_set_icon_url($hook, $type, $url, $params) {
+	/* @var ElggGroup $group */
+	$group = $params['entity'];
 	$size = $params['size'];
 
-	$icontime = $trip->icontime;
+	$icontime = $group->icontime;
 	// handle missing metadata (pre 1.7 installations)
 	if (null === $icontime) {
 		$file = new ElggFile();
-		$file->owner_guid = $trip->owner_guid;
-		$file->setFilename("mytrips/" . $trip->guid . "large.jpg");
+		$file->owner_guid = $group->owner_guid;
+		$file->setFilename("mytrips/" . $group->guid . "large.jpg");
 		$icontime = $file->exists() ? time() : 0;
-		create_metadata($trip->guid, 'icontime', $icontime, 'integer', $trip->owner_guid, ACCESS_PUBLIC);
+		create_metadata($group->guid, 'icontime', $icontime, 'integer', $group->owner_guid, ACCESS_PUBLIC);
 	}
 	if ($icontime) {
 		// return thumbnail
-		return "tripicon/$trip->guid/$size/$icontime.jpg";
+		return "groupicon/$group->guid/$size/$icontime.jpg";
 	}
 
 	return "mod/mytrips/graphics/default{$size}.gif";
@@ -375,9 +377,8 @@ function mytrips_set_icon_url($hook, $type, $url, $params)
 /**
  * Add owner block link
  */
-function mytrips_activity_owner_block_menu($hook, $type, $return, $params) 
-{
-	if (elgg_instanceof($params['entity'], 'trip')) {
+function mytrips_activity_owner_block_menu($hook, $type, $return, $params) {
+	if (elgg_instanceof($params['entity'], 'group')) {
 		if ($params['entity']->activity_enable != "no") {
 			$url = "mytrips/activity/{$params['entity']->guid}";
 			$item = new ElggMenuItem('activity', elgg_echo('mytrips:activity'), $url);
@@ -389,15 +390,14 @@ function mytrips_activity_owner_block_menu($hook, $type, $return, $params)
 }
 
 /**
- * Add links/info to entity menu particular to trip entities
+ * Add links/info to entity menu particular to group entities
  */
-function mytrips_entity_menu_setup($hook, $type, $return, $params) 
-{
+function mytrips_entity_menu_setup($hook, $type, $return, $params) {
 	if (elgg_in_context('widgets')) {
 		return $return;
 	}
 
-	/* @var trip $entity */
+	/* @var ElggGroup $entity */
 	$entity = $params['entity'];
 	$handler = elgg_extract('handler', $params, false);
 	if ($handler != 'mytrips') {
@@ -439,12 +439,12 @@ function mytrips_entity_menu_setup($hook, $type, $return, $params)
 
 	// feature link
 	if (elgg_is_admin_logged_in()) {
-		$isFeatured = $entity->featured_trip == "yes";
+		$isFeatured = $entity->featured_group == "yes";
 
 		$return[] = ElggMenuItem::factory(array(
 			'name' => 'feature',
 			'text' => elgg_echo("mytrips:makefeatured"),
-			'href' => elgg_add_action_tokens_to_url("action/mytrips/featured?trip_guid={$entity->guid}&action_type=feature"),
+			'href' => elgg_add_action_tokens_to_url("action/mytrips/featured?group_guid={$entity->guid}&action_type=feature"),
 			'priority' => 300,
 			'item_class' => $isFeatured ? 'hidden' : '',
 		));
@@ -452,7 +452,7 @@ function mytrips_entity_menu_setup($hook, $type, $return, $params)
 		$return[] = ElggMenuItem::factory(array(
 			'name' => 'unfeature',
 			'text' => elgg_echo("mytrips:makeunfeatured"),
-			'href' => elgg_add_action_tokens_to_url("action/mytrips/featured?trip_guid={$entity->guid}&action_type=unfeature"),
+			'href' => elgg_add_action_tokens_to_url("action/mytrips/featured?group_guid={$entity->guid}&action_type=unfeature"),
 			'priority' => 300,
 			'item_class' => $isFeatured ? '' : 'hidden',
 		));
@@ -462,29 +462,29 @@ function mytrips_entity_menu_setup($hook, $type, $return, $params)
 }
 
 /**
- * Add a remove user link to user hover menu when the page owner is a trip
+ * Add a remove user link to user hover menu when the page owner is a group
  */
 function mytrips_user_entity_menu_setup($hook, $type, $return, $params) 
 {	
 	if (elgg_is_logged_in()) {
-		$trip = elgg_get_page_owner_entity();
+		$group = elgg_get_page_owner_entity();
 
-		// Check for valid trip
-		if (!elgg_instanceof($trip, 'trip')) {
+		// Check for valid group
+		if (!elgg_instanceof($group, 'group')) {
 			return $return;
 		}
 
 		$entity = $params['entity'];
 
-		// Make sure we have a user and that user is a member of the trip
-		if (!elgg_instanceof($entity, 'user') || !$trip->isMember($entity)) {
+		// Make sure we have a user and that user is a member of the group
+		if (!elgg_instanceof($entity, 'user') || !$group->isMember($entity)) {
 			return $return;
 		}
 
-		// Add remove link if we can edit the trip, and if we're not trying to remove the trip owner
-		if ($trip->canEdit() && $trip->getOwnerGUID() != $entity->guid) {
+		// Add remove link if we can edit the group, and if we're not trying to remove the group owner
+		if ($group->canEdit() && $group->getOwnerGUID() != $entity->guid) {
 			$remove = elgg_view('output/url', array(
-				'href' => "action/mytrips/remove?user_guid={$entity->guid}&trip_guid={$trip->guid}",
+				'href' => "action/mytrips/remove?user_guid={$entity->guid}&group_guid={$group->guid}",
 				'text' => elgg_echo('mytrips:removeuser'),
 				'confirm' => true,
 			));
@@ -505,12 +505,12 @@ function mytrips_user_entity_menu_setup($hook, $type, $return, $params)
  * mytrips created so create an access list for it
  */
 function mytrips_create_event_listener($event, $object_type, $object) {
-	$ac_name = elgg_echo('mytrips:trip') . ": " . $object->name;
+	$ac_name = elgg_echo('mytrips:group') . ": " . $object->name;
 	$ac_id = create_access_collection($ac_name, $object->guid);
 	if ($ac_id) {
-		$object->trip_acl = $ac_id;
+		$object->group_acl = $ac_id;
 	} else {
-		// delete trip if access creation fails
+		// delete group if access creation fails
 		return false;
 	}
 
@@ -518,10 +518,10 @@ function mytrips_create_event_listener($event, $object_type, $object) {
 }
 
 /**
- * Return the write access for the current trip if the user has write access to it.
+ * Return the write access for the current group if the user has write access to it.
  */
-function mytrips_write_acl_plugin_hook($hook, $entity_type, $returnvalue, $params) 
-{
+function mytrips_write_acl_plugin_hook($hook, $entity_type, $returnvalue, $params) {
+
 	$user_guid = sanitise_int(elgg_extract('user_id', $params), false);
 	$user = get_user($user_guid);
 	if (empty($user)) {
@@ -529,7 +529,7 @@ function mytrips_write_acl_plugin_hook($hook, $entity_type, $returnvalue, $param
 	}
 
 	$page_owner = elgg_get_page_owner_entity();
-	if (!($page_owner instanceof trip)) {
+	if (!($page_owner instanceof ElggGroup)) {
 		return $returnvalue;
 	}
 
@@ -537,7 +537,7 @@ function mytrips_write_acl_plugin_hook($hook, $entity_type, $returnvalue, $param
 		return $returnvalue;
 	}
 
-	// check trip content access rules
+	// check group content access rules
 	$allowed_access = array(
 		ACCESS_PRIVATE
 	);
@@ -553,21 +553,21 @@ function mytrips_write_acl_plugin_hook($hook, $entity_type, $returnvalue, $param
 		}
 	}
 
-	// add write access to the trip
-	$returnvalue[$page_owner->trip_acl] = elgg_echo('mytrips:acl', array($page_owner->name));
+	// add write access to the group
+	$returnvalue[$page_owner->group_acl] = elgg_echo('mytrips:acl', array($page_owner->name));
 
 	return $returnvalue;
 }
 
 /**
- * Listens to a trip join event and adds a user to the trip's access control
+ * Listens to a group join event and adds a user to the group's access control
  *
  */
-function mytrips_user_join_event_listener($event, $object_type, $object) 
-{
-	$trip = $object['trip'];
+function mytrips_user_join_event_listener($event, $object_type, $object) {
+
+	$group = $object['group'];
 	$user = $object['user'];
-	$acl = $trip->trip_acl;
+	$acl = $group->group_acl;
 
 	add_user_to_access_collection($user->guid, $acl);
 
@@ -579,21 +579,21 @@ function mytrips_user_join_event_listener($event, $object_type, $object)
  */
 function mytrips_access_collection_override($hook, $entity_type, $returnvalue, $params) {
 	if (isset($params['collection'])) {
-		if (elgg_instanceof(get_entity($params['collection']->owner_guid), 'trip')) {
+		if (elgg_instanceof(get_entity($params['collection']->owner_guid), 'group')) {
 			return true;
 		}
 	}
 }
 
 /**
- * Listens to a trip leave event and removes a user from the trip's access control
+ * Listens to a group leave event and removes a user from the group's access control
  *
  */
-function mytrips_user_leave_event_listener($event, $object_type, $object) 
-{
-	$trip = $object['trip'];
+function mytrips_user_leave_event_listener($event, $object_type, $object) {
+
+	$group = $object['group'];
 	$user = $object['user'];
-	$acl = $trip->trip_acl;
+	$acl = $group->group_acl;
 
 	remove_user_from_access_collection($user->guid, $acl);
 
@@ -601,8 +601,8 @@ function mytrips_user_leave_event_listener($event, $object_type, $object)
 }
 
 /**
- * The default access for members only content is this trip only. This makes
- * for better display of access (can tell it is trip only), but does not change
+ * The default access for members only content is this group only. This makes
+ * for better display of access (can tell it is group only), but does not change
  * access to the content.
  *
  * @param string $hook   Hook name
@@ -613,9 +613,9 @@ function mytrips_user_leave_event_listener($event, $object_type, $object)
 function mytrips_access_default_override($hook, $type, $access) {
 	$page_owner = elgg_get_page_owner_entity();
 
-	if (elgg_instanceof($page_owner, 'trip')) {
+	if (elgg_instanceof($page_owner, 'group')) {
 		if ($page_owner->getContentAccessMode() == ElggGroup::CONTENT_ACCESS_MODE_MEMBERS_ONLY) {
-			$access = $page_owner->trip_acl;
+			$access = $page_owner->group_acl;
 		}
 	}
 
@@ -627,13 +627,13 @@ function mytrips_access_default_override($hook, $type, $access) {
  * Have to override all access until there's a way override access to getter functions.
  *
  * @param int   $user_guid    The user's guid
- * @param bool  $return_guids Return guids rather than trip objects
+ * @param bool  $return_guids Return guids rather than ElggGroup objects
  * @param array $options      Additional options
  *
  * @return mixed Elggmytrips or guids depending on $return_guids, or count
  */
-function mytrips_get_invited_mytrips($user_guid, $return_guids = false, $options = array()) 
-{
+function mytrips_get_invited_mytrips($user_guid, $return_guids = false, $options = array()) {
+
 	$ia = elgg_set_ignore_access(true);
 
 	$defaults = array(
@@ -650,8 +650,8 @@ function mytrips_get_invited_mytrips($user_guid, $return_guids = false, $options
 
 	if ($return_guids) {
 		$guids = array();
-		foreach ($mytrips as $trip) {
-			$guids[] = $trip->getGUID();
+		foreach ($mytrips as $group) {
+			$guids[] = $group->getGUID();
 		}
 
 		return $guids;
@@ -661,17 +661,17 @@ function mytrips_get_invited_mytrips($user_guid, $return_guids = false, $options
 }
 
 /**
- * Join a user to a trip, add river event, clean-up invitations
+ * Join a user to a group, add river event, clean-up invitations
  *
- * @param trip $trip
+ * @param ElggGroup $group
  * @param ElggUser  $user
  * @return bool
  */
-function mytrips_join_trip($trip, $user) 
-{
-	// access ignore so user can be added to access collection of invisible trip
+function mytrips_join_group($group, $user) {
+
+	// access ignore so user can be added to access collection of invisible group
 	$ia = elgg_set_ignore_access(TRUE);
-	$result = $trip->join($user);
+	$result = $group->join($user);
 	elgg_set_ignore_access($ia);
 
 	if ($result) {
@@ -679,14 +679,14 @@ function mytrips_join_trip($trip, $user)
 		get_access_list($user->guid, 0, true);
 
 		// Remove any invite or join request flags
-		remove_entity_relationship($trip->guid, 'invited', $user->guid);
-		remove_entity_relationship($user->guid, 'membership_request', $trip->guid);
+		remove_entity_relationship($group->guid, 'invited', $user->guid);
+		remove_entity_relationship($user->guid, 'membership_request', $group->guid);
 
 		elgg_create_river_item(array(
 			'view' => 'river/relationship/member/create',
 			'action_type' => 'join',
 			'subject_guid' => $user->guid,
-			'object_guid' => $trip->guid,
+			'object_guid' => $group->guid,
 		));
 
 		return true;
@@ -697,25 +697,24 @@ function mytrips_join_trip($trip, $user)
 
 /**
  * Function to use on mytrips for access. It will house private, loggedin, public,
- * and the trip itself. This is when you don't want other mytrips or access lists
+ * and the group itself. This is when you don't want other mytrips or access lists
  * in the access options available.
  *
  * @return array
  */
-function trip_access_options($trip) 
-{
+function group_access_options($group) {
 	$access_array = array(
 		ACCESS_PRIVATE => 'private',
 		ACCESS_LOGGED_IN => 'logged in users',
 		ACCESS_PUBLIC => 'public',
-		$trip->trip_acl => elgg_echo('mytrips:acl', array($trip->name)),
+		$group->group_acl => elgg_echo('mytrips:acl', array($group->name)),
 	);
 	return $access_array;
 }
 
-function teranga_activity_profile_menu($hook, $entity_type, $return_value, $params) 
-{
-	if ($params['owner'] instanceof trip) {
+function activity_profile_menu($hook, $entity_type, $return_value, $params) {
+
+	if ($params['owner'] instanceof ElggGroup) {
 		$return_value[] = array(
 			'text' => elgg_echo('mytrips:activity'),
 			'href' => "mytrips/activity/{$params['owner']->getGUID()}"
@@ -725,21 +724,19 @@ function teranga_activity_profile_menu($hook, $entity_type, $return_value, $para
 }
 
 /**
- * Parse ECML on trip discussion views
+ * Parse ECML on group discussion views
  */
-function mytrips_ecml_views_hook($hook, $entity_type, $return_value, $params) 
-{
+function mytrips_ecml_views_hook($hook, $entity_type, $return_value, $params) {
 	$return_value['forum/viewposts'] = elgg_echo('mytrips:ecml:discussion');
 
 	return $return_value;
 }
 
 /**
- * Parse ECML on trip profiles
+ * Parse ECML on group profiles
  */
-function tripprofile_ecml_views_hook($hook, $entity_type, $return_value, $params) 
-{
-	$return_value['mytrips/tripprofile'] = elgg_echo('mytrips:ecml:tripprofile');
+function groupprofile_ecml_views_hook($hook, $entity_type, $return_value, $params) {
+	$return_value['mytrips/groupprofile'] = elgg_echo('mytrips:ecml:groupprofile');
 
 	return $return_value;
 }
@@ -751,30 +748,30 @@ function tripprofile_ecml_views_hook($hook, $entity_type, $return_value, $params
  *
  */
 
-elgg_register_event_handler('init', 'system', 'teranga_discussion_init');
+elgg_register_event_handler('init', 'system', 'discussion_init');
 
 /**
  * Initialize the discussion component
  */
-function teranga_discussion_init() 
-{
+function discussion_init() {
+
 	elgg_register_library('elgg:discussion', elgg_get_plugins_path() . 'mytrips/lib/discussion.php');
 
-	elgg_register_page_handler('discussion', 'teranga_discussion_page_handler');
+	elgg_register_page_handler('discussion', 'discussion_page_handler');
 
-	elgg_register_plugin_hook_handler('entity:url', 'object', 'teranga_discussion_set_topic_url');
+	elgg_register_plugin_hook_handler('entity:url', 'object', 'discussion_set_topic_url');
 
 	// commenting not allowed on discussion topics (use a different annotation)
-	elgg_register_plugin_hook_handler('permissions_check:comment', 'object', 'teranga_discussion_comment_override');
-	elgg_register_plugin_hook_handler('permissions_check', 'object', 'teranga_discussion_can_edit_reply');
+	elgg_register_plugin_hook_handler('permissions_check:comment', 'object', 'discussion_comment_override');
+	elgg_register_plugin_hook_handler('permissions_check', 'object', 'discussion_can_edit_reply');
 
 	// discussion reply menu
-	elgg_register_plugin_hook_handler('register', 'menu:entity', 'teranga_discussion_reply_menu_setup');
+	elgg_register_plugin_hook_handler('register', 'menu:entity', 'discussion_reply_menu_setup');
 
-	// allow non-owners to add replies to trip discussion
-	elgg_register_plugin_hook_handler('container_permissions_check', 'object', 'teranga_discussion_reply_container_permissions_override');
+	// allow non-owners to add replies to group discussion
+	elgg_register_plugin_hook_handler('container_permissions_check', 'object', 'discussion_reply_container_permissions_override');
 
-	elgg_register_event_handler('update:after', 'object', 'teranga_discussion_update_reply_access_ids');
+	elgg_register_event_handler('update:after', 'object', 'discussion_update_reply_access_ids');
 
 	$action_base = elgg_get_plugins_path() . 'mytrips/actions/discussion';
 	elgg_register_action('discussion/save', "$action_base/save.php");
@@ -783,18 +780,18 @@ function teranga_discussion_init()
 	elgg_register_action('discussion/reply/delete', "$action_base/reply/delete.php");
 
 	// add link to owner block
-	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'teranga_discussion_owner_block_menu');
+	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'discussion_owner_block_menu');
 
 	// Register for search.
-	elgg_register_entity_type('object', 'tripforumtopic');
-	elgg_register_plugin_hook_handler('search', 'object:tripforumtopic', 'teranga_discussion_search_tripforumtopic');
+	elgg_register_entity_type('object', 'groupforumtopic');
+	elgg_register_plugin_hook_handler('search', 'object:groupforumtopic', 'discussion_search_groupforumtopic');
 
 	// because replies are not comments, need of our menu item
-	elgg_register_plugin_hook_handler('register', 'menu:river', 'teranga_discussion_add_to_river_menu');
+	elgg_register_plugin_hook_handler('register', 'menu:river', 'discussion_add_to_river_menu');
 
 	// add the forum tool option
 	add_group_tool_option('forum', elgg_echo('mytrips:enableforum'), true);
-	elgg_extend_view('mytrips/tool_latest', 'discussion/trip_module');
+	elgg_extend_view('mytrips/tool_latest', 'discussion/group_module');
 
 	$discussion_js_path = elgg_get_site_url() . 'mod/mytrips/views/default/js/discussion/';
 	elgg_register_js('elgg.discussion', $discussion_js_path . 'discussion.js');
@@ -802,11 +799,11 @@ function teranga_discussion_init()
 	elgg_register_ajax_view('ajax/discussion/reply/edit');
 
 	// notifications
-	elgg_register_plugin_hook_handler('get', 'subscriptions', 'teranga_discussion_get_subscriptions');
-	elgg_register_notification_event('object', 'tripforumtopic');
-	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:tripforumtopic', 'teranga_discussion_prepare_notification');
+	elgg_register_plugin_hook_handler('get', 'subscriptions', 'discussion_get_subscriptions');
+	elgg_register_notification_event('object', 'groupforumtopic');
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:groupforumtopic', 'discussion_prepare_notification');
 	elgg_register_notification_event('object', 'discussion_reply');
-	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:discussion_reply', 'teranga_discussion_prepare_reply_notification');
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:discussion_reply', 'discussion_prepare_reply_notification');
 }
 
 /**
@@ -822,8 +819,8 @@ function teranga_discussion_init()
  * @param array $page Array of url segments for routing
  * @return bool
  */
-function teranga_discussion_page_handler($page) 
-{
+function discussion_page_handler($page) {
+
 	elgg_load_library('elgg:discussion');
 
 	if (!isset($page[0])) {
@@ -875,8 +872,7 @@ function teranga_discussion_page_handler($page)
  * @return void
  * @access private
  */
-function teranga_discussion_redirect_to_reply($reply_guid, $fallback_guid) 
-{
+function discussion_redirect_to_reply($reply_guid, $fallback_guid) {
 	$fail = function () {
 		register_error(elgg_echo('discussion:reply:error:notfound'));
 		forward(REFERER);
@@ -886,7 +882,7 @@ function teranga_discussion_redirect_to_reply($reply_guid, $fallback_guid)
 	if (!$reply) {
 		// try fallback
 		$fallback = get_entity($fallback_guid);
-		if (!elgg_instanceof($fallback, 'object', 'tripforumtopic')) {
+		if (!elgg_instanceof($fallback, 'object', 'groupforumtopic')) {
 			$fail();
 		}
 
@@ -937,15 +933,14 @@ function teranga_discussion_redirect_to_reply($reply_guid, $fallback_guid)
  * @param array  $params
  * @return string
  */
-function teranga_discussion_set_topic_url($hook, $type, $url, $params) 
-{
+function discussion_set_topic_url($hook, $type, $url, $params) {
 	$entity = $params['entity'];
 
 	if (!$entity instanceof ElggObject) {
 		return;
 	}
 
-	if ($entity->getSubtype() === 'tripforumtopic') {
+	if ($entity->getSubtype() === 'groupforumtopic') {
 		$title = elgg_get_friendly_title($entity->title);
 		return "discussion/view/{$entity->guid}/{$title}";
 	}
@@ -968,9 +963,8 @@ function teranga_discussion_set_topic_url($hook, $type, $url, $params)
  * @param array  $params
  * @return bool
  */
-function teranga_discussion_comment_override($hook, $type, $return, $params) 
-{
-	if (elgg_instanceof($params['entity'], 'object', 'tripforumtopic')) {
+function discussion_comment_override($hook, $type, $return, $params) {
+	if (elgg_instanceof($params['entity'], 'object', 'groupforumtopic')) {
 		return false;
 	}
 }
@@ -984,12 +978,11 @@ function teranga_discussion_comment_override($hook, $type, $return, $params)
  * @param array           $params
  * @return ElggMenuItem[]  $return
  */
-function teranga_discussion_owner_block_menu($hook, $type, $return, $params) 
-{
-	if (elgg_instanceof($params['entity'], 'trip')) {
+function discussion_owner_block_menu($hook, $type, $return, $params) {
+	if (elgg_instanceof($params['entity'], 'group')) {
 		if ($params['entity']->forum_enable != "no") {
 			$url = "discussion/owner/{$params['entity']->guid}";
-			$item = new ElggMenuItem('discussion', elgg_echo('discussion:trip'), $url);
+			$item = new ElggMenuItem('discussion', elgg_echo('discussion:group'), $url);
 			$return[] = $item;
 		}
 	}
@@ -1009,8 +1002,7 @@ function teranga_discussion_owner_block_menu($hook, $type, $return, $params)
  * @param array          $params
  * @return ElggMenuItem[] $return
  */
-function teranga_discussion_add_to_river_menu($hook, $type, $return, $params) 
-{
+function discussion_add_to_river_menu($hook, $type, $return, $params) {
 	if (!elgg_is_logged_in() || elgg_in_context('widgets')) {
 		return $return;
 	}
@@ -1018,10 +1010,10 @@ function teranga_discussion_add_to_river_menu($hook, $type, $return, $params)
 	$item = $params['item'];
 	$object = $item->getObjectEntity();
 
-	if (elgg_instanceof($object, 'object', 'tripforumtopic')) {
-		$trip = $object->getContainerEntity();
+	if (elgg_instanceof($object, 'object', 'groupforumtopic')) {
+		$group = $object->getContainerEntity();
 
-		if ($trip && ($trip->canWriteToContainer() || elgg_is_admin_logged_in())) {
+		if ($group && ($group->canWriteToContainer() || elgg_is_admin_logged_in())) {
 				$options = array(
 				'name' => 'reply',
 				'href' => "#discussion-reply-{$object->guid}",
@@ -1034,7 +1026,7 @@ function teranga_discussion_add_to_river_menu($hook, $type, $return, $params)
 		}
 	} else {
 		if (elgg_instanceof($object, 'object', 'discussion_reply', 'ElggDiscussionReply')) {
-			// trip discussion replies cannot be commented
+			// Group discussion replies cannot be commented
 			foreach ($return as $key => $item) {
 				if ($item->getName() === 'comment') {
 					unset($return[$key]);
@@ -1055,8 +1047,7 @@ function teranga_discussion_add_to_river_menu($hook, $type, $return, $params)
  * @param array                           $params       Hook parameters
  * @return Elgg\Notifications\Notification
  */
-function teranga_discussion_prepare_notification($hook, $type, $notification, $params) 
-{
+function discussion_prepare_notification($hook, $type, $notification, $params) {
 	$entity = $params['event']->getObject();
 	$owner = $params['event']->getActor();
 	$recipient = $params['recipient'];
@@ -1065,12 +1056,12 @@ function teranga_discussion_prepare_notification($hook, $type, $notification, $p
 
 	$descr = $entity->description;
 	$title = $entity->title;
-	$trip = $entity->getContainerEntity();
+	$group = $entity->getContainerEntity();
 
 	$notification->subject = elgg_echo('discussion:topic:notify:subject', array($title), $language);
 	$notification->body = elgg_echo('discussion:topic:notify:body', array(
 		$owner->name,
-		$trip->name,
+		$group->name,
 		$title,
 		$descr,
 		$entity->getURL()
@@ -1089,19 +1080,18 @@ function teranga_discussion_prepare_notification($hook, $type, $notification, $p
  * @param array                           $params       Hook parameters
  * @return Elgg\Notifications\Notification
  */
-function teranga_discussion_prepare_reply_notification($hook, $type, $notification, $params) 
-{
+function discussion_prepare_reply_notification($hook, $type, $notification, $params) {
 	$reply = $params['event']->getObject();
 	$topic = $reply->getContainerEntity();
 	$poster = $reply->getOwnerEntity();
-	$trip = $topic->getContainerEntity();
+	$group = $topic->getContainerEntity();
 	$language = elgg_extract('language', $params);
 
 	$notification->subject = elgg_echo('discussion:reply:notify:subject', array($topic->title), $language);
 	$notification->body = elgg_echo('discussion:reply:notify:body', array(
 		$poster->name,
 		$topic->title,
-		$trip->name,
+		$group->name,
 		$reply->description,
 		$reply->getURL(),
 	), $language);
@@ -1111,7 +1101,7 @@ function teranga_discussion_prepare_reply_notification($hook, $type, $notificati
 }
 
 /**
- * Get subscriptions for trip notifications
+ * Get subscriptions for group notifications
  *
  * @param string $hook          'get'
  * @param string $type          'subscriptions'
@@ -1120,51 +1110,59 @@ function teranga_discussion_prepare_reply_notification($hook, $type, $notificati
  * @param array  $params        Hook parameters
  * @return array
  */
-function teranga_discussion_get_subscriptions($hook, $type, $subscriptions, $params) 
-{
+function discussion_get_subscriptions($hook, $type, $subscriptions, $params) {
 	$reply = $params['event']->getObject();
 
 	if (!elgg_instanceof($reply, 'object', 'discussion_reply', 'ElggDiscussionReply')) {
 		return $subscriptions;
 	}
 
-	$trip_guid = $reply->getContainerEntity()->container_guid;
-	$trip_subscribers = elgg_get_subscriptions_for_container($trip_guid);
+	$group_guid = $reply->getContainerEntity()->container_guid;
+	$group_subscribers = elgg_get_subscriptions_for_container($group_guid);
 
-	return ($subscriptions + $trip_subscribers);
+	return ($subscriptions + $group_subscribers);
 }
 
 /**
- * A simple function to see who can edit a trip discussion post
+ * A simple function to see who can edit a group discussion post
  *
  * @param ElggComment $entity      the  comment $entity
- * @param ELggUser    $trip_owner user who owns the trip $trip_owner
+ * @param ELggUser    $group_owner user who owns the group $group_owner
  * @return boolean
  */
-function mytrips_can_edit_discussion($entity, $trip_owner) {
+function mytrips_can_edit_discussion($entity, $group_owner) {
 
 	//logged in user
 	$user = elgg_get_logged_in_user_guid();
 
-	if (($entity->owner_guid == $user) || $trip_owner == $user || elgg_is_admin_logged_in()) {
+	if (($entity->owner_guid == $user) || $group_owner == $user || elgg_is_admin_logged_in()) {
 		return true;
 	} else {
 		return false;
 	}
 }
 
+/**
+ * Process upgrades for the mytrips plugin
+ */
+function mytrips_run_upgrades() {
+	$path = elgg_get_plugins_path() . 'mytrips/upgrades/';
+	$files = elgg_get_upgrade_files($path);
+	foreach ($files as $file) {
+		include "$path{$file}";
+	}
+}
 
 /**
- * Allow trip owner and discussion owner to edit discussion replies.
+ * Allow group owner and discussion owner to edit discussion replies.
  *
  * @param string  $hook   'permissions_check'
  * @param string  $type   'object'
  * @param boolean $return
  * @param array   $params Array('entity' => ElggEntity, 'user' => ElggUser)
- * @return boolean True if user is discussion or trip owner
+ * @return boolean True if user is discussion or group owner
  */
-function teranga_discussion_can_edit_reply($hook, $type, $return, $params) 
-{
+function discussion_can_edit_reply($hook, $type, $return, $params) {
 	/** @var $reply ElggEntity */
 	$reply = $params['entity'];
 	$user = $params['user'];
@@ -1182,8 +1180,8 @@ function teranga_discussion_can_edit_reply($hook, $type, $return, $params)
 		return true;
 	}
 
-	$trip = $discussion->getContainerEntity();
-	if (elgg_instanceof($trip, 'trip') && $trip->owner_guid == $user->guid) {
+	$group = $discussion->getContainerEntity();
+	if (elgg_instanceof($group, 'group') && $group->owner_guid == $user->guid) {
 		return true;
 	}
 
@@ -1191,7 +1189,7 @@ function teranga_discussion_can_edit_reply($hook, $type, $return, $params)
 }
 
 /**
- * Allow trip members to post to a trip discussion
+ * Allow group members to post to a group discussion
  *
  * @param string $hook   'container_permissions_check'
  * @param string $type   'object'
@@ -1199,16 +1197,15 @@ function teranga_discussion_can_edit_reply($hook, $type, $return, $params)
  * @param array  $params Array with container, user and subtype
  * @return boolean $return
  */
-function teranga_discussion_reply_container_permissions_override($hook, $type, $return, $params) 
-{
+function discussion_reply_container_permissions_override($hook, $type, $return, $params) {
 	/** @var $container ElggEntity */
 	$container = $params['container'];
 	$user = $params['user'];
 
-	if (elgg_instanceof($container, 'object', 'tripforumtopic')) {
-		$trip = $container->getContainerEntity();
+	if (elgg_instanceof($container, 'object', 'groupforumtopic')) {
+		$group = $container->getContainerEntity();
 
-		if ($trip->canWriteToContainer($user->guid) && $params['subtype'] === 'discussion_reply') {
+		if ($group->canWriteToContainer($user->guid) && $params['subtype'] === 'discussion_reply') {
 			return true;
 		}
 	}
@@ -1223,9 +1220,8 @@ function teranga_discussion_reply_container_permissions_override($hook, $type, $
  * @param string     $type   'object'
  * @param ElggObject $object ElggObject
  */
-function teranga_discussion_update_reply_access_ids($event, $type, $object) 
-{
-	if (elgg_instanceof($object, 'object', 'tripforumtopic')) {
+function discussion_update_reply_access_ids($event, $type, $object) {
+	if (elgg_instanceof($object, 'object', 'groupforumtopic')) {
 		$ia = elgg_set_ignore_access(true);
 		$options = array(
 			'type' => 'object',
@@ -1258,8 +1254,7 @@ function teranga_discussion_update_reply_access_ids($event, $type, $object)
  * @param array           $params
  * @return ElggMenuItem[] $return
  */
-function teranga_discussion_reply_menu_setup($hook, $type, $return, $params) 
-{
+function discussion_reply_menu_setup($hook, $type, $return, $params) {
 	/** @var $reply ElggEntity */
 	$reply = elgg_extract('entity', $params);
 
@@ -1280,7 +1275,7 @@ function teranga_discussion_reply_menu_setup($hook, $type, $return, $params)
 
 	$user = elgg_get_logged_in_user_entity();
 
-	// Allow discussion topic owner, trip owner and admins to edit and delete
+	// Allow discussion topic owner, group owner and admins to edit and delete
 	if ($reply->canEdit() && !elgg_in_context('activity')) {
 		$return[] = ElggMenuItem::factory(array(
 			'name' => 'edit',
@@ -1315,6 +1310,17 @@ function teranga_discussion_reply_menu_setup($hook, $type, $return, $params)
 
 
 /**
+ * Runs unit tests for mytrips
+ *
+ * @return array
+ */
+function mytrips_test($hook, $type, $value, $params) {
+	global $CONFIG;
+	$value[] = $CONFIG->pluginspath . 'mytrips/tests/write_access.php';
+	return $value;
+}
+
+/**
  * Search in both forumtopics and topic replies
  *
  * @param string $hook   the name of the hook
@@ -1322,20 +1328,19 @@ function teranga_discussion_reply_menu_setup($hook, $type, $return, $params)
  * @param mixed  $value  the current return value
  * @param array  $params supplied params
  */
-function teranga_discussion_search_tripforumtopic($hook, $type, $value, $params) 
-{
+function discussion_search_groupforumtopic($hook, $type, $value, $params) {
 
 	if (empty($params) || !is_array($params)) {
 		return $value;
 	}
 
 	$subtype = elgg_extract("subtype", $params);
-	if (empty($subtype) || ($subtype !== "tripforumtopic")) {
+	if (empty($subtype) || ($subtype !== "groupforumtopic")) {
 		return $value;
 	}
 
 	unset($params["subtype"]);
-	$params["subtypes"] = array("tripforumtopic", "discussion_reply");
+	$params["subtypes"] = array("groupforumtopic", "discussion_reply");
 
 	// trigger the 'normal' object search as it can handle the added options
 	return elgg_trigger_plugin_hook('search', 'object', $params, array());
@@ -1350,13 +1355,12 @@ function teranga_discussion_search_tripforumtopic($hook, $type, $value, $params)
  * @param array  $params Hook params
  * @return array
  */
-function mytrips_invitationrequest_menu_setup($hook, $type, $menu, $params) 
-{
+function mytrips_invitationrequest_menu_setup($hook, $type, $menu, $params) {
 
-	$trip = elgg_extract('entity', $params);
+	$group = elgg_extract('entity', $params);
 	$user = elgg_extract('user', $params);
 
-	if (!$trip instanceof \trip) {
+	if (!$group instanceof \ElggGroup) {
 		return $menu;
 	}
 
@@ -1366,7 +1370,7 @@ function mytrips_invitationrequest_menu_setup($hook, $type, $menu, $params)
 
 	$accept_url = elgg_http_add_url_query_elements('action/mytrips/join', array(
 		'user_guid' => $user->guid,
-		'trip_guid' => $trip->guid,
+		'group_guid' => $group->guid,
 	));
 
 	$menu[] = \ElggMenuItem::factory(array(
@@ -1380,7 +1384,7 @@ function mytrips_invitationrequest_menu_setup($hook, $type, $menu, $params)
 
 	$delete_url = elgg_http_add_url_query_elements('action/mytrips/killinvitation', array(
 		'user_guid' => $user->guid,
-		'trip_guid' => $trip->guid,
+		'group_guid' => $group->guid,
 	));
 
 	$menu[] = \ElggMenuItem::factory(array(

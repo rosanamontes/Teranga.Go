@@ -1,8 +1,21 @@
 <?php
 /**
- * JSON profile view
+ * JSON group profile view
  * 
  * @uses $vars['entity']
- */
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
+*			Universidad de Granada
+*	Licence: 	CC-ByNCSA
+*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
+* 	Project coordinator: @rosanamontes
+*	Website: http://lsi.ugr.es/rosana
+* 	Project colaborator: Antonio Moles 
+*	
+*   Project Derivative:
+*	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
+*   Advisor: Rosana Montes
+*   Student: Ricardo Luzón Fernández
+*/
 
 echo elgg_view_entity($vars['entity']);

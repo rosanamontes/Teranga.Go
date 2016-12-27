@@ -12,8 +12,8 @@
  *
  * @uses $vars['entity'] Entity returned in a search
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -25,7 +25,6 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */ 
 
 $entity = $vars['entity'];
@@ -34,7 +33,7 @@ if (empty($entity) || !elgg_instanceof($entity, 'object', 'discussion_reply')) {
 }
 
 $topic = $entity->getContainerEntity();
-if (empty($topic) || !elgg_instanceof($topic, 'object', 'tripforumtopic')) {
+if (empty($topic) || !elgg_instanceof($topic, 'object', 'groupforumtopic')) {
 	return;
 }
 
@@ -43,7 +42,7 @@ if (!$icon) {
 	// display the entity's owner by default if available.
 	// @todo allow an option to switch to displaying the entity's icon instead.
 	$type = $entity->getType();
-	if ($type == 'user' || $type == 'trip') {
+	if ($type == 'user' || $type == 'group') {
 		$icon = elgg_view_entity_icon($entity, 'tiny');
 	} elseif ($owner = $entity->getOwnerEntity()) {
 		$icon = elgg_view_entity_icon($owner, 'tiny');

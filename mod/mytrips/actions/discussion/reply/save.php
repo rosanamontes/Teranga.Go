@@ -1,8 +1,7 @@
 <?php
 /**
  * Save a discussion reply
- *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -15,7 +14,7 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
+*
 */
 
 // Get input
@@ -25,19 +24,19 @@ $reply_guid = (int) get_input('guid');
 
 // reply cannot be empty
 if (empty($text)) {
-	register_error(elgg_echo('trippost:nopost'));
+	register_error(elgg_echo('grouppost:nopost'));
 	forward(REFERER);
 }
 
 if ($topic_guid) {
 	$topic = get_entity($topic_guid);
-	if (!elgg_instanceof($topic, 'object', 'tripforumtopic')) {
-		register_error(elgg_echo('trippost:nopost'));
+	if (!elgg_instanceof($topic, 'object', 'groupforumtopic')) {
+		register_error(elgg_echo('grouppost:nopost'));
 		forward(REFERER);
 	}
 
-	$trip = $topic->getContainerEntity();
-	if (!$trip->canWriteToContainer()) {
+	$group = $topic->getContainerEntity();
+	if (!$group->canWriteToContainer()) {
 		register_error(elgg_echo('mytrips:notmember'));
 		forward(REFERER);
 	}

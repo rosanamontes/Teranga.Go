@@ -1,22 +1,9 @@
 <?php
 /**
- * Elgg mytrips css
+ * Elgg css
  * 
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
-*			Universidad de Granada
-*	Licence: 	CC-ByNCSA
-*	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
-* 	Project coordinator: @rosanamontes
-*	Website: http://lsi.ugr.es/rosana
-* 	Project colaborator: Antonio Moles 
-*	
-*   Project Derivative:
-*	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
-*   Advisor: Rosana Montes
-*   Student: Ricardo Luzón Fernández
-* 
-*/
+ * @package mytrips
+ */
 
 ?>
 .mytrips-profile > .elgg-image {
@@ -75,11 +62,4 @@
 .elgg-menu-mytrips-my-status li.elgg-state-selected > a {
 	background-color: #4690D6;
 	color: white;
-}
-
-/* no se como tiene que ser - le pongo colores chillones para resaltar */
-.elgg-module-trip
-{
-	background-color: orange;
-	color: yellow;
 }

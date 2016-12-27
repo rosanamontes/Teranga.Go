@@ -1,26 +1,25 @@
 <?php
 /**
- * Someone pre-order a trip.
+ * preorder a group action.
  *
-* 	Plugin: myTripsTeranga
-*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
+* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
+*	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
-* 	Project colaborator: Antonio Moles
+* 	Project colaborator: Antonio Moles 
 *	
 *   Project Derivative:
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
+*
 */
 
-
 $user_guid = get_input('user_guid');
-$trip_guid = get_input('trip_guid');
+$group_guid = get_input('group_guid');
 
 $user = NULL;
 if (!$user_guid) {
@@ -29,23 +28,22 @@ if (!$user_guid) {
 	$user = get_user($user_guid);
 }
 
-$trip = get_entity($trip_guid);
+$group = get_entity($group_guid);
 
-elgg_set_page_owner_guid($trip->guid);
+elgg_set_page_owner_guid($group->guid);
 
 //register_error("aaa"); //mensaje en rojo MAL
 
 
-//if ($user && ($trip instanceof ElggGroup)) 
-if (!$user && !elgg_instanceof($trip, 'trip')) 
+if ($user && ($group instanceof ElggGroup)) 
 {
-	if ($trip->getOwnerGUID() != elgg_get_logged_in_user_guid()) 
+	if ($group->getOwnerGUID() != elgg_get_logged_in_user_guid()) 
 	{
 		system_message(elgg_echo("mytrips:PreOrderCorrect")); //mensaje en negro OK
 
 			//eliminar de preorder
 				//copio en variable local
-				$preorder=$trip->preorder;
+				$preorder=$group->preorder;
 
 				//busco posición del user a borrar
 				$clave=array_search($user->guid,$preorder);
@@ -53,16 +51,16 @@ if (!$user && !elgg_instanceof($trip, 'trip'))
 				//lo borro
 				unset($preorder[$clave]);
 				//vuelvo a asignar
-				$trip->preorder=$preorder;
+				$group->preorder=$preorder;
 
 			//añadir en confirmed
 				//copio en variable local
-				$confirmed=$trip->confirmed;
+				$confirmed=$group->confirmed;
 				//añado al usuario
 				array_push($confirmed,$user->guid);
 				
 				//vuelvo a copiar el array
-				$trip->confirmed=$confirmed;
+				$group->confirmed=$confirmed;
 			
 		
 		
@@ -72,4 +70,5 @@ if (!$user && !elgg_instanceof($trip, 'trip'))
 } else {
 	register_error(elgg_echo("mytrips:cantleave"));
 }
+
 forward(REFERER);

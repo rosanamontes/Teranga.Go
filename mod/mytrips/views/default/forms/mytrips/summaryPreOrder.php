@@ -1,14 +1,12 @@
-<script 
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" 
-	crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <link href="<?php echo elgg_get_site_url()."mod/"; ?>mytrips/css/bootstrap.css" rel="stylesheet" >
 
 <?php
 /**
- * Elgg mytrips summaryPreOrder form
+ * Teranga Go! summaryPreOrder form
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -20,31 +18,27 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
- // trip owners
-$trip = $vars['entity'];
-//$owner = $trip->getOwnerEntity();
-$forward_url = $trip->getURL();
+ // group owners
+$group = $vars['entity'];
+//$owner = $group->getOwnerEntity();
+$forward_url = $group->getURL();
 ?>
-
-<?php echo elgg_echo('mytrips:name').": ".$trip->name; ?><br />
-<?php echo elgg_echo('busqueda:OrigenyDestino').": ".$trip->origen." - ".$trip->destino; ?><br />
-<?php echo elgg_echo('mytrips:trayecto').": ".elgg_echo($trip->trayecto); ?><br />
-<?php echo elgg_echo('mytrips:fechaIda').": ".date("d / m / Y", strtotime($trip->fechaIda)); ?><br />
+ <?php echo elgg_echo('mytrips:name').": ".$group->name; ?><br />
+<?php echo elgg_echo('busqueda:OrigenyDestino').": ".$group->origen." - ".$group->destino; ?><br />
+<?php echo elgg_echo('mytrips:trayecto').": ".elgg_echo($group->trayecto); ?><br />
+<?php echo elgg_echo('mytrips:fechaIda').": ".date("d / m / Y", strtotime($group->fechaIda)); ?><br />
 <?php 
-if($trip->trayecto!="custom:trayecto:ida"){ ?>
-<?php echo elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($trip->fechaVuelta)); ?><br />	
+if($group->trayecto!="custom:trayecto:ida"){ ?>
+<?php echo elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($group->fechaVuelta)); ?><br />	
 <?php } ?>
-<?php echo elgg_echo('mytrips:servicioPaqueteria').": ".elgg_echo($trip->servicioPaqueteria); ?><br />
-<?php echo elgg_echo('mytrips:bultosDisponibles').": ".$trip->bultosDisponibles; ?><br />
+<?php echo elgg_echo('mytrips:servicioPaqueteria').": ".elgg_echo($group->servicioPaqueteria); ?><br />
+<?php echo elgg_echo('mytrips:bultosDisponibles').": ".$group->bultosDisponibles; ?><br />
 <br/>
-
-
 <?php
 
-if ($trip->servicioPaqueteria=="custom:rating:si"){
+if ($group->servicioPaqueteria=="custom:rating:si"){
 echo "&nbsp;&nbsp;".elgg_echo('mytrips:summaryPreOrder:Elijo').": ";
 echo elgg_view('input/select', array(
    'required' => true,
@@ -60,40 +54,30 @@ echo elgg_view('input/select', array(
 <br />
 
 <div id="numBultos">
-<?php 
-	echo elgg_echo('mytrips:summaryPreOrder:numBultos').": ";
-	echo elgg_view('input/text', array('name' => 'bultos','value'=>'0'));
-?>
+<?php echo elgg_echo('mytrips:summaryPreOrder:numBultos').": ";
+echo elgg_view('input/text', array('name' => 'bultos','value'=>'0'));
+ ?>
 
 </div>
-
 <script>
-<?php 
-
-$nbultos = $trip->nbultos;
-$summaryPreOrderConfirmed = $trip->summaryPreOrderConfirmed;
-
-for ($i=2;$i<count($summaryPreOrderConfirmed);$i++)
+<?php $nbultos=$group->nbultos;
+$summaryPreOrderConfirmed=$group->summaryPreOrderConfirmed;
+for($i=2;$i<count($summaryPreOrderConfirmed);$i++)
 {
 	if ($summaryPreOrderConfirmed[$i]=="1") {
-		$ArrayPosConfirmados[] = $i;
+		$ArrayPosConfirmados[]=$i;
 	}
 }
-
-$summaryPreOrderConfirmed = $trip->summaryPreOrderBultos;
-$sum = 0;
-
-for ($i=0;$i<count($ArrayPosConfirmados);$i++)
+$summaryPreOrderConfirmed=$group->summaryPreOrderBultos;
+$sum=0;
+for($i=0;$i<count($ArrayPosConfirmados);$i++)
 {
 	$sum+=$summaryPreOrderConfirmed[$ArrayPosConfirmados[$i]];
 } 
-
-$total = $nbultos-$sum;
-if ($total<0)	$total = 0;
-
+$total=$nbultos-$sum;
+if($total<0){$total=0;}
 ?>
-$(document).ready(function()
-{
+$(document).ready(function(){
 	var nbultos="<?php echo $total; ?>";
 	
 	$("[name='bultos']").blur(function(){
@@ -104,7 +88,7 @@ $(document).ready(function()
 	});
 	
 	$("#tipoViaje").hide();
-	$("[name='opcionViaje']").val("<?php echo $trip->trayecto; ?>");
+	$("[name='opcionViaje']").val("<?php echo $group->trayecto; ?>");
 	$("[name='opcion']").change(function(){
 		if($(this).attr("value")=="0"){
 			$("#numBultos").hide();
@@ -131,8 +115,8 @@ $(document).ready(function()
 		}
 	});
 	$("[name='opcionViaje']").change(function(){
-		var aportacion="<?php echo $trip->aportacionViajero; ?>";
-		var trayectoViaje="<?php echo $trip->trayecto; ?>";
+		var aportacion="<?php echo $group->aportacionViajero; ?>";
+		var trayectoViaje="<?php echo $group->trayecto; ?>";
 		var posicionFinal = parseInt(aportacion.indexOf('.')+3);
 		var rest = aportacion.substr(0, posicionFinal);
 		
@@ -160,24 +144,21 @@ $(document).ready(function()
 
 <div id="tipoViaje">
 <?php 
-if($trip->trayecto=="custom:trayecto:vuelta")
-{
+if($group->trayecto=="custom:trayecto:vuelta"){
 	echo elgg_echo('mytrips:summaryPreOrder:ElijoViajar').": ";
-	echo elgg_view('input/select', array(
-   		'name' => 'opcionViaje',
-   		'options_values' => array(
-      		'custom:trayecto:ida' => elgg_echo('custom:trayecto:ida'),
-      		'custom:trayecto:vuelta' => elgg_echo('custom:trayecto:vuelta')
-   	)));
+echo elgg_view('input/select', array(
+   'name' => 'opcionViaje',
+   'options_values' => array(
+      'custom:trayecto:ida' => elgg_echo('custom:trayecto:ida'),
+      'custom:trayecto:vuelta' => elgg_echo('custom:trayecto:vuelta')
+   )));
 }
 
-echo "<div id=\"aportacionViajero\"><br />".elgg_echo('mytrips:aportacionViajero').": <span id=\"spanAportacionViajero\">".$trip->aportacionViajero."<span><br /></div>";
+echo "<div id=\"aportacionViajero\"><br />".elgg_echo('mytrips:aportacionViajero').": <span id=\"spanAportacionViajero\">".$group->aportacionViajero."<span><br /></div>";
 echo "</div>";
 
 echo "<br/><div class=\"col-md-12\">";
-
-echo elgg_view('input/hidden', array('name' => 'trip_guid', 'value' => $trip->guid));
+echo elgg_view('input/hidden', array('name' => 'group_guid', 'value' => $group->guid));
 echo elgg_view('input/submit', array('value' => elgg_echo('mytrips:manageOrders:save')));
-
 echo"<div>";
 

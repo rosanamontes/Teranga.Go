@@ -2,8 +2,8 @@
 /**
  * Forum topic entity view
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,7 +15,6 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
 $full = elgg_extract('full_view', $vars, FALSE);
@@ -75,8 +74,8 @@ if ($num_replies != 0) {
 	$reply_text = elgg_echo('mytrips:updated', array($poster->name, $reply_time));
 
 	$replies_link = elgg_view('output/url', array(
-		'href' => $topic->getURL() . '#trip-replies',
-		'text' => elgg_echo('trip:replies') . " ($num_replies)",
+		'href' => $topic->getURL() . '#group-replies',
+		'text' => elgg_echo('group:replies') . " ($num_replies)",
 		'is_trusted' => true,
 	));
 }

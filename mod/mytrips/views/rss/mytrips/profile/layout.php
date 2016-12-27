@@ -1,11 +1,11 @@
 <?php
 /**
- * profile RSS view. Displays a list of the latest content in the trip
+ * profile RSS view
+ * Displays a list of the latest content in the group
  *
- * @uses $vars['entity'] trip object
- *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+ * @uses $vars['entity'] ElggGroup object
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -17,8 +17,7 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
-*/ 
+*/
 
 $entities = elgg_get_config('registered_entities');
 

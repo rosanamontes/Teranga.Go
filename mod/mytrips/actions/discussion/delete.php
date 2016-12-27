@@ -2,7 +2,7 @@
 /**
  * Delete topic action
  *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -15,13 +15,13 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
-*/ 
+*
+*/
 
 $topic_guid = (int) get_input('guid');
 
 $topic = get_entity($topic_guid);
-if (!elgg_instanceof($topic, 'object', 'tripforumtopic')) {
+if (!elgg_instanceof($topic, 'object', 'groupforumtopic')) {
 	register_error(elgg_echo('discussion:error:notdeleted'));
 	forward(REFERER);
 }

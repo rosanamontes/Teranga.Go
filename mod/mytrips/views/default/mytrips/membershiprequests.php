@@ -1,12 +1,12 @@
 <?php
 /**
- * A interested in trip request
+ * trip's member requests
  *
- * @uses $vars['entity']   trip entity
+ * @uses $vars['entity']   trip
  * @uses $vars['requests'] Array of ElggUsers
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -18,8 +18,7 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
-*/ 
+*/
 
 if (!empty($vars['requests']) && is_array($vars['requests'])) 
 {
@@ -34,7 +33,7 @@ if (!empty($vars['requests']) && is_array($vars['requests']))
 			'is_trusted' => true,
 		));
 
-		$url = "action/mytrips/addtotrip?user_guid={$user->guid}&trip_guid={$vars['entity']->guid}";
+		$url = "action/mytrips/addtogroup?user_guid={$user->guid}&group_guid={$vars['entity']->guid}";
 		$url = elgg_add_action_tokens_to_url($url);
 		$accept_button = elgg_view('output/url', array(
 			'href' => $url,
@@ -43,7 +42,7 @@ if (!empty($vars['requests']) && is_array($vars['requests']))
 			'is_trusted' => true,
 		));
 
-		$url = 'action/mytrips/killrequest?user_guid=' . $user->guid . '&trip_guid=' . $vars['entity']->guid;
+		$url = 'action/mytrips/killrequest?user_guid=' . $user->guid . '&group_guid=' . $vars['entity']->guid;
 		$delete_button = elgg_view('output/url', array(
 				'href' => $url,
 				'confirm' => elgg_echo('mytrips:joinrequest:remove:check'),

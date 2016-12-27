@@ -1,10 +1,10 @@
 <?php
 /**
- * Message on members only, open membership trip profile pages when user
- * cannot access trip content.
+ * Message on members only, open membership group profile pages when user
+ * cannot access group content.
  *
-* 	Plugin: mytripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -16,15 +16,14 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
 ?>
 <p class="mtm">
 <?php
-echo elgg_echo('mytrips:opentrip:membersonly');
+echo elgg_echo('mytrips:opengroup:membersonly');
 if (elgg_is_logged_in()) {
-	echo ' ' . elgg_echo('mytrips:opentrip:membersonly:join');
+	echo ' ' . elgg_echo('mytrips:opengroup:membersonly:join');
 }
 ?>
 </p>

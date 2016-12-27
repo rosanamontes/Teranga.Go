@@ -1,9 +1,8 @@
 <?php
 /**
- * Original Discussion function library
- *
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+ * Discussion function library
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,8 +14,8 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
+
 /**
  * List all discussion topics
  */
@@ -27,7 +26,7 @@ function discussion_handle_all_page() {
 
 	$content = elgg_list_entities(array(
 		'type' => 'object',
-		'subtype' => 'tripforumtopic',
+		'subtype' => 'groupforumtopic',
 		'order_by' => 'e.last_action desc',
 		'limit' => max(20, elgg_get_config('default_limit')),
 		'full_view' => false,
@@ -50,9 +49,9 @@ function discussion_handle_all_page() {
 }
 
 /**
- * List discussion topics in a trip
+ * List discussion topics in a group
  *
- * @param int $guid trip entity GUID
+ * @param int $guid Group entity GUID
  */
 function discussion_handle_list_page($guid) {
 
@@ -60,20 +59,20 @@ function discussion_handle_list_page($guid) {
 
 	elgg_group_gatekeeper();
 
-	$trip = get_entity($guid);
-	if (!elgg_instanceof($trip, 'trip')) {
+	$group = get_entity($guid);
+	if (!elgg_instanceof($group, 'group')) {
 		forward('', '404');
 	}
-	elgg_push_breadcrumb($trip->name, $trip->getURL());
-	elgg_push_breadcrumb(elgg_echo('item:object:tripforumtopic'));
+	elgg_push_breadcrumb($group->name, $group->getURL());
+	elgg_push_breadcrumb(elgg_echo('item:object:groupforumtopic'));
 
 	elgg_register_title_button();
 
-	$title = elgg_echo('item:object:tripforumtopic');
+	$title = elgg_echo('item:object:groupforumtopic');
 
 	$options = array(
 		'type' => 'object',
-		'subtype' => 'tripforumtopic',
+		'subtype' => 'groupforumtopic',
 		'limit' => max(20, elgg_get_config('default_limit')),
 		'order_by' => 'e.last_action desc',
 		'container_guid' => $guid,
@@ -99,46 +98,46 @@ function discussion_handle_list_page($guid) {
  * Edit or add a discussion topic
  *
  * @param string $type 'add' or 'edit'
- * @param int    $guid GUID of trip or topic
+ * @param int    $guid GUID of group or topic
  */
 function discussion_handle_edit_page($type, $guid) {
 	elgg_gatekeeper();
 
 	if ($type == 'add') {
-		$trip = get_entity($guid);
-		if (!elgg_instanceof($trip, 'trip')) {
-			register_error(elgg_echo('trip:notfound'));
+		$group = get_entity($guid);
+		if (!elgg_instanceof($group, 'group')) {
+			register_error(elgg_echo('group:notfound'));
 			forward();
 		}
 
 		// make sure user has permissions to add a topic to container
-		if (!$trip->canWriteToContainer(0, 'object', 'tripforumtopic')) {
-			register_error(elgg_echo('trips:permissions:error'));
-			forward($trip->getURL());
+		if (!$group->canWriteToContainer(0, 'object', 'groupforumtopic')) {
+			register_error(elgg_echo('mytrips:permissions:error'));
+			forward($group->getURL());
 		}
 
-		$title = elgg_echo('trips:addtopic');
+		$title = elgg_echo('mytrips:addtopic');
 
-		elgg_push_breadcrumb($trip->name, "discussion/owner/$trip->guid");
+		elgg_push_breadcrumb($group->name, "discussion/owner/$group->guid");
 		elgg_push_breadcrumb($title);
 
 		$body_vars = discussion_prepare_form_vars();
 		$content = elgg_view_form('discussion/save', array(), $body_vars);
 	} else {
 		$topic = get_entity($guid);
-		if (!elgg_instanceof($topic, 'object', 'tripforumtopic') || !$topic->canEdit()) {
+		if (!elgg_instanceof($topic, 'object', 'groupforumtopic') || !$topic->canEdit()) {
 			register_error(elgg_echo('discussion:topic:notfound'));
 			forward();
 		}
-		$trip = $topic->getContainerEntity();
-		if (!elgg_instanceof($trip, 'trip')) {
-			register_error(elgg_echo('trip:notfound'));
+		$group = $topic->getContainerEntity();
+		if (!elgg_instanceof($group, 'group')) {
+			register_error(elgg_echo('group:notfound'));
 			forward();
 		}
 
-		$title = elgg_echo('trips:edittopic');
+		$title = elgg_echo('mytrips:edittopic');
 
-		elgg_push_breadcrumb($trip->name, "discussion/owner/$trip->guid");
+		elgg_push_breadcrumb($group->name, "discussion/owner/$group->guid");
 		elgg_push_breadcrumb($topic->title, $topic->getURL());
 		elgg_push_breadcrumb($title);
 
@@ -161,7 +160,7 @@ function discussion_handle_edit_page($type, $guid) {
  * Edit discussion reply
  *
  * @param string $type 'edit'
- * @param int    $guid GUID of trip or topic
+ * @param int    $guid GUID of group or topic
  */
 function discussion_handle_reply_edit_page($type, $guid) {
 	elgg_gatekeeper();
@@ -173,19 +172,19 @@ function discussion_handle_reply_edit_page($type, $guid) {
 			forward();
 		}
 		$topic = $reply->getContainerEntity();
-		if (!elgg_instanceof($topic, 'object', 'tripforumtopic')) {
+		if (!elgg_instanceof($topic, 'object', 'groupforumtopic')) {
 			register_error(elgg_echo('discussion:topic:notfound'));
 			forward();
 		}
-		$trip = $topic->getContainerEntity();
-		if (!elgg_instanceof($trip, 'trip')) {
-			register_error(elgg_echo('trip:notfound'));
+		$group = $topic->getContainerEntity();
+		if (!elgg_instanceof($group, 'group')) {
+			register_error(elgg_echo('group:notfound'));
 			forward();
 		}
 
 		$title = elgg_echo('discussion:reply:edit');
 
-		elgg_push_breadcrumb($trip->name, "discussion/owner/$trip->guid");
+		elgg_push_breadcrumb($group->name, "discussion/owner/$group->guid");
 		elgg_push_breadcrumb($topic->title, $topic->getURL());
 		elgg_push_breadcrumb($title);
 
@@ -217,23 +216,23 @@ function discussion_handle_view_page($guid) {
 	global $autofeed;
 	$autofeed = true;
 
-	elgg_entity_gatekeeper($guid, 'object', 'tripforumtopic');
+	elgg_entity_gatekeeper($guid, 'object', 'groupforumtopic');
 
 	$topic = get_entity($guid);
 
-	$trip = $topic->getContainerEntity();
-	if (!elgg_instanceof($trip, 'trip')) {
-		register_error(elgg_echo('trip:notfound'));
+	$group = $topic->getContainerEntity();
+	if (!elgg_instanceof($group, 'group')) {
+		register_error(elgg_echo('group:notfound'));
 		forward();
 	}
 
 	elgg_load_js('elgg.discussion');
 
-	elgg_set_page_owner_guid($trip->getGUID());
+	elgg_set_page_owner_guid($group->getGUID());
 
 	elgg_group_gatekeeper();
 
-	elgg_push_breadcrumb($trip->name, "discussion/owner/$trip->guid");
+	elgg_push_breadcrumb($group->name, "discussion/owner/$group->guid");
 	elgg_push_breadcrumb($topic->title);
 
 	$params = array(
@@ -245,7 +244,7 @@ function discussion_handle_view_page($guid) {
 	if ($topic->status == 'closed') {
 		$content .= elgg_view('discussion/replies', $params);
 		$content .= elgg_view('discussion/closed');
-	} elseif ($trip->canWriteToContainer(0, 'object', 'tripforumtopic') || elgg_is_admin_logged_in()) {
+	} elseif ($group->canWriteToContainer(0, 'object', 'groupforumtopic') || elgg_is_admin_logged_in()) {
 		$params['show_add_form'] = true;
 		$content .= elgg_view('discussion/replies', $params);
 	} else {

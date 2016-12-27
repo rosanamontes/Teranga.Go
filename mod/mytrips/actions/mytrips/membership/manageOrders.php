@@ -1,8 +1,7 @@
 <?php 
+
 /*
-*   Do the redirect to previous trip
-*
-* 	Plugin: myTripsTeranga from previous version of @package ElggGroup
+* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
@@ -15,14 +14,13 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
+*
 */
 
-
-$trip_guid = (int)get_input('trip_guid');
-$trip = get_entity($trip_guid);
+$group_guid = (int)get_input('group_guid');
+$group = get_entity($group_guid);
 
 system_messages(elgg_echo('mytrips:manageOrders:saved'));
-forward($trip->getUrl());
+forward($group->getUrl());
 
 ?>

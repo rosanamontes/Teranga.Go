@@ -1,9 +1,9 @@
 <?php
 /**
- * widget view
+ * Elgg file widget view
  *
-* 	Plugin: mytrips Teranga from previous version of @package ElggGroup
-*	Author: Rosana Montes Soldado 
+* 	Plugin: mytripsTeranga
+*	Author: Rosana Montes Soldado from previous version of @package ElggGroups
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA
 *	Reference:	Microproyecto CEI BioTIC Ref. 11-2015
@@ -15,14 +15,13 @@
 *	TFG: Desarrollo de un sistema de gestión de paquetería para Teranga Go
 *   Advisor: Rosana Montes
 *   Student: Ricardo Luzón Fernández
-* 
 */
 
 
 $num = $vars['entity']->num_display;
 
 $options = array(
-	'type' => 'trip',
+	'type' => 'group',
 	'relationship' => 'member',
 	'relationship_guid' => $vars['entity']->owner_guid,
 	'limit' => $num,

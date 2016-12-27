@@ -32,6 +32,9 @@ if (!$entity->canEdit()) {
 }
 
 if (($entity) && elgg_instanceof($entity, 'trip')) 
+	system_message("check_if_same");
+
+if (($entity) && ($entity instanceof ElggGroup)) 
 {
 	// delete HFLTS assessments
 	elgg_load_library('elgg:trip_companions');

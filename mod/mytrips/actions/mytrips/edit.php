@@ -30,12 +30,11 @@ function profile_array_decoder(&$v) {
 
 // Get trip fields
 $input = array();
-print_r($input);
 
 foreach (elgg_get_config('trip') as $shortname => $valuetype) 
 {
 	$input[$shortname] = get_input($shortname);
-	system_message($shortname . " action mytrips  " . $input[$shortname] ." --- " . $valuetype);
+	system_message($shortname . " action_edit_mytrips  " . $input[$shortname] ." --- " . $valuetype);
 
 	// @todo treat profile fields as unescaped: don't filter, encode on output
 	if (is_array($input[$shortname])) {
@@ -50,11 +49,11 @@ foreach (elgg_get_config('trip') as $shortname => $valuetype)
 }
 
 $input['name'] = htmlspecialchars(get_input('name', '', false), ENT_QUOTES, 'UTF-8');
+print_r($input);
 
 $user = elgg_get_logged_in_user_entity();
 
 $trip_guid = (int)get_input('trip_guid');
-system_message("trip guid=".$trip_guid);
 $is_new_trip = $trip_guid == 0;
 
 if ($is_new_trip
@@ -65,7 +64,16 @@ if ($is_new_trip
 	forward(REFERER);
 }
 
-$trip = $trip_guid ? get_entity($trip_guid) : new ElggGroup() ; // ElggObject does not work
+if ($trip_guid !=0) 
+{
+	$trip = get_entity($trip_guid);
+	system_message($trip_guid . " is already a trip_ ".$trip );
+}
+else
+{
+	$trip = new ElggGroup() ; // ElggObject does not work
+	system_message($trip . " is new trip!");
+}
 
 			//featured by default
 			$trip->featured_trip = "yes";		
@@ -107,7 +115,8 @@ $trip = $trip_guid ? get_entity($trip_guid) : new ElggGroup() ; // ElggObject do
 			$trip->bultosDisponibles=$trip->nbultos;
 
 
-if (elgg_instanceof($trip, "trip") && !$trip->canEdit()) 
+if (!$trip->canEdit() && ($trip instanceof ElggGroup)) 
+//if (elgg_instanceof($trip, "trip") && !$trip->canEdit()) 
 {
 	register_error(elgg_echo("mytrips:cantedit"));
 	forward(REFERER);
@@ -122,7 +131,7 @@ if (sizeof($input) > 0)
 		if (!$is_new_trip && $shortname == 'name' && $value != $trip->name) 
 		{
 			$trip_name = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
-			system_message("trip name=".$trip_name);
+			system_message("action edit trip name=".$trip_name);
 			$ac_name = sanitize_string(elgg_echo('mytrips:trip') . ": " . $trip_name);
 			$acl = get_access_collection($trip->trip_acl);
 			if ($acl) 
@@ -146,7 +155,8 @@ if (sizeof($input) > 0)
 
 		$trip->$shortname = $value;
 	}
-}
+}else
+    system_message("action_edit_input array empty!");
 
 // Validate create
 if (!$trip->name) {
@@ -155,13 +165,12 @@ if (!$trip->name) {
 }
 
 
-// Set trip tool options
+// Set trip tool options: trip_companions & forum
 $tool_options = elgg_get_config('group_tool_options');
 if ($tool_options) 
 {
 	foreach ($tool_options as $trip_option) 
 	{
-		system_message("_trip_tool_options_ " . $trip_option->name);
 		$option_toggle_name = $trip_option->name . "_enable";
 		$option_default = $trip_option->default_on ? 'yes' : 'no';
 		$trip->$option_toggle_name = get_input($option_toggle_name, $option_default);
@@ -281,7 +290,7 @@ if ($is_new_trip)
 			));	
 		}
 		
-		
+system_message("mytrip_URL_".$trip->getUrl());
 		if (!$resultDiscussion) 
 		{
 			register_error(elgg_echo('discussion:error:notsaved')." | ".$resultDiscussion);

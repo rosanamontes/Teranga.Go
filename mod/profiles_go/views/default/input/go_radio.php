@@ -49,14 +49,14 @@ if (is_array($vars['value'])) {
 
 $value = $vars['value'];
 unset($vars['value']);
-system_message(" go_radio value ***  " . $value);
+system_message(" go_radio value @  " . $value);
 
 $radios = '';
 foreach ($options as $label => $option) 
 {
 	$vars['checked'] = in_array(elgg_strtolower($option), $value);
 	$vars['value'] = $option;
-	system_message(" go_radio *** checked " . $option);
+	system_message(" go_radio @ checked " . $option);
 	// handle indexed array where label is not specified
 	// @deprecated 1.8 Remove in 1.9
 	if (is_integer($label)) {
@@ -64,7 +64,7 @@ foreach ($options as $label => $option)
 		$label = $option;
 	}
 
-	system_message(" input *** label " . $label);
+	system_message(" input @ label " . $label);
 	$texto = elgg_echo($label);//para teranga!
 	$radio = elgg_format_element('input', $vars);
 	$radios .= "<li><label>{$radio}{$texto}</label></li>";

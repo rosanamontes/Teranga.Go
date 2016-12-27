@@ -31,7 +31,7 @@ function mytrips_init()
 	elgg_register_library('elgg:mytrips', elgg_get_plugins_path() . 'mytrips/lib/mytrips.php');
 
 	// register trip entities for search
-	elgg_register_entity_type('trip', '');
+	elgg_register_entity_type('group', '');
 
 	// Set up the menu
 	$item = new ElggMenuItem('mytrips', elgg_echo('mytrips'), 'mytrips/all');

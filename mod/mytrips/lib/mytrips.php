@@ -37,7 +37,7 @@ function mytrips_handle_all_page()
 	{
 		case 'popular':
 			$content = elgg_list_entities_from_relationship_count(array(
-				'type' => 'trip',
+				'type' => 'group',
 				'relationship' => 'member',
 				'inverse_relationship' => false,
 				'full_view' => false,
@@ -58,7 +58,7 @@ function mytrips_handle_all_page()
 			break;
 		case 'open':
 			$content = elgg_list_entities_from_metadata(array(
-				'type' => 'trip',
+				'type' => 'group',
 				'metadata_name' => 'featured_trip',
 				'metadata_value' => 'yes',
 				'full_view' => false,
@@ -70,7 +70,7 @@ function mytrips_handle_all_page()
 
 		case 'closed':
 			$content = elgg_list_entities_from_metadata(array(
-				'type' => 'trip',
+				'type' => 'group',
 				'metadata_name' => 'featured_trip',
 				'metadata_value' => 'no',
 				'full_view' => true,
@@ -83,7 +83,7 @@ function mytrips_handle_all_page()
 		case 'alpha':
 			$dbprefix = elgg_get_config('dbprefix');
 			$content = elgg_list_entities(array(
-				'type' => 'trip',
+				'type' => 'group',
 				'joins' => ["JOIN {$dbprefix}mytrips_entity ge ON e.guid = ge.guid"],
 				'order_by' => 'ge.name',
 				'full_view' => false,
@@ -94,7 +94,7 @@ function mytrips_handle_all_page()
 		case 'newest':
 		default:
 			$content = elgg_list_entities(array(
-				'type' => 'trip',
+				'type' => 'group',
 				'full_view' => false,
 				'no_results' => elgg_echo('mytrips:none'),
 				'distinct' => false
@@ -129,7 +129,7 @@ function mytrips_search_page() {
 	$params = array(
 		'metadata_name' => 'interests',
 		'metadata_value' => $tag,
-		'type' => 'trip',
+		'type' => 'group',
 		'full_view' => false,
 		'no_results' => elgg_echo('mytrips:search:none'),
 	);
@@ -169,7 +169,7 @@ function mytrips_handle_owned_page() {
 
 	$dbprefix = elgg_get_config('dbprefix');
 	$content = elgg_list_entities(array(
-		'type' => 'trip',
+		'type' => 'group',
 		'owner_guid' => elgg_get_page_owner_guid(),
 		'joins' => array("JOIN {$dbprefix}mytrips_entity ge ON e.guid = ge.guid"),
 		'order_by' => 'ge.name ASC',
@@ -209,7 +209,7 @@ function mytrips_handle_mine_page() {
 	$dbprefix = elgg_get_config('dbprefix');
 
 	$content = elgg_list_entities_from_relationship(array(
-		'type' => 'trip',
+		'type' => 'group',
 		'relationship' => 'member',
 		'relationship_guid' => elgg_get_page_owner_guid(),
 		'inverse_relationship' => false,
@@ -821,12 +821,13 @@ function mytrips_prepare_form_vars($trip = null)
 	}
 
 	// get any sticky form settings
-	if (elgg_is_sticky_form('mytrips')) {
+	if (elgg_is_sticky_form('mytrips')) 
+	{
 		$sticky_values = elgg_get_sticky_values('mytrips');
-		system_message("lib *** " . $sticky_values);
+		
 		foreach ($sticky_values as $key => $value) {
 			$values[$key] = $value;
-			system_message("lib *** " . $value);
+			//system_message("lib *** " . $value);
 		}
 	}
 
@@ -852,7 +853,7 @@ function getmytrips($options = "", $limit = 10, $offset = 0)
 	{
 		$subtype = $options;
 		$options = array(
-			'type' => 'trip',
+			'type' => 'group',
 			'relationship' => 'member',
 			'relationship_guid' => $this->guid,
 			'limit' => $limit,
@@ -862,7 +863,7 @@ function getmytrips($options = "", $limit = 10, $offset = 0)
 			$options['subtype'] = $subtype;
 		}
 	} else {
-		$options['type'] = 'trip';
+		$options['type'] = 'group';
 		$options['relationship'] = 'member';
 		$options['relationship_guid'] = $this->guid;
 	}

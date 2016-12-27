@@ -22,7 +22,7 @@
 
 $name = elgg_extract("name", $vars);
 $trip_profile_fields = elgg_get_config("trip");
-//system_message(" profile name *** " . $name);
+//system_message(" profile name " . $name);
 ?>
 <div>
 <label><?php echo elgg_echo("mytrips:icon"); ?></label><br />

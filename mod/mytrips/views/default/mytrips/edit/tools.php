@@ -26,7 +26,7 @@ $tools = elgg_get_config("group_tool_options");
 if ($tools) 
 {
 	usort($tools, create_function('$a, $b', 'return strcmp($a->label, $b->label);'));
-	system_message(" edit tools *** " . $tools);
+	system_message(" edit tools [] " . $tools);
 	foreach ($tools as $trip_option) 
 	{
 		$trip_option_toggle_name = $trip_option->name . "_enable";

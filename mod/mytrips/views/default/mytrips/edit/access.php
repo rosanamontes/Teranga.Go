@@ -93,7 +93,7 @@ else === These settings are common in Teranga Go */
 			"id" => "mytrips-vis",
 			"value" => $$visibility_options,
 			'entity' => $entity,
-			'entity_type' => 'trip',
+			'entity_type' => 'group',
 			'disabled' => true, //en true no manda el valor al action
 		));//teranga on */
 		
@@ -103,7 +103,7 @@ else === These settings are common in Teranga Go */
 			"value" => $visibility,
 			"options_values" => $visibility_options,
 			'entity' => $entity,
-			'entity_type' => 'trip',
+			'entity_type' => 'group',
 			'entity_subtype' => '',
 		));
 		?>

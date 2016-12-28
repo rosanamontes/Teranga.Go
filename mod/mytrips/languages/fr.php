@@ -569,25 +569,25 @@ clique ensuite pour voir les demandes d'inclusion au voyage:
 	'custom:empty' => '(vide champ de profil)',	
 
 	//Mails internos de gestion de reservas 
-	'mytrips:manageOrders:preorderOk:subjet' => 'PRE-RESERVATION DU VOYAGE %s',
+	'mytrips:manageOrders:preorderOk:subject' => 'PRE-RESERVATION DU VOYAGE %s',
 	'mytrips:manageOrders:preorderOk:message'=>"L´utilisateur %s a fait une pré-réservation de place. <br /> 
     	Maintenant, vous devez traiter cette demande en accédant à son voyage %s pour le confirmer ou pour l´annuler. <br />
         Cordialement, <br />
            L'équipe de teranga go Teranga Go!",
 
-	'mytrips:manageOrders:confirmadoOk:subjet' => 'RÉSERVATION DU VOYAGE %s',
+	'mytrips:manageOrders:confirmadoOk:subject' => 'RÉSERVATION DU VOYAGE %s',
 	'mytrips:manageOrders:confirmadoOk:message'=>"L’organisateur du voyage <strong>%s</strong> a accepté votre réservation de place pour le voyage %s aux conditions de trajet %s et et vous engage à lui verser la somme de %s ou, à défaut, le montant convenu préalablement à la réalisation du voyage.<br />
 		Vous voyagerez maintenant ensemble conformément aux accords du voyage qui ont été établis sur cette plateforme.<br />
 		Cordialement, <br />
            L'équipe de teranga go Teranga Go!",
 
-	'mytrips:manageOrders:desconfirmadoOk:subjet' => 'UNE RÉSERVATION DU VOYAGE ANNULÉE %s',
+	'mytrips:manageOrders:desconfirmadoOk:subject' => 'UNE RÉSERVATION DU VOYAGE ANNULÉE %s',
 	'mytrips:manageOrders:desconfirmadoOk:message' => "L'utilisateur a annulé sa réservation de place pour un voyage. <br />
 		Maintenant vous pouvez traiter d'autres pré-réservations de votre voyage ou en modifier les données (des dates où je dénombre des places offertes). Vérifiez %s.<br />
 		Cordialement, <br />
            L'équipe de teranga go Teranga Go!",
 
-	'mytrips:manageOrders:ConductorDesconfirmaOk:subjet' => 'RÉSERVATION DU VOYAGE %s ANNULÉE',
+	'mytrips:manageOrders:ConductorDesconfirmaOk:subject' => 'RÉSERVATION DU VOYAGE %s ANNULÉE',
 	'mytrips:manageOrders:ConductorDesconfirmaOk:message' => "L’organisateur du voyage <strong>%s</strong> annulé sa réservation du %s. Vérifiez %s. <br />
 		<br />
 		Cordialement, <br />

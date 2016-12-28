@@ -132,6 +132,7 @@ if (!$owner) {
 	</div>
 	<div class="mytrips-profile-fields elgg-body">
 		<?php
+			//link to custom trip fields of @profiles_go plugin
 			echo elgg_view('mytrips/profile/fields', $vars);
 		?>
 	
@@ -157,13 +158,14 @@ if (!$owner) {
 		</script>
 		<script>
 		
-		function initMap() {
+	function initMap() 
+	{
 	  var directionsService = new google.maps.DirectionsService;
 	  var directionsDisplay = new google.maps.DirectionsRenderer;
 	  var map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 7,
 		center: {lat: 37.17101383853488, lng: -3.6039181187454528}
-	  });
+		});
 	  directionsDisplay.setMap(map);
 
 	  function onChangeHandler() {
@@ -194,7 +196,8 @@ if (!$owner) {
 	  
 	}
 
-	function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+	function calculateAndDisplayRoute(directionsService, directionsDisplay) 
+	{
 	  directionsService.route({
 		origin: "<?php echo $group->origen; ?>",
 		destination: "<?php echo $group->destino; ?>",

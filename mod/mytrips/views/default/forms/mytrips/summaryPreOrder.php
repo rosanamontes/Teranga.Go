@@ -26,41 +26,45 @@ $group = $vars['entity'];
 $forward_url = $group->getURL();
 ?>
  <?php echo elgg_echo('mytrips:name').": ".$group->name; ?><br />
-<?php echo elgg_echo('busqueda:OrigenyDestino').": ".$group->origen." - ".$group->destino; ?><br />
+<?php 
+	if (elgg_is_active_plugin('busqueda')) 
+		echo elgg_echo('busqueda:OrigenyDestino').": ".$group->origen." - ".$group->destino; ?><br />
 <?php echo elgg_echo('mytrips:trayecto').": ".elgg_echo($group->trayecto); ?><br />
 <?php echo elgg_echo('mytrips:fechaIda').": ".date("d / m / Y", strtotime($group->fechaIda)); ?><br />
 <?php 
-if($group->trayecto!="custom:trayecto:ida"){ ?>
-<?php echo elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($group->fechaVuelta)); ?><br />	
+	if ($group->trayecto!="custom:trayecto:ida"){ ?>
+		<?php echo elgg_echo('mytrips:fechaVuelta').": ".date("d / m / Y", strtotime($group->fechaVuelta)); ?><br />	
 <?php } ?>
 <?php echo elgg_echo('mytrips:servicioPaqueteria').": ".elgg_echo($group->servicioPaqueteria); ?><br />
 <?php echo elgg_echo('mytrips:bultosDisponibles').": ".$group->bultosDisponibles; ?><br />
 <br/>
 <?php
 
-if ($group->servicioPaqueteria=="custom:rating:si"){
-echo "&nbsp;&nbsp;".elgg_echo('mytrips:summaryPreOrder:Elijo').": ";
-echo elgg_view('input/select', array(
-   'required' => true,
-   'name' => 'opcion',
-   'options_values' => array(
-      '2' => elgg_echo('mytrips:summaryPreOrder:ViajaBulto'),
-	  '1' => elgg_echo('mytrips:summaryPreOrder:ViajoYOBulto'),
-	  '0' => elgg_echo('mytrips:summaryPreOrder:ViajoYO')
-      
-	  
-   )));
+if ($group->servicioPaqueteria=="custom:rating:si")
+{
+	echo "&nbsp;&nbsp;".elgg_echo('mytrips:summaryPreOrder:Elijo').": ";
+	echo elgg_view('input/select', array(
+	   'required' => true,
+   	   'name' => 'opcion',
+	   'options_values' => array(
+			'2' => elgg_echo('mytrips:summaryPreOrder:ViajaBulto'),
+			'1' => elgg_echo('mytrips:summaryPreOrder:ViajoYOBulto'),
+			'0' => elgg_echo('mytrips:summaryPreOrder:ViajoYO')
+       )
+    ));
 ?>
 <br />
 
 <div id="numBultos">
-<?php echo elgg_echo('mytrips:summaryPreOrder:numBultos').": ";
-echo elgg_view('input/text', array('name' => 'bultos','value'=>'0'));
- ?>
+<?php 
+	echo elgg_echo('mytrips:summaryPreOrder:numBultos').": ";
+	echo elgg_view('input/text', array('name' => 'bultos','value'=>'0'));
+?>
 
 </div>
 <script>
-<?php $nbultos=$group->nbultos;
+<?php 
+$nbultos=$group->nbultos;
 $summaryPreOrderConfirmed=$group->summaryPreOrderConfirmed;
 for($i=2;$i<count($summaryPreOrderConfirmed);$i++)
 {
@@ -75,7 +79,8 @@ for($i=0;$i<count($ArrayPosConfirmados);$i++)
 	$sum+=$summaryPreOrderConfirmed[$ArrayPosConfirmados[$i]];
 } 
 $total=$nbultos-$sum;
-if($total<0){$total=0;}
+if ($total<0) { $total=0; }
+
 ?>
 $(document).ready(function(){
 	var nbultos="<?php echo $total; ?>";

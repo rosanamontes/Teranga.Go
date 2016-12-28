@@ -578,7 +578,7 @@ O click a continuación para ver las solicitudes de inclusión del viaje:
 	'custom:empty' => '(sin datos en su perfil)',	
 
 	//Mails internos de gestión de reservas
-	'mytrips:manageOrders:preorderOk:subjet' => 'PRE-RESERVA DEL VIAJE %s',
+	'mytrips:manageOrders:preorderOk:subject' => 'PRE-RESERVA DEL VIAJE %s',
 	'mytrips:manageOrders:preorderOk:Yo'=>'El usuario %s ha hecho una pre-reserva de plaza. <br />
 	Modalidad: %s<br />
 	Aportación mínima: %s<br/ >
@@ -620,7 +620,7 @@ O click a continuación para ver las solicitudes de inclusión del viaje:
 		<br />
 		Atentamente, <br />
 			El equipo de Teranga Go!',		
-	'mytrips:manageOrders:confirmadoOk:subjet' => 'RESERVA DEL VIAJE %s',
+	'mytrips:manageOrders:confirmadoOk:subject' => 'RESERVA DEL VIAJE %s',
 	'mytrips:manageOrders:confirmadoOk:message'=>'
 	El usuario promotor del viaje <strong>%s</strong> ha aceptado su reserva de plaza para el viaje %s en modalidad de trayecto %s, y por el que se compromete a pagarle la cantidad de %s en su defecto u otra cantidad que haya sido acordada previa a la realización del viaje.<br />
 	Ustedes ahora viajarán juntos atendiendo a los %s que hayan establecido en este viaje. 	
@@ -628,14 +628,14 @@ O click a continuación para ver las solicitudes de inclusión del viaje:
 		Atentamente, <br />
 			El equipo de Teranga Go!',
 
-	'mytrips:manageOrders:desconfirmadoOk:subjet' => 'RESERVA CANCELADA DEL VIAJE %s',
+	'mytrips:manageOrders:desconfirmadoOk:subject' => 'RESERVA CANCELADA DEL VIAJE %s',
 	'mytrips:manageOrders:desconfirmadoOk:message' => 'El usuario ha cancelado su reserva de plaza en el viaje. <br />
 	Usted ahora puede gestionar otras pre-reservas de su viaje o modificar los datos de su viaje (fechas o numero de plazas ofertadas) y seguir atendiendo los %s que haya establecido en éste viaje. 
 		<br />
 		Atentamente, <br />
 			El equipo de Teranga Go!',
 
-	'mytrips:manageOrders:ConductorDesconfirmaOk:subjet' => 'RESERVA DENEGADA DEL VIAJE %s',
+	'mytrips:manageOrders:ConductorDesconfirmaOk:subject' => 'RESERVA DENEGADA DEL VIAJE %s',
 	'mytrips:manageOrders:ConductorDesconfirmaOk:message' => 'El promotor %s no ha aceptado su petición de reserva de plaza en el viaje %s. Revise los %s. <br />
 		<br />
 		Atentamente, <br />

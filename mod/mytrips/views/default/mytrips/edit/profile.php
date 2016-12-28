@@ -19,7 +19,7 @@
 */
 
 $name = elgg_extract("name", $vars);
-$group_profile_fields = elgg_get_config("group");
+$trip_profile_fields = elgg_get_config("group");
 
 ?>
 <div>
@@ -37,7 +37,8 @@ $group_profile_fields = elgg_get_config("group");
 <?php
 
 // show the configured group profile fields
-foreach ((array)$group_profile_fields as $shortname => $valtype) {
+foreach ((array)$trip_profile_fields as $shortname => $valtype) 
+{
 	if ($valtype == "hidden") {
 		echo elgg_view("input/{$valtype}", array(
 			"name" => $shortname,
@@ -45,6 +46,8 @@ foreach ((array)$group_profile_fields as $shortname => $valtype) {
 		));
 		continue;
 	}
+	if ($shortname=="name")//To drop one of the two name field
+		continue;
 
 	$line_break = ($valtype == "longtext") ? "" : "<br />";
 	$label = elgg_echo("mytrips:{$shortname}");

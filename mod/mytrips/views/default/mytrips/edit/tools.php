@@ -36,7 +36,7 @@ if ($tools)
 			$value = 'no';
 		
 		if (elgg_is_admin_logged_in())
-			echo elgg_format_element('div', null, elgg_view('input/checkbox', array(
+			echo elgg_format_element('div', array(), elgg_view('input/checkbox', array(
 				'name' => $group_option_toggle_name,
 				'value' => 'yes',
 				'default' => 'no',

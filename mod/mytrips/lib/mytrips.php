@@ -164,8 +164,8 @@ function mytrips_handle_owned_page() {
 /**
  * List mytrips the user is memober of
  */
-function mytrips_handle_mine_page() {
-
+function mytrips_handle_mine_page() 
+{
 	$page_owner = elgg_get_page_owner_entity();
 
 	if ($page_owner->guid == elgg_get_logged_in_user_guid()) {
@@ -187,7 +187,7 @@ function mytrips_handle_mine_page() {
 		'relationship_guid' => elgg_get_page_owner_guid(),
 		'inverse_relationship' => false,
 		'full_view' => false,
-		'joins' => array("JOIN {$dbprefix}mytrips_entity ge ON e.guid = ge.guid"),
+		'joins' => array("JOIN {$dbprefix}groups_entity ge ON e.guid = ge.guid"),
 		'order_by' => 'ge.name ASC',
 		'no_results' => elgg_echo('mytrips:none'),
 	));
@@ -510,27 +510,33 @@ function mytrips_handle_manageOrders_page($guid) {
 	echo elgg_view_page($title, $body);
 }
 
-function mytrips_handle_summaryPreOrder_page($guid) {
+
+/* 
+* form to select the service in witch the user is interested int
+*/
+function mytrips_handle_summaryPreOrder_page($guid) 
+{
 	elgg_gatekeeper();
 
 	elgg_set_page_owner_guid($guid);
 
 	$title = elgg_echo('mytrips:summaryPreOrder:title');
 
-	$group = get_entity($guid);
-	/*if (!elgg_instanceof($group, 'group') || !$group->canEdit()) {
+	$trip = get_entity($guid);
+	/*if (!elgg_instanceof($trip, 'group') || !$trip->canEdit()) 
+	{
 		register_error(elgg_echo('mytrips:noaccess'));
 		forward(REFERER);
-	}*/
+	}*/	
 
 	$content = elgg_view_form('mytrips/summaryPreOrder', array(
 		'id' => 'summaryOrder',
 		'class' => 'elgg-form-alt mtm',
 	), array(
-		'entity' => $group,
+		'entity' => $trip,
 	));
 
-	elgg_push_breadcrumb($group->name, $group->getURL());
+	elgg_push_breadcrumb($trip->name, $trip->getURL());
 	elgg_push_breadcrumb(elgg_echo('mytrips:summaryOrder'));
 
 	$params = array(

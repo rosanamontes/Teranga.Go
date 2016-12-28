@@ -552,7 +552,7 @@ or click below to view the trip's follow requests:
 	//gestion de reservas
 	'mytrips:manageOrders' => 'Orders Management',
 	'mytrips:manageOrders:title' => 'Orders Management',
-	'mytrips:manageOrders:save' => 'Back',
+	'mytrips:manageOrders:save' => 'Confirm',
 	'mytrips:manageOrders:saved' => 'Management done successfully',
 	'mytrips:manageOrders:confirmar' => 'Accept',
 	'mytrips:manageOrders:desconfirmar' => 'Decline',
@@ -564,14 +564,14 @@ or click below to view the trip's follow requests:
 	'custom:empty' => '(empty profile field)',	
 
 	//Mails internos de gestión de reservas
-	'mytrips:manageOrders:preorderOk:subjet' => 'PREORDER FOR TRIP %s',
+	'mytrips:manageOrders:preorderOk:subject' => 'PREORDER FOR TRIP %s',
 	'mytrips:manageOrders:preorderOk:message'=>'The user %s has pre-order a place. <br />
 	You must now manage the orders of your trip.		
 		<br />
 		Greetings, <br />
 			The Teranga Go! team',	
 
-	'mytrips:manageOrders:confirmadoOk:subjet' => 'ORDER FOR TRIP %s',
+	'mytrips:manageOrders:confirmadoOk:subject' => 'ORDER FOR TRIP %s',
 	'mytrips:manageOrders:confirmadoOk:message'=>'
 	%s as trip promoter has accepted your pre-order for the trip %s. By default the type is %s and you agree to pay the amount of %s or another amount dealed before departure.<br />
 	Now you will travel together attending the %s established for this journey.
@@ -579,19 +579,38 @@ or click below to view the trip's follow requests:
 		Greetings, <br />
 			The Teranga Go! team',	
 
-	'mytrips:manageOrders:desconfirmadoOk:subjet' => 'ORDER CANCELLED FOR TRIP %s',
+	'mytrips:manageOrders:desconfirmadoOk:subject' => 'ORDER CANCELLED FOR TRIP %s',
 	'mytrips:manageOrders:desconfirmadoOk:message' => 'The user has canceled the reservation fee on the trip %s<br />
 	 You can now manage other pre-booking your trip or modify your travel details (dates or number of free seats). Check the %s.
 		<br />
 		Greetings, <br />
 			The Teranga Go! team',	
 
-	'mytrips:manageOrders:ConductorDesconfirmaOk:subjet' => 'ORDER DENYED FOR TRIP %s',
+	'mytrips:manageOrders:ConductorDesconfirmaOk:subject' => 'ORDER DENYED FOR TRIP %s',
 	'mytrips:manageOrders:ConductorDesconfirmaOk:message' => '%s as trip promoter has rejected your interest in travel in %s. Check the %s. <br />
 		<br />
 		Greetings, <br />
 			The Teranga Go! team',	
 
+	'mytrips:manageOrders:preorderOk:msgViajero:Yo'=>'You have pre-booked your seat in this journey: %s. <br />
+	Journey modality: %s<br />
+	Minimum contribution: %s<br/ >
+		<br />
+		Greetings, <br />
+			The Teranga Go! team',
+	'mytrips:manageOrders:preorderOk:msgViajero:YoMaleta'=>'You have pre-booked for seat and shipment in this journey: %s. <br />
+	Journey modality: %s<br />
+	Minimum contribution: %s<br/ >
+	Nº Bultos: %s<br>
+		<br />
+		Greetings, <br />
+			The Teranga Go! team',
+	'mytrips:manageOrders:preorderOk:msgViajero:Maleta'=>'You have pre-booked your shipment in this journey: %s. <br />
+	Minimum contribution: %s<br/ >
+	Nº Packages: %s<br />
+		<br />
+		Greetings, <br />
+			The Teranga Go! team',		
 
 	//Acuerdos de viaje (foros)
 	'mytrips:discussion:title1' => 'Stop points',
@@ -634,10 +653,10 @@ or click below to view the trip's follow requests:
 
 
 	//summaryPreOrder==============
-	'mytrips:summaryPreOrder:title'=> 'Travel or Parcel reservation',
-	'mytrips:summaryOrder'=>'Summary of Pre-Reserva',
+	'mytrips:summaryPreOrder:title'=> 'Reservation form',
+	'mytrips:summaryOrder'=>'Summary of Pre-reservation',
 	'mytrips:summaryPreOrder:ViajoYO'=>'Occupy a seat',
-	'mytrips:summaryPreOrder:ViajoYOBulto'=>'Occupy a seat and parcel shipping',
+	'mytrips:summaryPreOrder:ViajoYOBulto'=>'Occupy a seat and do parcel shipping',
 	'mytrips:summaryPreOrder:ViajaBulto'=>'I do not travel, only parcel shipment',
 	'mytrips:summaryPreOrder:Elijo'=>'Select',
 	'mytrips:summaryPreOrder:ElijoViajar'=>'I choose to travel',

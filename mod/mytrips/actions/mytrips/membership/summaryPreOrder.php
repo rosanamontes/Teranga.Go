@@ -34,48 +34,51 @@
 
     return $results;
 }*/
+
 $group_guid = (int)get_input('group_guid');
 $trayecto = (string)get_input('opcionViaje');
 $YoMaleta = (int)get_input('opcion');
 $bultos = (int)get_input('bultos');
 
-$group = get_entity($group_guid);
+$trip = get_entity($group_guid);
 $user=get_entity(elgg_get_logged_in_user_guid());
 
-$summaryPreOrderUserGuid=$group->summaryPreOrderUserGuid;
+$summaryPreOrderUserGuid=$trip->summaryPreOrderUserGuid;
 $clave=array_search($user->guid,$summaryPreOrderUserGuid);
+
 //$resultado=search($summaryPreOrderUserGuid, 'userguid',$user->guid);
 if($clave!=""){
-	system_messages(elgg_echo('mytrips:summaryPreOrder:justPreorder'));
+	system_message(elgg_echo('mytrips:summaryPreOrder:justPreorder'));
 }
-else {
-	$summaryPreOrderTrayecto=$group->summaryPreOrderTrayecto;
-	$summaryPreOrderBultos=$group->summaryPreOrderBultos;
-	$summaryPreOrderConfirmed=$group->summaryPreOrderConfirmed;
+else 
+{
+	$summaryPreOrderTrayecto=$trip->summaryPreOrderTrayecto;
+	$summaryPreOrderBultos=$trip->summaryPreOrderBultos;
+	$summaryPreOrderConfirmed=$trip->summaryPreOrderConfirmed;
 
-	$subjet=elgg_echo('mytrips:manageOrders:preorderOk:subjet',array($group->name));	
+	$subject=elgg_echo('mytrips:manageOrders:preorderOk:subject',array($trip->name));	
 	
 	switch($YoMaleta)
 	{
 		case "0":
-			//Voy
+			//Voy - only as pasanger
 			array_push($summaryPreOrderUserGuid,$user->guid);
 			array_push($summaryPreOrderTrayecto,$trayecto);
 			array_push($summaryPreOrderBultos,0);
 			array_push($summaryPreOrderConfirmed,0);
 			
 			//PreOrder
-			$follower=$group->follower;
+			$follower=$trip->follower;
 			$clave=array_search($user->guid,$follower);
 			unset($follower[$clave]);
-			$group->follower=$follower;
-			$preorder=$group->preorder;
+			$trip->follower=$follower;
+			$preorder=$trip->preorder;
 			array_push($preorder,$user->guid);
-			$group->preorder=$preorder;
+			$trip->preorder=$preorder;
 			
 			$clave=array_search($user->guid,$summaryPreOrderUserGuid);	
-			$trayectoViajeGrupo=$group->trayecto;
-			$aportacion=$group->aportacionViajero;
+			$trayectoViajeGrupo=$trip->trayecto;
+			$aportacion=$trip->aportacionViajero;
 			
 			$trayectoViaje=$summaryPreOrderTrayecto[$clave];
 			$posicionFinal = strpos($aportacion,'.')+3;
@@ -91,41 +94,43 @@ else {
 				}
 				
 			$body=elgg_echo('mytrips:manageOrders:preorderOk:Yo',array(
-			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
-			elgg_echo($trayectoViaje),
-			$aportacionFinal,
-			"<a href=\"".$group->getURL()."\">".$group->name."</a>"
+				"<a href=\"".$user->getURL()."\">".$user->name."</a>",
+				elgg_echo($trayectoViaje),
+				$aportacionFinal,
+				"<a href=\"".$trip->getURL()."\">".$trip->name."</a>"
 			));
 			//al conductor
-			messages_send($subjet,$body, $group->owner_guid, 0,$user->guid);
+
+			//messages_send ($titulo_mensaje,$cuerpo_mensaje,$guid_destinatario,$guid_usuario,0,false,true);
+			messages_send($subject,$body, $trip->owner_guid, $user->guid,0,false,true);
 			
-			$body=elgg_echo('mytrips:manageOrders:preorderOk:msgViajero:Yo',array(
-			"<a href=\"".$group->getURL()."\">".$group->name."</a>",
-			elgg_echo($trayectoViaje),
-			$aportacionFinal
+			$body = elgg_echo('mytrips:manageOrders:preorderOk:msgViajero:Yo',array(
+				"<a href=\"".$trip->getURL()."\">".$trip->name."</a>",
+				elgg_echo($trayectoViaje),
+				$aportacionFinal
 			));
 			//al usuario
-			messages_send($subjet,$body, $user->guid,$group->owner_guid);
+			messages_send($subject,$body, $user->guid,$trip->owner_guid,0,false,true);
 			
 			break;
 		case "1":
-			//Voy + Maleta
+			//Voy + Maleta - both services
 			array_push($summaryPreOrderUserGuid,$user->guid);
 			array_push($summaryPreOrderTrayecto,$trayecto);
 			array_push($summaryPreOrderBultos,$bultos);
 			array_push($summaryPreOrderConfirmed,0);
 
 			//PreOrder
-			$follower=$group->follower;
+			$follower=$trip->follower;
 			$clave=array_search($user->guid,$follower);
 			unset($follower[$clave]);
-			$group->follower=$follower;
-			$preorder=$group->preorder;
+			$trip->follower=$follower;
+			$preorder=$trip->preorder;
 			array_push($preorder,$user->guid);
-			$group->preorder=$preorder;
+			$trip->preorder=$preorder;
 
-			$trayectoViajeGrupo=$group->trayecto;
-			$aportacion=$group->aportacionViajero;
+			$trayectoViajeGrupo=$trip->trayecto;
+			$aportacion=$trip->aportacionViajero;
 			$clave=array_search($user->guid,$summaryPreOrderUserGuid);
 			$trayectoViaje=$summaryPreOrderTrayecto[$clave];
 			$posicionFinal = strpos($aportacion,'.')+3;
@@ -141,14 +146,14 @@ else {
 				}
 			
 			$body=elgg_echo('mytrips:manageOrders:preorderOk:YoMaleta',array(
-			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
-			elgg_echo($summaryPreOrderTrayecto[$clave]),
-			$aportacionFinal,
-			$bultos,
-			"<a href=\"".$group->getURL()."\">".$group->name."</a>"
+				"<a href=\"".$user->getURL()."\">".$user->name."</a>",
+				elgg_echo($summaryPreOrderTrayecto[$clave]),
+				$aportacionFinal,
+				$bultos,
+				"<a href=\"".$trip->getURL()."\">".$trip->name."</a>"
 			));
 			//al conductor
-			messages_send($subjet,$body, $group->owner_guid, 0,$user->guid);
+			messages_send($subject,$body, $trip->owner_guid, 0,$user->guid);
 			
 			$body=elgg_echo('mytrips:manageOrders:preorderOk:msgViajero:YoMaleta',array(
 			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
@@ -157,7 +162,7 @@ else {
 			$bultos
 			));
 			//al usuario
-			messages_send($subjet,$body, $user->guid,$group->owner_guid);
+			messages_send($subject,$body, $user->guid,$trip->owner_guid);
 
 			break;
 		case "2":
@@ -171,10 +176,10 @@ else {
 			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
 			$aportacionFinal,
 			$bultos,
-			"<a href=\"".$group->getURL()."\">".$group->name."</a>"
+			"<a href=\"".$trip->getURL()."\">".$trip->name."</a>"
 			));
 			//al conductor
-			messages_send($subjet,$body, $group->owner_guid, 0,$user->guid);
+			messages_send($subject,$body, $trip->owner_guid, 0,$user->guid);
 			
 			$body=elgg_echo('mytrips:manageOrders:preorderOk:msgViajero:Maleta',array(
 			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
@@ -183,19 +188,19 @@ else {
 			));
 			
 			//al usuario
-			messages_send($subjet,$body, $user->guid,$group->owner_guid);
+			messages_send($subject,$body, $user->guid,$trip->owner_guid);
 			
 			break;
 	}
 	//messages_send($subject, $body, $recipient_guid, $sender_guid)
-	$group->summaryPreOrderUserGuid=$summaryPreOrderUserGuid;
-	$group->summaryPreOrderTrayecto=$summaryPreOrderTrayecto;
-	$group->summaryPreOrderBultos=$summaryPreOrderBultos;
-	$group->summaryPreOrderConfirmed=$summaryPreOrderConfirmed;
+	$trip->summaryPreOrderUserGuid=$summaryPreOrderUserGuid;
+	$trip->summaryPreOrderTrayecto=$summaryPreOrderTrayecto;
+	$trip->summaryPreOrderBultos=$summaryPreOrderBultos;
+	$trip->summaryPreOrderConfirmed=$summaryPreOrderConfirmed;
 		
 	system_messages(elgg_echo('mytrips:manageOrders:saved'));
 }
 
-forward($group->getUrl());
+forward($trip->getUrl());
 
 ?>

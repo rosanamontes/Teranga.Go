@@ -28,14 +28,12 @@ $forward_url = $group->getURL();
 /*
 elgg_dump($group->preorder);
 elgg_dump($group->confirm);*/
-for($i=2;$i<count($group->summaryPreOrderUserGuid);$i++){
-if($group->summaryPreOrderConfirmed[$i]==0) 
-		{
-			
-		
+for($i=2;$i<count($group->summaryPreOrderUserGuid);$i++)
+{
+	if($group->summaryPreOrderConfirmed[$i]==0) 
+	{	
 		$user =get_user($group->summaryPreOrderUserGuid[$i]);
-		/*elgg_dump($user);*/
-
+		//elgg_dump($user);
 
 		//intentamos que los custom fields vacios tengan un texto
 		if ($user->dios == "") 
@@ -64,7 +62,9 @@ if($group->summaryPreOrderConfirmed[$i]==0)
 			</div>
 			<div class="col-md-6 descViajero">
 				<div class="col-md-12">
-					<h4><a href="<?php echo elgg_get_site_url()."profile/".$user->name ?>"><strong><?php echo $user->name; ?></strong></a></h4>
+					<h4>
+						<a href="<?php echo elgg_get_site_url()."profile/".$user->username ?>">
+						<strong><?php echo $user->name; ?></strong></a></h4>
 				</div>
 				<div class="col-md-12 textoDentro">
 					
@@ -74,12 +74,18 @@ if($group->summaryPreOrderConfirmed[$i]==0)
 						$summaryPreOrderBultos=$group->summaryPreOrderBultos;
 						
 						$clave=array_search($user->guid,$summaryPreOrderUserGuid);
-						if(($summaryPreOrderTrayecto[$clave]!=-1 && $summaryPreOrderBultos[$clave]!=0) || ($summaryPreOrderTrayecto[$clave]!=-1 && $summaryPreOrderBultos[$clave]!=0) ) { ?>
+
+						if  ( $summaryPreOrderTrayecto[$clave]!=-1 && $summaryPreOrderBultos[$clave]!=0 ) 
+						//   || ($summaryPreOrderTrayecto[$clave]!=-1 && $summaryPreOrderBultos[$clave]!=0) ) 
+						{ 
+						?>
 							<?php echo elgg_echo("profile:dios").": "; echo $showdios; ?><br />
 							<?php echo elgg_echo("profile:religioso").": ";echo $showreligioso; ?><br />
 							<?php echo elgg_echo("profile:humo").": ";echo $showhumo; ?><br />
 							<?php echo elgg_echo("profile:fumador").": ";echo $showfumador; ?><br />
-						<?php }
+						<?php 
+						}
+						
 						if($summaryPreOrderBultos[$clave]!=0){
 							echo elgg_echo('mytrips:summaryPreOrder:numBultos').": ";echo $summaryPreOrderBultos[$clave];
 						}
@@ -117,14 +123,18 @@ $(document).ready(function(){
 		
 		var userguid=$(this).attr("userguid");
 		
-		if($(this).hasClass("btn-info")) {
-			$.post("<?php echo elgg_get_site_url(); ?>services/api/rest/json/?method=group.confirmWeb",
+		if($(this).hasClass("btn-info")) 
+		{
+			$.post("<?php 
+				if (elgg_is_active_plugin('TerangaWebService')) 
+					echo elgg_get_site_url(); ?>services/api/rest/json/?method=group.confirmWeb",
 				{userguid:userguid,groupid:"<?php echo $group->guid; ?>"},
-				function(data, status){
+				function(data, status)
+				{
 					if(data.status==0 && data.result.success)
 					{
-					$("#btn-"+userguid).removeClass("btn-info").addClass("btn-warning").attr("value","<?php echo elgg_echo('mytrips:manageOrders:desconfirmar'); ?>");
-					elgg.system_message(elgg.echo('mytrips:manageOrders:confirmadoOk'));
+						$("#btn-"+userguid).removeClass("btn-info").addClass("btn-warning").attr("value","<?php echo elgg_echo('mytrips:manageOrders:desconfirmar'); ?>");
+						elgg.system_message(elgg.echo('mytrips:manageOrders:confirmadoOk'));
 					}
 					else 
 					{
@@ -133,14 +143,17 @@ $(document).ready(function(){
 				});
 				
 		}
-		else if ($(this).hasClass("btn-warning")){
-			$.post("<?php echo elgg_get_site_url(); ?>services/api/rest/json/?method=group.unconfirmWeb",
+		else if ($(this).hasClass("btn-warning"))
+		{
+			$.post("<?php if (elgg_is_active_plugin('TerangaWebService')) 
+				echo elgg_get_site_url(); ?>services/api/rest/json/?method=group.unconfirmWeb",
 				{userguid:userguid,groupid:"<?php echo $group->guid; ?>"},
-				function(data, status){
+				function(data, status)
+				{
 					if(data.status==0  && data.result.success)
 					{
-					$("#btn-"+userguid).removeClass("btn-warning").addClass("btn-info").attr("value","<?php echo elgg_echo('mytrips:manageOrders:confirmar'); ?>");
-					elgg.system_message(elgg.echo('mytrips:manageOrders:desconfirmadoOk'));
+						$("#btn-"+userguid).removeClass("btn-warning").addClass("btn-info").attr("value","<?php echo elgg_echo('	mytrips:manageOrders:confirmar'); ?>");
+						elgg.system_message(elgg.echo('mytrips:manageOrders:desconfirmadoOk'));
 					}	
 					else 
 					{

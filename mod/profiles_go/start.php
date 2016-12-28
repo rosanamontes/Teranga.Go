@@ -2,7 +2,7 @@
 /**
 * Plugin init file
 * 
-* 	Plugin: profiles_go from previous version of @package profiles_go of Coldtrick IT Solutions 2009
+* 	Plugin: profiles_go from previous version of @package profile_manager of Coldtrick IT Solutions 2009
 *	Author: Rosana Montes Soldado 
 *			Universidad de Granada
 *	Licence: 	CC-ByNCSA

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
 	<name>Teranga Trip Companions</name>
-        <id>trip_companions</id>
+    <id>trip_companions</id>
+	<version>1.8</version>
 	<author>Rosana Montes</author>
-        <email>stremsattva@gmail.com | rosana@ugr.es</email>
-	<version>1.1</version>
+    <email>stremsattva@gmail.com | rosana@ugr.es</email>
 	<description>Este plugin ayuda a un usuario a encontar a los usuarios interesados en un viaje en comun, y es usado en los viajes para gestionar las valoraciones sobre dichas personas.</description>
 	<website>http://tamen.ugr.es/teranga</website>
 	<copyright>Universidad de Granada</copyright>

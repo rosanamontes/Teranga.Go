@@ -205,7 +205,7 @@ function delete_trip_assessments($trip_guid)
 		'type' => 'object',
 		'subtype' => 'evaluation_content',
 		'metadata_name_value_pairs' => array(
-             array('name'=>'trip','value'=>$trip_guid,'operand'=>'=')
+             array('name'=>'group','value'=>$trip_guid,'operand'=>'=')
         ),		
 	]);
 	if (!$list) {

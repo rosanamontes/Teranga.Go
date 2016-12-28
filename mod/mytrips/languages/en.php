@@ -570,6 +570,26 @@ or click below to view the trip's follow requests:
 		<br />
 		Greetings, <br />
 			The Teranga Go! team',	
+	'mytrips:manageOrders:preorderOk:Yo'=>'The user %s has pre-order a place. <br />
+	Journey modality: %s<br />
+	Minimum contribution: %s<br/ >
+	You must now manage the orders of your trip %s.
+		<br />
+		Greetings, <br />
+			The Teranga Go! team',	
+	'mytrips:manageOrders:preorderOk:YoMaleta'=>'The user %s has pre-order a seat with shipment. <br />
+	Journey modality: %s<br />
+	Minimum contribution: %s<br/ >
+	Nº Packages: %s<br>
+	You must now manage the orders of your trip %s.<br />
+		Greetings, <br />
+			The Teranga Go! team',	
+	'mytrips:manageOrders:preorderOk:Maleta'=>'The user %s has pre-order a shipment request.<br />
+	Minimum contribution: %s<br/ >
+	Nº Packages: %s<br />
+	You must now manage the orders of your trip %s.<br />
+		Greetings, <br />
+			The Teranga Go! team',	
 
 	'mytrips:manageOrders:confirmadoOk:subject' => 'ORDER FOR TRIP %s',
 	'mytrips:manageOrders:confirmadoOk:message'=>'
@@ -593,13 +613,13 @@ or click below to view the trip's follow requests:
 			The Teranga Go! team',	
 
 	'mytrips:manageOrders:preorderOk:msgViajero:Yo'=>'You have pre-booked your seat in this journey: %s. <br />
-	Journey modality: %s<br />
+	Modality: %s<br />
 	Minimum contribution: %s<br/ >
 		<br />
 		Greetings, <br />
 			The Teranga Go! team',
 	'mytrips:manageOrders:preorderOk:msgViajero:YoMaleta'=>'You have pre-booked for seat and shipment in this journey: %s. <br />
-	Journey modality: %s<br />
+	Modality: %s<br />
 	Minimum contribution: %s<br/ >
 	Nº Bultos: %s<br>
 		<br />
@@ -649,7 +669,7 @@ or click below to view the trip's follow requests:
 	'profile:hint:nbultos' => 'Estimated number of packaged allocated in the vehicle',
 	'package:nbultosWrong'=>'Value not allowed. Max number of packages should be a value between 0 and 49',//valor entre 0--49
 	'mytrips:bultosDisponibles'=>'Packages available',
-	'profile:hint:nbultosDisponibles' => 'internal variable (admin only)',
+	'profile:hint:bultosDisponibles' => 'internal variable (admin only)',
 
 
 	//summaryPreOrder==============

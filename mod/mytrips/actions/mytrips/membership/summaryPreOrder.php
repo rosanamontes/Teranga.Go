@@ -61,7 +61,7 @@ else
 	switch($YoMaleta)
 	{
 		case "0":
-			//Voy - only as pasanger
+			//Voy - only as passenger
 			array_push($summaryPreOrderUserGuid,$user->guid);
 			array_push($summaryPreOrderTrayecto,$trayecto);
 			array_push($summaryPreOrderBultos,0);
@@ -153,42 +153,42 @@ else
 				"<a href=\"".$trip->getURL()."\">".$trip->name."</a>"
 			));
 			//al conductor
-			messages_send($subject,$body, $trip->owner_guid, 0,$user->guid);
-			
+			messages_send($subject,$body, $trip->owner_guid, $user->guid, 0,false,true);
+
 			$body=elgg_echo('mytrips:manageOrders:preorderOk:msgViajero:YoMaleta',array(
-			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
-			elgg_echo($summaryPreOrderTrayecto[$clave]),
-			$aportacionFinal,
-			$bultos
+				"<a href=\"".$trip->getURL()."\">".$trip->name."</a>",
+				elgg_echo($summaryPreOrderTrayecto[$clave]),
+				$aportacionFinal,
+				$bultos
 			));
 			//al usuario
-			messages_send($subject,$body, $user->guid,$trip->owner_guid);
+			messages_send($subject,$body, $user->guid,$trip->owner_guid, 0,false, true);
 
 			break;
 		case "2":
-			//Sólo Maleta
+			//Sólo Maleta - ojo!! no tiene la contribucion bien calculada @ToDo
 			array_push($summaryPreOrderUserGuid,$user->guid);
 			array_push($summaryPreOrderTrayecto,-1);
 			array_push($summaryPreOrderBultos,$bultos);
 			array_push($summaryPreOrderConfirmed,0);
 			
 			$body=elgg_echo('mytrips:manageOrders:preorderOk:Maleta',array(
-			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
-			$aportacionFinal,
-			$bultos,
-			"<a href=\"".$trip->getURL()."\">".$trip->name."</a>"
+				"<a href=\"".$user->getURL()."\">".$user->name."</a>",
+				$aportacionFinal,
+				$bultos,
+				"<a href=\"".$trip->getURL()."\">".$trip->name."</a>"
 			));
 			//al conductor
-			messages_send($subject,$body, $trip->owner_guid, 0,$user->guid);
+			messages_send($subject,$body, $trip->owner_guid,$user->guid, 0,false, true);
 			
 			$body=elgg_echo('mytrips:manageOrders:preorderOk:msgViajero:Maleta',array(
-			"<a href=\"".$user->getURL()."\">".$user->name."</a>",
-			$aportacionFinal,
-			$bultos
+				"<a href=\"".$trip->getURL()."\">".$trip->name."</a>",
+				$aportacionFinal,
+				$bultos
 			));
 			
 			//al usuario
-			messages_send($subject,$body, $user->guid,$trip->owner_guid);
+			messages_send($subject,$body, $user->guid,$trip->owner_guid, 0,false, true);
 			
 			break;
 	}

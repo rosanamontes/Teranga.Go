@@ -36,7 +36,8 @@ function profiles_go_fix_access_default() {
  * @return void
  */
   
-function profiles_go_run_once() {
+function profiles_go_run_once() 
+{
 	$dbprefix = elgg_get_config("dbprefix");
 	
 	// upgrade class names for subtypes

@@ -25,7 +25,8 @@
  *
  * @return void
  */
-function profiles_go_register_custom_field_types() {
+function profiles_go_register_custom_field_types() 
+{
 	// registering profile field types
 	$profile_options = array(
 			"show_on_register" => true,
@@ -378,8 +379,10 @@ function profiles_go_get_categorized_trip_fields($trip = null)
 		
 	$fields = elgg_get_entities($options);
 
-	if ($fields) {
-		foreach ($fields as $field) {
+	if ($fields) 
+	{
+		foreach ($fields as $field) 
+		{
 			$admin_only = $field->admin_only;
 			if ($admin_only != "yes" || elgg_is_admin_logged_in()) {
 				$result["fields"][$field->order] = $field;
@@ -390,7 +393,7 @@ function profiles_go_get_categorized_trip_fields($trip = null)
 	
 	//  fire hook to see if other plugins have extra fields
 	$hook_params = array(
-		"trip" => $trip
+		"group" => $trip
 	);
 		
 	$result = elgg_trigger_plugin_hook("categorized_trip_fields", "profiles_go", $hook_params, $result);

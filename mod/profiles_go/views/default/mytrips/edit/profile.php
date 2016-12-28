@@ -1,6 +1,6 @@
 <?php
 /**
-* trip edit form to support options (radio, dropdown, multiselect)
+* trip edit form to support options (radio, dropdown, multiselect). It overrides the one from mytrips
 *
 * 	Plugin: profiles_go from previous version of @package profiles_go of Coldtrick IT Solutions 2009
 *	Author: Rosana Montes Soldado 
@@ -25,12 +25,12 @@ $name_limit = elgg_get_plugin_setting("trip_limit_name", "profiles_go");
 $description_limit = elgg_get_plugin_setting("trip_limit_description", "profiles_go");
 	
 echo "<div>";
-echo "<label>" . elgg_echo("trips:icon") . "</label><br />";
+echo "<label>" . elgg_echo("mytrips:icon") . "</label><br />";
 echo elgg_view("input/file", array('name' => 'icon'));
 echo "</div>";
 
 echo "<div>";
-echo "<label>" . elgg_echo("trips:name") . "</label><br />";
+echo "<label>" . elgg_echo("mytrips:name") . "</label><br />";
 
 $show_input = false;
 if (empty($trip) || ($name_limit === NULL) || ($name_limit === "") || elgg_is_admin_logged_in()) {
@@ -69,7 +69,7 @@ if ($show_input) {
 	));
 }
 echo "</div>";?>
-<!--AQUí MI GOOGLE MAPS-->
+<!--Antonio: AQUí MI GOOGLE MAPS-->
 <style>
 #map {
         height: 450px;
@@ -84,12 +84,14 @@ echo "</div>";?>
 // retrieve trip fields
 $trip_fields = profiles_go_get_categorized_trip_fields();
 
-if (count($trip_fields["fields"]) > 0) {
+if (count($trip_fields["fields"]) > 0) 
+{
 	$trip_fields = $trip_fields["fields"];
 	
-	foreach ($trip_fields as $field) {
+	foreach ($trip_fields as $field) 
+	{
 		$metadata_name = $field->metadata_name;
-
+		
 		// get options
 		$options = $field->getOptions();
 		$placeholder = $field->getPlaceholder();
@@ -196,10 +198,10 @@ if (count($trip_fields["fields"]) > 0) {
 			height:25px;
 		}
 		#btnAumentar{
-			background-image:url('<?php echo elgg_get_site_url()."mod/trips/graphics/icono_mas.png"; ?>');
+			background-image:url('<?php echo elgg_get_site_url()."mod/mytrips/graphics/icono_mas.png"; ?>');
 		}
 		#btnRestar{
-			background-image:url('<?php echo elgg_get_site_url()."mod/trips/graphics/icono_menos.png"; ?>');
+			background-image:url('<?php echo elgg_get_site_url()."mod/mytrips/graphics/icono_menos.png"; ?>');
 		}
 	</style>
 	<script>
@@ -393,7 +395,8 @@ if (count($trip_fields["fields"]) > 0) {
 	/*
 	Para que no haga el form si se ha dejado las fechas mal
 	*/
-	$( "form" ).submit(function() {
+	$( "form" ).submit(function() 
+	{
 		var path="<?php echo elgg_get_site_url(); ?>";
 		var rbIdaVuelta=$('input[name=trayecto]:checked').index('input[name=trayecto]')==1;
 		//cojo fechas
@@ -436,7 +439,8 @@ if (count($trip_fields["fields"]) > 0) {
 	  
 	}
 
-	function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+	function calculateAndDisplayRoute(directionsService, directionsDisplay) 
+	{
 	  if ( $("[name='origen']").val()!="" && $("[name='destino']").val()){
 		 directionsService.route({
 		origin: $("[name='origen']").val(),

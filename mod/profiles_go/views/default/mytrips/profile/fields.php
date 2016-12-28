@@ -22,7 +22,7 @@
 $trip = $vars['entity'];
 
 $trip_fields = profiles_go_get_categorized_trip_fields();
-		
+	
 if (count($trip_fields["fields"]) > 0) {
 	$trip_fields = $trip_fields["fields"];
 	$even_odd = 'odd';

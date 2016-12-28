@@ -28,8 +28,8 @@
  *
  * @return void
  */
-function profiles_go_profileupdate_user_event($event, $object_type, $user) {
-	
+function profiles_go_profileupdate_user_event($event, $object_type, $user) 
+{	
 	if (!empty($user) && ($user instanceof ElggUser)) {
 		// upload a file to your profile
 		$accesslevel = get_input('accesslevel');
@@ -125,7 +125,8 @@ function profiles_go_profileupdate_user_event($event, $object_type, $user) {
  *
  * @return array
  */
-function profiles_go_create_user_event($event, $object_type, $object) {
+function profiles_go_create_user_event($event, $object_type, $object) 
+{
 	$custom_profile_fields = array();
 	
 	// retrieve all field that were on the register page
@@ -136,7 +137,8 @@ function profiles_go_create_user_event($event, $object_type, $object) {
 		}
 	}
 
-	if (count($custom_profile_fields) > 0) {
+	if (count($custom_profile_fields) > 0) 
+	{
 		$categorized_fields = profiles_go_get_categorized_fields(null, true, true);
 		$configured_fields = $categorized_fields['fields'];
 		
@@ -144,8 +146,8 @@ function profiles_go_create_user_event($event, $object_type, $object) {
 		$ia = elgg_get_ignore_access();
 		elgg_set_ignore_access(true);
 		
-		foreach ($custom_profile_fields as $shortname => $value) {
-			
+		foreach ($custom_profile_fields as $shortname => $value) 
+		{	
 			// determine if $value should be an array
 			if (!is_array($value) && !empty($configured_fields)) {
 				// only do something if it not is already an array
@@ -205,7 +207,8 @@ function profiles_go_create_user_event($event, $object_type, $object) {
  *
  * @return void
  */
-function profiles_go_create_member_of_site($event, $object_type, $object) {
+function profiles_go_create_member_of_site($event, $object_type, $object) 
+{
 	$enable_river_event = elgg_get_plugin_setting("enable_site_join_river_event", "profiles_go");
 	if ($enable_river_event !== "no") {
 		
@@ -234,7 +237,8 @@ function profiles_go_create_member_of_site($event, $object_type, $object) {
  *
  * @return void
  */
-function profiles_go_delete_member_of_site($event, $object_type, $object) {
+function profiles_go_delete_member_of_site($event, $object_type, $object) 
+{
 	// remove previous join events
 	$user_guid = $object->guid_one;
 	$site_guid = $object->guid_two;
@@ -252,14 +256,15 @@ function profiles_go_delete_member_of_site($event, $object_type, $object) {
  *
  * @return void
  */
-function profiles_go_name_edit_increment($event, $object_type, $object) {
-	if (elgg_instanceof($object, "trip")) {
+function profiles_go_name_edit_increment($event, $object_type, $object) 
+{
+	if (elgg_instanceof($object, "group")) {
 		$count = (int) $object->getPrivateSetting("profiles_go_name_edit_count");
 		$object->setPrivateSetting("profiles_go_name_edit_count", $count + 1);
 	}
 	
 	// only do this once
-	elgg_unregister_event_handler("update", "trip", "profiles_go_name_edit_increment");
+	elgg_unregister_event_handler("update", "group", "profiles_go_name_edit_increment");
 }
 
 /**
@@ -271,12 +276,13 @@ function profiles_go_name_edit_increment($event, $object_type, $object) {
  *
  * @return void
  */
-function profiles_go_description_edit_increment($event, $object_type, $object) {
-	if (elgg_instanceof($object, "trip")) {
+function profiles_go_description_edit_increment($event, $object_type, $object) 
+{
+	if (elgg_instanceof($object, "group")) {
 		$count = (int) $object->getPrivateSetting("profiles_go_description_edit_count");
 		$object->setPrivateSetting("profiles_go_description_edit_count", $count + 1);
 	}
 	
 	// only do this once
-	elgg_unregister_event_handler("update", "trip", "profiles_go_description_edit_increment");
+	elgg_unregister_event_handler("update", "group", "profiles_go_description_edit_increment");
 }

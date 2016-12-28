@@ -140,7 +140,8 @@ function profiles_go_page_handler($page) {
  *
  * @return void
  */
-function profiles_go_pagesetup() {
+function profiles_go_pagesetup() 
+{
 	if (!elgg_in_context('admin') || !elgg_is_admin_logged_in()) {
 		return;
 	}
@@ -168,7 +169,7 @@ elgg_register_event_handler('create', 'user', 'profiles_go_create_user_event');
 elgg_register_event_handler('profileupdate','user', 'profiles_go_profileupdate_user_event');
 
 elgg_register_plugin_hook_handler('profile:fields', 'profile', 'profiles_go_profile_override');
-elgg_register_plugin_hook_handler('profile:fields', 'trip', 'profiles_go_trip_override');
+elgg_register_plugin_hook_handler('profile:fields', 'group', 'profiles_go_trip_override');
 
 elgg_register_plugin_hook_handler('action', 'register', 'profiles_go_action_register_hook');
 elgg_register_plugin_hook_handler('action', 'mytrips/edit', 'profiles_go_action_mytrips_edit_hook');

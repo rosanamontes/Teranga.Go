@@ -29,7 +29,8 @@
  *
  * @return array
  */
-function profiles_go_profile_override($hook_name, $entity_type, $return_value, $parameters) {
+function profiles_go_profile_override($hook_name, $entity_type, $return_value, $parameters) 
+{
 	$result = array();
 	
 	// get from cache
@@ -111,7 +112,8 @@ function profiles_go_profile_override($hook_name, $entity_type, $return_value, $
  *
  * @return array
  */
-function profiles_go_trip_override($hook_name, $entity_type, $return_value, $parameters) {
+function profiles_go_trip_override($hook_name, $entity_type, $return_value, $parameters) 
+{
 ;
 	// get from cache
 	$site_guid = elgg_get_config('site_guid');
@@ -146,7 +148,8 @@ function profiles_go_trip_override($hook_name, $entity_type, $return_value, $par
 	$ordered = [];
 
 	// Order the trip fields and filter some types out
-	foreach ($entities as $trip_field) {
+	foreach ($entities as $trip_field) 
+	{
 		if ($trip_field->admin_only != 'yes' || elgg_is_admin_logged_in()) { 
 			$ordered[$trip_field->order] = $trip_field;
 		}
@@ -188,7 +191,8 @@ function profiles_go_trip_override($hook_name, $entity_type, $return_value, $par
  *
  * @return array
  */
-function profiles_go_categorized_profile_fields_hook($hook_name, $entity_type, $return_value, $params) {
+function profiles_go_categorized_profile_fields_hook($hook_name, $entity_type, $return_value, $params) 
+{
 	$result = $return_value;
 
 	// optionally add the system fields for admins
@@ -366,7 +370,8 @@ function profiles_go_action_register_hook($hook_name, $entity_type, $return_valu
  *
  * @return void
  */
-function profiles_go_username_change_hook($hook_name, $entity_type, $return_value, $parameters) {
+function profiles_go_username_change_hook($hook_name, $entity_type, $return_value, $parameters) 
+{
 	$user_guid = (int) get_input('guid');
 	$new_username = get_input('username');
 
@@ -402,7 +407,8 @@ function profiles_go_username_change_hook($hook_name, $entity_type, $return_valu
  *
  * @return string
  */
-function profiles_go_username_change_forward_hook($hook_name, $entity_type, $return_value, $parameters) {
+function profiles_go_username_change_forward_hook($hook_name, $entity_type, $return_value, $parameters) 
+{
 	$username = get_input("username");
 	if (!empty($username)) {
 		return elgg_get_site_url() . "settings/user/" . $username;
@@ -419,8 +425,8 @@ function profiles_go_username_change_forward_hook($hook_name, $entity_type, $ret
  *
  * @return array
  */
-function profiles_go_register_entity_menu($hook_name, $entity_type, $return_value, $params) {
-
+function profiles_go_register_entity_menu($hook_name, $entity_type, $return_value, $params) 
+{
 	if (empty($return_value)) {
 		$return_value = array();
 	}
@@ -540,7 +546,8 @@ function profiles_go_register_entity_menu($hook_name, $entity_type, $return_valu
  *
  * @return boolean
  */
-function profiles_go_permissions_check_annotate($hook_name, $entity_type, $return_value, $params) {
+function profiles_go_permissions_check_annotate($hook_name, $entity_type, $return_value, $params) 
+{
 	$return = $return_value;
 	if (is_array($params) && (elgg_extract("annotation_name", $params) == "likes")) {
 		$return = false;
@@ -558,7 +565,8 @@ function profiles_go_permissions_check_annotate($hook_name, $entity_type, $retur
  *
  * @return array
  */
-function profiles_go_public_pages($hook_name, $entity_type, $return_value, $params) {
+function profiles_go_public_pages($hook_name, $entity_type, $return_value, $params) 
+{
 	$return = $return_value;
 	if (is_array($return)) {
 		$return[] = "action/profiles_go/register/validate.*";
@@ -576,13 +584,15 @@ function profiles_go_public_pages($hook_name, $entity_type, $return_value, $para
  *
  * @return void
  */
-function profiles_go_action_mytrips_edit_hook($hook_name, $entity_type, $return_value, $params) {
-	$guid = get_input("trip_guid");
+function profiles_go_action_mytrips_edit_hook($hook_name, $entity_type, $return_value, $params) 
+{
+	$guid = get_input("group_guid");
 	if (!empty($guid) || !elgg_is_admin_logged_in()) 
 	{
 		$trip = get_entity($guid);
 		
-		if (elgg_instanceof($trip, "trip")) {
+		if (elgg_instanceof($trip, "group")) 
+		{
 			$name_input = get_input("name", false);
 			$description_input = get_input("description", false);
 			
@@ -595,7 +605,7 @@ function profiles_go_action_mytrips_edit_hook($hook_name, $entity_type, $return_
 					
 					if ($count < $limit) {
 						// register function to increment count on succesful edit
-						elgg_register_event_handler("update", "trip", "profiles_go_name_edit_increment");
+						elgg_register_event_handler("update", "group", "profiles_go_name_edit_increment");
 					} else {
 						// trip name needs special treatment
 						$name = htmlspecialchars_decode($trip->name, ENT_QUOTES);
@@ -606,7 +616,8 @@ function profiles_go_action_mytrips_edit_hook($hook_name, $entity_type, $return_
 				}
 			}
 			
-			if (($description_input !== false) && ($description_input !== $trip->description)) {
+			if (($description_input !== false) && ($description_input !== $trip->description)) 
+			{
 				$limit = elgg_get_plugin_setting("trip_limit_description", "profiles_go");
 				
 				if (!empty($limit) || ($limit == "0")) {
@@ -615,7 +626,7 @@ function profiles_go_action_mytrips_edit_hook($hook_name, $entity_type, $return_
 					
 					if ($count < $limit) {
 						// register function to increment count on succesful edit
-						elgg_register_event_handler("update", "trip", "profiles_go_description_edit_increment");
+						elgg_register_event_handler("update", "group", "profiles_go_description_edit_increment");
 					} else {
 						// cannot be changed, so reset to current value
 						set_input("description", $trip->description);

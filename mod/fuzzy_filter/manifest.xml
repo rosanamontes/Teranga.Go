@@ -2,7 +2,7 @@
 <plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
 	<name>Teranga Trip Filtering</name>
 	<author>Rosana Montes</author>
-	<version>0.1</version>
+	<version>0.8</version>
 	<id>fuzzy_filter</id>
 	<description>This plugin uses filters (as novelty one fuzzy filters) to list Teranga trips</description>
 	<website>http://terangago.com/</website>

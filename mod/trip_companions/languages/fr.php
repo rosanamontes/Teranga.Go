@@ -23,20 +23,20 @@ return array(
 	'trip_companions:how:many' => 'Combien de personnes',
 	'trip_companions:all' => 'Tous',
 	'trip_companions:friends:only' => 'mes je suivre seulement',
-	'trip_companions:groups:only' => 'intéressés par un voyage',
+	'trip_companions:mytrips:only' => 'intéressés par un voyage',
 	'trip_companions:num:mutual' => "%s je suivre communs/es",
-	'trip_companions:num:groups' => "%s  voyage/s en commun",
+	'trip_companions:num:mytrips' => "%s  voyage/s en commun",
 	'trip_companions:num:mutual:1' => "1 je suivre en commun",
-	'trip_companions:num:groups:1' => "1 voyage en commun",
+	'trip_companions:num:mytrips:1' => "1 voyage en commun",
 	'trip_companions:is:friend:of' => 'ami/e de',
 	'trip_companions:mutual:friends' => '%s amis/es communs/es: %s',
 	'trip_companions:is:member:of' => 'Membre de %s',
-	'trip_companions:shared:groups' => '%s  voyage/s en commun: %s',
+	'trip_companions:shared:mytrips' => '%s  voyage/s en commun: %s',
 	'trip_companions:people:not:found' => 'Pas d\'utilisateurs trouv?',
 	'trip_companions:mutual:friends' => "je suivre communs/es",
-	'trip_companions:mutual:groups' => " voyage/s en commun",
+	'trip_companions:mutual:mytrips' => " voyage/s en commun",
 	'trip_companions:mutual:friends:not:found' => "des amis communs n'ont pu être trouvés",
-	'trip_companions:mutual:groups:not:found' => "des compagnons de voyage n'ont pu être trouvés",
+	'trip_companions:mutual:mytrips:not:found' => "des compagnons de voyage n'ont pu être trouvés",
 
 	//menu item
 	'trip_companions:evaluser' => "Appréciations",
@@ -147,15 +147,15 @@ return array(
 	'evaluationcontent:validation:criterion3' => 'troisième.',
 	'evaluationcontent:validation:criterion4' => 'quatrième.',
 
-	//trip_companions and groups
-	'groups:my_status:grade' => 'vous avez apprécié votre compagnon',	
-	'groups:my_status:grade:pending' => 'vous devez apprécier votre ompagnon ',	
-	'groups:my_status:nograde' => 'il n\' y a personne à apprécier',	
+	//trip_companions and mytrips
+	'mytrips:my_status:grade' => 'vous avez apprécié votre compagnon',	
+	'mytrips:my_status:grade:pending' => 'vous devez apprécier votre ompagnon ',	
+	'mytrips:my_status:nograde' => 'il n\' y a personne à apprécier',	
 
-	'groups:grade:success'=>'utilisateur enregistré correctement',
-	'groups:grade:fail'=>'erreur lors de l\'enregistrement de l\'utilisateur',	
-	'groups:unGrade:success'=>'utilisateur retiré avec succès',
-	'groups:unGrade:fail'=>'erreur lors du retrait de l\'utilisateur',	
+	'mytrips:grade:success'=>'utilisateur enregistré correctement',
+	'mytrips:grade:fail'=>'erreur lors de l\'enregistrement de l\'utilisateur',	
+	'mytrips:unGrade:success'=>'utilisateur retiré avec succès',
+	'mytrips:unGrade:fail'=>'erreur lors du retrait de l\'utilisateur',	
 
 	//panel para asignar valores de karma
 	'trip_companions:assign' => 'Asignacion de karma',

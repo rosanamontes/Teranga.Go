@@ -25,20 +25,20 @@ return array(
 	'trip_companions:how:many' => 'How many people?',
 	'trip_companions:all' => 'All',
 	'trip_companions:friends:only' => 'Friends of my friends',
-	'trip_companions:groups:only' => 'Sharing a trip with me',
+	'trip_companions:mytrips:only' => 'Sharing a trip with me',
 	'trip_companions:num:mutual' => "%s mutual friends",
-	'trip_companions:num:groups' => "%s shared trips",
+	'trip_companions:num:mytrips' => "%s shared trips",
 	'trip_companions:num:mutual:1' => "1 mutual friend",
-	'trip_companions:num:groups:1' => "1 mutual trip",
+	'trip_companions:num:mytrips:1' => "1 mutual trip",
 	'trip_companions:is:friend:of' => 'Friend of %s',
 	'trip_companions:mutual:friends' => '%s mutual friends: %s',
 	'trip_companions:is:member:of' => 'Member of %s',
-	'trip_companions:shared:groups' => '%s shared trips: %s',
+	'trip_companions:shared:mytrips' => '%s shared trips: %s',
 	'trip_companions:people:not:found' => 'There are no people to suggest',
 	'trip_companions:mutual:friends' => "Mutual Friends",
-	'trip_companions:mutual:groups' => "Shared trips",
+	'trip_companions:mutual:mytrips' => "Shared trips",
 	'trip_companions:mutual:friends:not:found' => "Could not find mutual friends",
-	'trip_companions:mutual:groups:not:found' => "Could not find shared trips",
+	'trip_companions:mutual:mytrips:not:found' => "Could not find shared trips",
 
 
 	/**
@@ -145,15 +145,15 @@ return array(
 	'evaluationcontent:validation:criterion3' => 'third.',
 	'evaluationcontent:validation:criterion4' => 'forth.',
 
-	//trip_companions and groups
-	'groups:my_status:grade' => 'You have assessed your trip companion ',	
-	'groups:my_status:grade:pending' => 'Is pending the assesment to your trip companion ',	
-	'groups:my_status:nograde' => 'No one to assess',	
+	//trip_companions and mytrips
+	'mytrips:my_status:grade' => 'You have assessed your trip companion ',	
+	'mytrips:my_status:grade:pending' => 'Is pending the assesment to your trip companion ',	
+	'mytrips:my_status:nograde' => 'No one to assess',	
 
-	'groups:grade:success'=>'User grade success',
-	'groups:grade:fail'=>'User grade failed',	
-	'groups:unGrade:success'=>'User ungrade success',
-	'groups:unGrade:fail'=>'User ungrade failed',
+	'mytrips:grade:success'=>'User grade success',
+	'mytrips:grade:fail'=>'User grade failed',	
+	'mytrips:unGrade:success'=>'User ungrade success',
+	'mytrips:unGrade:fail'=>'User ungrade failed',
 
 	//panel para asignar valores de karma
 	'trip_companions:assign' => 'Karma Assignment',

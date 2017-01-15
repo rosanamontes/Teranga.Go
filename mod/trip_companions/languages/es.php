@@ -23,20 +23,20 @@ return array(
 	'trip_companions:how:many' => '¿Cuánta gente?',
 	'trip_companions:all' => 'Todos',
 	'trip_companions:friends:only' => 'Amigos de mis amigos',
-	'trip_companions:groups:only' => 'Interesados en un viaje',
+	'trip_companions:mytrips:only' => 'Interesados en un viaje',
 	'trip_companions:num:mutual' => "%s amigos comunes",
-	'trip_companions:num:groups' => "%s viajes compartidos",
+	'trip_companions:num:mytrips' => "%s viajes compartidos",
 	'trip_companions:num:mutual:1' => "1 amigo común",
-	'trip_companions:num:groups:1' => "1 viaje en común",
+	'trip_companions:num:mytrips:1' => "1 viaje en común",
 	'trip_companions:is:friend:of' => 'Amigo de %s',
 	'trip_companions:mutual:friends' => '%s amigos comunes: %s',
 	'trip_companions:is:member:of' => 'Número de %s',
-	'trip_companions:shared:groups' => '%s viajes compartidos: %s',
+	'trip_companions:shared:mytrips' => '%s viajes compartidos: %s',
 	'trip_companions:people:not:found' => 'No hay usuarios sugeridos',
 	'trip_companions:mutual:friends' => "Amigos Comunes",
-	'trip_companions:mutual:groups' => "Viajes compartidos",
+	'trip_companions:mutual:mytrips' => "Viajes compartidos",
 	'trip_companions:mutual:friends:not:found' => "No se puede encontrar amigos comunes",
-	'trip_companions:mutual:groups:not:found' => "No se puede encontrar compañeros de viaje",
+	'trip_companions:mutual:mytrips:not:found' => "No se puede encontrar compañeros de viaje",
 
 	//menu item
 	'trip_companions:evaluser' => "Valoraciones",
@@ -146,15 +146,15 @@ return array(
 	'evaluationcontent:validation:criterion3' => 'tercera.',
 	'evaluationcontent:validation:criterion4' => 'cuarta.',
 
-	//trip_companions and groups
-	'groups:my_status:grade' => 'Usted ha valorado a su compañero ',	
-	'groups:my_status:grade:pending' => 'Es necesario que valore a su compañero ',	
-	'groups:my_status:nograde' => 'No hay nadie a quien valorar',	
+	//trip_companions and mytrips
+	'mytrips:my_status:grade' => 'Usted ha valorado a su compañero ',	
+	'mytrips:my_status:grade:pending' => 'Es necesario que valore a su compañero ',	
+	'mytrips:my_status:nograde' => 'No hay nadie a quien valorar',	
 
-	'groups:grade:success'=>'Usuario marcado correctamente',
-	'groups:grade:fail'=>'Error al marcar usuario',	
-	'groups:unGrade:success'=>'Usuario desmarcado correctamente',
-	'groups:unGrade:fail'=>'Error al desmarcar usuario',	
+	'mytrips:grade:success'=>'Usuario marcado correctamente',
+	'mytrips:grade:fail'=>'Error al marcar usuario',	
+	'mytrips:unGrade:success'=>'Usuario desmarcado correctamente',
+	'mytrips:unGrade:fail'=>'Error al desmarcar usuario',	
 
 	//panel para asignar valores de karma
 	'trip_companions:assign' => 'Asignacion de karma',

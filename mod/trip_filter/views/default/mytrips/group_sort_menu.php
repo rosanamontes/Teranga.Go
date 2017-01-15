@@ -8,62 +8,63 @@
 * 	Project coordinator: @rosanamontes
 *	Website: http://lsi.ugr.es/rosana
 *	
-*	File: All groups listing page navigation
+*	File: All trips listing page navigation
 *
 */
 
 $tabs = [
 	'yours' => [
-		'text' => elgg_echo('groups:yours'),
-		'href' => 'groups/all?filter=yours',
+		'text' => elgg_echo('mytrips:yours'),
+		'href' => 'mytrips/all?filter=yours',
 		'priority' => 250,
 	],
 	'newest' => [
 		'text' => elgg_echo('sort:newest'),
-		'href' => 'groups/all?filter=newest',
+		'href' => 'mytrips/all?filter=newest',
 		'priority' => 200,
 	],
 	'popular' => [
 		'text' => elgg_echo('sort:popular'),
-		'href' => 'groups/all?filter=popular',
+		'href' => 'mytrips/all?filter=popular',
 		'priority' => 300,
 	],
 	'discussion' => [
-		'text' => elgg_echo('groups:latestdiscussion'),
-		'href' => 'groups/all?filter=discussion',
+		'text' => elgg_echo('mytrips:latestdiscussion'),
+		'href' => 'mytrips/all?filter=discussion',
 		'priority' => 400,
 	],
 	'open' => [
-		'text' => elgg_echo('fuzzy_filter:trips:sorting:open'),
-		'href' => 'groups/all?filter=open',
+		'text' => elgg_echo('trip_filter:trips:sorting:open'),
+		'href' => 'mytrips/all?filter=open',
 		'priority' => 500,
 	],
 	'closed' => [
-		'text' => elgg_echo('fuzzy_filter:trips:sorting:closed'),
-		'href' => 'groups/all?filter=closed',
+		'text' => elgg_echo('trip_filter:trips:sorting:closed'),
+		'href' => 'mytrips/all?filter=closed',
 		'priority' => 600,
 	],
 	'ordered' => [
-		'text' => elgg_echo('fuzzy_filter:trips:sorting:ordered'),
-		'href' => 'groups/all?filter=alpha',
+		'text' => elgg_echo('trip_filter:trips:sorting:ordered'),
+		'href' => 'mytrips/all?filter=alpha',
 		'priority' => 700,
 	],
 	/*'featured' => [
 		'text' => elgg_echo('status:featured'),
-		'href' => 'groups/all?filter=featured',
+		'href' => 'mytrips/all?filter=featured',
 		'priority' => 800,
 	], //por defecto los activos son features y los old son fechas pasadas
 	// Rosana: Como este los que vayamos a añadir*/
 	'suggested' => [
-		'text' => elgg_echo('fuzzy_filter:trips:sorting:suggested'),
-		'href' => 'groups/suggested',
+		'text' => elgg_echo('trip_filter:trips:sorting:suggested'),
+		'href' => 'mytrips/suggested',
 		'priority' => 900,
 	],
 ];
 
-foreach ($tabs as $name => $tab) {
+foreach ($tabs as $name => $tab) 
+{
 	$show_tab = false;
-	$show_tab_setting = elgg_get_plugin_setting("group_listing_{$name}_available", 'fuzzy_filter');
+	$show_tab_setting = elgg_get_plugin_setting("trip_listing_{$name}_available", 'trip_filter');
 	if (in_array($name, ['ordered', 'featured'])) {
 		if ($show_tab_setting == '1') {
 			$show_tab = true;

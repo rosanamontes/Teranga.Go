@@ -1,6 +1,6 @@
 <?php
 /**
- * jQuery actions to order groups
+ * jQuery actions to order trips
  */
 
 $guids = get_input('guids');
@@ -11,11 +11,11 @@ if (empty($guids) || !is_array($guids)) {
 }
 
 foreach ($guids as $guid) {
-	$group = get_entity($guid);
-	if (!($group instanceof ElggGroup)) {
+	$trip = get_entity($guid);
+	if (!($trip instanceof Elggtrip)) {
 		continue;
 	}
 	
-	$group->order = $order;
+	$trip->order = $order;
 	$order++;
 }

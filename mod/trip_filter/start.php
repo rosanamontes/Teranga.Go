@@ -18,18 +18,18 @@ require_once(dirname(__FILE__) . '/lib/core.php');//aqui el codigo que implement
 
 
 // default elgg event handlers
-elgg_register_event_handler('init', 'system', 'fuzzy_filter_init');
+elgg_register_event_handler('init', 'system', 'trip_filter_init');
 
 /**
  * called when the Elgg system get initialized
  *
  * @return void
  */
-function fuzzy_filter_init() 
+function trip_filter_init() 
 {		
 	// extend page handlers
-	elgg_register_plugin_hook_handler('route', 'groups', 'Router::groups');
+	elgg_register_plugin_hook_handler('route', 'mytrips', 'Router::groups');
 	
-	elgg_register_action('fuzzy_filter/order_groups', dirname(__FILE__) . '/actions/order_groups.php', 'admin');	
+	elgg_register_action('trip_filter/order_groups', dirname(__FILE__) . '/actions/order_trips.php', 'admin');	
 }
 

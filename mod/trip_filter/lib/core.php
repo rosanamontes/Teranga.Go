@@ -14,14 +14,14 @@
 
 
 /**
- * Returns suggested groups ... to be implemented (Rosana)
+ * Returns suggested trips ... TO do
  *
- * @param ElggUser $user  (optional) the user to get the groups for, defaults to the current user
- * @param int      $limit (optional) the number of suggested groups to return, default = 10
+ * @param ElggUser $user  (optional) the user to get the trips for, defaults to the current user
+ * @param int      $limit (optional) the number of suggested trips to return, default = 10
  *
  * @return ElggGroup[]
  */
-function fuzzy_filter_get_suggested_groups($user = null, $limit = null) 
+function trip_filter_get_suggested_groups($user = null, $limit = null) 
 {
 	if (!($user instanceof ElggUser)) {
 		$user = elgg_get_logged_in_user_entity();

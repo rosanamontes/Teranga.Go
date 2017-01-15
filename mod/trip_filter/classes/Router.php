@@ -17,7 +17,7 @@ class Router
 {
 	
 	/**
-	 * Take over the groups page handler in some cases
+	 * Take over the mytrips page handler in some cases
 	 *
 	 * @param string $hook         the name of the hook
 	 * @param string $type         the type of the hook
@@ -26,7 +26,7 @@ class Router
 	 *
 	 * @return void|false
 	 */
-	public static function groups($hook, $type, $return_value, $params) 
+	public static function mytrips($hook, $type, $return_value, $params) 
 	{
 		
 		if (empty($return_value) || !is_array($return_value)) {
@@ -34,13 +34,13 @@ class Router
 		}
 		
 		$include_file = false;
-		$pages_path = elgg_get_plugins_path() . 'fuzzy_filter/pages/';
+		$pages_path = elgg_get_plugins_path() . 'trip_filter/pages/';
 		
 		$page = elgg_extract('segments', $return_value);
 		switch ($page[0]) {
 			case 'all':
 				$filter = get_input('filter');
-				$default_filter = elgg_get_plugin_setting('group_listing', 'fuzzy_filter');
+				$default_filter = elgg_get_plugin_setting('trip_listing', 'trip_filter');
 				//system_message("el filter por defecto es " . $default_filter);
 
 				if (empty($filter) && !empty($default_filter)) {
@@ -53,12 +53,12 @@ class Router
 				
 				//Rosana: aqui añado suggested
 				if (in_array($filter, ['yours', 'open', 'closed', 'alpha', 'ordered','suggested'])) {
-					$include_file = "{$pages_path}groups/all.php";
+					$include_file = "{$pages_path}mytrips/all.php";
 				}
 				
 				break;
 			case 'suggested':
-				$include_file = "{$pages_path}groups/suggested.php";
+				$include_file = "{$pages_path}mytrips/suggested.php";
 				break;
 			default:
 				// check if we have an old group profile link

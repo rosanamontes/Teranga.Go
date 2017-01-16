@@ -21,40 +21,38 @@ Install instructions
 
 1. Download & Install elgg-1.12.x (read more information bellow)
 2. Log-in with the admin account
-3. Go to the admin/plugins zone. Enable/Disable the plugins as follows. Note that we have start by moving Elgg Developer Tools 1.0 to the top position.
-
-Plugins:
-  * Elgg Developer Tools 1.0 	[Enabled]  - Optional
+3. Go to the admin/plugins zone. Enable/Disable the plugins as follows. Note that we have start by moving Elgg Developer Tools 1.0 to the top position. Plugins
+  * Elgg Developer Tools 1.0 	[Enabled]   - Optional
   * Blog 1.8					[Disabled]
   * Bookmarks 1.8				[Disabled]
   * Site-wide Categories 1.8	[Disabled]
   * Custom Index 1.8			[Enabled]
-  * User Dashboard 1.8			[Disabled]  - Optional
+  * User Dashboard 1.8			[Disabled]   - Optional
   * Diagnostics 1.8			[Disabled]
   * Embed 1.8					[Disabled]
   * Site Pages 1.8				[Disabled]
   * File 1.8 					[Disabled]
-  * Garbage Collector 1.5 		[Enabled]  - Optional
+  * Garbage Collector 1.5 		[Enabled]   - Optional
   * Groups 1.8				[Disabled]
   * HTMLawed 1.8				[Enabled]
-  * Invite Friends 1.8 		     [Disabled]  - Optional
-  * Likes 1.8 				[Enabled]  - Optional
+  * Invite Friends 1.8 		     [Disabled]   - Optional
+  * Likes 1.8 				[Enabled]   - Optional
   * Log Browser 1.8			[Enabled]
   * Log Rotate 1.5  			[Enabled]
   * Members 1.8				[Enabled]
   * Message Board 1.8			[Disabled]
   * Messages 1.8				[Enabled]
-  * Notifications 1.7			[Disabled]  - Optional
+  * Notifications 1.7			[Disabled]   - Optional
   * Pages 1.8					[Disabled]
   * Profile 1.8				[Enabled]
-  * Reported Content 1.8		[Disabled]  - Optional
-  * Search 1.8				[Disabled]  - Optional
-  * Tag Cloud 1.0				[Enabled]  - Optional
-  * The Wire 1.8				[Disabled]  - Optional
+  * Reported Content 1.8		[Disabled]   - Optional
+  * Search 1.8				[Disabled]   - Optional
+  * Tag Cloud 1.0				[Enabled]   - Optional
+  * The Wire 1.8				[Disabled]   - Optional
   * TinyMCE 1.8				[Enabled]
-  * Twitter API 1.8.15 		     [Disabled]  - Optional
-  * User Validation by Email	     [Disabled]  - Optional
-  * Zaudio 1.8				[Disabled]  - Optional
+  * Twitter API 1.8.15 		     [Disabled]   - Optional
+  * User Validation by Email	     [Disabled]   - Optional
+  * Zaudio 1.8				[Disabled]   - Optional
 4. Visit https://elgg.org/plugins to download and enable "at the bottom" the following recomended plugins for Teranga Go! under elgg 1.12.x
   * renamefriend
   * externalpages 

@@ -9,9 +9,9 @@ El mundo se mueve: GO. Y precisa mucha hospitalidad: Teranga. Por eso, nace Tera
 
 Calendario
 
-- 16 de octubre, Día Europeo del Coche Compartido
-- 18 de diciembre, Día Internacional del Migrante
-- 24 de mayo, Dia de África
+  * 16 de octubre, Día Europeo del Coche Compartido
+  * 18 de diciembre, Día Internacional del Migrante
+  * 24 de mayo, Dia de África
 
 Más información en https://lsi.ugr.es/rosana/software/Teranga.Go
 
@@ -22,65 +22,65 @@ Install instructions
 1. Download & Install elgg-1.12.x (read more information bellow)
 2. Log-in with the admin account
 3. Go to the admin/plugins zone. Enable/Disable the plugins as follows. Note that we have start by moving Elgg Developer Tools 1.0 to the top position
-- Plugins
-- -  Elgg Developer Tools 1.0 	[Enabled] - Optional
-- - Blog 1.8					[Disabled]
-- - Bookmarks 1.8				[Disabled]
-- - Site-wide Categories 1.8	[Disabled]
-- - Custom Index 1.8			[Enabled]
-- - User Dashboard 1.8			[Disabled] - Optional
-- - Diagnostics 1.8			[Disabled]
-- - Embed 1.8					[Disabled]
-- - Site Pages 1.8				[Disabled]
-- - File 1.8 					[Disabled]
-- - Garbage Collector 1.5 		[Enabled] - Optional
-- - Groups 1.8				[Disabled]
-- - HTMLawed 1.8				[Enabled]
-- - Invite Friends 1.8 		     [Disabled] - Optional
-- - Likes 1.8 				[Enabled] - Optional
-- - Log Browser 1.8			[Enabled]
-- - Log Rotate 1.5  			[Enabled]
-- - Members 1.8				[Enabled]
-- - Message Board 1.8			[Disabled]
-- - Messages 1.8				[Enabled]
-- - Notifications 1.7			[Disabled] - Optional
-- - Pages 1.8					[Disabled]
-- - Profile 1.8				[Enabled]
-- - Reported Content 1.8		[Disabled] - Optional
-- - Search 1.8				[Disabled] - Optional
-- - Tag Cloud 1.0				[Enabled] - Optional
-- - The Wire 1.8				[Disabled] - Optional
-- - TinyMCE 1.8				[Enabled]
-- - Twitter API 1.8.15 		     [Disabled] - Optional
-- - User Validation by Email	     [Disabled] - Optional
-- - Zaudio 1.8				[Disabled] - Optional
+Plugins
+  * Elgg Developer Tools 1.0 	[Enabled]   * Optional
+  * Blog 1.8					[Disabled]
+  * Bookmarks 1.8				[Disabled]
+  * Site-wide Categories 1.8	[Disabled]
+  * Custom Index 1.8			[Enabled]
+  * User Dashboard 1.8			[Disabled]   * Optional
+  * Diagnostics 1.8			[Disabled]
+  * Embed 1.8					[Disabled]
+  * Site Pages 1.8				[Disabled]
+  * File 1.8 					[Disabled]
+  * Garbage Collector 1.5 		[Enabled]   * Optional
+  * Groups 1.8				[Disabled]
+  * HTMLawed 1.8				[Enabled]
+  * Invite Friends 1.8 		     [Disabled]   * Optional
+  * Likes 1.8 				[Enabled]   * Optional
+  * Log Browser 1.8			[Enabled]
+  * Log Rotate 1.5  			[Enabled]
+  * Members 1.8				[Enabled]
+  * Message Board 1.8			[Disabled]
+  * Messages 1.8				[Enabled]
+  * Notifications 1.7			[Disabled]   * Optional
+  * Pages 1.8					[Disabled]
+  * Profile 1.8				[Enabled]
+  * Reported Content 1.8		[Disabled]   * Optional
+  * Search 1.8				[Disabled]   * Optional
+  * Tag Cloud 1.0				[Enabled]   * Optional
+  * The Wire 1.8				[Disabled]   * Optional
+  * TinyMCE 1.8				[Enabled]
+  * Twitter API 1.8.15 		     [Disabled]   * Optional
+  * User Validation by Email	     [Disabled]   * Optional
+  * Zaudio 1.8				[Disabled]   * Optional
 4. Visit https://elgg.org/plugins to download and enable "at the bottom" the following recomended plugins for Teranga Go! under elgg 1.12.x
-- renamefriend
-- externalpages 
-- elgghtml5
-- google-fonts
-- fontawesome
-- elggx_userpoints
-- language_selector 
+  * renamefriend
+  * externalpages 
+  * elgghtml5
+  * google-fonts
+  * fontawesome
+  * elggx_userpoints
+  * language_selector 
 6. Clone https://github.com/rosanamontes/Teranga.Go
 7. Make simbolic links for the previous plugings in order that they appear as inside the mod/ directory
 8. Enabled current plugins followin the next order (the last is placed at the bottom):
- - Teranga External Pages 1.9
- - Teranga App Ad 1.2 
- - Teranga Trip Companions 1.8
- - Web services 1.9
- - Google Fonts 1.1 
- - Teranga WebService 1.0
- - Elggx Userpoints 1.8.5
- - Teranga Buscador Viaje 1.0
- - Language Selector 2.0.1 
- - HTML5 1.0
- - Teranga Rename Friends 2.
- - Toma de Decision con Valoraciones linguisticas difusas 1.8
- - Teranga Go! My Trips 1.8
- - Teranga Custom Index 2.0 
- - Profiles Teranga Go 1.8
- - Teranga Trip Filtering 0.9 
+   * Teranga External Pages 1.9
+   * Teranga App Ad 1.2 
+   * Teranga Trip Companions 1.8
+   * Web services 1.9
+   * Google Fonts 1.1 
+   * Teranga WebService 1.0
+   * Elggx Userpoints 1.8.5
+   * Teranga Buscador Viaje 1.0
+   * Language Selector 2.0.1 
+   * HTML5 1.0
+   * Teranga Rename Friends 2.
+   * Toma de Decision con Valoraciones linguisticas difusas 1.8
+   * Teranga Go! My Trips 1.8
+   * Teranga Custom Index 2.0 
+   * Profiles Teranga Go 1.8
+   * Teranga Trip Filtering 0.9 
 
 
 Elgg [![Build Status](https://secure.travis-ci.org/Elgg/Elgg.svg?branch=1.12)](https://travis-ci.org/Elgg/Elgg) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Elgg/Elgg/badges/quality-score.png?s=1.12)](https://scrutinizer-ci.com/g/Elgg/Elgg/?branch=1.12) [![Scrutinizer Code Coverage](https://scrutinizer-ci.com/g/Elgg/Elgg/badges/coverage.png?b=1.12)](https://scrutinizer-ci.com/g/Elgg/Elgg/?branch=1.12) [![Read the docs build status](https://readthedocs.org/projects/elgg/badge/?version=1.12)](http://learn.elgg.org/en/1.12/)
@@ -95,8 +95,8 @@ as an open source project.
 The project site can be found at http://elgg.org/.
 
 The Elgg project was started in 2004 by
- - Ben Werdmuller (<ben@benwerd.com>, <http://benwerd.com>)
- - Dave Tosh (<https://twitter.com/davetosh>).
+   * Ben Werdmuller (<ben@benwerd.com>, <http://benwerd.com>)
+   * Dave Tosh (<https://twitter.com/davetosh>).
 
 Elgg is released under the GNU General Public License (GPL) Version 2 and the
 Massachusetts Institute of Technology (MIT-X11) License. See LICENSE.txt

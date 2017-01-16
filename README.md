@@ -21,7 +21,7 @@ Install instructions
 
 1. Download & Install elgg-1.12.x (read more information bellow)
 2. Log-in with the admin account
-3. Go to the admin/plugins zone. Enable/Disable the plugins as follows. Note that we have start by moving Elgg Developer Tools 1.0 to the top position. Plugins
+3. Go to the admin/plugins zone. Enable/Disable the plugins as follows. Note that we have start by moving Elgg Developer Tools 1.0 to the top position. Plugins list:
   * Elgg Developer Tools 1.0 	[Enabled]   - Optional
   * Blog 1.8					[Disabled]
   * Bookmarks 1.8				[Disabled]
@@ -63,7 +63,7 @@ Install instructions
   * language_selector 
 6. Clone https://github.com/rosanamontes/Teranga.Go
 7. Make simbolic links for the previous plugings in order that they appear as inside the mod/ directory
-8. Enabled current plugins followin the next order (the last is placed at the bottom):
+8. Enabled current plugins following the next order (that's is, the last is placed at the bottom of the list):
    * Teranga External Pages 1.9
    * Teranga App Ad 1.2 
    * Teranga Trip Companions 1.8

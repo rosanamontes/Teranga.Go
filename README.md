@@ -1,7 +1,7 @@
 UGR teranga_elgg
 ====
 
-La app de [Teranga Go!](http://apps.ugr.es/app_teranga.html)](<http://apps.ugr.es/app_teranga.html>) quiere facilitar la movilidad de los migrantes. Por eso, hemos puesto en marcha una red social que pone en contacto a personas que comparten vehículo en los desplazamientos entre sus países de origen y acogida. Teranga Go! es una Plataforma de economía colaborativa para la movilidad entre España y Senegal desarrollada bajo la financiacion del CEI BioTIC de la Universidad de Granada y en colaboración con la empresa granadina Acento comunicación
+La app de [Teranga Go!(http://apps.ugr.es/app_teranga.html)](<http://apps.ugr.es/app_teranga.html>) quiere facilitar la movilidad de los migrantes. Por eso, hemos puesto en marcha una red social que pone en contacto a personas que comparten vehículo en los desplazamientos entre sus países de origen y acogida. Teranga Go! es una Plataforma de economía colaborativa para la movilidad entre España y Senegal desarrollada bajo la financiacion del CEI BioTIC de la Universidad de Granada y en colaboración con la empresa granadina Acento comunicación
 
 Este repositorio aloja los plugins desarrollados y adaptados por Rosana Montes, profesora de la Universidad de Granada, que personalizan un Elgg para convertirlo en una comunidad social activa para compartir vehículo.
 
@@ -80,6 +80,8 @@ Install instructions
    * Teranga Custom Index 2.0 
    * Profiles Teranga Go 1.8
    * Teranga Trip Filtering 0.9 
+9. Update your plugin preferences (those set up by you)
+10. Publish your trip plannings
 
 
 Elgg [![Build Status](https://secure.travis-ci.org/Elgg/Elgg.svg?branch=1.12)](https://travis-ci.org/Elgg/Elgg) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Elgg/Elgg/badges/quality-score.png?s=1.12)](https://scrutinizer-ci.com/g/Elgg/Elgg/?branch=1.12) [![Scrutinizer Code Coverage](https://scrutinizer-ci.com/g/Elgg/Elgg/badges/coverage.png?b=1.12)](https://scrutinizer-ci.com/g/Elgg/Elgg/?branch=1.12) [![Read the docs build status](https://readthedocs.org/projects/elgg/badge/?version=1.12)](http://learn.elgg.org/en/1.12/)

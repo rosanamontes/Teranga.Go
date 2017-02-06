@@ -5,7 +5,9 @@
 	<version>1.8</version>
 	<author>Rosana Montes</author>
     <email>stremsattva@gmail.com | rosana@ugr.es</email>
-	<description>Este plugin ayuda a un usuario a encontar a los usuarios interesados en un viaje en comun, y es usado en los viajes para gestionar las valoraciones sobre dichas personas.</description>
+	<description>
+		Assessment form to evaluate the confirmed trip companions (always after the trip). Public answers will be shown in the Comments area of the Trip Planning. 
+		Este plugin ayuda a un usuario a encontar a los usuarios interesados en un viaje en comun, y es usado en los viajes para gestionar las valoraciones sobre dichas personas.</description>
 	<website>http://tamen.ugr.es/teranga</website>
 	<copyright>Universidad de Granada</copyright>
 	<license>GNU Public License version 2</license>
@@ -26,7 +28,7 @@
 	</requires>	
     <requires>
 		<type>plugin</type>
-		<name>hflts</name>
+		<name>teranga_idss</name>
 	</requires>		
 	<category>Widgets</category>
 </plugin_manifest>

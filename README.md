@@ -62,6 +62,16 @@ Install instructions
   * language_selector (Language Selector v2.0.1)
 6. Clone https://github.com/rosanamontes/Teranga.Go
 7. Make simbolic links for the previous plugings in order that they appear as inside the mod/ directory
+   cd $SITE
+   git clone https://github.com/rosanamontes/teranga.go.git
+   cd $SITE/mod
+   ln -s ../teranga.go/mod/externalpages externalpages
+   ln -s ../teranga.go/mod/mytrips mytrips
+   ln -s ../teranga.go/mod/profiles_go profiles_go
+   ln -s ../teranga.go/mod/rename_friends rename_friends
+   ln -s ../teranga.go/mod/terangapp terangapp
+   ln -s ../teranga.go/mod/trip_companions trip_companions
+   ln -s ../teranga.go/mod/teranga_idss teranga_idss
 8. Enabled current plugins following the next order (that's is, the last is placed at the bottom of the list):
    * Teranga External Pages 1.9 (from externalpages)
    * Teranga Rename Friends 2.0 (from renamefriend)

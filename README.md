@@ -52,34 +52,28 @@ Install instructions
   * TinyMCE 1.8				[Enabled]
   * Twitter API 1.8.15 		     [Disabled]   - Optional
   * User Validation by Email	     [Disabled]   - Optional
+  * Web services 1.9  [Enabled]
   * Zaudio 1.8				[Disabled]   - Optional
 4. Visit https://elgg.org/plugins to download and enable "at the bottom" the following recomended plugins for Teranga Go! under elgg 1.12.x
-  * renamefriend
-  * externalpages 
-  * elgghtml5
-  * google-fonts
+  * elgghtml5 (HTML5 1.0)
+  * google-fonts (Google Fonts v1.1)
   * fontawesome
-  * elggx_userpoints
-  * language_selector 
+  * elggx_userpoints (Elggx Userpoints v1.8.5)
+  * language_selector (Language Selector v2.0.1)
 6. Clone https://github.com/rosanamontes/Teranga.Go
 7. Make simbolic links for the previous plugings in order that they appear as inside the mod/ directory
 8. Enabled current plugins following the next order (that's is, the last is placed at the bottom of the list):
-   * Teranga External Pages 1.9
+   * Teranga External Pages 1.9 (from externalpages)
+   * Teranga Rename Friends 2.0 (from renamefriend)
    * Teranga App Ad 1.2 
    * Teranga Trip Companions 1.8
-   * Web services 1.9
-   * Google Fonts 1.1 
-   * Teranga WebService 1.0
-   * Elggx Userpoints 1.8.5
-   * Teranga Buscador Viaje 1.0
-   * Language Selector 2.0.1 
-   * HTML5 1.0
-   * Teranga Rename Friends 2.
-   * Toma de Decision con Valoraciones linguisticas difusas 1.8
+   * Teranga WebService 1.0 (from Antonio Moles repository)
+   * Teranga Buscador Viaje 1.0 (from Antonio Moles repository)
+   * Teranga IDSS (Intelligent Decision Support System - Toma de Decision con Valoraciones linguisticas difusas 1.8)
    * Teranga Go! My Trips 1.8
    * Teranga Custom Index 2.0 
-   * Profiles Teranga Go 1.8
-   * Teranga Trip Filtering 0.9 
+   * Teranga Go! Profiles 1.8
+   * Teranga Trip Filtering 0.9 (under development)
 9. Update your plugin preferences (those set up by you)
 10. Publish your trip plannings
 

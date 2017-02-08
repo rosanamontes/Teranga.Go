@@ -408,6 +408,11 @@ $english = array(
 	// river events
 	'river:join:site:default' => '%s joined the site',
 
+
+	//Member list summary view (spaces important)
+	'profiles_go:user_summary_control:options:spacers:teranga_car' => " My car: ",	
+	'profiles_go:user_summary_control:options:spacers:teranga_asientos' => " Seats: ",	
+
 	// login history
 	'profiles_go:account:login_history' => "Login History",
 	'profiles_go:account:login_history:date' => "Date",

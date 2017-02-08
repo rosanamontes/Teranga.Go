@@ -17,7 +17,7 @@
 *   Student: Ricardo Luzón Fernández
 * 
 */
-/
+
 
 if (!elgg_is_admin_logged_in()) {
 	echo elgg_echo('adminrequired');

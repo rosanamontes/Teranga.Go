@@ -69,6 +69,7 @@ Install instructions
    ln -s ../teranga.go/mod/mytrips mytrips
    ln -s ../teranga.go/mod/profiles_go profiles_go
    ln -s ../teranga.go/mod/rename_friends rename_friends
+   ln -s ../teranga.go/mod/teranga_theme teranga_theme
    ln -s ../teranga.go/mod/terangapp terangapp
    ln -s ../teranga.go/mod/trip_companions trip_companions
    ln -s ../teranga.go/mod/teranga_idss teranga_idss
@@ -81,7 +82,7 @@ Install instructions
    * Teranga Buscador Viaje 1.0 (from Antonio Moles repository)
    * Teranga IDSS (Intelligent Decision Support System - Toma de Decision con Valoraciones linguisticas difusas 1.8)
    * Teranga Go! My Trips 1.8
-   * Teranga Custom Index 2.0 
+   * Teranga Custom Index 2.0 (substitutes teranga_theme)
    * Teranga Go! Profiles 1.8
    * Teranga Trip Filtering 0.9 (under development)
 9. Update your plugin preferences (those set up by you)

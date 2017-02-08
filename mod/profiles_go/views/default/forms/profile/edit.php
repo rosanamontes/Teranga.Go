@@ -170,7 +170,10 @@ if (!empty($cats))
 				
 			// get options
 			$options = $field->getOptions();
-			system_message( " profile edit --- " .  $metadata_name . " opt = " . $options);
+
+			//Rosana: si quiero ver qué valores tienen los campos de perfil, descomentar
+			//system_message( " profile edit --- " .  $metadata_name . " opt = " . $options);
+			
 			// get type of field
 			if ($field->user_editable == "no") {
 				$valtype = "non_editable";
